@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880358198}
-  - component: {fileID: 880358199}
   - component: {fileID: 880358197}
   - component: {fileID: 880358196}
   - component: {fileID: 880358195}
@@ -223,24 +222,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &880358199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 880358194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b067ea13732289f41abc26a66c1c6910, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShootDamage: 12
-  ShootRate: 0.5
-  ShootDist: 300
-  isShooting: 0
-  cube: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
-  gun: {fileID: 1747233624}
 --- !u!1 &891925646
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +554,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1985190547}
     m_Modifications:
+    - target: {fileID: 3934730408080557637, guid: 388b9dd449b182e4fbc94b00c32fa380, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 1747233624}
+    - target: {fileID: 3934730408080557637, guid: 388b9dd449b182e4fbc94b00c32fa380, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
     - target: {fileID: 5081338855244799880, guid: 388b9dd449b182e4fbc94b00c32fa380, type: 3}
       propertyPath: m_Center.x
       value: 0

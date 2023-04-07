@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7263781406367116301}
+  - component: {fileID: 3934730408080557637}
   - component: {fileID: 3313000240040875080}
   - component: {fileID: 4982607860465869534}
   - component: {fileID: 5081338855244799880}
@@ -34,6 +35,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3934730408080557637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5501907810606410004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b067ea13732289f41abc26a66c1c6910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShootDamage: 12
+  ShootRate: 0.5
+  ShootDist: 10
+  isShooting: 0
+  cube: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
+  gun: {fileID: 8494084282137154983, guid: 984ae2fd748f77f409b58e8bfbf85f24, type: 3}
 --- !u!33 &3313000240040875080
 MeshFilter:
   m_ObjectHideFlags: 0
