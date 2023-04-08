@@ -5,21 +5,24 @@ using UnityEngine;
 public class BulletSpeed : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] int timer;
     float timeToDestroy;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Destroy(gameObject, timer);
     }
 
     // Update is called once per frame
-    void Update()
+
+    public void Update()
     {
-       
-        this.transform.Translate(0, 0 , Time.deltaTime * speed);
-        timeToDestroy = Time.deltaTime+1;
-        
-      
+        this.transform.Translate(0, 0, Time.deltaTime * speed);
+
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
     }
 }
