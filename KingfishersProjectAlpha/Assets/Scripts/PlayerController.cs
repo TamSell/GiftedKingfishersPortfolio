@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour , Damage
 {
 
     [Header("----- Components-----")]
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         HPorig = HP;
-
+        PLayerUpdateUI();
     }
 
     // Update is called once per frame
@@ -55,4 +55,20 @@ public class PlayerController : MonoBehaviour
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime); 
     }
+
+    void TakeDamage(int amount)
+    {
+        HP -= amount;
+        PLayerUpdateUI();
+        if(HP <= 0)
+        {
+            //lose
+        }
+    }
+    
+    void PLayerUpdateUI()
+    {
+
+    }
+
 }
