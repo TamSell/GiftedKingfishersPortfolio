@@ -36,17 +36,17 @@ public class Gun : MonoBehaviour
         Instantiate(bullet, gun.position,gun.rotation);
 
 
-        RaycastHit hit;
+     //   RaycastHit hit;
 
-        if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, ShootDist))
-        {
-            Damage TakeHit = hit.collider.GetComponent<Damage>();
+      //  if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, ShootDist))
+    //    {
+      //      Damage TakeHit = hit.collider.GetComponent<Damage>();
 
-            if (TakeHit != null)
-            {
-                TakeHit.TakeDamage(ShootDamage);
-            }
-        }
+        //    if (TakeHit != null)
+        //    {
+        //        TakeHit.TakeDamage(ShootDamage);
+        //    }
+        //}
         yield return new WaitForSeconds(ShootRate);
         isShooting = false;
     }
