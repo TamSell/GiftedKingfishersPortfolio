@@ -132,12 +132,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880358198}
+  - component: {fileID: 880358199}
   - component: {fileID: 880358197}
   - component: {fileID: 880358196}
   - component: {fileID: 880358195}
+  - component: {fileID: 880358200}
   m_Layer: 0
-  m_Name: Capsule
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,7 +216,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880358194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.37543, y: 1.92, z: -3.04}
+  m_LocalPosition: {x: 0, y: 1.56, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -222,6 +224,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &880358199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880358194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 790ef6e802d8517459819a0dbd08bb4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 880358200}
+  PlayerSpeed: 8
+  jumpHeight: 16.4
+  gravityValue: 10.7
+  jumpMax: 3
+  HP: 8
+--- !u!143 &880358200
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880358194}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &891925646
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,6 +611,10 @@ PrefabInstance:
     - target: {fileID: 5501907810606410004, guid: 388b9dd449b182e4fbc94b00c32fa380, type: 3}
       propertyPath: m_Name
       value: Testing Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 5501907810606410004, guid: 388b9dd449b182e4fbc94b00c32fa380, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7263781406367116301, guid: 388b9dd449b182e4fbc94b00c32fa380, type: 3}
       propertyPath: m_RootOrder
