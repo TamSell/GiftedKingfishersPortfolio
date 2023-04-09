@@ -24,7 +24,7 @@ public class Gun : MonoBehaviour
     {
         if (!isShooting && Input.GetButton("Shoot"))
         {
-            
+        
             StartCoroutine(shoot());
         }
     }
