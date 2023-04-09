@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour , Damage
         controller.Move(playerVelocity * Time.deltaTime); 
     }
 
-    void TakeDamage(int amount)
+    public void TakeDamage(int amount)
     {
         HP -= amount;
         PLayerUpdateUI();
