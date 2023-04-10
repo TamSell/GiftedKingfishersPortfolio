@@ -1,23 +1,90 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class GameManager : MonoBehaviour
+public class gameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static gameManager Instance;
 
     [Header("------ Player ------")]
-    GameObject PlayerModel;
-    PlayerController playerController;
+    public GameObject PlayerModel;
+    public PlayerController playerController;
     
 
     [Header("------ UI Elements ------")]
-    GameObject LostMenu;
-    GameObject WinMenu;
-    GameObject PauseMenu;
+    private GameObject activeMenu;
+    public GameObject LostMenu;
+    public GameObject WinMenu;
+    public GameObject PauseMenu;
+    public Image HP;
+    public TextMeshProUGUI enemyCount;
+
+    bool inMenu;
+    int enemyRemain;
+    float timeScaleO;
 
     private void Awake()
     {
+        Instance = this;
         playerController = PlayerModel.GetComponent<PlayerController>();
+        timeScaleO = Time.timeScale;
+    }
+
+    void Update()
+    {
+        if(Input.GetButtonDown("Cancel") && activeMenu == null)
+        {
+            inMenu = !inMenu;
+            setMenu(PauseMenu);
+            if(inMenu)
+            {
+                pause();
+            }
+            else
+            {
+                unpause();
+            }
+            
+        }
+    }
+    private void pause()
+    {
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
+
+    private void unpause()
+    {
+        Time.timeScale = timeScaleO;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        activeMenu.SetActive(false);
+        activeMenu = null;
+    }
+
+    public void updateGoal(int amount)
+    {
+        enemyRemain += amount;
+        enemyCount.text = enemyRemain.ToString("0F");
+        if(enemyRemain <= 0)
+        {
+            setMenu(WinMenu);
+            pause();
+        }
+    }
+
+    public void death()
+    {
+        pause();
+        setMenu(LostMenu);
+    }
+
+    private void setMenu(GameObject menu)
+    {
+        activeMenu = menu;
+        activeMenu.SetActive(true);
     }
 }
