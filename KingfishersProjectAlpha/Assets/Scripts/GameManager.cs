@@ -28,6 +28,7 @@ public class gameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        PlayerModel = GameObject.FindGameObjectWithTag("Player");
         playerController = PlayerModel.GetComponent<PlayerController>();
         timeScaleO = Time.timeScale;
 
