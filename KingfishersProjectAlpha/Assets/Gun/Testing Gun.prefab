@@ -51,8 +51,9 @@ MonoBehaviour:
   ShootRate: 0.5
   ShootDist: 10
   isShooting: 0
-  cube: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
+  bullet: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
   gun: {fileID: 8494084282137154983, guid: 984ae2fd748f77f409b58e8bfbf85f24, type: 3}
+  selectedWeapon: 0
 --- !u!33 &3313000240040875080
 MeshFilter:
   m_ObjectHideFlags: 0
