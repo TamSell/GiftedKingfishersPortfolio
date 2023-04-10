@@ -11,7 +11,7 @@ public class gameManager : MonoBehaviour
     [Header("------ Player ------")]
     public GameObject PlayerModel;
     public PlayerController playerController;
-    
+
 
     [Header("------ UI Elements ------")]
     private GameObject activeMenu;
@@ -25,20 +25,22 @@ public class gameManager : MonoBehaviour
     int enemyRemain;
     float timeScaleO;
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
         playerController = PlayerModel.GetComponent<PlayerController>();
         timeScaleO = Time.timeScale;
+
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Cancel") && activeMenu == null)
+        if (Input.GetButtonDown("Cancel") && activeMenu == null)
         {
             inMenu = !inMenu;
             setMenu(PauseMenu);
-            if(inMenu)
+            if (inMenu)
             {
                 pause();
             }
@@ -46,7 +48,7 @@ public class gameManager : MonoBehaviour
             {
                 unpause();
             }
-            
+
         }
     }
     private void pause()
@@ -69,7 +71,7 @@ public class gameManager : MonoBehaviour
     {
         enemyRemain += amount;
         enemyCount.text = enemyRemain.ToString("0F");
-        if(enemyRemain <= 0)
+        if (enemyRemain <= 0)
         {
             setMenu(WinMenu);
             pause();
@@ -86,5 +88,6 @@ public class gameManager : MonoBehaviour
     {
         activeMenu = menu;
         activeMenu.SetActive(true);
+
     }
 }
