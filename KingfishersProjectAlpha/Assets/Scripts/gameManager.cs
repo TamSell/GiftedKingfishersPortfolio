@@ -18,7 +18,7 @@ public class gameManager : MonoBehaviour
     public GameObject LostMenu;
     public GameObject WinMenu;
     public GameObject PauseMenu;
-    public Image HP;
+    public Image HPbar;
     public TextMeshProUGUI enemyCount;
 
     bool inMenu;

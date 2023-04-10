@@ -62,13 +62,13 @@ public class PlayerController : MonoBehaviour , Damage
         PLayerUpdateUI();
         if(HP <= 0)
         {
-            //lose
+            gameManager.Instance.death();
         }
     }
     
     void PLayerUpdateUI()
     {
-
+        gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig; 
     }
 
 }
