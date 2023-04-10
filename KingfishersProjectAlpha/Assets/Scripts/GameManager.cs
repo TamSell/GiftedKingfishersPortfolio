@@ -21,7 +21,7 @@ public class gameManager : MonoBehaviour
     public Image HPbar;
     public TextMeshProUGUI enemyCount;
 
-    bool inMenu;
+    public bool inMenu;
     int enemyRemain;
     float timeScaleO;
 
@@ -51,14 +51,14 @@ public class gameManager : MonoBehaviour
 
         }
     }
-    private void pause()
+    public void pause()
     {
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }
 
-    private void unpause()
+    public void unpause()
     {
         Time.timeScale = timeScaleO;
         Cursor.visible = false;
