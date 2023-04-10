@@ -20,6 +20,7 @@ public class gameManager : MonoBehaviour
     public GameObject PauseMenu;
     public Image HPbar;
     public TextMeshProUGUI enemyCount;
+    public GameObject reticle;
 
     public bool inMenu;
     int enemyRemain;
@@ -54,6 +55,7 @@ public class gameManager : MonoBehaviour
     }
     public void pause()
     {
+        reticle.SetActive(false);
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -61,6 +63,7 @@ public class gameManager : MonoBehaviour
 
     public void unpause()
     {
+        reticle.SetActive(true);
         Time.timeScale = timeScaleO;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
