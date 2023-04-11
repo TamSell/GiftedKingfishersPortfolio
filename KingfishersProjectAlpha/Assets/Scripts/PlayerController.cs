@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour, Damage
     private bool groundedPlayer;
     Vector3 move;
     int HPorig;
+    bool isrunning;
    
 
     // Start is called before the first frame update
@@ -55,7 +56,9 @@ public class PlayerController : MonoBehaviour, Damage
 
         if(Input.GetButton("Run"))
         {
-            if(Stamina > 0)
+            isrunning = true;
+
+            if(Stamina > 0 && isrunning)
             {
                 Camera.main.fieldOfView = RunFOV;
                 controller.Move(move * Time.deltaTime * (PlayerSpeed + RunSpeed));
@@ -78,9 +81,10 @@ public class PlayerController : MonoBehaviour, Damage
            
             
         }
-      
+        controller.Move(move * Time.deltaTime * PlayerSpeed);
 
-        if(Input.GetButtonDown("Jump") && jumpTimes<jumpMax)
+
+        if (Input.GetButtonDown("Jump") && jumpTimes<jumpMax)
         {
             jumpTimes++;
             playerVelocity.y = jumpHeight;
