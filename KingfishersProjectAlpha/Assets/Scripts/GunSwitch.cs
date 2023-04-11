@@ -6,6 +6,9 @@ public class GunSwitch : MonoBehaviour
 {
     public int selectedWeapon = 0;
 
+    private bool isSwitching;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +22,15 @@ public class GunSwitch : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            
             selectedWeapon = 0;
+            StartCoroutine(Switch());
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
+            
             selectedWeapon = 1;
+            StartCoroutine(Switch());
         }
 
         if (previousSelectedWeapon != selectedWeapon)
@@ -41,5 +48,13 @@ public class GunSwitch : MonoBehaviour
                 weapon.gameObject.SetActive(false);
             i++;
         }
+    }
+
+    private IEnumerator Switch()
+    {
+        isSwitching = true;
+
+        yield return new WaitForSeconds(2.5f);
+        isSwitching = false;
     }
 }
