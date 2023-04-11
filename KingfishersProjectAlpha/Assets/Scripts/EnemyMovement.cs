@@ -17,7 +17,6 @@ public class EnemyMovement : MonoBehaviour
     Vector3 identVec;
     bool playerInRange;
     float angleToPlayer;
-    bool isShooting;
     float stopDistOrig;
 
     [Header("-- Objects --")]
@@ -26,10 +25,20 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] Transform gunPos;
     [SerializeField] NavMeshAgent navMeshA;
 
+    [Header("-- Gun Stats --")]
+    [SerializeField] int ShootDamage;
+    [SerializeField] float ShootRate;
+    [SerializeField] int ShootDist;
+
+    [SerializeField] bool isShooting;
+
+    public GameObject bullet;
+    public Transform gun;
+
 
     void Start()
     {
-        
+        stopDistOrig = 10;
     }
 
     void Update()
@@ -72,6 +81,13 @@ public class EnemyMovement : MonoBehaviour
                 {
                     FollowPlayer();
                 }
+
+                Instantiate(bullet, gunPos.position, gunPos.rotation);
+                //if (!isShooting)
+                //{
+
+                //    StartCoroutine(shoot());
+                //}
             }
         }
     }
@@ -86,4 +102,12 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * turnSpeed);
     }
 
+    //IEnumerator shoot()
+    //{
+    //    isShooting = true;
+
+    //    Instantiate(bullet, gun.position, gun.rotation);
+    //    yield return new WaitForSeconds(ShootRate);
+    //    isShooting = false;
+    //}
 }

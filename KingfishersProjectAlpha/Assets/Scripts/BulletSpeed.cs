@@ -21,8 +21,8 @@ public class BulletSpeed : MonoBehaviour
         this.transform.Translate(0, 0, Time.deltaTime * speed);
 
     }
-    public void OnTriggerEnter(Collider other)
-    {
-        Destroy(gameObject);
-    }
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    Destroy(gameObject);
+    //}
 }
