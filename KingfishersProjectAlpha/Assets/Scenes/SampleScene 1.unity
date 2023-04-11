@@ -703,6 +703,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2042666245296366324, guid: 06538ec4a70c84946992f18d5d967f88, type: 3}
+      propertyPath: ShootRate
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2447958757398709286, guid: 06538ec4a70c84946992f18d5d967f88, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.022
