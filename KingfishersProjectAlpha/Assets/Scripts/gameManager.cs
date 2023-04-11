@@ -20,14 +20,16 @@ public class gameManager : MonoBehaviour
     public GameObject PauseMenu;
     public Image HPbar;
     public TextMeshProUGUI enemyCount;
+    public GameObject reticle;
 
-    bool inMenu;
+    public bool inMenu;
     int enemyRemain;
     float timeScaleO;
 
     void Awake()
     {
         Instance = this;
+        PlayerModel = GameObject.FindGameObjectWithTag("Player");
         playerController = PlayerModel.GetComponent<PlayerController>();
         timeScaleO = Time.timeScale;
 
@@ -51,15 +53,17 @@ public class gameManager : MonoBehaviour
 
         }
     }
-    private void pause()
+    public void pause()
     {
+        reticle.SetActive(false);
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }
 
-    private void unpause()
+    public void unpause()
     {
+        reticle.SetActive(true);
         Time.timeScale = timeScaleO;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
