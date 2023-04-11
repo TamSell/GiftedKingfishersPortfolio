@@ -13,7 +13,7 @@ public class Ammo : MonoBehaviour
     public TextMeshProUGUI mag;
     public TextMeshProUGUI reserve;
 
-    private int currentMag;
+    public int currentMag;
 
     void Start()
     {
@@ -23,8 +23,8 @@ public class Ammo : MonoBehaviour
     void reload()
     {
         currentMag = magSize;
-        totalAmmunition -= magSize;
-        reserve.text = totalAmmunition.ToString("0F");
-        mag.text = currentMag.ToString("0F");
+        totalAmmunition = totalAmmunition - (magSize-currentMag);
+        reserve.text = totalAmmunition.ToString("F0");
+        mag.text = currentMag.ToString("F0");
     }
 }

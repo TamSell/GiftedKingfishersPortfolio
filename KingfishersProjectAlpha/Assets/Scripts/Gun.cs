@@ -36,7 +36,7 @@ public class Gun : MonoBehaviour
         isShooting = true;
 
         Instantiate(bullet, gun.position,gun.rotation);
-
+        
 
      //   RaycastHit hit;
 
