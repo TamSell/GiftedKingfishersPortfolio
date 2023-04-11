@@ -40,6 +40,7 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     void Start()
     {
+        gameManager.Instance.updateGoal(1);
         stopDistOrig = stoppDist;
     }
 
@@ -125,6 +126,7 @@ public class EnemyMovement : MonoBehaviour , Damage
 
         if (hitPoints <= 0)
         {
+            gameManager.Instance.updateGoal(-1);
             Destroy(gameObject);
         }
     }
