@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: f70148ee6c17421479647edd9eb582b3, type: 2}
---- !u!1 &647930360
+--- !u!1 &224513287
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,28 +131,28 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 647930361}
+  - component: {fileID: 224513288}
   m_Layer: 0
-  m_Name: GunPos
+  m_Name: gunPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &647930361
+--- !u!4 &224513288
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647930360}
+  m_GameObject: {fileID: 224513287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.26, z: 0.37}
+  m_LocalPosition: {x: 0.16, y: 0.25, z: 1.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1492198457}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -315,6 +315,8 @@ MonoBehaviour:
   PauseMenu: {fileID: 0}
   HPbar: {fileID: 0}
   enemyCount: {fileID: 0}
+  reticle: {fileID: 0}
+  inMenu: 0
 --- !u!4 &1217359270
 Transform:
   m_ObjectHideFlags: 0
@@ -398,7 +400,6 @@ GameObject:
   - component: {fileID: 1455051965}
   - component: {fileID: 1455051968}
   - component: {fileID: 1455051967}
-  - component: {fileID: 1455051966}
   m_Layer: 0
   m_Name: forward
   m_TagString: Untagged
@@ -413,27 +414,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455051964}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: 0, z: 0.64}
+  m_LocalRotation: {x: -0, y: 0.9998777, z: -0, w: -0.015642693}
+  m_LocalPosition: {x: 0.04, y: 0.28, z: 0.74}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1492198457}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1455051966
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455051964}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 181.793, z: 0}
 --- !u!23 &1455051967
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -577,17 +565,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492198453}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.9988005, z: -0, w: 0.048965905}
   m_LocalPosition: {x: 0, y: 1, z: 34.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 733612985}
-  - {fileID: 647930361}
   - {fileID: 1455051965}
+  - {fileID: 224513288}
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 174.387, z: 0}
 --- !u!195 &1492198458
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -627,10 +615,16 @@ MonoBehaviour:
   cameraAngle: 60
   model: {fileID: 0}
   headPos: {fileID: 733612985}
-  gunPos: {fileID: 647930361}
+  gunPos: {fileID: 224513288}
   navMeshA: {fileID: 1492198458}
---- !u!135 &1492198460
-SphereCollider:
+  ShootDamage: 2
+  ShootRate: 2
+  ShootDist: 20
+  isShooting: 0
+  bullet: {fileID: 2927601771189081652, guid: 0baa79a4ad48e0448abc2b4bf58ef06f, type: 3}
+  gun: {fileID: 1455051965}
+--- !u!65 &1492198460
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -640,8 +634,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 15
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 20, y: 0.1, z: 40}
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!1 &1591877351 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3241494484849918217, guid: 06538ec4a70c84946992f18d5d967f88, type: 3}

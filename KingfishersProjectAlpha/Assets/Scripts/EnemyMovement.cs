@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour , Damage
 {
     [Header("----- Components -----")]
 
@@ -82,18 +83,13 @@ public class EnemyMovement : MonoBehaviour
                     FollowPlayer();
                 }
 
-                Instantiate(bullet, gunPos.position, gunPos.rotation);
-                //if (!isShooting)
-                //{
+                if (!isShooting)
+                {
 
-                //    StartCoroutine(shoot());
-                //}
+                    StartCoroutine(shoot());
+                }
             }
         }
-    }
-    void BlastPlayer()
-    {
-        
     }
 
     void FollowPlayer()
@@ -102,12 +98,33 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * turnSpeed);
     }
 
-    //IEnumerator shoot()
-    //{
-    //    isShooting = true;
+    IEnumerator shoot()
+    {
+        isShooting = true;
 
-    //    Instantiate(bullet, gun.position, gun.rotation);
-    //    yield return new WaitForSeconds(ShootRate);
-    //    isShooting = false;
-    //}
+        Instantiate(bullet, gun.position, gun.rotation);
+        yield return new WaitForSeconds(ShootRate);
+        isShooting = false;
+    }
+
+    IEnumerator flashColor()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = Color.white;
+    }
+
+    public void takeDamage(int amountDamage)
+    {
+        hitPoints -= amountDamage;
+        navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
+        navMeshA.stoppingDistance = 0;
+
+        StartCoroutine(flashColor());
+
+        if (hitPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }
