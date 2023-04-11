@@ -20,6 +20,11 @@ public class BulletSpeed : MonoBehaviour
     {
         this.transform.Translate(0, 0, Time.deltaTime * speed);
 
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            Destroy(gameObject);
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+            Destroy(gameObject);
+
     }
     public void OnTriggerEnter(Collider other)
     {
