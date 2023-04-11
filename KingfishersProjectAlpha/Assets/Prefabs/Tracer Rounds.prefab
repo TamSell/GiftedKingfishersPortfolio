@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2285869687704952341}
   - component: {fileID: 8866558039250274282}
-  - component: {fileID: 876490963556300911}
   - component: {fileID: 7215030177455823135}
   - component: {fileID: 5493397311359763269}
   - component: {fileID: -7246000376093667224}
+  - component: {fileID: -8376668632171148761}
   m_Layer: 6
   m_Name: Tracer Rounds
   m_TagString: Untagged
@@ -48,21 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c699fc8aa09bb4eaeeaf817a143f7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
+  speed: 100
   timer: 3
---- !u!65 &876490963556300911
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5363365707952816129}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &7215030177455823135
 TrailRenderer:
   serializedVersion: 2
@@ -191,3 +178,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &-8376668632171148761
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5363365707952816129}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
