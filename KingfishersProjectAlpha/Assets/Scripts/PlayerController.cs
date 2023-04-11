@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour , Damage
     [Range(3, 30)][SerializeField] float jumpHeight;
     [Range(3, 25)][SerializeField] float gravityValue;
     [Range(1, 4)][SerializeField] int jumpMax;
-    [Range(1, 10)][SerializeField] int HP;
+    [Range(1, 20)][SerializeField] int HP;
 
     int jumpTimes;
     private Vector3 playerVelocity;
