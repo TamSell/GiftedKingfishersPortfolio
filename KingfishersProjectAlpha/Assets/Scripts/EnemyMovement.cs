@@ -114,13 +114,13 @@ public class EnemyMovement : MonoBehaviour , Damage
         model.material.color = Color.white;
     }
 
-    public void takeDamage(int amountDamage)
+    public void TakeDamage(int amountDamage)
     {
         hitPoints -= amountDamage;
         navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
         navMeshA.stoppingDistance = 0;
 
-        StartCoroutine(flashColor());
+      //  StartCoroutine(flashColor());
 
         if (hitPoints <= 0)
         {
