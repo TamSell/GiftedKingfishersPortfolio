@@ -14,7 +14,12 @@ public class PlayerController : MonoBehaviour , Damage
     [Range(3, 25)][SerializeField] float gravityValue;
     [Range(1, 4)][SerializeField] int jumpMax;
     [Range(1, 20)][SerializeField] int HP;
+    [Range(1,200)][SerializeField] float RunFOV;
+    [Range(0, 10)][SerializeField] float RunSpeed;
 
+
+    float FOVorg;
+ 
     int jumpTimes;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -26,6 +31,7 @@ public class PlayerController : MonoBehaviour , Damage
     {
         HPorig = HP;
         PLayerUpdateUI();
+        FOVorg = Camera.main.fieldOfView;
     }
 
     // Update is called once per frame
@@ -45,7 +51,17 @@ public class PlayerController : MonoBehaviour , Damage
 
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
 
-        controller.Move(move * Time.deltaTime * PlayerSpeed);
+        if(Input.GetButton("Run"))
+        {
+            Camera.main.fieldOfView = RunFOV;
+            controller.Move(move * Time.deltaTime * (PlayerSpeed + RunSpeed));
+       }
+        else
+        {
+            Camera.main.fieldOfView = FOVorg;
+            controller.Move(move * Time.deltaTime * PlayerSpeed);
+        }
+      
 
         if(Input.GetButtonDown("Jump") && jumpTimes<jumpMax)
         {
