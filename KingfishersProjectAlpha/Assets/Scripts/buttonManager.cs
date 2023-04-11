@@ -13,7 +13,7 @@ public class buttonManager : MonoBehaviour
 
     public void restart()
     {
-        gameManager.Instance.pause();
+        gameManager.Instance.unpause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

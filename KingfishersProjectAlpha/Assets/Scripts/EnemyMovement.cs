@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour , Damage
     [SerializeField] int hitPoints;
     [SerializeField] int turnSpeed;
     [SerializeField] int cameraAngle;
+    [SerializeField] int stoppDist;
     float viewAngle;
 
     [Header("-- Variables --")]
@@ -39,7 +40,7 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     void Start()
     {
-        stopDistOrig = 10;
+        stopDistOrig = stoppDist;
     }
 
     void Update()
