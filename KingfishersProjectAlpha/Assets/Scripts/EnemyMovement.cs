@@ -122,7 +122,7 @@ public class EnemyMovement : MonoBehaviour , Damage
         navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
         navMeshA.stoppingDistance = 0;
 
-      //  StartCoroutine(flashColor());
+        StartCoroutine(flashColor());
 
         if (hitPoints <= 0)
         {

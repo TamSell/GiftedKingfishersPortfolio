@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 5341861047485144549}
   - component: {fileID: 5341861047485144548}
   - component: {fileID: 5341861047485144546}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ MonoBehaviour:
   turnSpeed: 180
   cameraAngle: 60
   stoppDist: 10
-  model: {fileID: 0}
+  model: {fileID: 5341861047485144553}
   headPos: {fileID: 5341861045584671335}
   gunPos: {fileID: 5341861046083253462}
   navMeshA: {fileID: 5341861047485144548}

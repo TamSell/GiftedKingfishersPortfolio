@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 4575272119742446816}
   - component: {fileID: 4575272119742446817}
   - component: {fileID: 4575272119742446823}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy Chaser 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   turnSpeed: 360
   cameraAngle: 30
   stoppDist: 5
-  model: {fileID: 0}
+  model: {fileID: 4575272119742446828}
   headPos: {fileID: 4575272121566237538}
   gunPos: {fileID: 4575272120991339987}
   navMeshA: {fileID: 4575272119742446817}

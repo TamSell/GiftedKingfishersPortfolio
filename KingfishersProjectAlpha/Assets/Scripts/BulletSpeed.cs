@@ -28,6 +28,10 @@ public class BulletSpeed : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
+        if(other.isTrigger)
+        {
+            return;
+        }
         Destroy(gameObject);
     }
 }
