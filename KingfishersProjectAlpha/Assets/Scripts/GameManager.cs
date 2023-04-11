@@ -74,7 +74,7 @@ public class gameManager : MonoBehaviour
     public void updateGoal(int amount)
     {
         enemyRemain += amount;
-        enemyCount.text = enemyRemain.ToString("0F");
+        enemyCount.text = enemyRemain.ToString();
         if (enemyRemain <= 0)
         {
             setMenu(WinMenu);
