@@ -421,7 +421,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1763708622711055567, guid: d7ff740fe0adb32439905d80d4ec57ce, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2941414049593450943, guid: d7ff740fe0adb32439905d80d4ec57ce, type: 3}
       propertyPath: ShootRate
@@ -492,12 +492,20 @@ PrefabInstance:
       value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6183500639411690415, guid: d7ff740fe0adb32439905d80d4ec57ce, type: 3}
+      propertyPath: ammoCount
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183500639411690415, guid: d7ff740fe0adb32439905d80d4ec57ce, type: 3}
       propertyPath: bulletCount
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183500639411690415, guid: d7ff740fe0adb32439905d80d4ec57ce, type: 3}
+      propertyPath: MagazineInGun
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6861719155051558072, guid: d7ff740fe0adb32439905d80d4ec57ce, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7310799314681657426, guid: d7ff740fe0adb32439905d80d4ec57ce, type: 3}
       propertyPath: m_Name
