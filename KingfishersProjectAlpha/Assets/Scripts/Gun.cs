@@ -44,13 +44,12 @@ public class Gun : MonoBehaviour
             MagazineInGun = MagTotalAmmo;
         }
         timer += Time.deltaTime;
-        if(timer > realoadSpeed+5)
-        {
-            Invoke("Reloading",realoadSpeed);
-        }
+      
 
-      //  IsRealoading();
-        //Reloading();
+    
+            Reloading();
+        
+      
         if (reaload == true)
         {
             
@@ -99,18 +98,22 @@ public class Gun : MonoBehaviour
 
     public void Reloading()
     {
-        if (Input.GetButtonDown("Reloading"))
+        if(!isShooting)
         {
-            reaload = true;
-            RealoadingLogic();
-           
+            if (Input.GetButtonDown("Reloading"))
+            {
+                reaload = true;
+                RealoadingLogic();
+
+            }
+            else if (MagazineInGun == 0 && TotalAmmo > 0)
+            {
+                reaload = true;
+                RealoadingLogic();
+
+            }
         }
-        else if (MagazineInGun==0 && TotalAmmo>0)
-        {
-            reaload = true;
-            RealoadingLogic();
-          
-        }   
+      
     }
     public void RealoadingLogic()
     {
