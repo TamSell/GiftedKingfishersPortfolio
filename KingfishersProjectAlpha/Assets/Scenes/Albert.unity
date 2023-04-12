@@ -423,6 +423,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSwitcher 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1161856878805074998, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
+      propertyPath: TotalAmmo
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1161856878805074998, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
+      propertyPath: MagazineInGun
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3007993148264001297, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -466,6 +474,14 @@ PrefabInstance:
     - target: {fileID: 3007993148264001297, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4489704366032449724, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
+      propertyPath: ammoCount
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4489704366032449724, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
+      propertyPath: MagazineInGun
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
