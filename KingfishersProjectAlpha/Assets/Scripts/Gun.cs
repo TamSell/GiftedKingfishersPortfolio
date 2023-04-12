@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Gun : MonoBehaviour
 {
@@ -10,47 +11,55 @@ public class Gun : MonoBehaviour
     [Range(0.1f,2)][SerializeField] float ShootRate;
     [Range(0,30)][SerializeField] int MagazineInGun;
     [Range(0,60)][SerializeField] int TotalAmmo;
+    [SerializeField] int realoadSpeed;
+
+
     [SerializeField]bool reaload;
 
-    float time = 1f;
-    float timer;
-    int GunTotalAmmo;
+  
+    int MagTotalAmmo;
     bool isShooting;
-
+    int TempAmmo;
     int ammoToInsert;
     public GameObject bullet ;
     public Transform gun;
-  
 
+   
+    float timer;
 
     
 
     // Start is called before the first frame update
     void Start()
     {
-        timer = Time.time;
-        GunTotalAmmo = MagazineInGun;
+        MagTotalAmmo = MagazineInGun;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(MagazineInGun>GunTotalAmmo)
+        if(MagazineInGun>MagTotalAmmo)
         {
-            MagazineInGun = GunTotalAmmo;
+            MagazineInGun = MagTotalAmmo;
+        }
+        timer += Time.deltaTime;
+        if(timer > realoadSpeed+5)
+        {
+            Invoke("Reloading",realoadSpeed);
         }
 
-        Reloading();
-  
+      //  IsRealoading();
+        //Reloading();
         if (reaload == true)
         {
-            Invoke("shooting", 2);
-          
+            
+            Invoke("shooting", realoadSpeed); 
         }
         else
         {
-            shooting();
-          
+           
+            shooting(); 
         }
      
 
@@ -58,11 +67,14 @@ public class Gun : MonoBehaviour
 
     public void shooting()
     {
+        if(MagazineInGun ==0)
+        {
+            return;
+        }
         if (!isShooting && Input.GetButton("Shoot"))
         {
-
-            StartCoroutine(shoot());
-         
+            reaload = false;
+            StartCoroutine(shoot());   
         }
     }
    
@@ -70,16 +82,14 @@ public class Gun : MonoBehaviour
 
     IEnumerator shoot()
     {
-     
+   
         isShooting = true;
-
-     
         Instantiate(bullet, gun.position,gun.rotation);
-     
-
+    
         yield return new WaitForSeconds(ShootRate);
         isShooting = false;
         CountOfBullets(-1);
+
     }
 
     public void CountOfBullets(int ammount)
@@ -93,49 +103,57 @@ public class Gun : MonoBehaviour
         {
             reaload = true;
             RealoadingLogic();
-            IsReloading();
-            reaload = false;
+           
         }
         else if (MagazineInGun==0 && TotalAmmo>0)
         {
             reaload = true;
             RealoadingLogic();
-            IsReloading();
-            reaload=false;
-         
-        }
-       
+          
+        }   
     }
     public void RealoadingLogic()
     {
-        if (TotalAmmo > GunTotalAmmo)
+        if(TotalAmmo == 0)
         {
-            ammoToInsert = GunTotalAmmo - MagazineInGun;
+            return;
+        }
+         if (TotalAmmo >= MagTotalAmmo)
+        {
+            ammoToInsert = MagTotalAmmo - MagazineInGun;
             TotalAmmo -= ammoToInsert;
             MagazineInGun += ammoToInsert;
         }
-        else if(MagazineInGun > TotalAmmo)
+        else if(MagTotalAmmo >= TotalAmmo)
         {
-            ammoToInsert = MagazineInGun - TotalAmmo;
-            TotalAmmo -= TotalAmmo;
+         
+            ammoToInsert = MagTotalAmmo  - MagazineInGun;
+            TempAmmo = TotalAmmo;
+            TotalAmmo -= ammoToInsert;
+            if(TotalAmmo <=0)
+            {
+                TotalAmmo = TempAmmo;
+                MagazineInGun += TotalAmmo;
+                TotalAmmo -= TotalAmmo;
+                return;
+            }
             MagazineInGun += ammoToInsert;
         }
         else if(MagazineInGun == 0)
         {
             ammoToInsert = TotalAmmo;
-            TotalAmmo -= TotalAmmo;
+            TotalAmmo -= ammoToInsert;
             MagazineInGun += ammoToInsert;
         }
     }
 
-    IEnumerator IsReloading()
+    IEnumerator IsRealoading()
     {
-        reaload = true;
-        yield return new WaitForSeconds(2);
-        reaload = false;
+       
+        yield return new WaitForSeconds(1);
+        Reloading();
 
     }
-
 
 
 }

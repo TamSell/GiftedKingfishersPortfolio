@@ -425,7 +425,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1161856878805074998, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
       propertyPath: TotalAmmo
-      value: 41
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1161856878805074998, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
+      propertyPath: realoadSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1161856878805074998, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
       propertyPath: MagazineInGun
@@ -474,6 +478,10 @@ PrefabInstance:
     - target: {fileID: 3007993148264001297, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4489704366032449724, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
+      propertyPath: TotalAmmo
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4489704366032449724, guid: 6762f4af5a67eb24c80066b518684bb0, type: 3}
       propertyPath: ammoCount
