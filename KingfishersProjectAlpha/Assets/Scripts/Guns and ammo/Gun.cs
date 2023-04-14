@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
 
   
     int MagTotalAmmo;
-    bool isShooting;
+    public bool isShooting;
     int TempAmmo;
     int ammoToInsert;
     public GameObject bullet ;
@@ -129,7 +129,6 @@ public class Gun : MonoBehaviour
         }
         else if(MagTotalAmmo >= TotalAmmo)
         {
-         
             ammoToInsert = MagTotalAmmo  - MagazineInGun;
             TempAmmo = TotalAmmo;
             TotalAmmo -= ammoToInsert;
