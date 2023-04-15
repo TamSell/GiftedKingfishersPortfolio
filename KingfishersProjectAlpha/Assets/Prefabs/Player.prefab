@@ -151,10 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b067ea13732289f41abc26a66c1c6910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootDamage: 12
   ShootRate: 0.1
-  ShootDist: 10
-  isShooting: 0
+  MagazineInGun: 0
+  TotalAmmo: 0
+  realoadSpeed: 0
+  reaload: 0
   bullet: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
   gun: {fileID: 4372914390829897139}
 --- !u!33 &4372914390800267330
@@ -331,10 +332,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b067ea13732289f41abc26a66c1c6910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootDamage: 10
   ShootRate: 0.5
-  ShootDist: 100
-  isShooting: 0
+  MagazineInGun: 0
+  TotalAmmo: 0
+  realoadSpeed: 0
+  reaload: 0
   bullet: {fileID: 5363365707952816129, guid: 3ac77c2dbf3eb9a448f796e2aeaa6b1e, type: 3}
   gun: {fileID: 4372914390815599634}
 --- !u!33 &4372914391307245645
@@ -455,6 +457,9 @@ MonoBehaviour:
   gravityValue: 25
   jumpMax: 1
   HP: 8
+  RunFOV: 0
+  RunSpeed: 0
+  Stamina: 0
 --- !u!33 &4372914391570116688
 MeshFilter:
   m_ObjectHideFlags: 0

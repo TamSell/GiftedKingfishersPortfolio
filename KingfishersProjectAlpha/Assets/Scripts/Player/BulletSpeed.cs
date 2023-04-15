@@ -6,6 +6,8 @@ public class BulletSpeed : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float timer;
+    [SerializeField] int damage;
+
     float timeToDestroy;
 
     // Start is called before the first frame update
@@ -32,6 +34,23 @@ public class BulletSpeed : MonoBehaviour
         {
             return;
         }
+        Damage canDamage = other.GetComponent<Damage>();
+
+        if (canDamage != null)
+        {
+            canDamage.TakeDamage(damage);
+        }
         Destroy(gameObject);
     }
+
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.isTrigger)
+    //    {
+    //        return;
+    //    }
+
+     
+    //}
 }

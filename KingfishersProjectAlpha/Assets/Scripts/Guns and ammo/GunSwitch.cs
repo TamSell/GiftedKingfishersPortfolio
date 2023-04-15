@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class GunSwitch : MonoBehaviour
 {
     public int selectedWeapon = 0;
 
     private bool isSwitching;
 
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -32,9 +34,12 @@ public class GunSwitch : MonoBehaviour
             selectedWeapon = 1;
             StartCoroutine(Switch());
         }
-
+        
         if (previousSelectedWeapon != selectedWeapon)
-            SelectWeapon();
+          
+                //Invoke("SelectWeapon", 0.5f);
+            
+           SelectWeapon();
     }
 
     void SelectWeapon()

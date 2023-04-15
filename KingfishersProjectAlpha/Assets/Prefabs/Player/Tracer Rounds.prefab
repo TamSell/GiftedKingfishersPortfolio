@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2285869687704952341}
   - component: {fileID: 8866558039250274282}
-  - component: {fileID: 7215030177455823135}
   - component: {fileID: 5493397311359763269}
+  - component: {fileID: 7215030177455823135}
   - component: {fileID: -7246000376093667224}
   - component: {fileID: -8376668632171148761}
   m_Layer: 6
@@ -50,6 +50,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 100
   timer: 3
+<<<<<<< HEAD:KingfishersProjectAlpha/Assets/Prefabs/Tracer Rounds.prefab
+--- !u!114 &5493397311359763269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5363365707952816129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64964a1c57b9a14cb258edb80977928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+=======
+>>>>>>> 92eb59c09185dc70428c3ac502371e694e0d32ac:KingfishersProjectAlpha/Assets/Prefabs/Player/Tracer Rounds.prefab
+  damage: 5
 --- !u!96 &7215030177455823135
 TrailRenderer:
   serializedVersion: 2
@@ -149,19 +165,6 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!114 &5493397311359763269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5363365707952816129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a64964a1c57b9a14cb258edb80977928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
 --- !u!54 &-7246000376093667224
 Rigidbody:
   m_ObjectHideFlags: 0
