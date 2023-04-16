@@ -11,6 +11,7 @@ public class gameManager : MonoBehaviour
     [Header("------ Player ------")]
     public GameObject PlayerModel;
     public PlayerController playerController;
+    public GameObject playerSpawnPos;
 
 
     [Header("------ UI Elements ------")]
@@ -31,6 +32,7 @@ public class gameManager : MonoBehaviour
         Instance = this;
         PlayerModel = GameObject.FindGameObjectWithTag("Player");
         playerController = PlayerModel.GetComponent<PlayerController>();
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleO = Time.timeScale;
 
     }

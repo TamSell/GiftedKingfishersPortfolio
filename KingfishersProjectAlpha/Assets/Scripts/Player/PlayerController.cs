@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour, Damage
     private bool groundedPlayer;
     Vector3 move;
     int HPorig;
-    bool isrunning;
+    public bool isrunning;
    
 
     // Start is called before the first frame update
@@ -35,11 +35,14 @@ public class PlayerController : MonoBehaviour, Damage
         HPorig = HP;
         PLayerUpdateUI();
         FOVorg = Camera.main.fieldOfView;
+        respawnPlayer();
+      
     }
 
     // Update is called once per frame
     void Update()
     {
+
         movement();
     }
 
@@ -65,21 +68,22 @@ public class PlayerController : MonoBehaviour, Damage
                 Stamina -= 3 * Time.deltaTime;
                
             }
+            else if(Stamina<=0)
+            {
+                isrunning=false;
+                Camera.main.fieldOfView = FOVorg;
+            }
           
        }
         else
         {
-            
-               
+            isrunning = false;
                 Camera.main.fieldOfView = FOVorg;
                 controller.Move(move * Time.deltaTime * PlayerSpeed);
                 if (Stamina <= 10)
                 {
                     Stamina += 2 * Time.deltaTime;
-                }
-            
-           
-            
+                }        
         }
         controller.Move(move * Time.deltaTime * PlayerSpeed);
 
@@ -106,6 +110,15 @@ public class PlayerController : MonoBehaviour, Damage
     void PLayerUpdateUI()
     {
         gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig; 
+    }
+
+    public void respawnPlayer()
+    {
+        HP = HPorig;
+        PLayerUpdateUI();
+        controller.enabled = false;
+        transform.position = gameManager.Instance.playerSpawnPos.transform.position;
+        controller.enabled = true;
     }
 
 }

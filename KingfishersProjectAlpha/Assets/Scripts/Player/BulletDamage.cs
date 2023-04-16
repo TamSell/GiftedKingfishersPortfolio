@@ -12,18 +12,18 @@ public class BulletDamage : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.isTrigger)
-        {
-            return;
-        }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.isTrigger)
+    //    {
+    //        return;
+    //    }
 
-        Damage canDamage = other.GetComponent<Damage>();
+    //    Damage canDamage = other.GetComponent<Damage>();
 
-        if (canDamage != null)
-        {
-            canDamage.TakeDamage(damage);
-        }
-    }
+    //    if (canDamage != null)
+    //    {
+    //        canDamage.TakeDamage(damage);
+    //    }
+    //}
 }
