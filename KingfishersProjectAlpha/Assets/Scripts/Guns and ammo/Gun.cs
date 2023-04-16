@@ -44,24 +44,16 @@ public class Gun : MonoBehaviour
             MagazineInGun = MagTotalAmmo;
         }
         timer += Time.deltaTime;
-      
 
-    
-            Reloading();
-        
-      
+        Reloading();
         if (reaload == true)
         {
-            
             Invoke("shooting", realoadSpeed); 
         }
         else
         {
-           
             shooting(); 
         }
-     
-
     }
 
     public void shooting()
@@ -81,7 +73,6 @@ public class Gun : MonoBehaviour
 
     IEnumerator shoot()
     {
-   
         isShooting = true;
         Instantiate(bullet, gun.position,gun.rotation);
     
@@ -104,13 +95,11 @@ public class Gun : MonoBehaviour
             {
                 reaload = true;
                 RealoadingLogic();
-
             }
             else if (MagazineInGun == 0 && TotalAmmo > 0)
             {
                 reaload = true;
                 RealoadingLogic();
-
             }
         }
       
@@ -149,13 +138,6 @@ public class Gun : MonoBehaviour
         }
     }
 
-    IEnumerator IsRealoading()
-    {
-       
-        yield return new WaitForSeconds(1);
-        Reloading();
-
-    }
-
+ 
 
 }
