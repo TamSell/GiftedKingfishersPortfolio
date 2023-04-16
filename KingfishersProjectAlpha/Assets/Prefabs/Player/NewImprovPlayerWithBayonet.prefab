@@ -240,9 +240,12 @@ MonoBehaviour:
   jumpMax: 1
   HP: 20
   RunFOV: 52.1
-  RunSpeed: 10
+  DashFOV: 1
+  RunSpeed: 9.09
+  DashSpeed: 205
   Stamina: 10
   isrunning: 0
+  isDashing: 0
 --- !u!33 &3888485879064415450
 MeshFilter:
   m_ObjectHideFlags: 0

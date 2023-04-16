@@ -15,11 +15,14 @@ public class PlayerController : MonoBehaviour, Damage
     [Range(1, 4)][SerializeField] int jumpMax;
     [Range(1, 20)][SerializeField] int HP;
     [Range(1, 200)][SerializeField] float RunFOV;
+    [Range(1, 200)][SerializeField] float DashFOV;
     [Range(0, 10)][SerializeField] float RunSpeed;
+    [Range(5, 205)][SerializeField] float DashSpeed;
     [Range(0,10)] [SerializeField] float Stamina;
 
 
     float FOVorg;
+    
  
     int jumpTimes;
     private Vector3 playerVelocity;
@@ -27,6 +30,9 @@ public class PlayerController : MonoBehaviour, Damage
     Vector3 move;
     int HPorig;
     public bool isrunning;
+    public bool isDashing;
+    
+    int dash;
    
 
     // Start is called before the first frame update
@@ -42,8 +48,9 @@ public class PlayerController : MonoBehaviour, Damage
     // Update is called once per frame
     void Update()
     {
-
+        Dash();
         movement();
+
     }
 
     void movement()
@@ -59,8 +66,8 @@ public class PlayerController : MonoBehaviour, Damage
 
         if(Input.GetButton("Run"))
         {
-            isrunning = true;
 
+            isrunning = true;
             if(Stamina > 0 && isrunning)
             {
                 Camera.main.fieldOfView = RunFOV;
@@ -74,15 +81,16 @@ public class PlayerController : MonoBehaviour, Damage
                 Camera.main.fieldOfView = FOVorg;
             }
           
-       }
+        }
         else
         {
+          
             isrunning = false;
                 Camera.main.fieldOfView = FOVorg;
                 controller.Move(move * Time.deltaTime * PlayerSpeed);
                 if (Stamina <= 10)
                 {
-                    Stamina += 2 * Time.deltaTime;
+                    Stamina += 1 * Time.deltaTime;
                 }        
         }
         controller.Move(move * Time.deltaTime * PlayerSpeed);
@@ -95,6 +103,22 @@ public class PlayerController : MonoBehaviour, Damage
         }
         playerVelocity.y -= gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime); 
+    }
+
+    void Dash()
+    {
+       
+        if(Input.GetButtonDown("Dash"))
+        {
+            
+            if (Stamina > 3)
+            {
+                Camera.main.fieldOfView = DashFOV;
+                controller.Move(move * Time.deltaTime * (PlayerSpeed + DashSpeed));
+                Stamina -= 3;
+            }
+        }
+
     }
 
     public void TakeDamage(int amount)
