@@ -25,8 +25,7 @@ public class Gun : MonoBehaviour
     public Transform gun;
 
    
-    float timer;
-
+   
     
 
     // Start is called before the first frame update
@@ -39,12 +38,12 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //fix bug for realoading extra ammo
         if(MagazineInGun>MagTotalAmmo)
         {
             MagazineInGun = MagTotalAmmo;
         }
-        timer += Time.deltaTime;
-
+   
         Reloading();
         if (reaload == true)
         {
