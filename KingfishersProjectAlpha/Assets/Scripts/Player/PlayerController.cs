@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour, Damage
     int jumpTimes;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
+    private float StaminaOrig;
     Vector3 move;
     int HPorig;
     public bool isrunning;
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour, Damage
     void Start()
     {
         HPorig = HP;
+        StaminaOrig = Stamina;
         PLayerUpdateUI();
         FOVorg = Camera.main.fieldOfView;
         respawnPlayer();
@@ -102,7 +104,8 @@ public class PlayerController : MonoBehaviour, Damage
             playerVelocity.y = jumpHeight;
         }
         playerVelocity.y -= gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime); 
+        controller.Move(playerVelocity * Time.deltaTime);
+        PLayerUpdateUI();
     }
 
     void Dash()
@@ -133,6 +136,7 @@ public class PlayerController : MonoBehaviour, Damage
     
     void PLayerUpdateUI()
     {
+        gameManager.Instance.SBar.fillAmount = Stamina / StaminaOrig;
         gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig; 
     }
 

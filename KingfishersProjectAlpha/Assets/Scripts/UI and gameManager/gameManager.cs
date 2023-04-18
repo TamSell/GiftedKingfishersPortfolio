@@ -20,6 +20,7 @@ public class gameManager : MonoBehaviour
     public GameObject WinMenu;
     public GameObject PauseMenu;
     public Image HPbar;
+    public Image SBar;
     public TextMeshProUGUI enemyCount;
     public GameObject reticle;
 
