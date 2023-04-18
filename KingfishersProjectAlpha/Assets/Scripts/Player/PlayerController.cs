@@ -14,21 +14,27 @@ public class PlayerController : MonoBehaviour, Damage
     [Range(3, 25)][SerializeField] float gravityValue;
     [Range(1, 4)][SerializeField] int jumpMax;
     [Range(1, 20)][SerializeField] int HP;
+
+    [Range(1, 200)][SerializeField] float FOVorg;
     [Range(1, 200)][SerializeField] float RunFOV;
-    [Range(1, 200)][SerializeField] float DashFOV;
+
+    [Header("-------Player Movement--------")]
     [Range(0, 10)][SerializeField] float RunSpeed;
-    [Range(5, 205)][SerializeField] float DashSpeed;
-    [Range(0,10)] [SerializeField] float Stamina;
+    [Range(5, 250)][SerializeField] float MaxDashSpeed;
+    [Range(5, 205)][SerializeField] float MidDashSpeed;
+    [Range(5, 205)][SerializeField] float LowDashSpeed;
+    [Range(0,30)][SerializeField] float MaxStamina;
+    [SerializeField] float Stamina;
+    
 
 
-    float FOVorg;
     
  
     int jumpTimes;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     private float StaminaOrig;
-    Vector3 move;
+    public Vector3 move;
     int HPorig;
     public bool isrunning;
     public bool isDashing;
@@ -64,64 +70,98 @@ public class PlayerController : MonoBehaviour, Damage
             jumpTimes = 0;
         }
 
+        Run();
+
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
-
-        if(Input.GetButton("Run"))
-        {
-
-            isrunning = true;
-            if(Stamina > 0 && isrunning)
-            {
-                Camera.main.fieldOfView = RunFOV;
-                controller.Move(move * Time.deltaTime * (PlayerSpeed + RunSpeed));
-                Stamina -= 3 * Time.deltaTime;
-               
-            }
-            else if(Stamina<=0)
-            {
-                isrunning=false;
-                Camera.main.fieldOfView = FOVorg;
-            }
-          
-        }
-        else
-        {
-          
-            isrunning = false;
-                Camera.main.fieldOfView = FOVorg;
-                controller.Move(move * Time.deltaTime * PlayerSpeed);
-                if (Stamina <= 10)
-                {
-                    Stamina += 1 * Time.deltaTime;
-                }        
-        }
         controller.Move(move * Time.deltaTime * PlayerSpeed);
 
+        Jump();
+      
+        playerVelocity.y -= gravityValue * Time.deltaTime;
+        controller.Move(playerVelocity * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && jumpTimes<jumpMax)
+        PLayerUpdateUI();
+    }
+    void Jump()
+    {
+        if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax)
         {
             jumpTimes++;
             playerVelocity.y = jumpHeight;
+            Stamina -= 5;
         }
-        playerVelocity.y -= gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-        PLayerUpdateUI();
+    }
+    void Run()
+    {
+        if (move.x != 0 && move.z != 0)
+        {
+            if (Input.GetButton("Run"))
+            {
+
+                isrunning = true;
+                if (Stamina > 0 && isrunning)
+                {
+                    Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, RunFOV, Time.deltaTime * 2.5f);
+                    controller.Move(move * Time.deltaTime * (PlayerSpeed + RunSpeed));
+                    Stamina -= 3 * Time.deltaTime;
+
+                }
+                else if (Stamina <= 0)
+                {
+                    isrunning = false;
+                    Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, FOVorg, Time.deltaTime * 2.5f);
+                }
+
+            }
+            else
+            {
+
+                isrunning = false;
+                Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, FOVorg, Time.deltaTime * 2.5f);
+                controller.Move(move * Time.deltaTime * PlayerSpeed);
+                StaminaRecovery();
+            }
+        }
+        else
+        {
+            StaminaRecovery();
+        }
     }
 
     void Dash()
     {
-       
+       if(move.x==0&&move.z==0)
+        {
+            return;
+        }
         if(Input.GetButtonDown("Dash"))
         {
             
-            if (Stamina > 3)
+            if (Stamina >=8)
             {
-                Camera.main.fieldOfView = DashFOV;
-                controller.Move(move * Time.deltaTime * (PlayerSpeed + DashSpeed));
-                Stamina -= 3;
+               
+                controller.Move(move * Time.deltaTime * (PlayerSpeed + MaxDashSpeed));
+                Stamina -= 12;
+            }
+            else if(Stamina >=5)
+            {
+                controller.Move(move * Time.deltaTime * (PlayerSpeed + MidDashSpeed));
+                Stamina -= 7;
+            }
+            else if(Stamina >=3)
+            {
+                controller.Move(move * Time.deltaTime * (PlayerSpeed + LowDashSpeed));
+                Stamina -= 5;
             }
         }
 
+    }
+    void StaminaRecovery()
+    {
+        if (Stamina <= MaxStamina)
+        {
+            Stamina += 1 * Time.deltaTime;
+        }
     }
 
     public void TakeDamage(int amount)

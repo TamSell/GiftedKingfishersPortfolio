@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour
 {
+    [Header("----Melee Settings----")]
     [SerializeField] int damage;
     [SerializeField] bool ChargeRunningWeapon;
     [Range(0,10)][SerializeField]float RunningTime;
@@ -40,7 +41,6 @@ public class MeleeWeapon : MonoBehaviour
         {
             if(Input.GetButton("Run"))
             {
-              
                 if(RunningTime > ChargeTime)
                 {
                     Damage canDamage = other.GetComponent<Damage>();
