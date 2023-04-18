@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6439969827876548607}
   - component: {fileID: 6452812408270153723}
+  - component: {fileID: 2223064393930954424}
   m_Layer: 0
   m_Name: Gun switching
   m_TagString: Untagged
@@ -78,6 +79,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedWeapon: 0
+--- !u!114 &2223064393930954424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721620505542266330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f6a0309f70b4f468fb8c01a161c7cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smooth: 8
+  WalkingSway: 2
+  RunningSway: 6
 --- !u!1 &3052307395780205051
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,11 +255,15 @@ MonoBehaviour:
   gravityValue: 25
   jumpMax: 1
   HP: 20
+  FOVorg: 0
   RunFOV: 52.1
-  DashFOV: 1
   RunSpeed: 9.09
-  DashSpeed: 205
+  MaxDashSpeed: 0
+  MidDashSpeed: 0
+  LowDashSpeed: 0
+  MaxStamina: 0
   Stamina: 10
+  move: {x: 0, y: 0, z: 0}
   isrunning: 0
   isDashing: 0
 --- !u!33 &3888485879064415450
@@ -586,6 +606,7 @@ MonoBehaviour:
   damage: 5
   ChargeRunningWeapon: 1
   RunningTime: 0
+  ChargeTime: 0
 --- !u!33 &8187762734005503447
 MeshFilter:
   m_ObjectHideFlags: 0
