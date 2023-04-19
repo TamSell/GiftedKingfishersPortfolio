@@ -94,6 +94,7 @@ MonoBehaviour:
   smooth: 8
   WalkingSway: 2
   RunningSway: 4
+  gun: {fileID: 0}
 --- !u!1 &3052307395780205051
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,6 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4970210820211164492}
+  - component: {fileID: 3224553226144041418}
   - component: {fileID: 4927078536547443419}
   - component: {fileID: 1925072456872265587}
   - component: {fileID: 2117694586391785075}
@@ -130,6 +132,22 @@ Transform:
   m_Father: {fileID: 6439969827876548607}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 15.314, y: 89.851, z: 88.769}
+--- !u!114 &3224553226144041418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052307395780205051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f6a0309f70b4f468fb8c01a161c7cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smooth: 3
+  WalkingSway: 8
+  RunningSway: 10
+  gun: {fileID: 0}
 --- !u!114 &4927078536547443419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,9 +165,11 @@ MonoBehaviour:
   TotalAmmo: 60
   realoadSpeed: 0
   reaload: 0
+  smooth: 0
+  gun: {fileID: 0}
   isShooting: 0
   bullet: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
-  gun: {fileID: 1335804459271867474}
+  Barrel: {fileID: 1335804459271867474}
 --- !u!33 &1925072456872265587
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -214,7 +234,7 @@ GameObject:
   - component: {fileID: 8918496307258925940}
   - component: {fileID: 5199712436136606037}
   - component: {fileID: 7175073579193368477}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: NewImprovPlayerWithBayonet
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -357,6 +377,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 254231583990881734}
+  - component: {fileID: 163589610150054377}
   - component: {fileID: 7652006279450957393}
   - component: {fileID: 2291422606624538581}
   - component: {fileID: 8004796590048876484}
@@ -383,6 +404,22 @@ Transform:
   m_Father: {fileID: 6439969827876548607}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -2.258, y: 90.873, z: -2.18}
+--- !u!114 &163589610150054377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6372879136111794897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f6a0309f70b4f468fb8c01a161c7cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smooth: 4
+  WalkingSway: 12
+  RunningSway: 14
+  gun: {fileID: 0}
 --- !u!114 &7652006279450957393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,9 +437,11 @@ MonoBehaviour:
   TotalAmmo: 24
   realoadSpeed: 0
   reaload: 0
+  smooth: 0
+  gun: {fileID: 0}
   isShooting: 0
   bullet: {fileID: 3808675602889121583, guid: 4dea062e3e3edc64a918a886b85513c3, type: 3}
-  gun: {fileID: 383803234096959524}
+  Barrel: {fileID: 383803234096959524}
 --- !u!33 &2291422606624538581
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -584,7 +623,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8187762734005503451}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 1.1, z: 0.8}
+  m_LocalPosition: {x: -0.01, y: 1.145, z: 0.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -670,7 +709,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.1, z: 1}
-  m_Center: {x: 0, y: 0.45, z: 0}
+  m_Center: {x: 0, y: 0.55, z: 0}
 --- !u!54 &8187762734005503441
 Rigidbody:
   m_ObjectHideFlags: 0

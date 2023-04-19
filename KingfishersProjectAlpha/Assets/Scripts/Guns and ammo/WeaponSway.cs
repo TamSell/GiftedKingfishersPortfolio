@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class WeaponSway : MonoBehaviour
 {
     [Header("----Sway Setting------")]
@@ -9,13 +10,20 @@ public class WeaponSway : MonoBehaviour
     [SerializeField]  float WalkingSway;
     [SerializeField] float RunningSway;
 
-   
+
+    private Quaternion Original;
     float mouseX;
     float mouseY;
+    private void Start()
+    {
+        Original = transform.localRotation;
+    }
 
     private void Update()
     {
-      
+
+        
+
         if(gameManager.Instance.playerController.isrunning==false)
         {
              mouseX = Input.GetAxisRaw("Mouse X") * WalkingSway;
@@ -32,7 +40,7 @@ public class WeaponSway : MonoBehaviour
         Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
         Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
 
-        Quaternion targetRottaion = rotationX * rotationY;
+        Quaternion targetRottaion =Original* rotationX * rotationY;
 
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRottaion, smooth * Time.deltaTime);
     }

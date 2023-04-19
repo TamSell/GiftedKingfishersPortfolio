@@ -7,24 +7,29 @@ using UnityEngine.UIElements;
 
 public class Gun : MonoBehaviour
 {
-   
+    [Header("----Guns stats-----")]
     [Range(0.1f,2)][SerializeField] float ShootRate;
     [Range(0,30)][SerializeField] int MagazineInGun;
     [Range(0,60)][SerializeField] int TotalAmmo;
     [SerializeField] int realoadSpeed;
-
-
     [SerializeField]bool reaload;
+    [SerializeField] public float smooth;
+    [SerializeField] public Gun gun;
 
-  
+    
+
+
+
+    float timePressed;
     int MagTotalAmmo;
     public bool isShooting;
     int TempAmmo;
     int ammoToInsert;
     public GameObject bullet ;
-    public Transform gun;
+    public Transform Barrel;
 
-   
+
+    
    
     
 
@@ -38,6 +43,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //fix bug for realoading extra ammo
         if(MagazineInGun>MagTotalAmmo)
         {
@@ -55,6 +61,7 @@ public class Gun : MonoBehaviour
         }
     }
 
+   
     public void shooting()
     {
         if(MagazineInGun ==0)
@@ -73,7 +80,7 @@ public class Gun : MonoBehaviour
     IEnumerator shoot()
     {
         isShooting = true;
-        Instantiate(bullet, gun.position,gun.rotation);
+        Instantiate(bullet, Barrel.position,Barrel.rotation);
     
         yield return new WaitForSeconds(ShootRate);
         isShooting = false;
