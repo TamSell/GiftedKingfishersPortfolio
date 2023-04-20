@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour, Damage
     void PLayerUpdateUI()
     {
         gameManager.Instance.SBar.fillAmount = Stamina / StaminaOrig;
-        gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig; 
+        gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig;
     }
 
     public void respawnPlayer()

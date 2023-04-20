@@ -2452,6 +2452,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2005116116826305968, guid: 251c8624e01c15b468d2b8804159d173, type: 3}
   m_PrefabInstance: {fileID: 414011814}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &414284098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5462111217842190751, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+  m_PrefabInstance: {fileID: 1910159631}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &420729487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2845,6 +2856,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 477036013}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &481880814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3894114557834566643, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+  m_PrefabInstance: {fileID: 1910159631}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &491116799
 GameObject:
   m_ObjectHideFlags: 0
@@ -6098,6 +6120,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4927078536547443419, guid: a111a70852ab3fc4295ccda4f4a5f47f, type: 3}
+      propertyPath: magSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927078536547443419, guid: a111a70852ab3fc4295ccda4f4a5f47f, type: 3}
+      propertyPath: totalAmmo
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6013861308566766163, guid: a111a70852ab3fc4295ccda4f4a5f47f, type: 3}
       propertyPath: m_Name
       value: NewImprovPlayerWithBayonet
@@ -8445,9 +8475,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1747491719483795940, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+      propertyPath: mag
+      value: 
+      objectReference: {fileID: 414284098}
+    - target: {fileID: 1747491719483795940, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
       propertyPath: SBar
       value: 
       objectReference: {fileID: 708068831}
+    - target: {fileID: 1747491719483795940, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+      propertyPath: reserve
+      value: 
+      objectReference: {fileID: 481880814}
     - target: {fileID: 1747491719483795940, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
       propertyPath: PlayerModel
       value: 
