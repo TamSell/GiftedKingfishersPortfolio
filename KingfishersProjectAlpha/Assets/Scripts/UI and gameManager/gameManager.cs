@@ -15,6 +15,7 @@ public class gameManager : MonoBehaviour
 
 
     [Header("------ UI Elements ------")]
+    [SerializeField] GameObject Inventory;
     private GameObject activeMenu;
     public GameObject LostMenu;
     public GameObject WinMenu;
@@ -60,6 +61,7 @@ public class gameManager : MonoBehaviour
     }
     public void pause()
     {
+        SBar.enabled = false;
         reticle.SetActive(false);
         Time.timeScale = 0;
         Cursor.visible = true;
@@ -68,6 +70,7 @@ public class gameManager : MonoBehaviour
 
     public void unpause()
     {
+        SBar.enabled = true;
         reticle.SetActive(true);
         Time.timeScale = timeScaleO;
         Cursor.visible = false;

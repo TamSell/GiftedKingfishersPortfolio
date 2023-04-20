@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour, Damage
     {
         if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax)
         {
+            gameManager.Instance.SBar.enabled = true;
             jumpTimes++;
             playerVelocity.y = jumpHeight;
             Stamina -= 5;
@@ -97,7 +98,7 @@ public class PlayerController : MonoBehaviour, Damage
         {
             if (Input.GetButton("Run"))
             {
-
+                gameManager.Instance.SBar.enabled = true;
                 isrunning = true;
                 if (Stamina > 0 && isrunning)
                 {
@@ -136,7 +137,7 @@ public class PlayerController : MonoBehaviour, Damage
         }
         if(Input.GetButtonDown("Dash"))
         {
-            
+            gameManager.Instance.SBar.enabled = true;
             if (Stamina >=8)
             {
                
@@ -158,9 +159,13 @@ public class PlayerController : MonoBehaviour, Damage
     }
     void StaminaRecovery()
     {
-        if (Stamina <= MaxStamina)
+        if (Stamina < MaxStamina)
         {
             Stamina += 1 * Time.deltaTime;
+        }
+        else
+        {
+            gameManager.Instance.SBar.enabled = false;
         }
     }
 
