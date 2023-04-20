@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6439969827876548607}
   - component: {fileID: 6452812408270153723}
-  - component: {fileID: 2223064393930954424}
   m_Layer: 0
   m_Name: Gun switching
   m_TagString: Untagged
@@ -79,22 +78,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedWeapon: 0
---- !u!114 &2223064393930954424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721620505542266330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f6a0309f70b4f468fb8c01a161c7cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smooth: 8
-  WalkingSway: 2
-  RunningSway: 4
-  gun: {fileID: 0}
 --- !u!1 &3052307395780205051
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +105,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3052307395780205051}
-  m_LocalRotation: {x: 0.55697376, y: 0.43419465, z: 0.42358294, w: 0.56730306}
+  m_LocalRotation: {x: -0.699443, y: 0.01877333, z: 0.02053644, w: -0.7141466}
   m_LocalPosition: {x: -0.022, y: -0.30799997, z: 0.6809998}
   m_LocalScale: {x: 0.06752652, y: 0.5595697, z: 0.06693922}
   m_ConstrainProportionsScale: 0
@@ -131,7 +114,7 @@ Transform:
   - {fileID: 8187762734005503450}
   m_Father: {fileID: 6439969827876548607}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 15.314, y: 89.851, z: 88.769}
+  m_LocalEulerAnglesHint: {x: -273.401, y: -69.42, z: -69.563}
 --- !u!114 &3224553226144041418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +130,6 @@ MonoBehaviour:
   smooth: 3
   WalkingSway: 8
   RunningSway: 10
-  gun: {fileID: 0}
 --- !u!114 &4927078536547443419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,9 +399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smooth: 4
-  WalkingSway: 12
-  RunningSway: 14
-  gun: {fileID: 0}
+  WalkingSway: 1
+  RunningSway: 1
 --- !u!114 &7652006279450957393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,7 +656,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 12932df33d3168642bafd8df157f13eb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
