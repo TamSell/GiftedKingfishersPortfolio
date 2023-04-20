@@ -23,6 +23,8 @@ public class gameManager : MonoBehaviour
     public Image SBar;
     public TextMeshProUGUI enemyCount;
     public GameObject reticle;
+    public TextMeshProUGUI mag;
+    public TextMeshProUGUI reserve;
 
     public bool inMenu;
     int enemyRemain;
@@ -96,5 +98,11 @@ public class gameManager : MonoBehaviour
         activeMenu = menu;
         activeMenu.SetActive(true);
 
+    }
+
+    public void loadText(int totalAmmo, int currentMag)
+    {
+        reserve.text = totalAmmo.ToString("F0");
+        mag.text = currentMag.ToString("F0");
     }
 }
