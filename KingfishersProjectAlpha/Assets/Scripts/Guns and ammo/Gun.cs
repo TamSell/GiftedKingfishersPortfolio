@@ -2,49 +2,48 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Gun : MonoBehaviour
 {
-   
+    [Header("----Gun Basic Stats-----")]
     [Range(0.1f,2)][SerializeField] float ShootRate;
-    [Range(0,30)][SerializeField] int MagazineInGun;
-    [Range(0,60)][SerializeField] int TotalAmmo;
     [SerializeField] int realoadSpeed;
-
-
     [SerializeField]bool reaload;
+    [SerializeField] public float smooth;
+    [SerializeField] public Gun gun;
 
-  
-    int MagTotalAmmo;
+    [Header("----- Ammo -----")]
+    [Range(0, 30)][SerializeField] int magSize;
+    [Range(0, 300)][SerializeField] int totalAmmo;
+
+
+
+
+    float timePressed;
     public bool isShooting;
-    int TempAmmo;
+    public int currentMag;
     int ammoToInsert;
     public GameObject bullet ;
-    public Transform gun;
+    public Transform Barrel;
 
+
+    
    
-    float timer;
-
     
 
     // Start is called before the first frame update
     void Start()
     {
-        MagTotalAmmo = MagazineInGun;
-       
+        RealoadingLogic();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(MagazineInGun>MagTotalAmmo)
-        {
-            MagazineInGun = MagTotalAmmo;
-        }
-        timer += Time.deltaTime;
-
+   
         Reloading();
         if (reaload == true)
         {
@@ -56,9 +55,10 @@ public class Gun : MonoBehaviour
         }
     }
 
+   
     public void shooting()
     {
-        if(MagazineInGun ==0)
+        if(currentMag == 0)
         {
             return;
         }
@@ -74,17 +74,17 @@ public class Gun : MonoBehaviour
     IEnumerator shoot()
     {
         isShooting = true;
-        Instantiate(bullet, gun.position,gun.rotation);
-    
+        Instantiate(bullet, Barrel.position,Barrel.rotation);
         yield return new WaitForSeconds(ShootRate);
         isShooting = false;
         CountOfBullets(-1);
+        gameManager.Instance.loadText(totalAmmo, currentMag);
 
     }
 
     public void CountOfBullets(int ammount)
     {
-        MagazineInGun+= ammount;
+        currentMag += ammount;
     }
 
     public void Reloading()
@@ -96,7 +96,7 @@ public class Gun : MonoBehaviour
                 reaload = true;
                 RealoadingLogic();
             }
-            else if (MagazineInGun == 0 && TotalAmmo > 0)
+            else if (currentMag == 0 && totalAmmo > 0)
             {
                 reaload = true;
                 RealoadingLogic();
@@ -106,38 +106,58 @@ public class Gun : MonoBehaviour
     }
     public void RealoadingLogic()
     {
-        if(TotalAmmo == 0)
+        //if(TotalAmmo == 0)
+        //{
+        //    return;
+        //}
+        //if (TotalAmmo >= MagTotalAmmo)
+        //{
+        //    ammoToInsert = MagTotalAmmo - MagazineInGun;
+        //    TotalAmmo -= ammoToInsert;
+        //    MagazineInGun += ammoToInsert;
+        //}
+        //else if(MagTotalAmmo >= TotalAmmo)
+        //{
+        //    ammoToInsert = MagTotalAmmo  - MagazineInGun;
+        //    currentMag = TotalAmmo;
+        //    TotalAmmo -= ammoToInsert;
+        //    if(TotalAmmo <=0)
+        //    {
+        //        TotalAmmo = currentMag;
+        //        MagazineInGun += TotalAmmo;
+        //        TotalAmmo -= TotalAmmo;
+        //        return;
+        //    }
+        //    MagazineInGun += ammoToInsert;
+        //}
+        //else if(MagazineInGun == 0)
+        //{
+        //    ammoToInsert = TotalAmmo;
+        //    TotalAmmo -= ammoToInsert;
+        //    MagazineInGun += ammoToInsert;
+        //}
+        if(totalAmmo == 0)
         {
             return;
         }
-         if (TotalAmmo >= MagTotalAmmo)
+        else
         {
-            ammoToInsert = MagTotalAmmo - MagazineInGun;
-            TotalAmmo -= ammoToInsert;
-            MagazineInGun += ammoToInsert;
-        }
-        else if(MagTotalAmmo >= TotalAmmo)
-        {
-            ammoToInsert = MagTotalAmmo  - MagazineInGun;
-            TempAmmo = TotalAmmo;
-            TotalAmmo -= ammoToInsert;
-            if(TotalAmmo <=0)
+            if(totalAmmo >= magSize)
             {
-                TotalAmmo = TempAmmo;
-                MagazineInGun += TotalAmmo;
-                TotalAmmo -= TotalAmmo;
-                return;
+                totalAmmo = totalAmmo - (magSize - currentMag);
+                currentMag = magSize;
+                gameManager.Instance.loadText(totalAmmo, currentMag);
             }
-            MagazineInGun += ammoToInsert;
-        }
-        else if(MagazineInGun == 0)
-        {
-            ammoToInsert = TotalAmmo;
-            TotalAmmo -= ammoToInsert;
-            MagazineInGun += ammoToInsert;
+            else
+            {
+                currentMag += totalAmmo;
+                totalAmmo = 0;
+                gameManager.Instance.loadText(totalAmmo, currentMag);
+            }
         }
     }
 
- 
+
+
 
 }

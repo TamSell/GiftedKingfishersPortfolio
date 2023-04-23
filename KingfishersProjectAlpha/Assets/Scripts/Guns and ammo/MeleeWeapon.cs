@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour
 {
+    [Header("----Melee Settings----")]
     [SerializeField] int damage;
     [SerializeField] bool ChargeRunningWeapon;
     [Range(0,10)][SerializeField]float RunningTime;
+    [Range(0.1f, 2.0f)][SerializeField] float ChargeTime;
+
+    [SerializeField] BoxCollider box;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,15 +42,18 @@ public class MeleeWeapon : MonoBehaviour
         }
         if(ChargeRunningWeapon == true)
         {
+           // box.enabled = false;
+            
             if(Input.GetButton("Run"))
             {
-              
-                if(RunningTime > 0.6)
+
+                if(RunningTime > ChargeTime)
                 {
                     Damage canDamage = other.GetComponent<Damage>();
 
                     if (canDamage != null)
                     {
+                      //  box.enabled=true;
                         canDamage.TakeDamage(damage);
                     }
                 }
