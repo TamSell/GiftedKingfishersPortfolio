@@ -21,11 +21,15 @@ public class gameManager : MonoBehaviour
     public GameObject WinMenu;
     public GameObject PauseMenu;
     public Image HPbar;
+    public Image HPbarBack;
     public Image SBar;
+    public TextMeshProUGUI enemyCountTitle;
     public TextMeshProUGUI enemyCount;
     public GameObject reticle;
+    public TextMeshProUGUI magDivReserve;
     public TextMeshProUGUI mag;
     public TextMeshProUGUI reserve;
+    [SerializeField] GameObject viewInv;
 
     public bool inMenu;
     int enemyRemain;
@@ -44,7 +48,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && activeMenu == null)
+        if (Input.GetButtonDown("Cancel") && (activeMenu == null || activeMenu == PauseMenu))
         {
             inMenu = !inMenu;
             setMenu(PauseMenu);
@@ -56,13 +60,24 @@ public class gameManager : MonoBehaviour
             {
                 unpause();
             }
-
+        }
+        if(Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == viewInv))
+        {
+            inMenu = !inMenu;
+            setMenu(viewInv);
+            if (inMenu)
+            {
+                pause();
+            }
+            else
+            {
+                unpause();
+            }
         }
     }
     public void pause()
     {
-        SBar.enabled = false;
-        reticle.SetActive(false);
+        turnOffUI();
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
@@ -70,8 +85,7 @@ public class gameManager : MonoBehaviour
 
     public void unpause()
     {
-        SBar.enabled = true;
-        reticle.SetActive(true);
+        turnOnUI();
         Time.timeScale = timeScaleO;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -107,5 +121,36 @@ public class gameManager : MonoBehaviour
     {
         reserve.text = totalAmmo.ToString("F0");
         mag.text = currentMag.ToString("F0");
+    }
+
+    public void turnOffUI()
+    {
+        SBar.enabled = false;
+        HPbar.enabled = false;
+        HPbarBack.enabled = false;
+        reticle.SetActive(false);
+        enemyCountTitle.enabled = false;
+        enemyCount.enabled = false;
+        magDivReserve.enabled = false;
+        mag.enabled = false;
+        reserve.enabled = false;
+    }
+
+    public void turnOnUI()
+    {
+        SBar.enabled = true;
+        HPbar.enabled = true;
+        HPbarBack.enabled = true;
+        reticle.SetActive(true);
+        enemyCountTitle.enabled = true;
+        enemyCount.enabled = true;
+        magDivReserve.enabled = true;
+        mag.enabled = true;
+        reserve.enabled = true;
+    }
+
+    IEnumerator Wait(float numSec)
+    {
+        yield return new WaitForSeconds(numSec);
     }
 }
