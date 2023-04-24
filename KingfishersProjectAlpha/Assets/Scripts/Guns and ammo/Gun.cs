@@ -12,8 +12,8 @@ public class Gun : MonoBehaviour
     [Range(0.1f,2)][SerializeField] float ShootRate;
     [SerializeField] int realoadSpeed;
     [SerializeField]bool reaload;
-    [SerializeField] public float smooth;
-    [SerializeField] public Gun gun;
+    [SerializeField] float RayGunDist;
+    [SerializeField] int RayGunDamage;
 
     [Header("----- Ammo -----")]
     [Range(0, 30)][SerializeField] int magSize;
@@ -28,6 +28,7 @@ public class Gun : MonoBehaviour
     int ammoToInsert;
     public GameObject bullet ;
     public Transform Barrel;
+    public bool RayCastWeapon;
 
 
     
@@ -43,16 +44,17 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-   
-        Reloading();
-        if (reaload == true)
-        {
-            Invoke("shooting", realoadSpeed); 
-        }
-        else
-        {
-            shooting(); 
-        }
+            Reloading();
+            if (reaload == true)
+            {
+                Invoke("shooting", realoadSpeed);
+            }
+            else
+            {
+                shooting();
+            }
+      
+        
     }
 
    
@@ -74,13 +76,33 @@ public class Gun : MonoBehaviour
     IEnumerator shoot()
     {
         isShooting = true;
-        Instantiate(bullet, Barrel.position,Barrel.rotation);
-        yield return new WaitForSeconds(ShootRate);
-        isShooting = false;
-        CountOfBullets(-1);
-        gameManager.Instance.loadText(totalAmmo, currentMag);
+        if(!RayCastWeapon)
+        {
+            Instantiate(bullet, Barrel.position, Barrel.rotation);
+            yield return new WaitForSeconds(ShootRate);
+            isShooting = false;
+            CountOfBullets(-1);
+            gameManager.Instance.loadText(totalAmmo, currentMag);
+        }
+        else
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
+            {
+                Damage damage = hit.collider.GetComponent<Damage>();
+                if(damage != null)
+                {
+                    damage.TakeDamage(RayGunDamage);
+                }
+            }
+            yield return new WaitForSeconds(ShootRate);
+            isShooting = false;
+            CountOfBullets(-1);
+        }
+
 
     }
+    
 
     public void CountOfBullets(int ammount)
     {
@@ -106,36 +128,7 @@ public class Gun : MonoBehaviour
     }
     public void RealoadingLogic()
     {
-        //if(TotalAmmo == 0)
-        //{
-        //    return;
-        //}
-        //if (TotalAmmo >= MagTotalAmmo)
-        //{
-        //    ammoToInsert = MagTotalAmmo - MagazineInGun;
-        //    TotalAmmo -= ammoToInsert;
-        //    MagazineInGun += ammoToInsert;
-        //}
-        //else if(MagTotalAmmo >= TotalAmmo)
-        //{
-        //    ammoToInsert = MagTotalAmmo  - MagazineInGun;
-        //    currentMag = TotalAmmo;
-        //    TotalAmmo -= ammoToInsert;
-        //    if(TotalAmmo <=0)
-        //    {
-        //        TotalAmmo = currentMag;
-        //        MagazineInGun += TotalAmmo;
-        //        TotalAmmo -= TotalAmmo;
-        //        return;
-        //    }
-        //    MagazineInGun += ammoToInsert;
-        //}
-        //else if(MagazineInGun == 0)
-        //{
-        //    ammoToInsert = TotalAmmo;
-        //    TotalAmmo -= ammoToInsert;
-        //    MagazineInGun += ammoToInsert;
-        //}
+       
         if(totalAmmo == 0)
         {
             return;

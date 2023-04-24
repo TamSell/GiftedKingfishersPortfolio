@@ -6,7 +6,7 @@ public class CheckPoints : MonoBehaviour
 {
     [SerializeField] Renderer model;
     [SerializeField] GameObject triggerEffect;
-    
+    GameObject effect;
 
     private void OnTriggerEnter(Collider other)
     {  
@@ -16,7 +16,9 @@ public class CheckPoints : MonoBehaviour
             if(triggerEffect)
             {
                 StartCoroutine(fashColor());
-                Instantiate(triggerEffect, transform.position, triggerEffect.transform.rotation);
+              effect =  Instantiate(triggerEffect, transform.position, triggerEffect.transform.rotation);
+             
+                Destroy(effect,5);
             }           
         }
     }
@@ -28,6 +30,8 @@ public class CheckPoints : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         model.material.color = Color.black;
         triggerEffect.SetActive(false);
+       
+  
     }
 
 }

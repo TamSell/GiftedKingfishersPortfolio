@@ -8,7 +8,9 @@ public class BulletSpeed : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float timer;
     [SerializeField] int damage;
+    [SerializeField] GameObject TriggerEffect;
 
+    GameObject effect;
     float timeToDestroy;
 
     // Start is called before the first frame update
@@ -35,6 +37,15 @@ public class BulletSpeed : MonoBehaviour
         {
             return;
         }
+        if (TriggerEffect)
+        {
+            StartCoroutine(hitEffect());
+            effect = Instantiate(TriggerEffect, transform.position, gameManager.Instance.PlayerModel.transform.rotation);
+
+            Destroy(effect, 5);
+        }
+
+
         Damage canDamage = other.GetComponent<Damage>();
 
         if (canDamage != null)
@@ -45,13 +56,14 @@ public class BulletSpeed : MonoBehaviour
     }
 
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.isTrigger)
-    //    {
-    //        return;
-    //    }
+    IEnumerator hitEffect()
+    {
+        TriggerEffect.SetActive(true);
+        
+        yield return new WaitForSeconds(0.5f);
+       
+        TriggerEffect.SetActive(false);
 
-     
-    //}
+
+    }
 }
