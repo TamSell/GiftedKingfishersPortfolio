@@ -10,7 +10,7 @@ public class NewEnemy : MonoBehaviour, Damage
 
     [Header("-- Stats --")]
     [SerializeField] int hitPoints;
-    [SerializeField] int runSpeed;
+    [SerializeField] int cameraTurnSpeed;
     [SerializeField] int cameraAngle;
     [SerializeField] int stoppDist;
     [SerializeField] int roamStopTime;
@@ -20,7 +20,6 @@ public class NewEnemy : MonoBehaviour, Damage
     [Header("-- Variables --")]
     Vector3 identVec;
     bool playerInRange;
-    float angleToPlayer;
     float stopDistOrig;
     bool destinationChosen;
     Vector3 startingPos;
@@ -33,13 +32,11 @@ public class NewEnemy : MonoBehaviour, Damage
     [Header("-- Melee Stats --")]
     [SerializeField] int MeleeDamage;
     [SerializeField] float MeleeRate;
-    [SerializeField] int MeleeDist;
-    [SerializeField] Transform swipePos;
 
 
 
     public GameObject meleeSwipe;
-    [SerializeField] bool isMeleeing;
+    bool isMeleeing;
 
 
     void Start()
@@ -111,7 +108,7 @@ public class NewEnemy : MonoBehaviour, Damage
     void FollowPlayer()
     {
         Quaternion enemyRotation = Quaternion.LookRotation(new Vector3(identVec.x, 0, identVec.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * runSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * cameraTurnSpeed);
     }
 
     IEnumerator roam()
