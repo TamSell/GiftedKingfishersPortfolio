@@ -123,6 +123,43 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: e767201bfffcf1146bf5c0e073d3d2bb, type: 2}
+--- !u!84 &311636474
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MirrorFrame's RenderTexture.
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 748
+  m_Height: 748
+  m_AntiAliasing: 8
+  m_MipCount: -1
+  m_DepthStencilFormat: 0
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 0
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 2
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1001 &654465023
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -725,7 +762,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1261121611
 PrefabInstance:
@@ -841,6 +878,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c1ab51284bfd4f4e93ffd51a1c1295a, type: 3}
+--- !u!1001 &1383001389
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -28.380253
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.8999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.0372276
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.69038385
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.72344327
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -92.679
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182602246768357353, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: m_Name
+      value: half pistol half scorpion
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c61089a524537f94db6698fa78106092, type: 3}
 --- !u!1 &1490743478
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,43 +1090,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13db786e1e34e7e42b1d79d80cea22fb, type: 3}
---- !u!84 &1844546504
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MirrorFrame's RenderTexture.
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 748
-  m_Height: 748
-  m_AntiAliasing: 8
-  m_MipCount: -1
-  m_DepthStencilFormat: 0
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 0
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 2
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1001 &2022020758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1086,6 +1143,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4860731158948960847, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7082155617803975617, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1156,7 +1217,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2802544320481998978, guid: 355db66d576b5394cb4d6bf7870be9b9, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2802544320481998978, guid: 355db66d576b5394cb4d6bf7870be9b9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1327,7 +1388,7 @@ PrefabInstance:
     - target: {fileID: 4450603593107296665, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1844546504}
+      objectReference: {fileID: 311636474}
     - target: {fileID: 4450603593107296665, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 991

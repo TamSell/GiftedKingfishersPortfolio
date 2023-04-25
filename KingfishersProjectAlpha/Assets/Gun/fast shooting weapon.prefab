@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &159736800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 159736801}
+  m_Layer: 0
+  m_Name: GunTip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &159736801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159736800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: -0, z: 4.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7081179780688275705}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7082155613820281231
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +289,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7081179780688275705}
+  - component: {fileID: 1331288779}
+  - component: {fileID: 1331288780}
   m_Layer: 0
   m_Name: fast shooting weapon
   m_TagString: Untagged
@@ -272,7 +305,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7082155616017713327}
-  m_LocalRotation: {x: -0, y: -0.72932833, z: -0, w: 0.6841639}
+  m_LocalRotation: {x: 0, y: -0.7293269, z: 0, w: 0.6841654}
   m_LocalPosition: {x: -25.684145, y: 2.1, z: -16.154}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
@@ -284,9 +317,51 @@ Transform:
   - {fileID: 7081179785648760203}
   - {fileID: 7081179782834093571}
   - {fileID: 7081179785711210899}
+  - {fileID: 159736801}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -93.66, z: 0}
+--- !u!114 &1331288779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082155616017713327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b067ea13732289f41abc26a66c1c6910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  ShootRate: 0.3
+  realoadSpeed: 2
+  reaload: 0
+  RayGunDist: 0
+  RayGunDamage: 0
+  RayGunEffect: {fileID: 0}
+  magSize: 30
+  totalAmmo: 122
+  isShooting: 0
+  currentMag: 0
+  bullet: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
+  Barrel: {fileID: 159736801}
+  RayCastWeapon: 0
+--- !u!114 &1331288780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082155616017713327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f6a0309f70b4f468fb8c01a161c7cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smooth: 3
+  WalkingSway: 8
+  RunningSway: 10
 --- !u!1 &7082155617260564745
 GameObject:
   m_ObjectHideFlags: 0

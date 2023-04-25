@@ -123,6 +123,7 @@ public class Gun : MonoBehaviour
             yield return new WaitForSeconds(ShootRate);
             isShooting = false;
             CountOfBullets(-1);
+            gameManager.Instance.loadText(totalAmmo, currentMag);
         }
        
         else
