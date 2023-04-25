@@ -34,7 +34,17 @@ public class GunSwitch : MonoBehaviour
             selectedWeapon = 1;
             StartCoroutine(Switch());
         }
-        
+        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            selectedWeapon = 2;
+            StartCoroutine(Switch());
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            selectedWeapon = 3;
+            StartCoroutine(Switch());
+        }
+
         if (previousSelectedWeapon != selectedWeapon)
           
                 //Invoke("SelectWeapon", 0.5f);

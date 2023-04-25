@@ -40,7 +40,7 @@ public class BulletSpeed : MonoBehaviour
         if (TriggerEffect)
         {
             StartCoroutine(hitEffect());
-            effect = Instantiate(TriggerEffect, transform.position, gameManager.Instance.PlayerModel.transform.rotation);
+            effect = Instantiate(TriggerEffect, transform.position, TriggerEffect.transform.rotation);
 
             Destroy(effect, 5);
         }

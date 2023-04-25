@@ -8,28 +8,32 @@ using UnityEngine.UIElements;
 
 public class Gun : MonoBehaviour
 {
+    [SerializeField] Transform cam;
+
     [Header("----Gun Basic Stats-----")]
     [Range(0.1f,2)][SerializeField] float ShootRate;
     [SerializeField] int realoadSpeed;
     [SerializeField]bool reaload;
+
+    [Header("-----RayTrace Gun Stats------")]
     [SerializeField] float RayGunDist;
     [SerializeField] int RayGunDamage;
-
+    [SerializeField] GameObject RayGunEffect;
+  
     [Header("----- Ammo -----")]
     [Range(0, 30)][SerializeField] int magSize;
     [Range(0, 300)][SerializeField] int totalAmmo;
 
 
 
-
-    float timePressed;
+   
+    
     public bool isShooting;
     public int currentMag;
-    int ammoToInsert;
-    public GameObject bullet ;
-    public Transform Barrel;
+    [SerializeField] GameObject bullet ;
+    [SerializeField] Transform Barrel;
     public bool RayCastWeapon;
-
+  
 
     
    
@@ -47,11 +51,18 @@ public class Gun : MonoBehaviour
             Reloading();
             if (reaload == true)
             {
-                Invoke("shooting", realoadSpeed);
+            Invoke("shooting", realoadSpeed);
+              if(RayCastWeapon)
+              {
+                RayGunEffect.SetActive(false);
+              }
+             
             }
             else
             {
-                shooting();
+            shooting();
+            RayCastSetActive();
+             
             }
       
         
@@ -70,27 +81,37 @@ public class Gun : MonoBehaviour
             StartCoroutine(shoot());   
         }
     }
+
+    public void RayCastSetActive()
+    {
+        if (currentMag == 0)
+        {
+           
+            return;
+        }
+        if (RayCastWeapon && Input.GetButton("Shoot"))
+        {
+            RayGunEffect.SetActive(true);
+        }
+        else
+        {
+            RayGunEffect.SetActive(false);
+        }
+      
+    }
    
 
 
     IEnumerator shoot()
     {
         isShooting = true;
-        if(!RayCastWeapon)
-        {
-            Instantiate(bullet, Barrel.position, Barrel.rotation);
-            yield return new WaitForSeconds(ShootRate);
-            isShooting = false;
-            CountOfBullets(-1);
-            gameManager.Instance.loadText(totalAmmo, currentMag);
-        }
-        else
+        if(RayCastWeapon)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
             {
                 Damage damage = hit.collider.GetComponent<Damage>();
-                if(damage != null)
+                if (damage != null)
                 {
                     damage.TakeDamage(RayGunDamage);
                 }
@@ -99,9 +120,24 @@ public class Gun : MonoBehaviour
             isShooting = false;
             CountOfBullets(-1);
         }
+       
+        else
+        {
+            Instantiate(bullet, Barrel.position, cam.rotation);
+            yield return new WaitForSeconds(ShootRate);
+            isShooting = false;
+            CountOfBullets(-1);
+            gameManager.Instance.loadText(totalAmmo, currentMag);
 
 
+        }
     }
+
+    
+
+
+
+
     
 
     public void CountOfBullets(int ammount)
@@ -149,8 +185,6 @@ public class Gun : MonoBehaviour
             }
         }
     }
-
-
 
 
 }
