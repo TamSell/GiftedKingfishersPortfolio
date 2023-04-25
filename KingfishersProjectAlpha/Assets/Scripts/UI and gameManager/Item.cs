@@ -49,4 +49,14 @@ public class Item : MonoBehaviour
     {
         amount = amnt;
     }
+
+    public Item CreateNullItem()
+    {
+        Item nullItem = new Item();
+        nullItem.SetAmount(0);
+        nullItem.SetDescription("");
+        nullItem.SetIcon(null);
+        nullItem.SetName("");
+        return nullItem;
+    }
 }

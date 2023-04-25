@@ -162,6 +162,8 @@ GameObject:
   m_Component:
   - component: {fileID: 825701335}
   - component: {fileID: 2248674386557102086}
+  - component: {fileID: 1149521507}
+  - component: {fileID: 1149521508}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -204,6 +206,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7118d82c3a0ba348b8b02b03df616e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invSize: 0
+--- !u!114 &1149521507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825701334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7118d82c3a0ba348b8b02b03df616e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invSize: 0
+--- !u!114 &1149521508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825701334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7118d82c3a0ba348b8b02b03df616e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invSize: 0
 --- !u!1 &1112153110
 GameObject:
   m_ObjectHideFlags: 0
@@ -4322,6 +4351,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7708100252625057393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8588316694312083258, guid: d01e04188bfcf5e4fb151f99e6c4515e, type: 3}
+  m_PrefabInstance: {fileID: 2150320186100017483}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6946117475450431939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4410,9 +4450,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1585901954226850902}
     - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
+      propertyPath: viewInv
+      value: 
+      objectReference: {fileID: 825701334}
+    - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
       propertyPath: LostMenu
       value: 
       objectReference: {fileID: 2150320184938237454}
+    - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
+      propertyPath: HPbarBack
+      value: 
+      objectReference: {fileID: 8641537527566622215}
+    - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
+      propertyPath: Inventory
+      value: 
+      objectReference: {fileID: 825701334}
     - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
       propertyPath: PauseMenu
       value: 
@@ -4425,6 +4477,14 @@ PrefabInstance:
       propertyPath: PlayerModel
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
+      propertyPath: magDivReserve
+      value: 
+      objectReference: {fileID: 7708100252625057393}
+    - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
+      propertyPath: enemyCountTitle
+      value: 
+      objectReference: {fileID: 3870831227674083905}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
 --- !u!4 &6204247194171169683 stripped
