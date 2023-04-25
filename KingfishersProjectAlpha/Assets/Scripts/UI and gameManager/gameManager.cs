@@ -29,7 +29,6 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI magDivReserve;
     public TextMeshProUGUI mag;
     public TextMeshProUGUI reserve;
-    [SerializeField] GameObject viewInv;
 
     public bool inMenu;
     int enemyRemain;
@@ -61,10 +60,10 @@ public class gameManager : MonoBehaviour
                 unpause();
             }
         }
-        if(Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == viewInv))
+        if(Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == Inventory))
         {
             inMenu = !inMenu;
-            setMenu(viewInv);
+            setMenu(Inventory);
             if (inMenu)
             {
                 pause();

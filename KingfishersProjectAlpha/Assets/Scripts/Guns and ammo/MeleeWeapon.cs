@@ -10,8 +10,11 @@ public class MeleeWeapon : MonoBehaviour
     [SerializeField] bool ChargeRunningWeapon;
     [Range(0,10)][SerializeField]float RunningTime;
     [Range(0.1f, 2.0f)][SerializeField] float ChargeTime;
+    [SerializeField] GameObject TriggerEffect;
 
     [SerializeField] BoxCollider box;
+
+    GameObject effect;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,11 +52,19 @@ public class MeleeWeapon : MonoBehaviour
 
                 if(RunningTime > ChargeTime)
                 {
+
                     Damage canDamage = other.GetComponent<Damage>();
 
                     if (canDamage != null)
                     {
-                      //  box.enabled=true;
+                        //  box.enabled=true;
+                        if (TriggerEffect)
+                        {
+                            StartCoroutine(hitEffect());
+                            effect = Instantiate(TriggerEffect, transform.position, gameManager.Instance.PlayerModel.transform.rotation);
+
+                            Destroy(effect, 5);
+                        }
                         canDamage.TakeDamage(damage);
                     }
                 }
@@ -62,4 +73,15 @@ public class MeleeWeapon : MonoBehaviour
         }
      
     }
+    IEnumerator hitEffect()
+    {
+        TriggerEffect.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        TriggerEffect.SetActive(false);
+
+
     }
+
+}

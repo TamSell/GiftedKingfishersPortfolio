@@ -62,6 +62,7 @@ Transform:
   m_Children:
   - {fileID: 4970210820211164492}
   - {fileID: 254231583990881734}
+  - {fileID: 1301466890}
   m_Father: {fileID: 6628151373766090116}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -97,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4970210820211164492
 Transform:
   m_ObjectHideFlags: 0
@@ -143,15 +144,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootRate: 0.3
-  MagazineInGun: 30
-  TotalAmmo: 60
-  realoadSpeed: 0
+  realoadSpeed: 2
   reaload: 0
-  smooth: 0
-  gun: {fileID: 0}
+  RayGunDist: 0
+  RayGunDamage: 0
+  RayGunEffect: {fileID: 0}
+  magSize: 30
+  totalAmmo: 122
   isShooting: 0
+  currentMag: 0
   bullet: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
   Barrel: {fileID: 1335804459271867474}
+  RayCastWeapon: 0
 --- !u!33 &1925072456872265587
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -413,16 +417,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b067ea13732289f41abc26a66c1c6910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootRate: 0.5
-  MagazineInGun: 8
-  TotalAmmo: 24
-  realoadSpeed: 0
+  ShootRate: 0.794
+  realoadSpeed: 4
   reaload: 0
-  smooth: 0
-  gun: {fileID: 0}
+  RayGunDist: 0
+  RayGunDamage: 0
+  RayGunEffect: {fileID: 0}
+  magSize: 8
+  totalAmmo: 78
   isShooting: 0
+  currentMag: 0
   bullet: {fileID: 3808675602889121583, guid: 4dea062e3e3edc64a918a886b85513c3, type: 3}
   Barrel: {fileID: 383803234096959524}
+  RayCastWeapon: 0
 --- !u!33 &2291422606624538581
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -627,6 +634,7 @@ MonoBehaviour:
   ChargeRunningWeapon: 1
   RunningTime: 0
   ChargeTime: 0
+  TriggerEffect: {fileID: 8371673183629246139, guid: 446f23527e94cf94a83bff3d53dd0a36, type: 3}
   box: {fileID: 8187762734005503445}
 --- !u!33 &8187762734005503447
 MeshFilter:
@@ -738,3 +746,69 @@ Transform:
   m_Father: {fileID: 254231583990881734}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1001 &5624444573250982187
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6439969827876548607}
+    m_Modifications:
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.118011236
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.45105004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.1279397
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816098, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: m_Name
+      value: FlameThrower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5624444574113816125, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+      propertyPath: RayGunEffect
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+--- !u!4 &1301466890 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5624444574113816097, guid: 00d0105ee3428034ba04c4096d6d2e5c, type: 3}
+  m_PrefabInstance: {fileID: 5624444573250982187}
+  m_PrefabAsset: {fileID: 0}
