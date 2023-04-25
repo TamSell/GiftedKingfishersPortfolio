@@ -89,15 +89,17 @@ public class Gun : MonoBehaviour
            
             return;
         }
-        if (RayCastWeapon && Input.GetButton("Shoot"))
+        if(RayGunEffect)
         {
-            RayGunEffect.SetActive(true);
+            if (RayCastWeapon && Input.GetButton("Shoot"))
+            {
+                RayGunEffect.SetActive(true);
+            }
+            else
+            {
+                RayGunEffect.SetActive(false);
+            }
         }
-        else
-        {
-            RayGunEffect.SetActive(false);
-        }
-      
     }
    
 
@@ -110,6 +112,8 @@ public class Gun : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
             {
+              
+
                 Damage damage = hit.collider.GetComponent<Damage>();
                 if (damage != null)
                 {

@@ -10,8 +10,13 @@ public class BulletSpeed : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] GameObject TriggerEffect;
 
+
+    [SerializeField] int spin;
+    [SerializeField]  bool IsSpinning;
+    [SerializeField] GameObject model;
     GameObject effect;
     float timeToDestroy;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +28,14 @@ public class BulletSpeed : MonoBehaviour
 
     public void Update()
     {
-        this.transform.Translate(0, 0, Time.deltaTime * speed);
+        if(IsSpinning)
+        {
+            transform.Rotate(0, 0, Time.deltaTime * spin);
+
+           
+        }
+
+        transform.Translate(0, 0, Time.deltaTime * speed);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
             Destroy(gameObject);
