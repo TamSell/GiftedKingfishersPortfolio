@@ -13,6 +13,8 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] int runSpeed;
     [SerializeField] int cameraAngle;
     [SerializeField] int stoppDist;
+    [SerializeField] int roamStopTime;
+    [SerializeField] int roamDistance;
     float viewAngle;
 
     [Header("-- Variables --")]
@@ -20,6 +22,8 @@ public class NewEnemy : MonoBehaviour, Damage
     bool playerInRange;
     float angleToPlayer;
     float stopDistOrig;
+    bool destinationChosen;
+    Vector3 startingPos;
 
     [Header("-- Objects --")]
     [SerializeField] Renderer model;
@@ -35,7 +39,6 @@ public class NewEnemy : MonoBehaviour, Damage
 
 
     public GameObject meleeSwipe;
-
     [SerializeField] bool isMeleeing;
 
 
@@ -43,13 +46,21 @@ public class NewEnemy : MonoBehaviour, Damage
     {
         gameManager.Instance.updateGoal(1);
         stopDistOrig = stoppDist;
+        startingPos = transform.position;
     }
 
     void Update()
     {
-        if (playerInRange)
+        if (navMeshA.isActiveAndEnabled)
         {
-            FindPlayer();
+            if (playerInRange && !FindPlayer())
+            {
+                StartCoroutine(roam());
+            }
+            else if (navMeshA.destination != gameManager.Instance.PlayerModel.transform.position)
+            {
+                StartCoroutine(roam());
+            }
         }
     }
 
@@ -67,7 +78,7 @@ public class NewEnemy : MonoBehaviour, Damage
             playerInRange = false;
         }
     }
-    void FindPlayer()
+    bool FindPlayer()
     {
         identVec = (gameManager.Instance.PlayerModel.transform.position - headPos.position);
         viewAngle = Vector3.Angle(new Vector3(identVec.x, 0, identVec.z), transform.forward);
@@ -91,8 +102,10 @@ public class NewEnemy : MonoBehaviour, Damage
 
                     StartCoroutine(melee());
                 }
+                return true;
             }
         }
+        return false;
     }
 
     void FollowPlayer()
@@ -101,11 +114,32 @@ public class NewEnemy : MonoBehaviour, Damage
         transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * runSpeed);
     }
 
+    IEnumerator roam()
+    {
+            if (!destinationChosen && navMeshA.remainingDistance < 0.05)
+            {
+                destinationChosen = true;
+                navMeshA.stoppingDistance = 0;
+
+                yield return new WaitForSeconds(roamStopTime);
+
+                Vector3 randomPos = Random.insideUnitSphere * roamDistance;
+                randomPos += startingPos;
+
+                NavMeshHit pos;
+                NavMesh.SamplePosition(randomPos, out pos, roamDistance, 1);
+
+                navMeshA.SetDestination(pos.position);
+                destinationChosen = false;
+            }
+        }
     IEnumerator melee()
     {
+        isMeleeing = true;
         meleeSwipe.SetActive(true);
         yield return new WaitForSeconds(MeleeRate);
         meleeSwipe.SetActive(false);
+        isMeleeing = false;
     }
 
     IEnumerator flashColor()

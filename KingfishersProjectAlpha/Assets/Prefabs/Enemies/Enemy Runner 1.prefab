@@ -5003,6 +5003,8 @@ MonoBehaviour:
   runSpeed: 360
   cameraAngle: 60
   stoppDist: 5
+  roamStopTime: 3
+  roamDistance: 5
   model: {fileID: 1973388932879328425}
   headPos: {fileID: 1912855454163695966}
   navMeshA: {fileID: 1912855454129274030}
