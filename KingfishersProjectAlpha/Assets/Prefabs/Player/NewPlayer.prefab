@@ -636,6 +636,26 @@ PrefabInstance:
       propertyPath: Barrel
       value: 
       objectReference: {fileID: 1867060021}
+    - target: {fileID: 2176312567087464348, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 9207788677985055793, guid: f333725ce47437f44aa8efcca53fc944, type: 3}
+    - target: {fileID: 2176312567087464348, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: magSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2176312567087464348, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: ShootRate
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2176312567087464348, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: totalAmmo
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 2176312567087464348, guid: c61089a524537f94db6698fa78106092, type: 3}
+      propertyPath: realoadSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9179057780020124201, guid: c61089a524537f94db6698fa78106092, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -710,6 +730,26 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 4860731158395514798}
+    - target: {fileID: 1331288779, guid: 789d77c1d9ac5cc47b7dba4960317da1, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 3808675602889121583, guid: 4dea062e3e3edc64a918a886b85513c3, type: 3}
+    - target: {fileID: 1331288779, guid: 789d77c1d9ac5cc47b7dba4960317da1, type: 3}
+      propertyPath: magSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1331288779, guid: 789d77c1d9ac5cc47b7dba4960317da1, type: 3}
+      propertyPath: ShootRate
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1331288779, guid: 789d77c1d9ac5cc47b7dba4960317da1, type: 3}
+      propertyPath: totalAmmo
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1331288779, guid: 789d77c1d9ac5cc47b7dba4960317da1, type: 3}
+      propertyPath: realoadSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7081179780688275705, guid: 789d77c1d9ac5cc47b7dba4960317da1, type: 3}
       propertyPath: m_RootOrder
       value: 0
