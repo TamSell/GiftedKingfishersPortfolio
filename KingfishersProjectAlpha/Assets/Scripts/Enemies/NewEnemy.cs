@@ -33,8 +33,7 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] int MeleeDamage;
     [SerializeField] float MeleeRate;
 
-
-
+    float distanceToPlayer;
     public GameObject meleeSwipe;
     bool isMeleeing;
 
@@ -79,7 +78,7 @@ public class NewEnemy : MonoBehaviour, Damage
     {
         identVec = (gameManager.Instance.PlayerModel.transform.position - headPos.position);
         viewAngle = Vector3.Angle(new Vector3(identVec.x, 0, identVec.z), transform.forward);
-
+        distanceToPlayer = Vector3.Distance(headPos.position, gameManager.Instance.PlayerModel.transform.position);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, identVec, out hit))
@@ -132,11 +131,11 @@ public class NewEnemy : MonoBehaviour, Damage
         }
     IEnumerator melee()
     {
-        isMeleeing = true;
-        meleeSwipe.SetActive(true);
-        yield return new WaitForSeconds(MeleeRate);
-        meleeSwipe.SetActive(false);
-        isMeleeing = false;
+            isMeleeing = true;
+            meleeSwipe.SetActive(true);
+            yield return new WaitForSeconds(MeleeRate);
+            meleeSwipe.SetActive(false);
+            isMeleeing = false;
     }
 
     IEnumerator flashColor()
