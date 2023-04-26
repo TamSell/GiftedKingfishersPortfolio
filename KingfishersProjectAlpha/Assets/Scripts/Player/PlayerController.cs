@@ -339,4 +339,6 @@ public class PlayerController : MonoBehaviour, Damage
         gunModel.mesh = gunList[selectedWeapon].GetComponent<MeshFilter>().sharedMesh;
         gunMaterial.material = gunList[selectedWeapon].GetComponent<MeshRenderer>().sharedMaterial;
     }
+
+   
 }

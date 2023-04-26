@@ -21,4 +21,9 @@ public class buttonManager : MonoBehaviour
     {
         Application.Quit();
     }
+    public void Respawnplayer()
+    {
+        gameManager.Instance.unpause();
+        gameManager.Instance.playerController.respawnPlayer();
+    }
 }

@@ -71,15 +71,21 @@ public class Gun : MonoBehaviour
    
     public void shooting()
     {
-        if(currentMag == 0)
-        {
-            return;
-        }
-        if (!isShooting && Input.GetButton("Shoot"))
-        {
-            reaload = false;
-            StartCoroutine(shoot());   
-        }
+      
+            if (currentMag == 0)
+            {
+                return;
+            }
+            if (!isShooting && Input.GetButton("Shoot"))
+            {
+                reaload = false;
+            if (gameManager.Instance.playerController.enabled == true)
+            {
+                StartCoroutine(shoot());
+            }
+            }
+        
+     
     }
 
     public void RayCastSetActive()
