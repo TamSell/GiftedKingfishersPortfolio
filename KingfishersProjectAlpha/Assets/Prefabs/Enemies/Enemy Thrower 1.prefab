@@ -413,13 +413,14 @@ MonoBehaviour:
   hitPoints: 10
   turnSpeed: 360
   cameraAngle: 100
-  stoppDist: 10
+  stoppDist: 20
   model: {fileID: 5223563312106169649}
   headPos: {fileID: 5302111193500235974}
   gunPos: {fileID: 1642232136515822070}
   navMeshA: {fileID: 5302111193600064822}
   ThrowWindup: 3
   ThrowRate: 3
+  throwSpeed: 20
   isThrowing: 0
   bullet: {fileID: 5132483783722734408, guid: 5671371b839cc444f920b55c2b61c51d, type: 3}
   gun: {fileID: 1642232136515822070}
