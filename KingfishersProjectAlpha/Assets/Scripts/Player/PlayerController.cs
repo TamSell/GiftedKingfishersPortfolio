@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour, Damage
     // Start is called before the first frame update
     void Start()
     {
+       
         HPorig = HP;
         StaminaOrig = Stamina;
         PLayerUpdateUI();
