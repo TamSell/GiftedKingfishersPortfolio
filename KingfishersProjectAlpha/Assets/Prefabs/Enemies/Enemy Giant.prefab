@@ -924,14 +924,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 50
   cameraTurnSpeed: 360
-  cameraAngle: 120
+  cameraAngle: 90
   stoppDist: 5
   roamStopTime: 2
   roamDistance: 5
+  meleeWindUp: 3
   model: {fileID: 297457031887268821}
   headPos: {fileID: 2405147052272373708}
   navMeshA: {fileID: 5617019290717367742}
-  MeleeDamage: 5
+  MeleeDamage: 3
   MeleeRate: 3
   meleeSwipe: {fileID: 2405147053004617413}
 --- !u!195 &5617019290717367742
