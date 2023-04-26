@@ -5000,20 +5000,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 10
-  runSpeed: 360
+  cameraTurnSpeed: 360
   cameraAngle: 60
   stoppDist: 5
   roamStopTime: 3
   roamDistance: 5
+  meleeWindUp: 1
   model: {fileID: 1973388932879328425}
   headPos: {fileID: 1912855454163695966}
   navMeshA: {fileID: 1912855454129274030}
   MeleeDamage: 1
   MeleeRate: 3
-  MeleeDist: 3
-  swipePos: {fileID: 1912855454111276442}
   meleeSwipe: {fileID: 586030755310329496}
-  isMeleeing: 0
 --- !u!195 &1912855454129274030
 NavMeshAgent:
   m_ObjectHideFlags: 0

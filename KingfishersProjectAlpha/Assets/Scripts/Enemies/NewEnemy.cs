@@ -30,7 +30,7 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] NavMeshAgent navMeshA;
 
     [Header("-- Melee Stats --")]
-    [SerializeField] int MeleeDamage;
+    [SerializeField] float meleeWindUp;
     [SerializeField] float MeleeRate;
 
     float distanceToPlayer;
@@ -132,9 +132,11 @@ public class NewEnemy : MonoBehaviour, Damage
     IEnumerator melee()
     {
             isMeleeing = true;
+            yield return new WaitForSeconds(meleeWindUp);
             meleeSwipe.SetActive(true);
-            yield return new WaitForSeconds(MeleeRate);
+            yield return new WaitForSeconds(0.1f);
             meleeSwipe.SetActive(false);
+            yield return new WaitForSeconds(MeleeRate);
             isMeleeing = false;
     }
 
