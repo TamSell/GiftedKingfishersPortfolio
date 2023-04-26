@@ -11,18 +11,18 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform cam;
 
     [Header("----Gun Basic Stats-----")]
-    [Range(0.1f,2)][SerializeField] float ShootRate;
-    [SerializeField] int realoadSpeed;
-    [SerializeField]bool reaload;
+    [Range(0.1f,2)][SerializeField] public float ShootRate;
+    [SerializeField] public int realoadSpeed;
+    [SerializeField] public bool reaload;
 
     [Header("-----RayTrace Gun Stats------")]
-    [SerializeField] float RayGunDist;
-    [SerializeField] int RayGunDamage;
-    [SerializeField] GameObject RayGunEffect;
+    [SerializeField] public float RayGunDist;
+    [SerializeField] public int RayGunDamage;
+    [SerializeField] public GameObject RayGunEffect;
   
     [Header("----- Ammo -----")]
-    [Range(0, 30)][SerializeField] int magSize;
-    [Range(0, 300)][SerializeField] int totalAmmo;
+    [Range(0, 30)][SerializeField] public int magSize;
+    [Range(0, 300)][SerializeField] public int totalAmmo;
 
 
 
@@ -30,8 +30,8 @@ public class Gun : MonoBehaviour
     
     public bool isShooting;
     public int currentMag;
-    [SerializeField] GameObject bullet ;
-    [SerializeField] Transform Barrel;
+    [SerializeField] public GameObject bullet ;
+    [SerializeField] public Transform Barrel;
     public bool RayCastWeapon;
   
 
