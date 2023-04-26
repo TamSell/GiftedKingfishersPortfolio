@@ -7,6 +7,8 @@ public class GunPickup : MonoBehaviour
     [SerializeField] Gun gun;
     [SerializeField] MeshFilter model;
     [SerializeField] MeshRenderer mat;
+    [SerializeField] AudioClip clip;
+    [Range(0,1)][SerializeField] float audioVol;
 
 
     // Start is called before the first frame update
