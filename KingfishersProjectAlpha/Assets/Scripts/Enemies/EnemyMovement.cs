@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     void Update()
     {
-        playerDirection = gameManager.Instance.PlayerModel.transform.forward;
+        playerDirection = gameManager.Instance.PlayerModel.transform.position;
         if (playerInRange)
         {
             FindPlayer();
@@ -114,7 +114,7 @@ public class EnemyMovement : MonoBehaviour , Damage
         temp.transform.LookAt(playerDirection);
         Rigidbody tempRB = temp.GetComponent<Rigidbody>();
         tempRB.velocity = temp.transform.forward * throwSpeed;
-
+       // tempRB.useGravity= true;
 
         yield return new WaitForSeconds(ThrowRate);
         isThrowing = false;
@@ -130,8 +130,9 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     public void TakeDamage(int amountDamage)
     {
+        Vector3 lower = new Vector3(10.0f, 0.0f, 10.0f);
         hitPoints -= amountDamage;
-        navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
+        navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position - lower );
         navMeshA.stoppingDistance = 0;
 
         StartCoroutine(flashColor());

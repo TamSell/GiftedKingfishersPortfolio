@@ -8,11 +8,7 @@ public class EnemyThrow : MonoBehaviour
     [SerializeField] float timer;
     [SerializeField] int damage;
     [SerializeField] GameObject TriggerEffect;
-
-
-    [SerializeField] int spin;
-    [SerializeField] bool IsSpinning;
-    [SerializeField] GameObject model;
+    bool IsEffecting;
     GameObject effect;
     float timeToDestroy;
 
@@ -27,15 +23,12 @@ public class EnemyThrow : MonoBehaviour
 
     public void Update()
     {
-        if (IsSpinning)
+        if (!IsEffecting)
         {
-            transform.Rotate(0, 0, Time.deltaTime * spin);
+            StartCoroutine(hitEffect());
+            effect = Instantiate(TriggerEffect, transform.position, TriggerEffect.transform.rotation);
+            Destroy(effect, 0.25f);
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            Destroy(gameObject);
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-            Destroy(gameObject);
 
     }
     public void OnTriggerEnter(Collider other)
@@ -66,12 +59,16 @@ public class EnemyThrow : MonoBehaviour
 
     IEnumerator hitEffect()
     {
+        IsEffecting = true;
         TriggerEffect.SetActive(true);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.05f);
 
         TriggerEffect.SetActive(false);
 
+       // yield return new WaitForSeconds(0.5f);
+
+        IsEffecting = false;
 
     }
 }
