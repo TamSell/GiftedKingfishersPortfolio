@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour, Damage
 
     [Header("----- Components-----")]
     [SerializeField] CharacterController controller;
+    [SerializeField] AudioSource aud;
 
     [Header("----- Player Stats -----")]
     [Range(3, 8)][SerializeField] float PlayerSpeed;
@@ -28,6 +29,15 @@ public class PlayerController : MonoBehaviour, Damage
     [Range(0,30)][SerializeField] float MaxStamina;
     [SerializeField] float Stamina;
 
+    [Header("------ Audio ------")]
+    [SerializeField] AudioClip[] audSteps;
+    [Range(0, 1)][SerializeField] float audStepsVol;
+    [SerializeField] AudioClip[] audJump;
+    [Range(0, 1)][SerializeField] float audJumpVol;
+    [SerializeField] AudioClip[] auddamage;
+    [Range(0, 1)][SerializeField] float auddamageVol;
+
+    [Header("----GUN PICK UP-----")]
     public Gun usingGun;
     public MeshRenderer gunMaterial;
     public MeshFilter gunModel;
@@ -36,6 +46,8 @@ public class PlayerController : MonoBehaviour, Damage
 
 
     public int selectedWeapon = 0;
+
+    bool isPlayingSteps;
     int jumpTimes;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
@@ -71,11 +83,20 @@ public class PlayerController : MonoBehaviour, Damage
     void movement()
     {
         groundedPlayer = controller.isGrounded;
-        if(groundedPlayer && playerVelocity.y<0)
+        if(groundedPlayer)
         {
-            playerVelocity.y = 0f;
-            jumpTimes = 0;
+            if(!isPlayingSteps && move.normalized.magnitude >0.5)
+            {
+                StartCoroutine(MoveSound());
+            }
+            if (playerVelocity.y < 0)
+            {
+                playerVelocity.y = 0f;
+                jumpTimes = 0;
+            }
         }
+
+       
 
         Run();
 
@@ -89,10 +110,30 @@ public class PlayerController : MonoBehaviour, Damage
 
         PLayerUpdateUI();
     }
+
+    IEnumerator MoveSound()
+    {
+        isPlayingSteps = true;
+
+        aud.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+      
+        if(isrunning)
+        {
+           yield return new  WaitForSeconds(0.3f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isPlayingSteps = false;
+    }
+
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax)
+        if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax &&Stamina>0)
         {
+            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
             gameManager.Instance.SBar.enabled = true;
             jumpTimes++;
             playerVelocity.y = jumpHeight;
@@ -178,6 +219,7 @@ public class PlayerController : MonoBehaviour, Damage
 
     public void TakeDamage(int amount)
     {
+        aud.PlayOneShot(auddamage[Random.Range(0, auddamage.Length)], auddamageVol);
         HP -= amount;
         PLayerUpdateUI();
         if(HP <= 0)
