@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2412297686558393813}
-  - component: {fileID: 1316328248954414708}
   - component: {fileID: 851207575885220254}
   - component: {fileID: 5862948434421186987}
   - component: {fileID: 8281595591738687761}
+  - component: {fileID: -2233988231404855952}
   m_Layer: 8
   m_Name: enemyBullet 1
   m_TagString: Untagged
@@ -35,25 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 20.095, z: 0}
---- !u!114 &1316328248954414708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5132483783722734408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33c699fc8aa09bb4eaeeaf817a143f7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: -50
-  timer: 2
-  damage: 4
-  TriggerEffect: {fileID: 0}
-  spin: 0
-  IsSpinning: 0
-  model: {fileID: 0}
 --- !u!54 &851207575885220254
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -81,7 +62,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &8281595591738687761
 TrailRenderer:
@@ -191,3 +172,22 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &-2233988231404855952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5132483783722734408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35afc8d0b3bb6f4a98d11670a4b2c4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: -50
+  timer: 2
+  damage: 4
+  TriggerEffect: {fileID: 0}
+  spin: 0
+  IsSpinning: 0
+  model: {fileID: 0}

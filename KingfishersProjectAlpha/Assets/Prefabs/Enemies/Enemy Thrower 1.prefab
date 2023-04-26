@@ -418,10 +418,9 @@ MonoBehaviour:
   headPos: {fileID: 5302111193500235974}
   gunPos: {fileID: 1642232136515822070}
   navMeshA: {fileID: 5302111193600064822}
-  ShootDamage: 5
-  ShootRate: 2
-  ShootDist: 15
-  isShooting: 0
+  ThrowWindup: 3
+  ThrowRate: 3
+  isThrowing: 0
   bullet: {fileID: 5132483783722734408, guid: 5671371b839cc444f920b55c2b61c51d, type: 3}
   gun: {fileID: 1642232136515822070}
 --- !u!1 &5300787298720005295

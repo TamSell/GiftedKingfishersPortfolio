@@ -27,15 +27,16 @@ public class EnemyMovement : MonoBehaviour , Damage
     [SerializeField] Transform gunPos;
     [SerializeField] NavMeshAgent navMeshA;
 
-    [Header("-- Gun Stats --")]
-    [SerializeField] int ShootDamage;
-    [SerializeField] float ShootRate;
-    [SerializeField] int ShootDist;
+    [Header("-- Thrower Stats --")]
+    [SerializeField] int ThrowWindup;
+    [SerializeField] float ThrowRate;
+    [SerializeField] int throwSpeed;
+    [SerializeField] bool isThrowing;
 
-    [SerializeField] bool isShooting;
-
+    float DistanceToPlayer;
     public GameObject bullet;
     public Transform gun;
+    Vector3 playerDirection;
 
 
     void Start()
@@ -46,7 +47,8 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     void Update()
     {
-        if(playerInRange)
+        playerDirection = gameManager.Instance.PlayerModel.transform.forward;
+        if (playerInRange)
         {
             FindPlayer();
         }
@@ -68,9 +70,10 @@ public class EnemyMovement : MonoBehaviour , Damage
     }
     void FindPlayer()
     {
+        DistanceToPlayer = Vector3.Distance(gameManager.Instance.PlayerModel.transform.position, gunPos.position);
         identVec = (gameManager.Instance.PlayerModel.transform.position - headPos.position);
         viewAngle = Vector3.Angle(new Vector3(identVec.x, 0, identVec.z), transform.forward);
-
+        Debug.DrawLine(headPos.position, gameManager.Instance.PlayerModel.transform.position);
 
         RaycastHit hit;
         if (Physics.Raycast(headPos.position, identVec, out hit))
@@ -85,7 +88,7 @@ public class EnemyMovement : MonoBehaviour , Damage
                     FollowPlayer();
                 }
 
-                if (!isShooting)
+                if (!isThrowing)
                 {
 
                     StartCoroutine(shoot());
@@ -102,12 +105,21 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     IEnumerator shoot()
     {
-        isShooting = true;
-
+        isThrowing = true;
+        yield return new WaitForSeconds(ThrowWindup);
+        /* Old Thrower
         Instantiate(bullet, gun.position, gun.rotation);
-        yield return new WaitForSeconds(ShootRate);
-        isShooting = false;
+        */
+        GameObject temp = Instantiate(bullet, gun.position, Quaternion.identity);
+        temp.transform.LookAt(playerDirection);
+        Rigidbody tempRB = temp.GetComponent<Rigidbody>();
+        tempRB.velocity = temp.transform.forward * throwSpeed;
+
+
+        yield return new WaitForSeconds(ThrowRate);
+        isThrowing = false;
     }
+
 
     IEnumerator flashColor()
     {
