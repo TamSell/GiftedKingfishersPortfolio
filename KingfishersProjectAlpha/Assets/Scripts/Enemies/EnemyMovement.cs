@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public class EnemyMovement : MonoBehaviour , Damage
+public class EnemyMovement : MonoBehaviour, Damage
 {
     [Header("----- Components -----")]
 
@@ -118,7 +118,7 @@ public class EnemyMovement : MonoBehaviour , Damage
     IEnumerator shoot()
     {
         isThrowing = true;
-        animatorRanged.SetTrigger("Shoot");
+        animatorRanged.SetTrigger("Throw");
         yield return new WaitForSeconds(ThrowWindup);
         /* Old Thrower
         Instantiate(bullet, gun.position, gun.rotation);
@@ -127,7 +127,7 @@ public class EnemyMovement : MonoBehaviour , Damage
         temp.transform.LookAt(playerDirection);
         Rigidbody tempRB = temp.GetComponent<Rigidbody>();
         tempRB.velocity = temp.transform.forward * throwSpeed;
-       // tempRB.useGravity= true;
+        // tempRB.useGravity= true;
 
         yield return new WaitForSeconds(ThrowRate);
         isThrowing = false;
@@ -146,7 +146,7 @@ public class EnemyMovement : MonoBehaviour , Damage
 
         hitPoints -= amountDamage;
         StartCoroutine(hitEffect());
-        effect = Instantiate(TriggerEffect, transform.position + new Vector3(0,1.25f,0), TriggerEffect.transform.rotation);
+        effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
 
         Destroy(effect, 2);
 
