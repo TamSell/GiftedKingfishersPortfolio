@@ -8,10 +8,10 @@ using UnityEngine.UIElements;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField]  Transform cam;
+    [SerializeField] Transform cam;
     [SerializeField] AudioSource aud;
     [Header("----Gun Basic Stats-----")]
-    [Range(0.1f,2)][SerializeField] public float ShootRate;
+    [Range(0.1f, 2)][SerializeField] public float ShootRate;
     [SerializeField] public int realoadSpeed;
     [SerializeField] public bool reaload;
 
@@ -19,7 +19,7 @@ public class Gun : MonoBehaviour
     [SerializeField] public float RayGunDist;
     [SerializeField] public int RayGunDamage;
     [SerializeField] public GameObject RayGunEffect;
-  
+
     [Header("----- Ammo -----")]
     [Range(0, 30)][SerializeField] public int magSize;
     [Range(0, 300)][SerializeField] public int totalAmmo;
@@ -27,19 +27,19 @@ public class Gun : MonoBehaviour
     [Header("----Audio Clip----")]
     [SerializeField] public AudioClip GunShot;
     [SerializeField] public float gunShotVol;
-   
-    
+
+
     public bool isShooting;
     public int currentMag;
     public BulletSpeed bulletVals;
     [SerializeField] public GameObject bullet;
     [SerializeField] public Transform Barrel;
     public bool RayCastWeapon;
-  
 
-    
-   
-    
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,54 +50,54 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            Reloading();
-            if (reaload == true)
-            {
+        Reloading();
+        if (reaload == true)
+        {
             Invoke("shooting", realoadSpeed);
-              if(RayCastWeapon)
-              {
-                RayGunEffect.SetActive(false);
-              }
-             
-            }
-            else
+            if (RayCastWeapon)
             {
+                RayGunEffect.SetActive(false);
+            }
+
+        }
+        else
+        {
             shooting();
             RayCastSetActive();
-             
-            }
-      
-        
+
+        }
+
+
     }
 
-   
+
     public void shooting()
     {
-      
-            if (currentMag == 0)
-            {
-                return;
-            }
-            if (!isShooting && Input.GetButton("Shoot"))
-            {
-                reaload = false;
+
+        if (currentMag == 0)
+        {
+            return;
+        }
+        if (!isShooting && Input.GetButton("Shoot"))
+        {
+            reaload = false;
             if (gameManager.Instance.playerController.enabled == true)
             {
                 StartCoroutine(shoot());
             }
-            }
-        
-     
+        }
+
+
     }
 
     public void RayCastSetActive()
     {
         if (currentMag == 0)
         {
-           
+
             return;
         }
-        if(RayGunEffect)
+        if (RayGunEffect)
         {
             if (RayCastWeapon && Input.GetButton("Shoot"))
             {
@@ -109,20 +109,20 @@ public class Gun : MonoBehaviour
             }
         }
     }
-   
+
 
 
     IEnumerator shoot()
     {
         isShooting = true;
-        if(RayCastWeapon)
+        if (RayCastWeapon)
         {
             aud.PlayOneShot(GunShot, gunShotVol);
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
             {
 
-             
+
                 Damage damage = hit.collider.GetComponent<Damage>();
                 if (damage != null)
                 {
@@ -134,7 +134,7 @@ public class Gun : MonoBehaviour
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
         }
-       
+
         else
         {
 
@@ -149,12 +149,12 @@ public class Gun : MonoBehaviour
         }
     }
 
-    
 
 
 
 
-    
+
+
 
     public void CountOfBullets(int ammount)
     {
@@ -163,7 +163,7 @@ public class Gun : MonoBehaviour
 
     public void Reloading()
     {
-        if(!isShooting)
+        if (!isShooting)
         {
             if (Input.GetButtonDown("Reloading"))
             {
@@ -176,18 +176,18 @@ public class Gun : MonoBehaviour
                 RealoadingLogic();
             }
         }
-      
+
     }
     public void RealoadingLogic()
     {
-       
-        if(totalAmmo == 0)
+
+        if (totalAmmo == 0)
         {
             return;
         }
         else
         {
-            if(totalAmmo >= magSize)
+            if (totalAmmo >= magSize)
             {
                 totalAmmo = totalAmmo - (magSize - currentMag);
                 currentMag = magSize;

@@ -65,7 +65,7 @@ public class gameManager : MonoBehaviour
                 unpause();
             }
         }
-        if(Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == Inventory))
+        if (Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == Inventory))
         {
             inMenu = !inMenu;
             setMenu(Inventory);
@@ -137,7 +137,7 @@ public class gameManager : MonoBehaviour
         Item gunItem = null;
         gunItem.id = gun.name;
         gunItem.amount = 1;
-        if(gun.RayGunDamage != 0)
+        if (gun.RayGunDamage != 0)
         {
             gunItem.description = "Damage: " + gun.RayGunDamage.ToString() + "\n";
         }
@@ -146,6 +146,7 @@ public class gameManager : MonoBehaviour
             gunItem.description = "Damage: " + gun.bulletVals.damage + "\n";
         }
         gunItem.description += "Magazine Size: " + gun.magSize.ToString() + "\n" + "Reserve Ammo: " + gun.totalAmmo.ToString();
+        inven.InvenAdd(gunItem);
     }
 
     public void DisplayItem(Item _item)
