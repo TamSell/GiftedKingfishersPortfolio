@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class EnemyMovement : MonoBehaviour , Damage
 {
     [Header("----- Components -----")]
+    [SerializeField] Animator animator;
 
     [Header("-- Stats --")]
     [SerializeField] int hitPoints;
@@ -33,11 +34,16 @@ public class EnemyMovement : MonoBehaviour , Damage
     [SerializeField] int throwSpeed;
     [SerializeField] bool isThrowing;
 
+    [Header("-- Effects --")]
+    [SerializeField] GameObject TriggerEffect;
+    bool IsEffecting;
+    GameObject effect;
+
     float DistanceToPlayer;
     public GameObject bullet;
     public Transform gun;
     Vector3 playerDirection;
-
+    
 
     void Start()
     {
@@ -47,6 +53,8 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     void Update()
     {
+        
+        
         playerDirection = gameManager.Instance.PlayerModel.transform.position;
         if (playerInRange)
         {
@@ -136,11 +144,30 @@ public class EnemyMovement : MonoBehaviour , Damage
         navMeshA.stoppingDistance = 0;
 
         StartCoroutine(flashColor());
+        StartCoroutine(flashColor());
+        StartCoroutine(hitEffect());
+        effect = Instantiate(TriggerEffect, transform.position + new Vector3(0,1.25f,0), TriggerEffect.transform.rotation);
+
+        Destroy(effect, 5);
 
         if (hitPoints <= 0)
         {
             gameManager.Instance.updateGoal(-1);
             Destroy(gameObject);
         }
+    }
+    IEnumerator hitEffect()
+    {
+        IsEffecting = true;
+        TriggerEffect.SetActive(true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        TriggerEffect.SetActive(false);
+
+        // yield return new WaitForSeconds(0.5f);
+
+        IsEffecting = false;
+
     }
 }

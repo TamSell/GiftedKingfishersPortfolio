@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class NewEnemy : MonoBehaviour, Damage
 {
     [Header("----- Components -----")]
+    [SerializeField] Animator animator;
 
     [Header("-- Stats --")]
     [SerializeField] int hitPoints;
@@ -15,6 +16,7 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] int stoppDist;
     [SerializeField] int roamStopTime;
     [SerializeField] int roamDistance;
+    [SerializeField] float animTransSpeed;
     float viewAngle;
 
     [Header("-- Variables --")]
@@ -33,10 +35,15 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] float meleeWindUp;
     [SerializeField] float MeleeRate;
 
+    [Header("-- Effects --")]
+    [SerializeField] GameObject TriggerEffect;
+    bool IsEffecting;
+    GameObject effect;
+
     float distanceToPlayer;
     public GameObject meleeSwipe;
     bool isMeleeing;
-
+    float speed;
 
     void Start()
     {
@@ -47,8 +54,11 @@ public class NewEnemy : MonoBehaviour, Damage
 
     void Update()
     {
+        speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime* animTransSpeed);
+        animator.SetFloat("Speed", speed);
         if (navMeshA.isActiveAndEnabled)
         {
+           
             if (playerInRange && !FindPlayer())
             {
                 StartCoroutine(roam());
@@ -131,13 +141,14 @@ public class NewEnemy : MonoBehaviour, Damage
         }
     IEnumerator melee()
     {
-            isMeleeing = true;
-            yield return new WaitForSeconds(meleeWindUp);
-            meleeSwipe.SetActive(true);
-            yield return new WaitForSeconds(0.1f);
-            meleeSwipe.SetActive(false);
-            yield return new WaitForSeconds(MeleeRate);
-            isMeleeing = false;
+        isMeleeing = true;
+        animator.SetTrigger("Melee");
+        yield return new WaitForSeconds(meleeWindUp);
+        meleeSwipe.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        meleeSwipe.SetActive(false);
+        yield return new WaitForSeconds(MeleeRate);
+        isMeleeing = false;
     }
 
     IEnumerator flashColor()
@@ -154,11 +165,30 @@ public class NewEnemy : MonoBehaviour, Damage
         navMeshA.stoppingDistance = 0;
 
         StartCoroutine(flashColor());
+        StartCoroutine(hitEffect());
+        effect = Instantiate(TriggerEffect, transform.position + new Vector3(0,1.5f,0), TriggerEffect.transform.rotation);
+
+        Destroy(effect, 5);
 
         if (hitPoints <= 0)
         {
             gameManager.Instance.updateGoal(-1);
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator hitEffect()
+    {
+        IsEffecting = true;
+        TriggerEffect.SetActive(true);
+
+        yield return new WaitForSeconds(1.0f);
+
+        TriggerEffect.SetActive(false);
+
+        // yield return new WaitForSeconds(0.5f);
+
+        IsEffecting = false;
+
     }
 }
