@@ -624,7 +624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4aef59d3ea6924bb0c82cf99d662d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 3
   TriggerEffect: {fileID: 0}
   box: {fileID: 0}
 --- !u!1 &2460406551315075115
@@ -850,7 +850,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3730083056229284179}
-  m_LocalRotation: {x: -0, y: 0.9940716, z: -0, w: -0.10872761}
+  m_LocalRotation: {x: 0, y: 0.99407154, z: -0, w: -0.10872796}
   m_LocalPosition: {x: 1.06, y: 0.0000009536743, z: 33.66}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
@@ -928,12 +928,12 @@ MonoBehaviour:
   stoppDist: 5
   roamStopTime: 2
   roamDistance: 5
-  meleeWindUp: 3
   model: {fileID: 297457031887268821}
   headPos: {fileID: 2405147052272373708}
   navMeshA: {fileID: 5617019290717367742}
-  MeleeDamage: 3
+  meleeWindUp: 3
   MeleeRate: 3
+  TriggerEffect: {fileID: 8371673183629246139, guid: 446f23527e94cf94a83bff3d53dd0a36, type: 3}
   meleeSwipe: {fileID: 2405147053004617413}
 --- !u!195 &5617019290717367742
 NavMeshAgent:
