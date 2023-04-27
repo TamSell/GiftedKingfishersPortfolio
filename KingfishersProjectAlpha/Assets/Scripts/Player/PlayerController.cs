@@ -250,19 +250,21 @@ public class PlayerController : MonoBehaviour, Damage
         usingGun.currentMag = gun.currentMag;
         usingGun.bullet = gun.bullet;
         usingGun.Barrel = gun.Barrel;
-
+        
         usingGun.magSize = gun.magSize;
         usingGun.totalAmmo = gun.totalAmmo;
-
+        
         usingGun.RayGunDist = gun.RayGunDist;
         usingGun.RayGunDamage = gun.RayGunDamage;
         usingGun.RayGunEffect = gun.RayGunEffect;
-
+        
         usingGun.ShootRate = gun.ShootRate;
         usingGun.realoadSpeed = gun.realoadSpeed;
         usingGun.reaload = gun.reaload;
-
+        
         usingGun.RayCastWeapon = gun.RayCastWeapon;
+
+        // usingGun = gun;
 
         gunModel.mesh = gun.GetComponent<MeshFilter>().sharedMesh;
         gunMaterial.material = gun.GetComponent<MeshRenderer>().sharedMaterial;
@@ -322,22 +324,24 @@ public class PlayerController : MonoBehaviour, Damage
         usingGun.currentMag = gunList[selectedWeapon].currentMag;
         usingGun.bullet = gunList[selectedWeapon].bullet;
         usingGun.Barrel = gunList[selectedWeapon].Barrel;
-
+        
         usingGun.magSize = gunList[selectedWeapon].magSize;
         usingGun.totalAmmo = gunList[selectedWeapon].totalAmmo;
-
+        
         usingGun.RayGunDist = gunList[selectedWeapon].RayGunDist;
         usingGun.RayGunDamage = gunList[selectedWeapon].RayGunDamage;
         usingGun.RayGunEffect = gunList[selectedWeapon].RayGunEffect;
-
+        
         usingGun.ShootRate = gunList[selectedWeapon].ShootRate;
         usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
         usingGun.reaload = gunList[selectedWeapon].reaload;
-
+        
         usingGun.RayCastWeapon = gunList[selectedWeapon].RayCastWeapon;
         
         usingGun.GunShot = gunList[selectedWeapon].GunShot;
         usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
+
+        usingGun = gunList[selectedWeapon];
 
         gunModel.mesh = gunList[selectedWeapon].GetComponent<MeshFilter>().sharedMesh;
         gunMaterial.material = gunList[selectedWeapon].GetComponent<MeshRenderer>().sharedMaterial;
