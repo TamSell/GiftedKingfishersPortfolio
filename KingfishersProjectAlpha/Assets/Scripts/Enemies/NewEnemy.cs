@@ -187,6 +187,7 @@ public class NewEnemy : MonoBehaviour, Damage
         if (hitPoints <= 0)
         {
             StopAllCoroutines();
+            meleeSwipe.SetActive(false);
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             gameManager.Instance.updateGoal(-1);
             animator.SetBool("Death", true);
