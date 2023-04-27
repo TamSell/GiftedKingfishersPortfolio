@@ -7,14 +7,33 @@ public class Inventory : MonoBehaviour
 {
     private List<Item> items;
     [SerializeField] int invSize;
+    private int place;
     // Start is called before the first frame update
     void Start()
     {
         items = new List<Item>();
     }
 
-    void PickUp(Item _item)
+    void InvenAdd(Item _item = null)
     {
-        items.Add(_item);
+        if(items.Contains(_item))
+        {
+           for(int x = 0; x < items.Count; x++)
+           {
+                if (items[x].id == _item.id)
+                {
+                    place = x;
+                }
+           }
+        }
+        else
+        {
+            items.Add(_item);
+        }
+    }
+
+    public Item InvenSelect(int place)
+    {
+        return items[place];
     }
 }
