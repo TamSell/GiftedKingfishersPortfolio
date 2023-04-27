@@ -7,7 +7,7 @@ public class BulletSpeed : MonoBehaviour
     [Header("----Bullet Settigns-----")]
     [SerializeField] float speed;
     [SerializeField] float timer;
-    [SerializeField] int damage;
+    [SerializeField] public int damage;
     [SerializeField] GameObject TriggerEffect;
 
 

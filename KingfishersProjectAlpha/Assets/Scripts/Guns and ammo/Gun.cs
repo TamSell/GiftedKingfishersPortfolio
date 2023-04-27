@@ -27,13 +27,14 @@ public class Gun : MonoBehaviour
     [Header("----Audio Clip----")]
     [SerializeField] public AudioClip GunShot;
     [SerializeField] public float gunShotVol;
-   
-    
+
+    public BulletSpeed bullets;
     public bool isShooting;
     public int currentMag;
     [SerializeField] public GameObject bullet ;
     [SerializeField] public Transform Barrel;
     public bool RayCastWeapon;
+
   
 
     
@@ -43,6 +44,7 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         RealoadingLogic();
     }
 
