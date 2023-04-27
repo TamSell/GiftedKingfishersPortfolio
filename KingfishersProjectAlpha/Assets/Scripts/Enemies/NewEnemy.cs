@@ -161,6 +161,7 @@ public class NewEnemy : MonoBehaviour, Damage
     public void TakeDamage(int amountDamage)
     {
         hitPoints -= amountDamage;
+        animator.SetTrigger("Damage");
         navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
         navMeshA.stoppingDistance = 0;
 
