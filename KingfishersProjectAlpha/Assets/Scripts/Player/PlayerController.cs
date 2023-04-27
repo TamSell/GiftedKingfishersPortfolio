@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviour, Damage
         
         usingGun.RayCastWeapon = gun.RayCastWeapon;
 
-        // usingGun = gun;
+        usingGun = gun;
 
         gunModel.mesh = gun.GetComponent<MeshFilter>().sharedMesh;
         gunMaterial.material = gun.GetComponent<MeshRenderer>().sharedMaterial;
