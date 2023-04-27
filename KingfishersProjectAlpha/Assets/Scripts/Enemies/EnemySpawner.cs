@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    //[SerializeField] GameObject prefab;
     [SerializeField] GameObject[] prefab;
     [SerializeField] int spawnRate;
     [SerializeField] Transform[] spawnPos;
@@ -39,7 +40,10 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator spawn()
     {
         isSpawning = true;
-        GameObject Spawn = Instantiate(prefab[Random.Range(0,prefab.Length)], spawnPos[Random.Range(0, spawnPos.Length)].position, prefab[Random.Range(0, spawnPos.Length)].transform.rotation);
+        // GameObject Spawn = Instantiate(prefab, spawnPos[Random.Range(0, spawnPos.Length)].position, prefab.transform.rotation);
+        int index = Random.Range(0, prefab.Length);
+
+        GameObject Spawn = Instantiate(prefab[index], spawnPos[Random.Range(0, spawnPos.Length)].position, prefab[index].transform.rotation);
         spawnList.Add(Spawn);
         prefabSpawncount++;
 
