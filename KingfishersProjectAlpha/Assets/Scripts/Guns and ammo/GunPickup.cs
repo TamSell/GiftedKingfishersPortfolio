@@ -27,5 +27,6 @@ public class GunPickup : MonoBehaviour
             gameManager.Instance.addGun(gun);
             Destroy(gameObject);
         }
+        
     }
 }
