@@ -349,5 +349,8 @@ public class PlayerController : MonoBehaviour, Damage
 
     }
 
-   
+   public void addHP(int amount)
+    {
+        HP += amount;
+    }
 }
