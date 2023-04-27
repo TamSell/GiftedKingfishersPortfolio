@@ -16,6 +16,10 @@ public class gameManager : MonoBehaviour
 
     [Header("------ UI Elements ------")]
     [SerializeField] GameObject Inventory;
+    public Inventory inven;
+    public TextMeshProUGUI invenDesc;
+    public TextMeshProUGUI invenName;
+    public Image invenIcon;
     private GameObject activeMenu;
     public GameObject LostMenu;
     public GameObject WinMenu;
@@ -29,6 +33,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI magDivReserve;
     public TextMeshProUGUI mag;
     public TextMeshProUGUI reserve;
+
 
     public bool inMenu;
     int enemyRemain;
@@ -120,6 +125,18 @@ public class gameManager : MonoBehaviour
     {
         reserve.text = totalAmmo.ToString("F0");
         mag.text = currentMag.ToString("F0");
+    }
+
+    public Item SelectItem(int index)
+    {
+        return inven.InvenSelect(index);
+    }
+
+    public void DisplayItem(Item _item)
+    {
+        invenName.text = _item.name;
+        invenDesc.text = _item.description;
+        invenIcon = _item.icon;
     }
 
     public void turnOffUI()
