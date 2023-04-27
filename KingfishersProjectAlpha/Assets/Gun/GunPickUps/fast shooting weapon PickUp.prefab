@@ -289,11 +289,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7081179780688275705}
+  - component: {fileID: 4560911157762355249}
   - component: {fileID: 1331288779}
   - component: {fileID: 1331288780}
   - component: {fileID: -4344695356577018200}
   m_Layer: 0
-  m_Name: fast shooting weapon
+  m_Name: fast shooting weapon PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,6 +323,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -93.66, z: 0}
+--- !u!114 &4560911157762355249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082155616017713327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e0d39862a468e478c41c8ed47697b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun: {fileID: 0}
+  model: {fileID: 0}
+  mat: {fileID: 0}
+  clip: {fileID: 0}
+  audioVol: 0
 --- !u!114 &1331288779
 MonoBehaviour:
   m_ObjectHideFlags: 0

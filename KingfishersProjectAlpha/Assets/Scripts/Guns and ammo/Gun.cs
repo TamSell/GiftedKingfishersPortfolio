@@ -8,8 +8,8 @@ using UnityEngine.UIElements;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] Transform cam;
-
+    [SerializeField]  Transform cam;
+    [SerializeField] AudioSource aud;
     [Header("----Gun Basic Stats-----")]
     [Range(0.1f,2)][SerializeField] public float ShootRate;
     [SerializeField] public int realoadSpeed;
@@ -24,8 +24,9 @@ public class Gun : MonoBehaviour
     [Range(0, 30)][SerializeField] public int magSize;
     [Range(0, 300)][SerializeField] public int totalAmmo;
 
-
-
+    [Header("----Audio Clip----")]
+    [SerializeField] public AudioClip GunShot;
+    [SerializeField] public float gunShotVol;
    
     
     public bool isShooting;
@@ -115,11 +116,12 @@ public class Gun : MonoBehaviour
         isShooting = true;
         if(RayCastWeapon)
         {
+            aud.PlayOneShot(GunShot, gunShotVol);
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
             {
-              
 
+             
                 Damage damage = hit.collider.GetComponent<Damage>();
                 if (damage != null)
                 {
@@ -134,6 +136,8 @@ public class Gun : MonoBehaviour
        
         else
         {
+
+            aud.PlayOneShot(GunShot, gunShotVol);
             Instantiate(bullet, Barrel.position, cam.rotation);
             yield return new WaitForSeconds(ShootRate);
             isShooting = false;

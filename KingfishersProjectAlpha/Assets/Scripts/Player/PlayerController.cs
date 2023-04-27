@@ -335,9 +335,14 @@ public class PlayerController : MonoBehaviour, Damage
         usingGun.reaload = gunList[selectedWeapon].reaload;
 
         usingGun.RayCastWeapon = gunList[selectedWeapon].RayCastWeapon;
+        
+        usingGun.GunShot = gunList[selectedWeapon].GunShot;
+        usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
 
         gunModel.mesh = gunList[selectedWeapon].GetComponent<MeshFilter>().sharedMesh;
         gunMaterial.material = gunList[selectedWeapon].GetComponent<MeshRenderer>().sharedMaterial;
+        
+
     }
 
    

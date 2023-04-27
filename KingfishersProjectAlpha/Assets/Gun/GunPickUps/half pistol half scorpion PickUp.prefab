@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9179057780020124201}
+  - component: {fileID: 7305171011361075411}
   - component: {fileID: 6353143152137072378}
   - component: {fileID: 2176312567087464348}
   - component: {fileID: -3348036559180699922}
   m_Layer: 0
-  m_Name: half pistol half scorpion
+  m_Name: half pistol half scorpion PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,6 +39,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -92.679, z: 0}
+--- !u!114 &7305171011361075411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9182602246768357353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e0d39862a468e478c41c8ed47697b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun: {fileID: 0}
+  model: {fileID: 0}
+  mat: {fileID: 0}
+  clip: {fileID: 0}
+  audioVol: 0
 --- !u!114 &6353143152137072378
 MonoBehaviour:
   m_ObjectHideFlags: 0
