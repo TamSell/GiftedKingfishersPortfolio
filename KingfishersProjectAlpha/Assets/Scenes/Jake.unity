@@ -9182,6 +9182,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1912855454129274025, guid: 2bc7ee9bc756a6641a461c5e045c860b, type: 3}
+      propertyPath: roamDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912855454129274025, guid: 2bc7ee9bc756a6641a461c5e045c860b, type: 3}
+      propertyPath: animTransSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1913781027990913489, guid: 2bc7ee9bc756a6641a461c5e045c860b, type: 3}
       propertyPath: m_Name
       value: Enemy Runner 1
