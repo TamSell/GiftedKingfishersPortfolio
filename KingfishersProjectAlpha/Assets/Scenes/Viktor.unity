@@ -978,6 +978,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1827005761485534329, guid: ecd9eb1fedd037c4693932ac6d407e93, type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 1180980833}
     - target: {fileID: 7297258730796553554, guid: ecd9eb1fedd037c4693932ac6d407e93, type: 3}
       propertyPath: m_Name
       value: AK74
@@ -1604,6 +1608,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122422664}
   m_CullTransparentMesh: 1
+--- !u!114 &1180980833 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5141567512003515659, guid: ecd9eb1fedd037c4693932ac6d407e93, type: 3}
+  m_PrefabInstance: {fileID: 517413454}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b067ea13732289f41abc26a66c1c6910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1241708346
 PrefabInstance:
   m_ObjectHideFlags: 0
