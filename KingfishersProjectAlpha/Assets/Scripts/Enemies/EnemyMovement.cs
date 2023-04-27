@@ -95,9 +95,9 @@ public class EnemyMovement : MonoBehaviour, Damage
     }
     void FindPlayer()
     {
-        DistanceToPlayer = Vector3.Distance(gameManager.Instance.PlayerModel.transform.position, gunPos.position);
         identVec = (gameManager.Instance.PlayerModel.transform.position - headPos.position);
         viewAngle = Vector3.Angle(new Vector3(identVec.x, 0, identVec.z), transform.forward);
+        DistanceToPlayer = Vector3.Distance(headPos.position, gameManager.Instance.PlayerModel.transform.position);
         Debug.DrawLine(headPos.position, gameManager.Instance.PlayerModel.transform.position);
 
         RaycastHit hit;
@@ -113,7 +113,7 @@ public class EnemyMovement : MonoBehaviour, Damage
                     FollowPlayer();
                 }
 
-                if (!isThrowing)
+                if (!isThrowing && DistanceToPlayer < navMeshA.stoppingDistance)
                 {
 
                     StartCoroutine(shoot());
@@ -168,6 +168,7 @@ public class EnemyMovement : MonoBehaviour, Damage
         if (hitPoints <= 0)
         {
             StopAllCoroutines();
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             gameManager.Instance.updateGoal(-1);
             animatorRanged.SetBool("Dead", true);
             GetComponent<CapsuleCollider>().enabled = false;
@@ -175,6 +176,7 @@ public class EnemyMovement : MonoBehaviour, Damage
         }
         else
         {
+            aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
             Vector3 lower = new Vector3(10.0f, 0.0f, 10.0f);
             animatorRanged.SetTrigger("Hit");
             navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position - lower);
