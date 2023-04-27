@@ -30,7 +30,8 @@ public class Gun : MonoBehaviour
     
     public bool isShooting;
     public int currentMag;
-    [SerializeField] public GameObject bullet ;
+    public BulletSpeed bulletVals;
+    [SerializeField] public GameObject bullet;
     [SerializeField] public Transform Barrel;
     public bool RayCastWeapon;
   
@@ -196,6 +197,5 @@ public class Gun : MonoBehaviour
             }
         }
     }
-
 
 }

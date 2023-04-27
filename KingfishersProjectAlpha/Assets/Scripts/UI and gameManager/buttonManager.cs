@@ -36,6 +36,5 @@ public class buttonManager : MonoBehaviour
         int.TryParse(name.Substring(name.Length-2,name.Length-1), out place);
         Item _item = gameManager.Instance.SelectItem(place);
         gameManager.Instance.DisplayItem(_item);
-
     }
 }

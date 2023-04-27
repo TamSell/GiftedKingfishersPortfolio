@@ -132,6 +132,22 @@ public class gameManager : MonoBehaviour
         return inven.InvenSelect(index);
     }
 
+    public void addGun(Gun gun)
+    {
+        Item gunItem = null;
+        gunItem.id = gun.name;
+        gunItem.amount = 1;
+        if(gun.RayGunDamage != 0)
+        {
+            gunItem.description = "Damage: " + gun.RayGunDamage.ToString() + "\n";
+        }
+        else
+        {
+            gunItem.description = "Damage: " + gun.bulletVals.damage + "\n";
+        }
+        gunItem.description += "Magazine Size: " + gun.magSize.ToString() + "\n" + "Reserve Ammo: " + gun.totalAmmo.ToString();
+    }
+
     public void DisplayItem(Item _item)
     {
         invenName.text = _item.name;
