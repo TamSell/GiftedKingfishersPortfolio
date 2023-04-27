@@ -317,7 +317,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5300785534986846281}
-  m_LocalRotation: {x: -0, y: -0.99519247, z: -0, w: 0.097938575}
+  m_LocalRotation: {x: 0, y: -0.99519247, z: 0, w: 0.09793904}
   m_LocalPosition: {x: 9.911953, y: 0, z: 32.776447}
   m_LocalScale: {x: 1.75, y: 2, z: 1.75}
   m_ConstrainProportionsScale: 0
@@ -415,11 +415,12 @@ MonoBehaviour:
   turnSpeed: 360
   cameraAngle: 100
   stoppDist: 20
+  animatorRanged: {fileID: 5243657075639673485}
   model: {fileID: 5223563312106169649}
   headPos: {fileID: 5302111193500235974}
   gunPos: {fileID: 1642232136515822070}
   navMeshA: {fileID: 5302111193600064822}
-  ThrowWindup: 3
+  ThrowWindup: 1
   ThrowRate: 3
   throwSpeed: 20
   isThrowing: 0

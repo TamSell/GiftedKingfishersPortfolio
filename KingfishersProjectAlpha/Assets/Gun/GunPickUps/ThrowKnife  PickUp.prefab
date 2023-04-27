@@ -40,13 +40,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9221744347233592050}
+  - component: {fileID: -6382314383031619230}
   - component: {fileID: 4339222922777119511}
   - component: {fileID: 4590364756498686426}
   - component: {fileID: 2338973626046793588}
   - component: {fileID: 5344729082983661350}
   - component: {fileID: -5485563943338891170}
   m_Layer: 0
-  m_Name: 'ThrowKnife '
+  m_Name: ThrowKnife  PickUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,6 +69,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -7.045, y: 228.323, z: -90}
+--- !u!114 &-6382314383031619230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3571042716546701651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68e0d39862a468e478c41c8ed47697b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gun: {fileID: 0}
+  model: {fileID: 0}
+  mat: {fileID: 0}
+  clip: {fileID: 0}
+  audioVol: 0
 --- !u!114 &4339222922777119511
 MonoBehaviour:
   m_ObjectHideFlags: 0
