@@ -5007,6 +5007,7 @@ MonoBehaviour:
   stoppDist: 5
   roamStopTime: 3
   roamDistance: 5
+  animTransSpeed: 3
   model: {fileID: 1973388932879328425}
   headPos: {fileID: 1912855454163695966}
   navMeshA: {fileID: 1912855454129274030}
@@ -5024,7 +5025,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 12
+  m_Speed: 8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 300
