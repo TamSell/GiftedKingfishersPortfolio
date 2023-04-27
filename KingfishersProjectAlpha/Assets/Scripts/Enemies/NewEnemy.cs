@@ -54,11 +54,12 @@ public class NewEnemy : MonoBehaviour, Damage
 
     void Update()
     {
-        speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime* animTransSpeed);
-        animator.SetFloat("Speed", speed);
+        
         if (navMeshA.isActiveAndEnabled)
         {
-           
+            speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
+            animator.SetFloat("Speed", speed);
+
             if (playerInRange && !FindPlayer())
             {
                 StartCoroutine(roam());
@@ -175,6 +176,9 @@ public class NewEnemy : MonoBehaviour, Damage
         {
             gameManager.Instance.updateGoal(-1);
             Destroy(gameObject);
+            animator.SetBool("Death", true);
+            GetComponent<CapsuleCollider>().enabled = false;
+            navMeshA.enabled = false;
         }
     }
 
