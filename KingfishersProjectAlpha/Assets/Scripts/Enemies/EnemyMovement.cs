@@ -29,6 +29,7 @@ public class EnemyMovement : MonoBehaviour, Damage
     [SerializeField] Transform headPos;
     [SerializeField] Transform gunPos;
     [SerializeField] NavMeshAgent navMeshA;
+    [SerializeField] GameObject Drop;
 
     [Header("-- Thrower Stats --")]
     [SerializeField] int ThrowWindup;
@@ -168,6 +169,7 @@ public class EnemyMovement : MonoBehaviour, Damage
         if (hitPoints <= 0)
         {
             StopAllCoroutines();
+            dropItem(Drop);
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             gameManager.Instance.updateGoal(-1);
             animatorRanged.SetBool("Dead", true);
@@ -198,5 +200,9 @@ public class EnemyMovement : MonoBehaviour, Damage
 
         IsEffecting = false;
 
+    }
+    void dropItem(GameObject obj)
+    {
+        Instantiate(obj, transform.position, transform.rotation);
     }
 }

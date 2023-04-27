@@ -202,4 +202,10 @@ public class Gun : MonoBehaviour
         }
     }
 
+    public void AddAmmo(int ammount)
+    {
+        totalAmmo+= ammount;
+        gameManager.Instance.loadText(totalAmmo, currentMag);
+    }
+
 }

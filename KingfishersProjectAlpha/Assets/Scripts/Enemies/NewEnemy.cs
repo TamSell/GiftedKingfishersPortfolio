@@ -42,6 +42,7 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] Renderer model;
     [SerializeField] Transform headPos;
     [SerializeField] NavMeshAgent navMeshA;
+    [SerializeField] GameObject Drop;
 
     [Header("-- Melee Stats --")]
     [SerializeField] float meleeWindUp;
@@ -189,6 +190,7 @@ public class NewEnemy : MonoBehaviour, Damage
         if (hitPoints <= 0)
         {
             StopAllCoroutines();
+            dropItem(Drop);
             meleeSwipe.SetActive(false);
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             gameManager.Instance.updateGoal(-1);
@@ -222,5 +224,9 @@ public class NewEnemy : MonoBehaviour, Damage
 
         IsEffecting = false;
 
+    }
+    void dropItem(GameObject obj)
+    {
+        Instantiate(obj, transform.position, transform.rotation);
     }
 }

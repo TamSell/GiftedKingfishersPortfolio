@@ -13,14 +13,18 @@ public class supportItem : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            if(ammoorhealth)
+            if(!ammoorhealth)
             {
-                gameManager.Instance.playerController.addHP(addIt);
+                if(gameManager.Instance.playerController.HPorig > gameManager.Instance.playerController.HP + addIt)
+                    gameManager.Instance.playerController.addHP(addIt);
+                else
+                    gameManager.Instance.playerController.HP = gameManager.Instance.playerController.HPorig;
             }
             else
             {
                 gameManager.Instance.playerController.usingGun.totalAmmo += addIt;
             }
+            Destroy(gameObject);
         }
     }
 }
