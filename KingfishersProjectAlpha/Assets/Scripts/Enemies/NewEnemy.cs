@@ -64,6 +64,7 @@ public class NewEnemy : MonoBehaviour, Damage
         stopDistOrig = stoppDist;
         startingPos = transform.position;
         originalSpeed = navMeshA.speed;
+        meleeSwipe.SetActive(false);
     }
 
     void Update()
@@ -157,8 +158,8 @@ public class NewEnemy : MonoBehaviour, Damage
         }
     IEnumerator melee()
     {
-        isMeleeing = true;
         GetComponent<Animator>().enabled = false;
+        isMeleeing = true;
         navMeshA.speed = 0;
         aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
         GetComponent<Animator>().enabled = true;
