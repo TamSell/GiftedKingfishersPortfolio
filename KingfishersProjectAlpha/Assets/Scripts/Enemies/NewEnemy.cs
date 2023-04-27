@@ -157,12 +157,14 @@ public class NewEnemy : MonoBehaviour, Damage
     IEnumerator melee()
     {
         isMeleeing = true;
+        navMeshA.speed = 0;
         aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
         animator.SetTrigger("Melee");
         yield return new WaitForSeconds(meleeWindUp);
         meleeSwipe.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         meleeSwipe.SetActive(false);
+        navMeshA.speed = originalSpeed;
         yield return new WaitForSeconds(MeleeRate);
         isMeleeing = false;
     }
@@ -194,9 +196,9 @@ public class NewEnemy : MonoBehaviour, Damage
         else
         {
             aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
-            Vector3 lower = new Vector3(3.0f, 0.0f, 3.0f);
+            Vector3 lower = new Vector3(navMeshA.stoppingDistance, 0.0f, navMeshA.stoppingDistance);
             animator.SetTrigger("Damage");
-            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position - lower);
+            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
             navMeshA.stoppingDistance = 0;
 
             StartCoroutine(flashColor());
