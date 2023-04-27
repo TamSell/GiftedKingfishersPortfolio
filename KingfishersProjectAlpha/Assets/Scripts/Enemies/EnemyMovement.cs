@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class EnemyMovement : MonoBehaviour , Damage
 {
     [Header("----- Components -----")]
+    [SerializeField] Animator animator;
 
     [Header("-- Stats --")]
     [SerializeField] int hitPoints;
@@ -42,7 +43,7 @@ public class EnemyMovement : MonoBehaviour , Damage
     public GameObject bullet;
     public Transform gun;
     Vector3 playerDirection;
-
+    
 
     void Start()
     {
@@ -52,6 +53,8 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     void Update()
     {
+        
+        
         playerDirection = gameManager.Instance.PlayerModel.transform.position;
         if (playerInRange)
         {

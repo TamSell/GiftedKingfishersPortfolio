@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class NewEnemy : MonoBehaviour, Damage
 {
     [Header("----- Components -----")]
+    [SerializeField] Animator animator;
 
     [Header("-- Stats --")]
     [SerializeField] int hitPoints;
@@ -41,7 +42,7 @@ public class NewEnemy : MonoBehaviour, Damage
     float distanceToPlayer;
     public GameObject meleeSwipe;
     bool isMeleeing;
-
+    float speed;
 
     void Start()
     {
@@ -52,8 +53,11 @@ public class NewEnemy : MonoBehaviour, Damage
 
     void Update()
     {
+        speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
+        animator.SetFloat("Speed", speed);
         if (navMeshA.isActiveAndEnabled)
         {
+           
             if (playerInRange && !FindPlayer())
             {
                 StartCoroutine(roam());
