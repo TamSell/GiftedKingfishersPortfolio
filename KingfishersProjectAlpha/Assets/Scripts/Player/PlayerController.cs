@@ -245,79 +245,79 @@ public class PlayerController : MonoBehaviour, Damage
 
     public void gunPickup(Gun gun)
     {
-        gunList.Add(gun);
+       gunList.Add(gun);
 
-        usingGun.currentMag = gun.currentMag;
-        usingGun.bullet = gun.bullet;
-        usingGun.Barrel = gun.Barrel;
-        
-        usingGun.magSize = gun.magSize;
-        usingGun.totalAmmo = gun.totalAmmo;
-        
-        usingGun.RayGunDist = gun.RayGunDist;
-        usingGun.RayGunDamage = gun.RayGunDamage;
-        usingGun.RayGunEffect = gun.RayGunEffect;
-        
-        usingGun.ShootRate = gun.ShootRate;
-        usingGun.realoadSpeed = gun.realoadSpeed;
-        usingGun.reaload = gun.reaload;
-        
-        usingGun.RayCastWeapon = gun.RayCastWeapon;
-
-        usingGun = gun;
-
-        gunModel.mesh = gun.GetComponent<MeshFilter>().sharedMesh;
-        gunMaterial.material = gun.GetComponent<MeshRenderer>().sharedMaterial;
+       usingGun.currentMag = gun.currentMag;
+       usingGun.bullet = gun.bullet;
+       usingGun.Barrel = gun.Barrel;
+       
+       usingGun.magSize = gun.magSize;
+       usingGun.totalAmmo = gun.totalAmmo;
+       
+       usingGun.RayGunDist = gun.RayGunDist;
+       usingGun.RayGunDamage = gun.RayGunDamage;
+       usingGun.RayGunEffect = gun.RayGunEffect;
+       
+       usingGun.ShootRate = gun.ShootRate;
+       usingGun.realoadSpeed = gun.realoadSpeed;
+       usingGun.reaload = gun.reaload;
+       
+       usingGun.RayCastWeapon = gun.RayCastWeapon;
+       
+       usingGun = gun;
+       
+       gunModel.mesh = gun.GetComponent<MeshFilter>().sharedMesh;
+       gunMaterial.material = gun.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
-    void selectGun()
-    {
-        int previousSelectedWeapon = selectedWeapon;
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            selectedWeapon = 0;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            selectedWeapon = 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            selectedWeapon = 2;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            selectedWeapon = 3;
-        }
-
-        if (previousSelectedWeapon != selectedWeapon)
-            SelectGun();
-        //Invoke("SelectWeapon", 0.5f);  
-
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunList.Count - 1)
-        {
-            selectedWeapon++;
-            changeGun();
-        }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
-        {
-            selectedWeapon--;
-            changeGun();
-        }
-    }
-    void SelectGun()
-    {
-        int i = 0;
-        foreach (Gun gun in gunList)
-        {
-            if (i == selectedWeapon)
-                gunList[i].gameObject.SetActive(true);
-            else
-                gunList[i].gameObject.SetActive(false);
-            i++;
-        }
-    }
+     void selectGun()
+     {
+         int previousSelectedWeapon = selectedWeapon;
+     
+         if (Input.GetKeyDown(KeyCode.Alpha1))
+         {
+             selectedWeapon = 0;
+         }
+         else if (Input.GetKeyDown(KeyCode.Alpha2))
+         {
+             selectedWeapon = 1;
+         }
+         else if (Input.GetKeyDown(KeyCode.Alpha3))
+         {
+             selectedWeapon = 2;
+         }
+         else if (Input.GetKeyDown(KeyCode.Alpha4))
+         {
+             selectedWeapon = 3;
+         }
+     
+         if (previousSelectedWeapon != selectedWeapon)
+             SelectGun();
+         //Invoke("SelectWeapon", 0.5f);  
+     
+         if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunList.Count - 1)
+         {
+             selectedWeapon++;
+             changeGun();
+         }
+         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
+         {
+             selectedWeapon--;
+             changeGun();
+         }
+     }
+     void SelectGun()
+     {
+         int i = 0;
+         foreach (Gun gun in gunList)
+         {
+             if (i == selectedWeapon)
+                 gunList[i].gameObject.SetActive(true);
+             else
+                 gunList[i].gameObject.SetActive(false);
+             i++;
+         }
+     }
 
     void changeGun()
     {
@@ -340,13 +340,13 @@ public class PlayerController : MonoBehaviour, Damage
         
         usingGun.GunShot = gunList[selectedWeapon].GunShot;
         usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
-
+    
         usingGun = gunList[selectedWeapon];
-
+    
         gunModel.mesh = gunList[selectedWeapon].GetComponent<MeshFilter>().sharedMesh;
         gunMaterial.material = gunList[selectedWeapon].GetComponent<MeshRenderer>().sharedMaterial;
         
-
+    
     }
 
    
