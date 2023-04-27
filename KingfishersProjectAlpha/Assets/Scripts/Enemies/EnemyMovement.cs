@@ -14,6 +14,7 @@ public class EnemyMovement : MonoBehaviour, Damage
     [SerializeField] int cameraAngle;
     [SerializeField] int stoppDist;
     [SerializeField] Animator animatorRanged;
+    [SerializeField] AudioSource aud;
     float viewAngle;
 
     [Header("-- Variables --")]
@@ -40,6 +41,16 @@ public class EnemyMovement : MonoBehaviour, Damage
     bool IsEffecting;
     GameObject effect;
 
+    [Header("------ Audio ------")]
+    [SerializeField] AudioClip[] audAmbience;
+    [Range(0, 1)][SerializeField] float audAmbienceVol;
+    [SerializeField] AudioClip[] audAttack;
+    [Range(0, 1)][SerializeField] float audAttackVol;
+    [SerializeField] AudioClip[] audHit;
+    [Range(0, 1)][SerializeField] float audhitVol;
+    [SerializeField] AudioClip[] audDeath;
+    [Range(0, 1)][SerializeField] float auddeathVol;
+
     float DistanceToPlayer;
     public GameObject bullet;
     public Transform gun;
@@ -56,6 +67,8 @@ public class EnemyMovement : MonoBehaviour, Damage
     {
         if (navMeshA.isActiveAndEnabled)
         {
+            aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
+
             speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
             animatorRanged.SetFloat("Speed", speed);
             playerDirection = gameManager.Instance.PlayerModel.transform.position;
@@ -118,6 +131,8 @@ public class EnemyMovement : MonoBehaviour, Damage
     IEnumerator shoot()
     {
         isThrowing = true;
+        aud.Stop();
+        aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
         animatorRanged.SetTrigger("Throw");
         yield return new WaitForSeconds(ThrowWindup);
         /* Old Thrower
