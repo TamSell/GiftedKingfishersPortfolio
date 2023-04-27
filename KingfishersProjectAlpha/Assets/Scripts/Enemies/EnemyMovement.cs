@@ -13,6 +13,7 @@ public class EnemyMovement : MonoBehaviour , Damage
     [SerializeField] int turnSpeed;
     [SerializeField] int cameraAngle;
     [SerializeField] int stoppDist;
+    [SerializeField] Animator animatorRanged;
     float viewAngle;
 
     [Header("-- Variables --")]
@@ -20,6 +21,7 @@ public class EnemyMovement : MonoBehaviour , Damage
     bool playerInRange;
     float angleToPlayer;
     float stopDistOrig;
+    float speed;
 
     [Header("-- Objects --")]
     [SerializeField] Renderer model;
@@ -52,10 +54,15 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     void Update()
     {
-        playerDirection = gameManager.Instance.PlayerModel.transform.position;
-        if (playerInRange)
+        if (navMeshA.isActiveAndEnabled)
         {
-            FindPlayer();
+            speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
+            animatorRanged.SetFloat("Speed", speed);
+            playerDirection = gameManager.Instance.PlayerModel.transform.position;
+            if (playerInRange)
+            {
+                FindPlayer();
+            }
         }
     }
 
@@ -111,6 +118,7 @@ public class EnemyMovement : MonoBehaviour , Damage
     IEnumerator shoot()
     {
         isThrowing = true;
+        animatorRanged.SetTrigger("Shoot");
         yield return new WaitForSeconds(ThrowWindup);
         /* Old Thrower
         Instantiate(bullet, gun.position, gun.rotation);
@@ -135,22 +143,29 @@ public class EnemyMovement : MonoBehaviour , Damage
 
     public void TakeDamage(int amountDamage)
     {
-        Vector3 lower = new Vector3(10.0f, 0.0f, 10.0f);
-        hitPoints -= amountDamage;
-        navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position - lower );
-        navMeshA.stoppingDistance = 0;
 
-        StartCoroutine(flashColor());
-        StartCoroutine(flashColor());
+        hitPoints -= amountDamage;
         StartCoroutine(hitEffect());
         effect = Instantiate(TriggerEffect, transform.position + new Vector3(0,1.25f,0), TriggerEffect.transform.rotation);
 
-        Destroy(effect, 5);
+        Destroy(effect, 2);
 
         if (hitPoints <= 0)
         {
+            StopAllCoroutines();
             gameManager.Instance.updateGoal(-1);
-            Destroy(gameObject);
+            animatorRanged.SetBool("Dead", true);
+            GetComponent<CapsuleCollider>().enabled = false;
+            navMeshA.enabled = false;
+        }
+        else
+        {
+            Vector3 lower = new Vector3(10.0f, 0.0f, 10.0f);
+            animatorRanged.SetTrigger("Hit");
+            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position - lower);
+            navMeshA.stoppingDistance = 0;
+
+            StartCoroutine(flashColor());
         }
     }
     IEnumerator hitEffect()
