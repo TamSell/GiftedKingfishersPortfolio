@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class NewEnemy : MonoBehaviour, Damage
 {
     [Header("----- Components -----")]
+    [SerializeField] Animator animator;
 
     [Header("-- Stats --")]
     [SerializeField] int hitPoints;
@@ -15,6 +16,7 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] int stoppDist;
     [SerializeField] int roamStopTime;
     [SerializeField] int roamDistance;
+    [SerializeField] float animTransSpeed;
     float viewAngle;
 
     [Header("-- Variables --")]
@@ -41,7 +43,7 @@ public class NewEnemy : MonoBehaviour, Damage
     float distanceToPlayer;
     public GameObject meleeSwipe;
     bool isMeleeing;
-
+    float speed;
 
     void Start()
     {
@@ -52,8 +54,11 @@ public class NewEnemy : MonoBehaviour, Damage
 
     void Update()
     {
+        speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime* animTransSpeed);
+        animator.SetFloat("Speed", speed);
         if (navMeshA.isActiveAndEnabled)
         {
+           
             if (playerInRange && !FindPlayer())
             {
                 StartCoroutine(roam());
@@ -136,13 +141,14 @@ public class NewEnemy : MonoBehaviour, Damage
         }
     IEnumerator melee()
     {
-            isMeleeing = true;
-            yield return new WaitForSeconds(meleeWindUp);
-            meleeSwipe.SetActive(true);
-            yield return new WaitForSeconds(0.1f);
-            meleeSwipe.SetActive(false);
-            yield return new WaitForSeconds(MeleeRate);
-            isMeleeing = false;
+        isMeleeing = true;
+        animator.SetTrigger("Melee");
+        yield return new WaitForSeconds(meleeWindUp);
+        meleeSwipe.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        meleeSwipe.SetActive(false);
+        yield return new WaitForSeconds(MeleeRate);
+        isMeleeing = false;
     }
 
     IEnumerator flashColor()
