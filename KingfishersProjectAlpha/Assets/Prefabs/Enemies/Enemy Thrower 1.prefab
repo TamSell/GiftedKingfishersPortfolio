@@ -416,6 +416,7 @@ MonoBehaviour:
   cameraAngle: 100
   stoppDist: 20
   animatorRanged: {fileID: 5243657075639673485}
+  aud: {fileID: -7372549135334863951}
   model: {fileID: 5223563312106169649}
   headPos: {fileID: 5302111193500235974}
   gunPos: {fileID: 1642232136515822070}
@@ -425,6 +426,22 @@ MonoBehaviour:
   throwSpeed: 20
   isThrowing: 0
   TriggerEffect: {fileID: 8371673183629246139, guid: 446f23527e94cf94a83bff3d53dd0a36, type: 3}
+  audAmbience:
+  - {fileID: 8300000, guid: 3e7b3f509967c494c8b2ae7889f698a3, type: 3}
+  - {fileID: 8300000, guid: e3196c4282f292345820d06709841f31, type: 3}
+  - {fileID: 8300000, guid: af001db54f6b34c4cb670408febeeb8a, type: 3}
+  - {fileID: 8300000, guid: e24c56d27f9ce364b8daf5551c175975, type: 3}
+  audAmbienceVol: 0.2
+  audAttack:
+  - {fileID: 8300000, guid: c85e64d532de31f48be9375653bd9657, type: 3}
+  - {fileID: 8300000, guid: 8960ac965c5bd7a4bb964d901d7ea74a, type: 3}
+  audAttackVol: 0.2
+  audHit:
+  - {fileID: 8300000, guid: 71be5905828f9944c90433e56f2f81cd, type: 3}
+  audhitVol: 0.2
+  audDeath:
+  - {fileID: 8300000, guid: e732eea6936a96742811f5090224e2c4, type: 3}
+  auddeathVol: 0.2
   bullet: {fileID: 5132483783722734408, guid: 5671371b839cc444f920b55c2b61c51d, type: 3}
   gun: {fileID: 1642232136515822070}
 --- !u!82 &-7372549135334863951

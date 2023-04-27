@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,7 +77,6 @@ public class BulletSpeed : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
        
         TriggerEffect.SetActive(false);
-
-
     }
+
 }
