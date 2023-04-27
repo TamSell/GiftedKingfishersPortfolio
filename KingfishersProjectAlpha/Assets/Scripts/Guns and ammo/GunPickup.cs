@@ -10,7 +10,6 @@ public class GunPickup : MonoBehaviour
     [SerializeField] AudioClip clip;
     [Range(0,1)][SerializeField] float audioVol;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +23,6 @@ public class GunPickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             gameManager.Instance.playerController.gunPickup(gun);
-            
             Destroy(gameObject);
             gameManager.Instance.addGun(gun);
         }
