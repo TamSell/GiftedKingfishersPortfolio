@@ -181,7 +181,7 @@ public class EnemyMovement : MonoBehaviour, Damage
             aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
             Vector3 lower = new Vector3(10.0f, 0.0f, 10.0f);
             animatorRanged.SetTrigger("Hit");
-            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position - lower);
+            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
             navMeshA.stoppingDistance = 0;
 
             StartCoroutine(flashColor());
