@@ -44,7 +44,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -4927,7 +4927,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913781027990913489}
-  m_LocalRotation: {x: -0, y: -0.99519247, z: -0, w: 0.097938575}
+  m_LocalRotation: {x: 0, y: -0.99519247, z: 0, w: 0.09793904}
   m_LocalPosition: {x: 9.911953, y: 0, z: 32.776447}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
@@ -4984,7 +4984,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -5001,6 +5001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2006925085589054229}
+  aud: {fileID: 934377346551232401}
   hitPoints: 10
   cameraTurnSpeed: 360
   cameraAngle: 60
@@ -5008,12 +5009,25 @@ MonoBehaviour:
   roamStopTime: 3
   roamDistance: 5
   animTransSpeed: 3
+  audAmbience:
+  - {fileID: 8300000, guid: 3e7b3f509967c494c8b2ae7889f698a3, type: 3}
+  audAmbienceVol: 0.1
+  audAttack:
+  - {fileID: 8300000, guid: 8960ac965c5bd7a4bb964d901d7ea74a, type: 3}
+  - {fileID: 8300000, guid: e732eea6936a96742811f5090224e2c4, type: 3}
+  audAttackVol: 0.2
+  audHit:
+  - {fileID: 8300000, guid: 71be5905828f9944c90433e56f2f81cd, type: 3}
+  audhitVol: 0.2
+  audDeath:
+  - {fileID: 8300000, guid: bd3c648b49bacbd4f8d665191b49890b, type: 3}
+  auddeathVol: 0.3
   model: {fileID: 1973388932879328425}
   headPos: {fileID: 1912855454163695966}
   navMeshA: {fileID: 1912855454129274030}
-  meleeWindUp: 1
-  MeleeRate: 3
-  TriggerEffect: {fileID: 0}
+  meleeWindUp: 0.5
+  MeleeRate: 1
+  TriggerEffect: {fileID: 8371673183629246139, guid: 446f23527e94cf94a83bff3d53dd0a36, type: 3}
   meleeSwipe: {fileID: 586030755310329496}
 --- !u!195 &1912855454129274030
 NavMeshAgent:

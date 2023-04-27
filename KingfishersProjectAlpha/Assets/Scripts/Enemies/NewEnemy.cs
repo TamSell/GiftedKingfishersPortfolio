@@ -8,6 +8,7 @@ public class NewEnemy : MonoBehaviour, Damage
 {
     [Header("----- Components -----")]
     [SerializeField] Animator animator;
+    [SerializeField] AudioSource aud;
 
     [Header("-- Stats --")]
     [SerializeField] int hitPoints;
@@ -18,6 +19,17 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] int roamDistance;
     [SerializeField] float animTransSpeed;
     float viewAngle;
+    float originalSpeed;
+
+    [Header("------ Audio ------")]
+    [SerializeField] AudioClip[] audAmbience;
+    [Range(0, 1)][SerializeField] float audAmbienceVol;
+    [SerializeField] AudioClip[] audAttack;
+    [Range(0, 1)][SerializeField] float audAttackVol;
+    [SerializeField] AudioClip[] audHit;
+    [Range(0, 1)][SerializeField] float audhitVol;
+    [SerializeField] AudioClip[] audDeath;
+    [Range(0, 1)][SerializeField] float auddeathVol;
 
     [Header("-- Variables --")]
     Vector3 identVec;
@@ -50,6 +62,7 @@ public class NewEnemy : MonoBehaviour, Damage
         gameManager.Instance.updateGoal(1);
         stopDistOrig = stoppDist;
         startingPos = transform.position;
+        originalSpeed = navMeshA.speed;
     }
 
     void Update()
@@ -57,6 +70,7 @@ public class NewEnemy : MonoBehaviour, Damage
         
         if (navMeshA.isActiveAndEnabled)
         {
+            aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
             speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * animTransSpeed);
             animator.SetFloat("Speed", speed);
 
@@ -104,7 +118,7 @@ public class NewEnemy : MonoBehaviour, Damage
                     FollowPlayer();
                 }
 
-                if (!isMeleeing)
+                if (!isMeleeing && distanceToPlayer < navMeshA.stoppingDistance)
                 {
 
                     StartCoroutine(melee());
@@ -143,11 +157,14 @@ public class NewEnemy : MonoBehaviour, Damage
     IEnumerator melee()
     {
         isMeleeing = true;
+        navMeshA.speed = 0;
+        aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
         animator.SetTrigger("Melee");
         yield return new WaitForSeconds(meleeWindUp);
         meleeSwipe.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         meleeSwipe.SetActive(false);
+        navMeshA.speed = originalSpeed;
         yield return new WaitForSeconds(MeleeRate);
         isMeleeing = false;
     }
@@ -162,33 +179,41 @@ public class NewEnemy : MonoBehaviour, Damage
     public void TakeDamage(int amountDamage)
     {
         hitPoints -= amountDamage;
-        animator.SetTrigger("Damage");
-        navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
-        navMeshA.stoppingDistance = 0;
-
-        StartCoroutine(flashColor());
         StartCoroutine(hitEffect());
-        effect = Instantiate(TriggerEffect, transform.position + new Vector3(0,1.5f,0), TriggerEffect.transform.rotation);
+        effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
 
-        Destroy(effect, 5);
+        Destroy(effect, 2);
 
         if (hitPoints <= 0)
         {
+            StopAllCoroutines();
+            meleeSwipe.SetActive(false);
+            aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             gameManager.Instance.updateGoal(-1);
-            Destroy(gameObject);
             animator.SetBool("Death", true);
             GetComponent<CapsuleCollider>().enabled = false;
             navMeshA.enabled = false;
         }
+        else
+        {
+            aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
+            Vector3 lower = new Vector3(navMeshA.stoppingDistance, 0.0f, navMeshA.stoppingDistance);
+            animator.SetTrigger("Damage");
+            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
+            navMeshA.stoppingDistance = 0;
+
+            StartCoroutine(flashColor());
+        }
+
     }
 
     IEnumerator hitEffect()
     {
         IsEffecting = true;
         TriggerEffect.SetActive(true);
-
+        navMeshA.speed = 0;
         yield return new WaitForSeconds(1.0f);
-
+        navMeshA.speed = originalSpeed;
         TriggerEffect.SetActive(false);
 
         // yield return new WaitForSeconds(0.5f);

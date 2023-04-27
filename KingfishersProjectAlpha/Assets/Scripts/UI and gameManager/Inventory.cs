@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
         items = new List<Item>();
     }
 
-    void InvenAdd(Item _item = null)
+    public void InvenAdd(Item _item = null)
     {
         if(items.Contains(_item))
         {
