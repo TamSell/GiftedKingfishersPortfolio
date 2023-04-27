@@ -42,6 +42,7 @@ public class NewEnemy : MonoBehaviour, Damage
     [SerializeField] Renderer model;
     [SerializeField] Transform headPos;
     [SerializeField] NavMeshAgent navMeshA;
+    [SerializeField] GameObject Drop;
 
     [Header("-- Melee Stats --")]
     [SerializeField] float meleeWindUp;
@@ -63,6 +64,7 @@ public class NewEnemy : MonoBehaviour, Damage
         stopDistOrig = stoppDist;
         startingPos = transform.position;
         originalSpeed = navMeshA.speed;
+        meleeSwipe.SetActive(false);
     }
 
     void Update()
@@ -156,8 +158,8 @@ public class NewEnemy : MonoBehaviour, Damage
         }
     IEnumerator melee()
     {
-        isMeleeing = true;
         GetComponent<Animator>().enabled = false;
+        isMeleeing = true;
         navMeshA.speed = 0;
         aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
         GetComponent<Animator>().enabled = true;
@@ -189,6 +191,7 @@ public class NewEnemy : MonoBehaviour, Damage
         if (hitPoints <= 0)
         {
             StopAllCoroutines();
+            dropItem(Drop);
             meleeSwipe.SetActive(false);
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             gameManager.Instance.updateGoal(-1);
@@ -222,5 +225,9 @@ public class NewEnemy : MonoBehaviour, Damage
 
         IsEffecting = false;
 
+    }
+    void dropItem(GameObject obj)
+    {
+        Instantiate(obj, transform.position, transform.rotation);
     }
 }

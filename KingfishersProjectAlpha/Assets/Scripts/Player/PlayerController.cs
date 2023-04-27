@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour, Damage
     [Range(3, 30)][SerializeField] float jumpHeight;
     [Range(3, 25)][SerializeField] float gravityValue;
     [Range(1, 4)][SerializeField] int jumpMax;
-    [Range(1, 20)][SerializeField] int HP;
+    [Range(1, 20)][SerializeField] public int HP;
 
     [Range(1, 200)][SerializeField] float FOVorg;
     [Range(1, 200)][SerializeField] float RunFOV;
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour, Damage
     private bool groundedPlayer;
     private float StaminaOrig;
     public Vector3 move;
-    int HPorig;
+    public int HPorig;
     public bool isrunning;
     public bool isDashing;
     
@@ -349,5 +349,8 @@ public class PlayerController : MonoBehaviour, Damage
     
     }
 
-   
+   public void addHP(int amount)
+    {
+        HP += amount;
+    }
 }

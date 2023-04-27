@@ -287,7 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4860731158948960840}
   aud: {fileID: 1586504566}
-  PlayerSpeed: 8
+  PlayerSpeed: 4
   jumpHeight: 10.56
   gravityValue: 25
   jumpMax: 1
@@ -295,7 +295,7 @@ MonoBehaviour:
   FOVorg: 0
   RunFOV: 52.1
   gunList: []
-  RunSpeed: 9.09
+  RunSpeed: 6
   MaxDashSpeed: 250
   MidDashSpeed: 140.5
   LowDashSpeed: 90
@@ -330,6 +330,7 @@ MonoBehaviour:
   gunModel: {fileID: 0}
   selectedWeapon: 0
   move: {x: 0, y: 0, z: 0}
+  HPorig: 0
   isrunning: 0
   isDashing: 0
 --- !u!33 &4860731158948960845
