@@ -157,8 +157,10 @@ public class NewEnemy : MonoBehaviour, Damage
     IEnumerator melee()
     {
         isMeleeing = true;
+        GetComponent<Animator>().enabled = false;
         navMeshA.speed = 0;
         aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
+        GetComponent<Animator>().enabled = true;
         animator.SetTrigger("Melee");
         yield return new WaitForSeconds(meleeWindUp);
         meleeSwipe.SetActive(true);
