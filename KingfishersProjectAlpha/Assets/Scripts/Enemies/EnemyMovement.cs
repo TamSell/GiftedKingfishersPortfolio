@@ -60,7 +60,7 @@ public class EnemyMovement : MonoBehaviour, Damage
 
     void Start()
     {
-        gameManager.Instance.updateGoal(1);
+       // gameManager.Instance.updateGoal(1);
         stopDistOrig = stoppDist;
     }
 
