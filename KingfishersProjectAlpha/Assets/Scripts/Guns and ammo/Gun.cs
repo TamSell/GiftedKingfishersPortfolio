@@ -45,6 +45,7 @@ public class Gun : MonoBehaviour
     void Start()
     {
         RealoadingLogic();
+       
     }
 
     // Update is called once per frame

@@ -11,21 +11,22 @@ public class MeleeWeapon : MonoBehaviour
     [Range(0,10)][SerializeField]float RunningTime;
     [Range(0.1f, 2.0f)][SerializeField] float ChargeTime;
     [SerializeField] GameObject TriggerEffect;
-
+   
     [SerializeField] BoxCollider box;
-
+   
     GameObject effect;
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     private void Update()
     {
+       
         
-        if( gameManager.Instance.playerController.isrunning==false)
+       if ( gameManager.Instance.playerController.isrunning==false)
         {
             RunningTime = 0;
         }
@@ -50,7 +51,8 @@ public class MeleeWeapon : MonoBehaviour
             if(Input.GetButton("Run"))
             {
 
-                if(RunningTime > ChargeTime)
+               // if(RunningTime > ChargeTime)
+               if(gameManager.Instance.playerController.speed>11)
                 {
 
                     Damage canDamage = other.GetComponent<Damage>();
