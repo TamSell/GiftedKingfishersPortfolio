@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour, Damage
        usingGun.realoadSpeed = gun.realoadSpeed;
        usingGun.reaload = gun.reaload;
        
-       usingGun.FlameTrhower = gun.FlameTrhower;
+       usingGun.Sniper = gun.Sniper;
        
        usingGun = gun;
        
@@ -342,7 +342,7 @@ public class PlayerController : MonoBehaviour, Damage
        usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
        usingGun.reaload = gunList[selectedWeapon].reaload;
        
-       usingGun.FlameTrhower = gunList[selectedWeapon].FlameTrhower;
+       usingGun.Sniper = gunList[selectedWeapon].Sniper;
        
        usingGun.GunShot = gunList[selectedWeapon].GunShot;
        usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;

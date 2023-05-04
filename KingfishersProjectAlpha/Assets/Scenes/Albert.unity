@@ -516,6 +516,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+      propertyPath: Sniper
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
       propertyPath: magSize
       value: 30
       objectReference: {fileID: 0}
@@ -530,14 +534,38 @@ PrefabInstance:
     - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
       propertyPath: hitEffect
       value: 
-      objectReference: {fileID: 1840045533}
+      objectReference: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
     - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
       propertyPath: totalAmmo
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+      propertyPath: RayGunDist
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+      propertyPath: ImpulseTime
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
       propertyPath: ShotGunDist
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+      propertyPath: ImpulseSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+      propertyPath: RayGunDamage
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+      propertyPath: RayGunEffect
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+      propertyPath: realoadSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7528933430852883477, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
       propertyPath: ShotGunDamage
@@ -789,44 +817,7 @@ MonoBehaviour:
   bulletVals: {fileID: 0}
   bullet: {fileID: 0}
   Barrel: {fileID: 128739581}
-  FlameTrhower: 0
---- !u!84 &426830401
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MirrorFrame's RenderTexture.
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 748
-  m_Height: 748
-  m_AntiAliasing: 8
-  m_MipCount: -1
-  m_DepthStencilFormat: 0
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 0
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 2
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
+  Sniper: 0
 --- !u!1 &439552039
 GameObject:
   m_ObjectHideFlags: 0
@@ -962,6 +953,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439552039}
   m_CullTransparentMesh: 1
+--- !u!84 &594786673
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MirrorFrame's RenderTexture.
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 748
+  m_Height: 748
+  m_AntiAliasing: 8
+  m_MipCount: -1
+  m_DepthStencilFormat: 0
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 0
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 2
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &650637736 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2407790616208177397, guid: 2c1ab51284bfd4f4e93ffd51a1c1295a, type: 3}
@@ -2318,6 +2346,6 @@ PrefabInstance:
     - target: {fileID: 4450603593107296665, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 426830401}
+      objectReference: {fileID: 594786673}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}

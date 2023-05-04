@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -16,16 +17,18 @@ public class Gun : MonoBehaviour
     [SerializeField] public bool reaload;
     [SerializeField] GameObject hitEffect;
 
-    [Header("-----Flame Thower Gun Stats------")]
+    [Header("-----Sniper Stats------")]
     [SerializeField] public float RayGunDist;
     [SerializeField] public int RayGunDamage;
     [SerializeField] public GameObject RayGunEffect;
 
-    [Header("---Shotgun-----")]
+    [Header("---ShotGun-----")]
     [SerializeField] public float ShotGunDist;
     [SerializeField] public int ShotGunDamage;
     [SerializeField] public bool shotgun;
     [SerializeField] public int bulletPerShot;
+
+    [Header("---Impulse Setting----")]
     [SerializeField] public float ImpulseTime;
     [SerializeField] public int ImpulseSpeed;
 
@@ -44,7 +47,7 @@ public class Gun : MonoBehaviour
     public BulletSpeed bulletVals;
     [SerializeField] public GameObject bullet;
     [SerializeField] public Transform Barrel;
-    public bool FlameTrhower;
+    public bool Sniper;
     GameObject DestroyEffect;
     bool impulsing;
 
@@ -70,7 +73,7 @@ public class Gun : MonoBehaviour
         if (reaload == true)
         {
             Invoke("shooting", realoadSpeed);
-            if (FlameTrhower)
+            if (Sniper)
             {
                 RayGunEffect.SetActive(false);
             }
@@ -115,7 +118,7 @@ public class Gun : MonoBehaviour
         }
         if (RayGunEffect)
         {
-            if (FlameTrhower && Input.GetButton("Shoot"))
+            if (Sniper && Input.GetButton("Shoot"))
             {
                 RayGunEffect.SetActive(true);
             }
@@ -131,19 +134,33 @@ public class Gun : MonoBehaviour
     IEnumerator shoot()
     {
         isShooting = true;
-        if (FlameTrhower)
+        if (Sniper)
         {
             aud.PlayOneShot(GunShot, gunShotVol);
+            ShootImpulse();
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
             {
-
-
-                Damage damage = hit.collider.GetComponent<Damage>();
-                if (damage != null)
+                if (hit.collider.CompareTag("Player"))
                 {
-                    damage.TakeDamage(RayGunDamage);
+                   yield return null;   
                 }
+                else
+                {
+                    if (hitEffect)
+                    {
+                        DestroyEffect = Instantiate(hitEffect, hit.point, transform.rotation);
+                        Destroy(DestroyEffect, 2);
+                    }
+
+                    Damage damage = hit.collider.GetComponent<Damage>();
+                    if (damage != null)
+                    {
+                        damage.TakeDamage(RayGunDamage);
+                    }
+                }
+
+               
             }
             yield return new WaitForSeconds(ShootRate);
             isShooting = false;
@@ -161,7 +178,7 @@ public class Gun : MonoBehaviour
 
                     if(hit.collider.CompareTag("Player"))
                     {
-                        yield return null;
+                        break;
                     }
                     if (hitEffect)
                     {
