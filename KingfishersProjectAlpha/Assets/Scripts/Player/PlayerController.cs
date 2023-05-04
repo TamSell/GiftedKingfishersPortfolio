@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour, Damage
 {
 
     [Header("----- Components-----")]
-    [SerializeField] CharacterController controller;
+    [SerializeField] public CharacterController controller;
     [SerializeField] AudioSource aud;
 
     [Header("----- Player Stats -----")]
@@ -27,7 +27,10 @@ public class PlayerController : MonoBehaviour, Damage
     [Range(0, 1)][SerializeField] float DashTime;
     [Range(0,30)][SerializeField] float MaxStamina;
     [SerializeField] float Stamina;
-    public float speed;
+    [SerializeField] public float speed;
+    [SerializeField] public float Enery;
+    [SerializeField] float maxEnergy;
+   
 
     [Header("------ Audio ------")]
     [SerializeField] AudioClip[] audSteps;
@@ -49,7 +52,7 @@ public class PlayerController : MonoBehaviour, Damage
     bool isPlaying;
     bool isPlayingSteps;
     int jumpTimes;
-    private Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     private bool groundedPlayer;
     private float StaminaOrig;
     private float SpeedOrig;
@@ -64,13 +67,14 @@ public class PlayerController : MonoBehaviour, Damage
     // Start is called before the first frame update
     void Start()
     {
-       StartCoroutine(CalculateSpeed());
+        StartCoroutine(CalculateSpeed());
         HPorig = HP;
         StaminaOrig = Stamina;
         SpeedOrig = speed;
         PLayerUpdateUI();
         FOVorg = Camera.main.fieldOfView;
         respawnPlayer();
+      
       
     }
 
@@ -80,6 +84,7 @@ public class PlayerController : MonoBehaviour, Damage
         Dash();
         movement();
         selectGun();
+        EnergyBuildUp();
     }
 
     void movement()
@@ -187,6 +192,7 @@ public class PlayerController : MonoBehaviour, Damage
         }
         if(Input.GetButtonDown("Dash"))
         {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, RunFOV, Time.deltaTime * 0.5f);
             gameManager.Instance.SBar.enabled = true;
             if (Stamina >0)
             {
@@ -271,7 +277,7 @@ public class PlayerController : MonoBehaviour, Damage
        usingGun.realoadSpeed = gun.realoadSpeed;
        usingGun.reaload = gun.reaload;
        
-       usingGun.RayCastWeapon = gun.RayCastWeapon;
+       usingGun.Sniper = gun.Sniper;
        
        usingGun = gun;
        
@@ -345,7 +351,7 @@ public class PlayerController : MonoBehaviour, Damage
        usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
        usingGun.reaload = gunList[selectedWeapon].reaload;
        
-       usingGun.RayCastWeapon = gunList[selectedWeapon].RayCastWeapon;
+       usingGun.Sniper = gunList[selectedWeapon].Sniper;
        
        usingGun.GunShot = gunList[selectedWeapon].GunShot;
        usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
@@ -373,7 +379,31 @@ public class PlayerController : MonoBehaviour, Damage
             yield return new WaitForFixedUpdate();
             speed = Mathf.RoundToInt(Vector3.Distance(transform.position, prevPos) / Time.fixedDeltaTime);
         }
+    }
 
+    public float EnergyBuildUp()
+    {
+        
+        if(Enery < maxEnergy)
+        {
+            if(speed > 12)
+            {
+                Enery += 3 * Time.deltaTime;
+            }
+            else if(speed > 20)
+            {
+                Enery += 5 * Time.deltaTime;
 
+            }
+            else if(speed > 40)
+            {
+                Enery += 10 * Time.deltaTime;
+            }
+            else
+            {
+                Enery -= 1 * Time.deltaTime;
+            }
+        }
+        return Enery;
     }
 }
