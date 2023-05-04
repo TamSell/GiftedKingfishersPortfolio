@@ -49,7 +49,7 @@ public class Gun : MonoBehaviour
     [SerializeField] public Transform Barrel;
     public bool Sniper;
     GameObject DestroyEffect;
-    bool impulsing;
+    
 
 
 
@@ -100,10 +100,10 @@ public class Gun : MonoBehaviour
         if (!isShooting && Input.GetButton("Shoot"))
         {
             reaload = false;
-            if (gameManager.Instance.playerController.enabled == true)
-            {
+           // if (gameManager.Instance.playerController.enabled == true)
+         //   {
                 StartCoroutine(shoot());
-            }
+         //  }
         }
 
 
@@ -136,6 +136,8 @@ public class Gun : MonoBehaviour
         isShooting = true;
         if (Sniper)
         {
+            CountOfBullets(-1);
+            gameManager.Instance.loadText(totalAmmo, currentMag);
             aud.PlayOneShot(GunShot, gunShotVol);
             ShootImpulse();
             RaycastHit hit;
@@ -163,12 +165,15 @@ public class Gun : MonoBehaviour
                
             }
             yield return new WaitForSeconds(ShootRate);
+       
             isShooting = false;
-            CountOfBullets(-1);
-            gameManager.Instance.loadText(totalAmmo, currentMag);
+           
+          
         }
         else if (shotgun)
         {
+            CountOfBullets(-1);
+            gameManager.Instance.loadText(totalAmmo, currentMag);
             ShootImpulse();
             for (int i = 0; i < bulletPerShot; i++)
             {
@@ -195,9 +200,10 @@ public class Gun : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(ShootRate);
+            
             isShooting = false;
-            CountOfBullets(-1);
-            gameManager.Instance.loadText(totalAmmo, currentMag);
+          
+           
         }
         else
         {
@@ -281,7 +287,7 @@ public class Gun : MonoBehaviour
     }
     IEnumerator Impulse()
     {
-        impulsing = true;
+     
         float startTime = Time.time;
 
         while (Time.time < startTime + ImpulseTime)
@@ -290,7 +296,7 @@ public class Gun : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-        impulsing = false;
+     
     }
 
 }
