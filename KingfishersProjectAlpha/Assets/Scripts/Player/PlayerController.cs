@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour, Damage
 {
 
     [Header("----- Components-----")]
-    [SerializeField] CharacterController controller;
+    [SerializeField] public CharacterController controller;
     [SerializeField] AudioSource aud;
 
     [Header("----- Player Stats -----")]
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour, Damage
     bool isPlaying;
     bool isPlayingSteps;
     int jumpTimes;
-    private Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     private bool groundedPlayer;
     private float StaminaOrig;
     public Vector3 move;
@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour, Damage
        usingGun.realoadSpeed = gun.realoadSpeed;
        usingGun.reaload = gun.reaload;
        
-       usingGun.RayCastWeapon = gun.RayCastWeapon;
+       usingGun.FlameTrhower = gun.FlameTrhower;
        
        usingGun = gun;
        
@@ -342,7 +342,7 @@ public class PlayerController : MonoBehaviour, Damage
        usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
        usingGun.reaload = gunList[selectedWeapon].reaload;
        
-       usingGun.RayCastWeapon = gunList[selectedWeapon].RayCastWeapon;
+       usingGun.FlameTrhower = gunList[selectedWeapon].FlameTrhower;
        
        usingGun.GunShot = gunList[selectedWeapon].GunShot;
        usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
