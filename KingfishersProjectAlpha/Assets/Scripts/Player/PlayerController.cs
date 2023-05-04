@@ -23,11 +23,11 @@ public class PlayerController : MonoBehaviour, Damage
 
     [Header("-------Player Movement--------")]
     [Range(0, 10)][SerializeField] float RunSpeed;
-    [Range(5, 250)][SerializeField] float MaxDashSpeed;
-    [Range(5, 205)][SerializeField] float MidDashSpeed;
-    [Range(5, 205)][SerializeField] float LowDashSpeed;
+    [Range(5, 250)][SerializeField] float DashSpeed;
+    [Range(0, 1)][SerializeField] float DashTime;
     [Range(0,30)][SerializeField] float MaxStamina;
     [SerializeField] float Stamina;
+    public float speed;
 
     [Header("------ Audio ------")]
     [SerializeField] AudioClip[] audSteps;
@@ -44,9 +44,9 @@ public class PlayerController : MonoBehaviour, Damage
 
 
 
-
+   
     public int selectedWeapon = 0;
-
+    bool isPlaying;
     bool isPlayingSteps;
     int jumpTimes;
     private Vector3 playerVelocity;
@@ -56,14 +56,14 @@ public class PlayerController : MonoBehaviour, Damage
     public int HPorig;
     public bool isrunning;
     public bool isDashing;
+   
     
-    int dash;
    
 
     // Start is called before the first frame update
     void Start()
     {
-       
+       StartCoroutine(CalculateSpeed());
         HPorig = HP;
         StaminaOrig = Stamina;
         PLayerUpdateUI();
@@ -186,25 +186,31 @@ public class PlayerController : MonoBehaviour, Damage
         if(Input.GetButtonDown("Dash"))
         {
             gameManager.Instance.SBar.enabled = true;
-            if (Stamina >=8)
+            if (Stamina >0)
             {
                
-                controller.Move(move * Time.deltaTime * (PlayerSpeed + MaxDashSpeed));
-                Stamina -= 12;
+              StartCoroutine(Dashing());
+               
             }
-            else if(Stamina >=5)
-            {
-                controller.Move(move * Time.deltaTime * (PlayerSpeed + MidDashSpeed));
-                Stamina -= 7;
-            }
-            else if(Stamina >=3)
-            {
-                controller.Move(move * Time.deltaTime * (PlayerSpeed + LowDashSpeed));
-                Stamina -= 5;
-            }
+        
         }
 
     }
+    IEnumerator Dashing()
+    {
+        isDashing = true;
+        float startTime = Time.time;
+
+        while( Time.time< startTime + DashTime)
+        {
+            controller.Move(move * Time.deltaTime * DashSpeed);
+        
+           yield return null;
+        }
+        isDashing=false;
+    }
+
+
     void StaminaRecovery()
     {
         if (Stamina < MaxStamina)
@@ -321,30 +327,30 @@ public class PlayerController : MonoBehaviour, Damage
 
     void changeGun()
     {
-        usingGun.currentMag = gunList[selectedWeapon].currentMag;
-        usingGun.bullet = gunList[selectedWeapon].bullet;
-        usingGun.Barrel = gunList[selectedWeapon].Barrel;
-        
-        usingGun.magSize = gunList[selectedWeapon].magSize;
-        usingGun.totalAmmo = gunList[selectedWeapon].totalAmmo;
-        
-        usingGun.RayGunDist = gunList[selectedWeapon].RayGunDist;
-        usingGun.RayGunDamage = gunList[selectedWeapon].RayGunDamage;
-        usingGun.RayGunEffect = gunList[selectedWeapon].RayGunEffect;
-        
-        usingGun.ShootRate = gunList[selectedWeapon].ShootRate;
-        usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
-        usingGun.reaload = gunList[selectedWeapon].reaload;
-        
-        usingGun.RayCastWeapon = gunList[selectedWeapon].RayCastWeapon;
-        
-        usingGun.GunShot = gunList[selectedWeapon].GunShot;
-        usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
-    
-        usingGun = gunList[selectedWeapon];
-    
-        gunModel.mesh = gunList[selectedWeapon].GetComponent<MeshFilter>().sharedMesh;
-        gunMaterial.material = gunList[selectedWeapon].GetComponent<MeshRenderer>().sharedMaterial;
+       usingGun.currentMag = gunList[selectedWeapon].currentMag;
+       usingGun.bullet = gunList[selectedWeapon].bullet;
+       usingGun.Barrel = gunList[selectedWeapon].Barrel;
+       
+       usingGun.magSize = gunList[selectedWeapon].magSize;
+       usingGun.totalAmmo = gunList[selectedWeapon].totalAmmo;
+       
+       usingGun.RayGunDist = gunList[selectedWeapon].RayGunDist;
+       usingGun.RayGunDamage = gunList[selectedWeapon].RayGunDamage;
+       usingGun.RayGunEffect = gunList[selectedWeapon].RayGunEffect;
+       
+       usingGun.ShootRate = gunList[selectedWeapon].ShootRate;
+       usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
+       usingGun.reaload = gunList[selectedWeapon].reaload;
+       
+       usingGun.RayCastWeapon = gunList[selectedWeapon].RayCastWeapon;
+       
+       usingGun.GunShot = gunList[selectedWeapon].GunShot;
+       usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
+       
+       usingGun = gunList[selectedWeapon];
+       
+       gunModel.mesh = gunList[selectedWeapon].GetComponent<MeshFilter>().sharedMesh;
+       gunMaterial.material = gunList[selectedWeapon].GetComponent<MeshRenderer>().sharedMaterial;
         
     
     }
@@ -352,5 +358,19 @@ public class PlayerController : MonoBehaviour, Damage
    public void addHP(int amount)
     {
         HP += amount;
+    }
+
+    IEnumerator CalculateSpeed()
+    {
+        isPlaying = true;
+        while (isPlaying)
+        {
+            Vector3 prevPos = transform.position;
+
+            yield return new WaitForFixedUpdate();
+            speed = Mathf.RoundToInt(Vector3.Distance(transform.position, prevPos) / Time.fixedDeltaTime);
+        }
+
+
     }
 }

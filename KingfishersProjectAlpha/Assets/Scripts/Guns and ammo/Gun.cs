@@ -15,10 +15,15 @@ public class Gun : MonoBehaviour
     [SerializeField] public int realoadSpeed;
     [SerializeField] public bool reaload;
 
-    [Header("-----RayTrace Gun Stats------")]
+    [Header("-----Flame Thower Gun Stats------")]
     [SerializeField] public float RayGunDist;
     [SerializeField] public int RayGunDamage;
     [SerializeField] public GameObject RayGunEffect;
+
+    [Header("---Shotgun-----")]
+    [SerializeField] public bool shotgun;
+    [SerializeField] public int bulletPerShot;
+    [SerializeField] public float inaccuracyDistance;
 
     [Header("----- Ammo -----")]
     [Range(0, 30)][SerializeField] public int magSize;
@@ -45,6 +50,7 @@ public class Gun : MonoBehaviour
     void Start()
     {
         RealoadingLogic();
+       
     }
 
     // Update is called once per frame
@@ -121,7 +127,7 @@ public class Gun : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
             {
-
+                
 
                 Damage damage = hit.collider.GetComponent<Damage>();
                 if (damage != null)
@@ -134,7 +140,27 @@ public class Gun : MonoBehaviour
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
         }
+        else if (shotgun)
+        {
+            for(int i = 0; i< bulletPerShot; i++)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
+                {
 
+                    
+                    Damage damage = hit.collider.GetComponent<Damage>();
+                    if (damage != null)
+                    {
+                        damage.TakeDamage(RayGunDamage);
+                    }
+                }
+                yield return new WaitForSeconds(ShootRate);
+                isShooting = false;
+                CountOfBullets(-1);
+                gameManager.Instance.loadText(totalAmmo, currentMag);
+            }
+        }
         else
         {
 
@@ -206,6 +232,17 @@ public class Gun : MonoBehaviour
     {
         totalAmmo+= ammount;
         gameManager.Instance.loadText(totalAmmo, currentMag);
+    }
+
+    Vector3 GetShootingDiraction()
+    {
+        Vector3 targetPos = cam.position + cam.forward * RayGunDist;
+        targetPos = new Vector3(
+        targetPos.x = UnityEngine.Random.Range(-inaccuracyDistance, inaccuracyDistance),
+        targetPos.y = UnityEngine.Random.Range(-inaccuracyDistance, inaccuracyDistance),
+        targetPos.z = UnityEngine.Random.Range(-inaccuracyDistance, inaccuracyDistance));
+        Vector3 direction = targetPos - cam.position;
+        return direction.normalized;
     }
 
 }

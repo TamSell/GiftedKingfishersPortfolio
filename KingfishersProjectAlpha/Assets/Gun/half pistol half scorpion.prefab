@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9179057780020124201
 Transform:
   m_ObjectHideFlags: 0
@@ -79,6 +79,7 @@ MonoBehaviour:
   gunShotVol: 0.5
   isShooting: 0
   currentMag: 0
+  bulletVals: {fileID: 0}
   bullet: {fileID: 3808675602889121583, guid: 4dea062e3e3edc64a918a886b85513c3, type: 3}
   Barrel: {fileID: 0}
   RayCastWeapon: 0
