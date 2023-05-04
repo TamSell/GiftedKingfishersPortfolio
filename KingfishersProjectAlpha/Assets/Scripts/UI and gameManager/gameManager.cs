@@ -24,9 +24,12 @@ public class gameManager : MonoBehaviour
     public GameObject LostMenu;
     public GameObject WinMenu;
     public GameObject PauseMenu;
+    public GameObject MainMenu;
     public Image HPbar;
     public Image HPbarBack;
     public Image SBar;
+    public Image Speedbar;
+    public Image SpeedbarBack;
     public TextMeshProUGUI enemyCountTitle;
     public TextMeshProUGUI enemyCount;
     public GameObject reticle;
@@ -161,6 +164,8 @@ public class gameManager : MonoBehaviour
         SBar.enabled = false;
         HPbar.enabled = false;
         HPbarBack.enabled = false;
+        Speedbar.enabled = false;
+        SpeedbarBack.enabled = false;
         reticle.SetActive(false);
         enemyCountTitle.enabled = false;
         enemyCount.enabled = false;
@@ -174,6 +179,8 @@ public class gameManager : MonoBehaviour
         SBar.enabled = true;
         HPbar.enabled = true;
         HPbarBack.enabled = true;
+        Speedbar.enabled = true;
+        SpeedbarBack.enabled = true;
         reticle.SetActive(true);
         enemyCountTitle.enabled = true;
         enemyCount.enabled = true;

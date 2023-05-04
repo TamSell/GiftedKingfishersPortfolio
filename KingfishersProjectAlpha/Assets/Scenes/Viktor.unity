@@ -2306,6 +2306,9 @@ MonoBehaviour:
   RayGunDist: 0
   RayGunDamage: 0
   RayGunEffect: {fileID: 0}
+  shotgun: 0
+  bulletPerShot: 0
+  inaccuracyDistance: 0
   magSize: 0
   totalAmmo: 0
   GunShot: {fileID: 0}
