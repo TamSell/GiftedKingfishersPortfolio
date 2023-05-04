@@ -13723,9 +13723,11 @@ MonoBehaviour:
   ShootRate: 0.8
   realoadSpeed: 4
   reaload: 0
-  RayGunDist: 0
-  RayGunDamage: 0
-  RayGunEffect: {fileID: 100006, guid: 93485fd5fc2ccf2439cb3239186f6382, type: 3}
+  RayGunDist: 100
+  RayGunDamage: 5
+  RayGunEffect: {fileID: 0}
+  shotgun: 1
+  bulletPerShot: 6
   magSize: 8
   totalAmmo: 80
   GunShot: {fileID: 8300000, guid: e2542b4f5b714704abccb7d513972c22, type: 3}
