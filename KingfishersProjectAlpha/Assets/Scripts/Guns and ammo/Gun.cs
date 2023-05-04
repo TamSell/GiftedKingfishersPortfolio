@@ -16,6 +16,7 @@ public class Gun : MonoBehaviour
     [SerializeField] public int realoadSpeed;
     [SerializeField] public bool reaload;
     [SerializeField] GameObject hitEffect;
+    [SerializeField] bool secondaryGun;
 
     [Header("-----Sniper Stats------")]
     [SerializeField] public float RayGunDist;
@@ -100,10 +101,14 @@ public class Gun : MonoBehaviour
         if (!isShooting && Input.GetButton("Shoot"))
         {
             reaload = false;
-           // if (gameManager.Instance.playerController.enabled == true)
-         //   {
-                StartCoroutine(shoot());
-         //  }
+            StartCoroutine(shoot());
+        }
+        if(secondaryGun)
+        {
+            if(!isShooting && Input.GetButton("Secondary"))
+            {
+
+            }
         }
 
 
