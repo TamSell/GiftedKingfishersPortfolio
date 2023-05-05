@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1839912026505863852}
-  - component: {fileID: -3940587885018461623}
   - component: {fileID: 3077669776842801421}
   - component: {fileID: 3684653738856034023}
   - component: {fileID: 7615583962803283666}
@@ -36,19 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 20.095, z: 0}
---- !u!114 &-3940587885018461623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9207788677985055793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a64964a1c57b9a14cb258edb80977928, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 2
 --- !u!114 &3077669776842801421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +49,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   timer: 2
+  BasicDamage: 0
+  LowDamage: 0
+  MediumDamage: 0
+  HighDamage: 0
+  TriggerEffect: {fileID: 0}
+  spin: 0
+  IsSpinning: 0
+  model: {fileID: 0}
 --- !u!54 &3684653738856034023
 Rigidbody:
   m_ObjectHideFlags: 0

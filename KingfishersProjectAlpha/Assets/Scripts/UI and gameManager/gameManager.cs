@@ -146,7 +146,7 @@ public class gameManager : MonoBehaviour
         }
         else
         {
-            gunItem.description = "Damage: " + gun.bulletVals.damage + "\n";
+            gunItem.description = "Damage: " + gun.bulletVals.BasicDamage + "\n";
         }
         gunItem.description += "Magazine Size: " + gun.magSize.ToString() + "\n" + "Reserve Ammo: " + gun.totalAmmo.ToString();
         inven.InvenAdd(gunItem);
