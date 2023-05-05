@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class saveLoadManager
@@ -12,7 +13,13 @@ public class saveLoadManager
     {
         var dir = Application.persistentDataPath + saveDirectory;
 
+        if(!Directory.Exists(dir))
+            Directory.CreateDirectory(dir);
 
+        string json = JsonUtility.ToJson(CurrentsaveData, prettyPrint:true);
+        File.WriteAllText(dir + FileName, json);
+
+        GUIUtility.systemCopyBuffer = dir;
 
         return true;
     }

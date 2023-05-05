@@ -20,6 +20,11 @@ public class buttonManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void Save()
+    {
+        saveLoadManager.Save();
+    }
+
     public void quit()
     {
         Application.Quit();
