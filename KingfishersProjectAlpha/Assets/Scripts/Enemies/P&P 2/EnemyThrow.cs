@@ -11,6 +11,7 @@ public class EnemyThrow : MonoBehaviour
     bool IsEffecting;
     GameObject effect;
     float timeToDestroy;
+    bool IsFollow;
 
 
     // Start is called before the first frame update
@@ -23,6 +24,10 @@ public class EnemyThrow : MonoBehaviour
 
     public void Update()
     {
+        //if (!IsFollow)
+        //{
+        //    StartCoroutine(bulletTracker());
+        //}
         if (!IsEffecting)
         {
             StartCoroutine(hitEffect());
@@ -56,6 +61,13 @@ public class EnemyThrow : MonoBehaviour
         Destroy(gameObject);
     }
 
+    IEnumerator bulletTracker()
+    {
+        IsFollow = true;
+        transform.LookAt(gameManager.Instance.playerController.transform.position);
+        yield return new WaitForSeconds(0.1f);
+        IsFollow= false;
+    }
 
     IEnumerator hitEffect()
     {
