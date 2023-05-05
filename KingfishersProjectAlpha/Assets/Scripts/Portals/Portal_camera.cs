@@ -22,12 +22,10 @@ public class Portal_camera : MonoBehaviour
     private float angleDiff;
     private UnityEngine.Vector3 seeThroughPos;
     private UnityEngine.Quaternion rotationRelation;
-    private UnityEngine.Vector3 finalSeeCam;
     private float xPos;
     private float yPos;
     private float x;
     private float y;
-    private float z;
 
     private void Start()
     {
@@ -45,12 +43,15 @@ public class Portal_camera : MonoBehaviour
 
     void moveCamera()
     {
+        float currentLocalx = transform.localPosition.x;
+        float currentLocaly = transform.localPosition.y;
         xPos = playerPos.transform.position.x;
         xPos = Mathf.Clamp(-xPos, -XLock, XLock);
         yPos = playerPos.transform.position.y;
         yPos = Mathf.Clamp(yPos, -YLock, YLock);
-        finalSeeCam = new Vector3(xPos, yPos-5, 0);
-        transform.localPosition = origin + finalSeeCam;
+        //finalSeeCam = new Vector3(xPos, yPos-5, 0);
+        //transform.localPosition = origin + finalSeeCam;
+        
 
     }
 
