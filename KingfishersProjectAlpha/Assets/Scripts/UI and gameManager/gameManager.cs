@@ -34,7 +34,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI mag;
     public TextMeshProUGUI reserve;
 
-
+    public bool teleporting;
     public bool inMenu;
     int enemyRemain;
     float timeScaleO;
