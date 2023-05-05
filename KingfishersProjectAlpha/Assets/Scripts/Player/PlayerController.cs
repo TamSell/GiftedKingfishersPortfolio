@@ -151,13 +151,13 @@ public class PlayerController : MonoBehaviour, Damage
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax &&Stamina>0)
+        if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax)
         {
             aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
             gameManager.Instance.SBar.enabled = true;
             jumpTimes++;
             playerVelocity.y = jumpHeight;
-            Stamina -= 5;
+      
         }
     }
     void Run()
@@ -419,8 +419,9 @@ public class PlayerController : MonoBehaviour, Damage
             {
                 Enery += 10 * Time.deltaTime;
             }
-            else
+            else if(Enery>0)
             {
+                
                 Enery -= 1 * Time.deltaTime;
             }
         }

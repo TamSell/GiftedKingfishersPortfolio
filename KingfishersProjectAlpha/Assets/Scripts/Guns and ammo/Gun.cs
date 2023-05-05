@@ -16,7 +16,15 @@ public class Gun : MonoBehaviour
     [SerializeField] public int realoadSpeed;
     [SerializeField] public bool reaload;
     [SerializeField] GameObject hitEffect;
+   [Header("-----Secondary Gun------")]
     [SerializeField] bool secondaryGun;
+    [SerializeField] float EnergyCost;
+    float Energy {
+        get => gameManager.Instance.playerController.Enery;
+        set => gameManager.Instance.playerController.Enery = value;
+    }
+    float CurrentEnergy;
+    
 
     [Header("-----Sniper Stats------")]
     [SerializeField] public float RayGunDist;
@@ -37,6 +45,7 @@ public class Gun : MonoBehaviour
     [Header("----- Ammo -----")]
     [Range(0, 30)][SerializeField] public int magSize;
     [Range(0, 300)][SerializeField] public int totalAmmo;
+    
 
     [Header("----Audio Clip----")]
     [SerializeField] public AudioClip GunShot;
@@ -55,21 +64,20 @@ public class Gun : MonoBehaviour
 
 
 
-    private void Awake()
-    {
-        cam = Camera.main.transform;
-    }
+
 
     // Start is called before the first frame update
     void Start()
     {
         RealoadingLogic();
-
+      
     }
 
     // Update is called once per frame
     void Update()
     {
+        CurrentEnergy = Energy;
+
         Reloading();
         if (reaload == true)
         {
@@ -94,20 +102,22 @@ public class Gun : MonoBehaviour
     public void shooting()
     {
 
-        if (currentMag == 0)
+        if (currentMag == 0 )
         {
             return;
         }
+       
         if (!isShooting && Input.GetButton("Shoot"))
         {
             reaload = false;
-            StartCoroutine(shoot());
+            StartCoroutine(FirstShoot());
         }
-        if(secondaryGun)
+       
+        if (secondaryGun)
         {
             if(!isShooting && Input.GetButton("Secondary"))
             {
-
+                StartCoroutine(SecondaryShoot());
             }
         }
 
@@ -116,9 +126,8 @@ public class Gun : MonoBehaviour
 
     public void RayCastSetActive()
     {
-        if (currentMag == 0)
+        if (currentMag == 0 )
         {
-
             return;
         }
         if (RayGunEffect)
@@ -136,7 +145,7 @@ public class Gun : MonoBehaviour
 
 
 
-    IEnumerator shoot()
+    IEnumerator FirstShoot()
     {
        
         if (Sniper)
@@ -214,27 +223,43 @@ public class Gun : MonoBehaviour
 
 
         }
-        else
+       
+    }
+    IEnumerator SecondaryShoot()
+    {
+
+        if (secondaryGun == true)
         {
             isShooting = true;
             aud.PlayOneShot(GunShot, gunShotVol);
             Instantiate(bullet, Barrel.position, cam.rotation);
             yield return new WaitForSeconds(ShootRate);
             isShooting = false;
-            CountOfBullets(-1);
-            gameManager.Instance.loadText(totalAmmo, currentMag);
-
-
+            CountOfBullets(-5);
+           // gameManager.Instance.loadText(totalAmmo, currentMag);
         }
     }
 
     public void CountOfBullets(int ammount)
     {
-        currentMag += ammount;
+        
+        if (secondaryGun == true)
+        {
+            if(Energy > 0)
+            {
+                gameManager.Instance.playerController.Enery += ammount;
+            }
+           
+        }
+        else
+        {
+            currentMag += ammount;
+        }
     }
 
     public void Reloading()
     {
+        
         if (!isShooting)
         {
             if (Input.GetButtonDown("Reloading"))
