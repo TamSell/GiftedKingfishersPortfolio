@@ -45,9 +45,12 @@ public class PlayerController : MonoBehaviour, Damage
     public MeshRenderer gunMaterial;
     public MeshFilter gunModel;
 
+    [Header("---- CoolDown----")]
+    [SerializeField] bool DashReady;
+    [SerializeField] public float DashCD;
+    [SerializeField]float maxCD;
 
 
-   
     public int selectedWeapon = 0;
     bool isPlaying;
     bool isPlayingSteps;
@@ -66,6 +69,8 @@ public class PlayerController : MonoBehaviour, Damage
     // Start is called before the first frame update
     void Start()
     {
+        DashCD = 6;
+        DashReady = true;
         StartCoroutine(CalculateSpeed());
         HPorig = HP;
         StaminaOrig = Stamina;
@@ -83,7 +88,17 @@ public class PlayerController : MonoBehaviour, Damage
         movement();
         selectGun();
         EnergyBuildUp();
+        CD(isDashing);
     }
+
+    void CD(bool ability)
+    {
+        if(ability ==false && DashCD < maxCD)
+        {
+            DashCD += 1 * Time.deltaTime;
+        }
+    }
+
 
     void movement()
     {
@@ -184,6 +199,10 @@ public class PlayerController : MonoBehaviour, Damage
 
     void Dash()
     {
+        if(DashCD >5)
+        {
+            DashReady = true;
+        }
        if(move.x==0&&move.z==0)
         {
             return;
@@ -192,7 +211,7 @@ public class PlayerController : MonoBehaviour, Damage
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, RunFOV, Time.deltaTime * 0.5f);
             gameManager.Instance.SBar.enabled = true;
-            if (Stamina >0)
+            if (DashReady)
             {
                
               StartCoroutine(Dashing());
@@ -206,7 +225,8 @@ public class PlayerController : MonoBehaviour, Damage
     {
         isDashing = true;
         float startTime = Time.time;
-
+        DashCD = 0;
+        DashReady = false;
         while( Time.time< startTime + DashTime)
         {
             controller.Move(move * Time.deltaTime * DashSpeed);
@@ -214,7 +234,10 @@ public class PlayerController : MonoBehaviour, Damage
            yield return null;
         }
         isDashing=false;
+        
+       
     }
+  
 
 
     void StaminaRecovery()

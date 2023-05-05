@@ -138,9 +138,10 @@ public class Gun : MonoBehaviour
 
     IEnumerator shoot()
     {
-        isShooting = true;
+       
         if (Sniper)
         {
+            isShooting = true;
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
             aud.PlayOneShot(GunShot, gunShotVol);
@@ -177,19 +178,25 @@ public class Gun : MonoBehaviour
         }
         else if (shotgun)
         {
+            isShooting = true;
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
             ShootImpulse();
             for (int i = 0; i < bulletPerShot; i++)
             {
                 RaycastHit hit;
-                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(UnityEngine.Random.Range(0.5f, 0.6f), UnityEngine.Random.Range(0.5f, 0.6f))), out hit, ShotGunDist))
+                if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(UnityEngine.Random.Range(0.5f, 0.58f), UnityEngine.Random.Range(0.5f, 0.58f))), out hit, ShotGunDist))
                 {
-
-                    if(hit.collider.CompareTag("Player"))
+                    if (hit.collider.CompareTag("Player"))
                     {
                         break;
                     }
+                    Damage damage = hit.collider.GetComponent<Damage>();
+                    if (damage != null)
+                    {
+                        damage.TakeDamage(ShotGunDamage);
+                    }
+                   
                     if (hitEffect)
                     {
                         DestroyEffect = Instantiate(hitEffect, hit.point, transform.rotation);
@@ -197,22 +204,19 @@ public class Gun : MonoBehaviour
                     }
 
 
-                    Damage damage = hit.collider.GetComponent<Damage>();
-                    if (damage != null)
-                    {
-                        damage.TakeDamage(ShotGunDamage);
-                    }
+                   
                 }
+              
             }
             yield return new WaitForSeconds(ShootRate);
-            
+
             isShooting = false;
-          
-           
+
+
         }
         else
         {
-
+            isShooting = true;
             aud.PlayOneShot(GunShot, gunShotVol);
             Instantiate(bullet, Barrel.position, cam.rotation);
             yield return new WaitForSeconds(ShootRate);
