@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour, Damage
     bool isPlaying;
     bool isPlayingSteps;
     int jumpTimes;
-    private Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     private bool groundedPlayer;
     private float StaminaOrig;
     public Vector3 move;

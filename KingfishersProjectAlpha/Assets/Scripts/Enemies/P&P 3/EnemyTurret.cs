@@ -20,15 +20,17 @@ public class EnemyTurret : MonoBehaviour
     [Header("--- AI Info ---")]
     [SerializeField] int turnSpeed;
     [SerializeField] Transform playerFinder;
+    [SerializeField] float fTimeTilTarget = 1.2f;
     Vector3 dirOfPlayer;
     Vector3 playerShooter;
-    Vector3 playerFuturePos;
     bool playerInRange;
-    float playerFutureX = 0.0f;
-    float playerFutureY = 0.0f;
-    float playerFutureZ = 0.0f;
     float viewAngle;
     float distanceToPlayer;
+    float fDistance;
+    float fBaseCheckTime = 0.15f;
+    float fTimePercheck = 0.05f;
+    int iMaxIters = 100;
+    private Tracker objectTracker;
 
     [Header("--- Components ---")]
     [SerializeField] GameObject playerDetector;
@@ -40,7 +42,7 @@ public class EnemyTurret : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        objectTracker = GetComponent<Tracker>();
     }
 
     // Update is called once per frame
@@ -48,7 +50,6 @@ public class EnemyTurret : MonoBehaviour
     {
         if (playerInRange)
         {
-            StartCoroutine(calculateFuture());
             FindPlayer();
         }
     }
@@ -80,42 +81,35 @@ public class EnemyTurret : MonoBehaviour
         FollowPlayer();
         if (!isShooting)
         {
-            StartCoroutine(shootPlayer());
+           StartCoroutine(ShootPlayer());
         }
     }
 
-
-    IEnumerator shootPlayer()
+    IEnumerator ShootPlayer()
     {
+        int iIterations = 0;
         isShooting = true;
-        // playerShooter = gameManager.Instance.PlayerModel.transform.position;
-        playerShooter = playerFuturePos;
-        Vector3 playerDirection = new Vector3(playerShooter.x, playerShooter.y + 1, playerShooter.z);
-        GameObject temp = Instantiate(bullet, playerFinder.position, Quaternion.identity);
-        temp.transform.LookAt(playerDirection);
-        Rigidbody tempRB = temp.GetComponent<Rigidbody>();
-        tempRB.velocity = temp.transform.forward * fireSpeed;
-        // tempRB.useGravity = true;
-
+        float fCheckTime = fBaseCheckTime;
         yield return new WaitForSeconds(fireRate);
+        BaseProjectile freshBullet = GameObject.Instantiate(bullet, playerFinder.transform.position, transform.rotation).GetComponent<BaseProjectile>();
+        Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
+
+        Vector3 ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
+        fDistance = (TargetPosition - ProjectilePosition).magnitude;
+
+        while (fDistance > 3.5f && iIterations < iMaxIters)
+        {
+            iIterations++;
+            fCheckTime += fTimePercheck;
+            TargetPosition = objectTracker.ProjectedPosition(fCheckTime);
+
+            ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
+            fDistance = (TargetPosition - ProjectilePosition).magnitude;
+        }
+
+        Vector3 v3Velocity = TargetPosition - playerFinder.transform.position;
+        freshBullet.Shoot(v3Velocity.normalized, fireSpeed);
         isShooting = false;
-
-    }
-
-    IEnumerator calculateFuture()
-    {
-        playerFutureX = gameManager.Instance.playerController.transform.position.x;
-        playerFutureY = gameManager.Instance.playerController.transform.position.y;
-        playerFutureZ = gameManager.Instance.playerController.transform.position.z;
-        yield return new WaitForSeconds(0.16f);
-        float changeX = playerFutureX - gameManager.Instance.playerController.transform.position.x;
-        float changeY = playerFutureY - gameManager.Instance.playerController.transform.position.y;
-        float changeZ = playerFutureZ - gameManager.Instance.playerController.transform.position.z;
-        float futureX = gameManager.Instance.playerController.transform.position.x + changeX;
-        float futureY = gameManager.Instance.playerController.transform.position.y + changeY;
-        float futureZ = gameManager.Instance.playerController.transform.position.y + changeZ;
-        gameManager.Instance.
-        playerFuturePos = new Vector3(futureX, futureY, futureZ);
 
     }
     void FollowPlayer()
@@ -124,3 +118,4 @@ public class EnemyTurret : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * turnSpeed);
     }
 }
+
