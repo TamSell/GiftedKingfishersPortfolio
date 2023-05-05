@@ -16,6 +16,7 @@ public class gameManager : MonoBehaviour
 
     [Header("------ UI Elements ------")]
     [SerializeField] GameObject Inventory;
+    [SerializeField] GameObject CraftIt;
     public Inventory inven;
     public TextMeshProUGUI invenDesc;
     public TextMeshProUGUI invenName;
@@ -37,7 +38,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI mag;
     public TextMeshProUGUI reserve;
 
-
+    public bool isNear;
     public bool inMenu;
     int enemyRemain;
     float timeScaleO;
@@ -72,6 +73,19 @@ public class gameManager : MonoBehaviour
         {
             inMenu = !inMenu;
             setMenu(Inventory);
+            if (inMenu)
+            {
+                pause();
+            }
+            else
+            {
+                unpause();
+            }
+        }
+        if(Input.GetButtonDown("Interact") && (activeMenu==null || activeMenu == CraftIt) && isNear)
+        {
+            inMenu = !inMenu;
+            setMenu(CraftIt);
             if (inMenu)
             {
                 pause();

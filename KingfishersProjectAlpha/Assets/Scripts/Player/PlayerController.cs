@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, Damage
     [SerializeField] AudioSource aud;
 
     [Header("----- Player Stats -----")]
+    [SerializeField] float interactDist;
     [Range(3, 8)][SerializeField] float PlayerSpeed;
     [Range(3, 30)][SerializeField] float jumpHeight;
     [Range(3, 25)][SerializeField] float gravityValue;
@@ -90,6 +91,7 @@ public class PlayerController : MonoBehaviour, Damage
         movement();
         selectGun();
         EnergyBuildUp();
+        canInteract();
         CD(isDashing);
     }
 
@@ -223,6 +225,7 @@ public class PlayerController : MonoBehaviour, Damage
         }
 
     }
+
     IEnumerator Dashing()
     {
         isDashing = true;
@@ -429,5 +432,21 @@ public class PlayerController : MonoBehaviour, Damage
             }
         }
         return Enery;
+    }
+
+    void canInteract()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, interactDist))
+        {
+            if (hit.collider.CompareTag("CraftBench"))
+            {
+                gameManager.Instance.isNear = true;
+            }
+        }
+        else
+        {
+            gameManager.Instance.isNear = false;
+        }
     }
 }
