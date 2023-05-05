@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HomingBullet : MonoBehaviour
 {
+    [SerializeField] int damage;
     public Vector3 direction;
     public float projSpeed = 0;
     Tracker objectTracker;
@@ -24,5 +25,19 @@ public class HomingBullet : MonoBehaviour
         this.direction = Idirection;
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.isTrigger)
+        {
+            return;
+        }
 
+        Damage canDamage = other.GetComponent<Damage>();
+
+        if (canDamage != null)
+        {
+            canDamage.TakeDamage(damage);
+        }
+        Destroy(gameObject);
+    }
 }

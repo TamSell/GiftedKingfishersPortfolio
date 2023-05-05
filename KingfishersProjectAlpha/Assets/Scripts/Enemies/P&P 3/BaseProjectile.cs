@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BaseProjectile : MonoBehaviour
 {
+    [SerializeField] int damage;
     public Vector3 direction;
     public float projSpeed = 0;
 
@@ -21,6 +22,19 @@ public class BaseProjectile : MonoBehaviour
         this.projSpeed = Ispeed;
         this.direction = Idirection;
     }
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.isTrigger)
+        {
+            return;
+        }
 
+        Damage canDamage = other.GetComponent<Damage>();
 
+        if (canDamage != null)
+        {
+            canDamage.TakeDamage(damage);
+        }
+        Destroy(gameObject);
+    }
 }
