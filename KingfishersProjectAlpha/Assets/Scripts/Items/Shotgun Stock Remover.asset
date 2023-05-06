@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54419bccd2cb56b4eb8303f2ea0dcfe4, type: 3}
   m_Name: Shotgun Stock Remover
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: Stock Remover
+  description: Removes the stock increasing the amount of recoil of which the user
+    experiences
   icon: {fileID: 0}
-  amount: 0
+  amount: 1
