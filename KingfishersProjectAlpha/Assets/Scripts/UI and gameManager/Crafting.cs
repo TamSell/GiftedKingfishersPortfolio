@@ -1,16 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Crafting : MonoBehaviour
 {
-    private Items currentAttach;
+    private ItemHolder currentAttach;
     public Image grabbedItem;
 
     public AttachmentSlots[] equipped;
 
+    private Item trueAttachment;
+
+    private void Awake()
+    {
+        if(currentAttach != null)
+        trueAttachment = currentAttach.itemObject;
+    }
     private void Update()
     {
         if(Input.GetMouseButtonUp(0))
@@ -37,7 +45,7 @@ public class Crafting : MonoBehaviour
             }
         }
     }
-    public void OuMouseDownItem(Items _item)
+    public void OuMouseDownItem(ItemHolder _item)
     {
         if(currentAttach == null)
         {

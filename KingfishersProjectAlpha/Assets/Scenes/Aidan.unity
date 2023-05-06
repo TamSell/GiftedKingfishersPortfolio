@@ -1638,7 +1638,6 @@ GameObject:
   m_Component:
   - component: {fileID: 409759089}
   - component: {fileID: 409759090}
-  - component: {fileID: 409759091}
   m_Layer: 5
   m_Name: Modification UI (1)
   m_TagString: Untagged
@@ -1683,20 +1682,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invSize: 0
---- !u!114 &409759091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 409759088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a94919d95379cd74a8b01c89b3f56bb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabbedItem: {fileID: 0}
-  equipped: []
 --- !u!1 &427292578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2049,7 +2034,7 @@ PrefabInstance:
     - target: {fileID: 1747491719483795940, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
       propertyPath: invenIcon
       value: 
-      objectReference: {fileID: 2088178774}
+      objectReference: {fileID: 0}
     - target: {fileID: 1747491719483795940, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
       propertyPath: invenName
       value: 
@@ -2364,6 +2349,7 @@ GameObject:
   - component: {fileID: 566037697}
   - component: {fileID: 566037700}
   - component: {fileID: 566037699}
+  - component: {fileID: 566037701}
   m_Layer: 5
   m_Name: Image (11)
   m_TagString: Untagged
@@ -2451,7 +2437,7 @@ MonoBehaviour:
           m_MethodName: OuMouseDownItem
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 566037700}
+            m_ObjectArgument: {fileID: 566037701}
             m_ObjectArgumentAssemblyTypeName: Items, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -2471,6 +2457,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Muzzle Extender
+--- !u!114 &566037701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566037695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c166431cb6322004f8e763875e7cbd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 11400000, guid: 71fac83ddfe3381439e6d300f0365832, type: 2}
+  currentImage: {fileID: 566037697}
 --- !u!4 &605481236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2007558776746246886, guid: a9f3742a5ef1d4a40bd9b40fc791fe04, type: 3}
@@ -2865,7 +2865,6 @@ GameObject:
   - component: {fileID: 797448098}
   - component: {fileID: 797448097}
   - component: {fileID: 797448096}
-  - component: {fileID: 797448100}
   m_Layer: 0
   m_Name: Crafting Bench
   m_TagString: CraftBench
@@ -2951,20 +2950,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &797448100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797448095}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a94919d95379cd74a8b01c89b3f56bb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabbedItem: {fileID: 0}
-  equipped: []
 --- !u!1 &840487920
 GameObject:
   m_ObjectHideFlags: 0
@@ -2978,6 +2963,7 @@ GameObject:
   - component: {fileID: 840487922}
   - component: {fileID: 840487925}
   - component: {fileID: 840487924}
+  - component: {fileID: 840487926}
   m_Layer: 5
   m_Name: Image (1)
   m_TagString: Untagged
@@ -3065,7 +3051,7 @@ MonoBehaviour:
           m_MethodName: OuMouseDownItem
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 840487925}
+            m_ObjectArgument: {fileID: 840487926}
             m_ObjectArgumentAssemblyTypeName: Items, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -3085,6 +3071,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Stock Remover
+--- !u!114 &840487926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840487920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c166431cb6322004f8e763875e7cbd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 11400000, guid: b20c1256f3a6b914481446e1ec8e66df, type: 2}
+  currentImage: {fileID: 840487922}
 --- !u!1001 &902282729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5170,6 +5170,7 @@ GameObject:
   - component: {fileID: 1635150235}
   - component: {fileID: 1635150238}
   - component: {fileID: 1635150237}
+  - component: {fileID: 1635150239}
   m_Layer: 5
   m_Name: Image (10)
   m_TagString: Untagged
@@ -5257,7 +5258,7 @@ MonoBehaviour:
           m_MethodName: OuMouseDownItem
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 1635150238}
+            m_ObjectArgument: {fileID: 1635150239}
             m_ObjectArgumentAssemblyTypeName: Items, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -5277,6 +5278,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: 
+--- !u!114 &1635150239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635150233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c166431cb6322004f8e763875e7cbd24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemObject: {fileID: 11400000, guid: 074fbf144b9b15146a3c138f64d09e07, type: 2}
+  currentImage: {fileID: 1635150235}
 --- !u!1 &1660084369
 GameObject:
   m_ObjectHideFlags: 0
@@ -6351,17 +6366,6 @@ MonoBehaviour:
   - {fileID: 625227554}
   - {fileID: 1346872307}
   - {fileID: 1958054474}
---- !u!114 &2088178774 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 752638333, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
-  m_PrefabInstance: {fileID: 493174509}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2089430581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2007558776066649430, guid: a9f3742a5ef1d4a40bd9b40fc791fe04, type: 3}

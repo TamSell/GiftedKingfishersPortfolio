@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class AttachmentSlots : MonoBehaviour
 {
-    public Items item;
+    public ItemHolder item;
     public int index;
 }

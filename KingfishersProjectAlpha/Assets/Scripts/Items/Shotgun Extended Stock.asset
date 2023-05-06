@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54419bccd2cb56b4eb8303f2ea0dcfe4, type: 3}
   m_Name: Shotgun Extended Stock
   m_EditorClassIdentifier: 
-  name: Shotgun Extended Stock
+  named: 
   description: Reduces recoil allowing for the shotgun to focus more on dealing damage
     rather than for a boost in speed
-  icon: {fileID: 0}
-  amount: 1
+  icon: {fileID: 21300000, guid: 37665b2ddd98b1849afa610bb8214b9e, type: 3}
+  position: 3

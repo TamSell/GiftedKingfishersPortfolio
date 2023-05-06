@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54419bccd2cb56b4eb8303f2ea0dcfe4, type: 3}
   m_Name: Shotgun Drum Mag
   m_EditorClassIdentifier: 
-  name: Shotgun Drum Mag
+  named: 
   description: Doubles the amount of Ammo the shotgun can contain and decreases reload
     time
-  icon: {fileID: 0}
-  amount: 1
+  icon: {fileID: 21300000, guid: 7b7b7063f51899d4ab6475ddb0f94ca9, type: 3}
+  position: 0

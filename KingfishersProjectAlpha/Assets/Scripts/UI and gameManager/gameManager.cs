@@ -20,7 +20,7 @@ public class gameManager : MonoBehaviour
     public Inventory inven;
     public TextMeshProUGUI invenDesc;
     public TextMeshProUGUI invenName;
-    public Image invenIcon;
+    public Sprite invenIcon;
     private GameObject activeMenu;
     public GameObject LostMenu;
     public GameObject WinMenu;
@@ -153,7 +153,7 @@ public class gameManager : MonoBehaviour
     {
         Item gunItem = null;
         gunItem.name = gun.name;
-        gunItem.amount = 1;
+        gunItem.position = 1;
         if (gun.RayGunDamage != 0)
         {
             gunItem.description = "Damage: " + gun.RayGunDamage.ToString() + "\n";

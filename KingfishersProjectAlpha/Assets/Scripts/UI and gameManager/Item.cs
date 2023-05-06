@@ -6,8 +6,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Item : ScriptableObject
 {
-    public string name;
+    public string named;
+    [TextArea(15,20)]
     public string description;
-    public Image icon;
-    public int amount;
+    public Sprite icon;
+    public int position;
 }
