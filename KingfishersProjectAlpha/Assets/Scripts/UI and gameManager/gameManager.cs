@@ -152,7 +152,7 @@ public class gameManager : MonoBehaviour
     public void addGun(Gun gun)
     {
         Item gunItem = null;
-        gunItem.id = gun.name;
+        gunItem.name = gun.name;
         gunItem.amount = 1;
         if (gun.RayGunDamage != 0)
         {
