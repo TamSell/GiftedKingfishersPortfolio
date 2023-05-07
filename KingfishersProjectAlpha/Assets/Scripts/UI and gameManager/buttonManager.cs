@@ -42,4 +42,25 @@ public class buttonManager : MonoBehaviour
         Item _item = gameManager.Instance.SelectItem(place);
         gameManager.Instance.DisplayItem(_item);
     }
+
+    public void nextWeapon()
+    {
+        int index = gameManager.Instance.currentGunIndex + 1;
+        if (index < gameManager.Instance.gunAspects.Count)
+        {
+            gameManager.Instance.currentGunAspects = gameManager.Instance.gunAspects[index];
+        }
+        gameManager.Instance.modify.NextGun();
+    }
+
+    public void prevWeapon()
+    {
+        int index = gameManager.Instance.currentGunIndex - 1;
+        if (index < gameManager.Instance.gunAspects.Count)
+        {
+            gameManager.Instance.currentGunAspects = gameManager.Instance.gunAspects[index];
+        }
+        gameManager.Instance.modify.NextGun();
+    }
+
 }

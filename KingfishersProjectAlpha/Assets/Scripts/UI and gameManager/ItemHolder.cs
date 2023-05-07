@@ -10,6 +10,7 @@ public class ItemHolder : MonoBehaviour
 
     private void Awake()
     {
-        currentImage.sprite = itemObject.icon;
+        if(currentImage)
+            currentImage.sprite = itemObject.icon;
     }
 }

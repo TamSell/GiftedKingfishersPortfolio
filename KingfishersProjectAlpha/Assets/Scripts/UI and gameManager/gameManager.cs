@@ -12,6 +12,10 @@ public class gameManager : MonoBehaviour
     public GameObject PlayerModel;
     public PlayerController playerController;
     public GameObject playerSpawnPos;
+    [SerializeField] public List<GunStats2> gunAspects;
+    public GunStats2 currentGunAspects;
+    public int currentGunIndex = 0;
+    [SerializeField] public Crafting modify;
 
 
     [Header("------ UI Elements ------")]
