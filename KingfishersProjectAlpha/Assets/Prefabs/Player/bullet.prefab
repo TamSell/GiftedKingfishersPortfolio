@@ -49,8 +49,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 50
   timer: 2
-  damage: 2
+  BasicDamage: 1
+  LowDamage: 3
+  MediumDamage: 5
+  HighDamage: 10
   TriggerEffect: {fileID: 100006, guid: 9e95c7b2183a4f345aaf86846f8f1918, type: 3}
+  spin: 0
+  IsSpinning: 0
+  model: {fileID: 0}
 --- !u!54 &3684653738856034023
 Rigidbody:
   m_ObjectHideFlags: 0

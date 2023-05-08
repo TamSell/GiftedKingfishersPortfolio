@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
         {
            for(int x = 0; x < items.Count; x++)
            {
-                if (items[x].id == _item.id)
+                if (items[x].name == _item.name)
                 {
                     place = x;
                 }
