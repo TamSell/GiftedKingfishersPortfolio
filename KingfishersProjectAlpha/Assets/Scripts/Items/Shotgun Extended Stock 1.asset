@@ -9,11 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54419bccd2cb56b4eb8303f2ea0dcfe4, type: 3}
-  m_Name: Shotgun Extended Stock
+  m_Script: {fileID: 11500000, guid: c0e8d9af63d95c147af27406bd3aebda, type: 3}
+  m_Name: Shotgun Extended Stock 1
   m_EditorClassIdentifier: 
-  named: 
+  named: Extended Stock
   description: Reduces recoil allowing for the shotgun to focus more on dealing damage
     rather than for a boost in speed
-  icon: {fileID: 21300000, guid: 37665b2ddd98b1849afa610bb8214b9e, type: 3}
+  icon: {fileID: 21300000, guid: ee0ed61959fdb2a4fa6a6294228f5f47, type: 3}
+  modifiedStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - -50
+  - 0
   position: 3
+  equipped: 1

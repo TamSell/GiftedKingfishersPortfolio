@@ -9,10 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54419bccd2cb56b4eb8303f2ea0dcfe4, type: 3}
-  m_Name: Shogun Barrel Extender
+  m_Script: {fileID: 11500000, guid: c0e8d9af63d95c147af27406bd3aebda, type: 3}
+  m_Name: Barrel Extender
   m_EditorClassIdentifier: 
   named: 
   description: Increases Range of the weapon
-  icon: {fileID: 21300000, guid: 7c00ea4006710ea4994e82ed1d0387ac, type: 3}
+  icon: {fileID: 21300000, guid: bbceae73b019590439ef5129744308a1, type: 3}
+  modifiedStats:
+  - 100
+  - 100
+  - 100
+  - 100
+  - 100
+  - 100
   position: 1
+  equipped: 1

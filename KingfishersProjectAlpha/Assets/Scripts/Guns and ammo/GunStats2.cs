@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class GunStats2 : Item
 {
-    public float ShootRate;
+    public float damage;
+    public float shootRate;
     public float shootRange;
     public float recoil;
-    public int realoadSpeed;
+    public float realoadSpeed;
     public bool reaload;
-    public int magSize;
-    public int totalAmmo;
-    public Item[] Attachments = new Item[4];
+    public float magSize;
+    public float totalAmmo;
+    public Attachment[] Attachments = new Attachment[4];
     public GameObject Muzzle;
     public GameObject Sight;
     public GameObject Magazine;

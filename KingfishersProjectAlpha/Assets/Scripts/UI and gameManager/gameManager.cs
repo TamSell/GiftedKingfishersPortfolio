@@ -157,7 +157,6 @@ public class gameManager : MonoBehaviour
     {
         Item gunItem = null;
         gunItem.name = gun.name;
-        gunItem.position = 1;
         if (gun.RayGunDamage != 0)
         {
             gunItem.description = "Damage: " + gun.RayGunDamage.ToString() + "\n";

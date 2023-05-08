@@ -9,11 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54419bccd2cb56b4eb8303f2ea0dcfe4, type: 3}
-  m_Name: Shotgun Blinder
+  m_Script: {fileID: 11500000, guid: c0e8d9af63d95c147af27406bd3aebda, type: 3}
+  m_Name: Gun Blinder
   m_EditorClassIdentifier: 
-  named: 
+  named: Gun Blinder
   description: A barrel attachment that makes it more difficult for the enemies to
     find the player. Does decrease damage dealt.
-  icon: {fileID: 21300000, guid: cb71f977c061814419dd5a6a79a1a061, type: 3}
+  icon: {fileID: 21300000, guid: 7b7b7063f51899d4ab6475ddb0f94ca9, type: 3}
+  modifiedStats:
+  - -10
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   position: 1
+  equipped: 0

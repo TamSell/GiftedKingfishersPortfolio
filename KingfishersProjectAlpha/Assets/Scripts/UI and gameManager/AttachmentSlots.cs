@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class AttachmentSlots : MonoBehaviour
 {
-    public ItemHolder item;
+    public AttachmentHolder item;
     public int index;
     public TextMeshProUGUI description;
 }

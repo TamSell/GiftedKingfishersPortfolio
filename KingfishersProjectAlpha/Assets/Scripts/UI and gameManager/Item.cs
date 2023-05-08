@@ -10,6 +10,4 @@ public class Item : ScriptableObject
     [TextArea(15,20)]
     public string description;
     public Sprite icon;
-    List<int> modifiers;
-    public int position;
 }

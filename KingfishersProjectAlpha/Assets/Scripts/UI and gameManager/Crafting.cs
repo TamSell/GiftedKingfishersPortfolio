@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Crafting : MonoBehaviour
 {
-    private ItemHolder currentAttach;
+    private AttachmentHolder currentAttach;
     public Image grabbedItem;
 
     public AttachmentSlots[] equipped;
 
     public GunHolder result;
+    public TextMeshProUGUI gunStatsText;
 
-    private Item trueAttachment;
+    private Attachment trueAttachment;
     private float dist;
+    private int AttachmentIndex;
 
     private void Awake()
     {
@@ -25,23 +28,26 @@ public class Crafting : MonoBehaviour
         }
         else
             result.gunHeld = new GunStats2();
+        displayStats();
     }
     private void Update()
     {
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
-            if(currentAttach != null)
+            if (currentAttach != null)
             {
-                trueAttachment = currentAttach.itemObject;
+                trueAttachment = currentAttach.attachObject;
                 grabbedItem.gameObject.SetActive(false);
                 AttachmentSlots nearest = null;
-                for(int x = 0; x < equipped.Length;x++)
+                for (int x = 0; x < equipped.Length; x++)
                 {
                     dist = Vector2.Distance(Input.mousePosition, equipped[x].transform.position);
-                    if(dist < 100 && currentAttach != null && currentAttach.itemObject.position == x)
+                    if (dist < 100 && currentAttach != null && currentAttach.attachObject.position == x)
                     {
+                        AttachmentIndex = x;
                         nearest = equipped[x];
-                        result.gunHeld.Attachments[x] = currentAttach.itemObject;
+                        UpdateGun();
+                        displayStats();
                     }
                 }
                 //foreach(AttachmentSlots slot in equipped) 
@@ -53,7 +59,7 @@ public class Crafting : MonoBehaviour
                 //        nearest = slot;
                 //    }
                 //}
-                if(nearest != null)
+                if (nearest != null)
                 {
                     nearest.gameObject.SetActive(true);
                     nearest.GetComponent<Image>().sprite = grabbedItem.gameObject.GetComponent<Image>().sprite;
@@ -64,9 +70,9 @@ public class Crafting : MonoBehaviour
             }
         }
     }
-    public void OuMouseDownItem(ItemHolder _item)
+    public void OuMouseDownItem(AttachmentHolder _item)
     {
-        if(currentAttach == null)
+        if (currentAttach == null)
         {
             currentAttach = _item;
             grabbedItem.gameObject.SetActive(true);
@@ -78,7 +84,7 @@ public class Crafting : MonoBehaviour
     {
         result.gunHeld = gameManager.Instance.currentGunAspects;
         GunStats2 newGun = result.gunHeld;
-        if(newGun != null)
+        if (newGun != null)
         {
             for (int x = 0; x < 4; x++)
             {
@@ -88,6 +94,65 @@ public class Crafting : MonoBehaviour
                     equipped[x].GetComponent<AttachmentSlots>().description.text = newGun.Attachments[x].description;
                 }
             }
+        }
+    }
+
+    public void UpdateGun()
+    {
+        if (currentAttach != null)
+        {
+                if (result.gunHeld.Attachments[AttachmentIndex] != null && result.gunHeld.Attachments[AttachmentIndex].equipped)
+                {
+                    result.gunHeld.damage -= result.gunHeld.Attachments[AttachmentIndex].modifiedStats[0];
+                    result.gunHeld.shootRange -= result.gunHeld.Attachments[AttachmentIndex].modifiedStats[1];
+                    result.gunHeld.realoadSpeed -= result.gunHeld.Attachments[AttachmentIndex].modifiedStats[2];
+                    result.gunHeld.magSize -= result.gunHeld.Attachments[AttachmentIndex].modifiedStats[3];
+                    result.gunHeld.recoil -= result.gunHeld.Attachments[AttachmentIndex].modifiedStats[4];
+                    result.gunHeld.shootRate -= result.gunHeld.Attachments[AttachmentIndex].modifiedStats[5];
+                    result.gunHeld.Attachments[AttachmentIndex].equipped = false;
+                }
+                Attachment current = currentAttach.attachObject;
+                current.equipped = true;
+                result.gunHeld.damage += current.modifiedStats[0];
+                result.gunHeld.shootRange += current.modifiedStats[1];
+                result.gunHeld.realoadSpeed += current.modifiedStats[2];
+                result.gunHeld.magSize += current.modifiedStats[3];
+                result.gunHeld.recoil += current.modifiedStats[4];
+                result.gunHeld.shootRate += current.modifiedStats[5];
+
+        }
+    }
+
+    public void ResetGun()
+    {
+        for (int x = 0; x < 4; x++)
+        {
+            if (result.gunHeld.Attachments[x].equipped)
+            {
+                result.gunHeld.damage -= result.gunHeld.Attachments[x].modifiedStats[0];
+                result.gunHeld.shootRange -= result.gunHeld.Attachments[x].modifiedStats[1];
+                result.gunHeld.realoadSpeed -= result.gunHeld.Attachments[x].modifiedStats[2];
+                result.gunHeld.magSize -= result.gunHeld.Attachments[x].modifiedStats[3];
+                result.gunHeld.recoil -= result.gunHeld.Attachments[x].modifiedStats[4];
+                result.gunHeld.shootRate -= result.gunHeld.Attachments[x].modifiedStats[5];
+                result.gunHeld.Attachments[x].equipped = false;
+                result.gunHeld.Attachments[x] = null;
+            }
+        }
+    }
+
+    public void displayStats()
+    {
+        gunStatsText.text = "";
+        if (result.gunHeld != null)
+        {
+            GunStats2 currentGun = result.gunHeld;
+            gunStatsText.text += "Damage: " + currentGun.damage.ToString() + "\n";
+            gunStatsText.text += "Range: " + currentGun.shootRange.ToString() + "\n";
+            gunStatsText.text += "Reload: " + currentGun.realoadSpeed.ToString() + "\n";
+            gunStatsText.text += "Mag Size: " + currentGun.magSize.ToString() + "\n";
+            gunStatsText.text += "Recoil: " + currentGun.recoil.ToString() + "\n";
+            gunStatsText.text += "Rate of Fire: " + currentGun.shootRate.ToString() + "\n";
         }
     }
 }

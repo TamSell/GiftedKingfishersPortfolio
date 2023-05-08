@@ -9,10 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54419bccd2cb56b4eb8303f2ea0dcfe4, type: 3}
-  m_Name: Shotgun Sight
+  m_Script: {fileID: 11500000, guid: c0e8d9af63d95c147af27406bd3aebda, type: 3}
+  m_Name: Shotgun Sight 1
   m_EditorClassIdentifier: 
   named: 
   description: Increases zoom when player holds the weapon
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: f7a8708dc5bcaf14ebd3978a42a6ea65, type: 3}
+  modifiedStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   position: 2
+  equipped: 0
