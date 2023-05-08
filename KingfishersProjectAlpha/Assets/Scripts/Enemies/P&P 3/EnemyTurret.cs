@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public class EnemyTurret : MonoBehaviour
+public class EnemyTurret : MonoBehaviour, Damage
 {
 
     [Header("----- Top of Enemy -----")]
@@ -35,6 +35,7 @@ public class EnemyTurret : MonoBehaviour
     [Header("--- Components ---")]
     [SerializeField] GameObject playerDetector;
     [SerializeField] GameObject bullet;
+    [SerializeField] Renderer model;
 
     [Header("--- Effects ---")]
     [SerializeField] GameObject effect;
@@ -75,7 +76,7 @@ public class EnemyTurret : MonoBehaviour
     {
         dirOfPlayer = (gameManager.Instance.PlayerModel.transform.position - playerFinder.position);
         viewAngle = Vector3.Angle(new Vector3(dirOfPlayer.x, 0, dirOfPlayer.z), playerFinder.forward);
-        distanceToPlayer = Vector3.Distance(transform.position, gameManager.Instance.PlayerModel.transform.position);
+        distanceToPlayer = Vector3.Distance(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
         Debug.DrawLine(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
 
         FollowPlayer();
@@ -116,6 +117,32 @@ public class EnemyTurret : MonoBehaviour
     {
         Quaternion enemyRotation = Quaternion.LookRotation(new Vector3(dirOfPlayer.x, dirOfPlayer.y, dirOfPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * turnSpeed);
+    }
+
+    IEnumerator flashColor()
+    {
+        model.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        model.material.color = Color.white;
+    }
+
+    public void TakeDamage(int amountDamage)
+    {
+        healthPoints -= amountDamage;
+        //StartCoroutine(hitEffect());
+        //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
+
+        // Destroy(effect, 2);
+
+        if (healthPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        { 
+            StartCoroutine(flashColor());
+        }
+
     }
 }
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e8d9af63d95c147af27406bd3aebda, type: 3}
+  m_Name: Shotgun Stock Remover 1
+  m_EditorClassIdentifier: 
+  named: Stock Remover
+  description: Removes the stock increasing the amount of recoil of which the user
+    experiences
+  icon: {fileID: 21300000, guid: bd414a9002c9cc743a6b1481e409997d, type: 3}
+  modifiedStats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 50
+  - 10
+  position: 3
+  equipped: 1

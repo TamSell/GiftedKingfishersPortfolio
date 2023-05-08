@@ -7,5 +7,5 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class SaveData
 {
-     //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 }

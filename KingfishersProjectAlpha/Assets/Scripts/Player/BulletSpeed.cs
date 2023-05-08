@@ -72,7 +72,7 @@ public class BulletSpeed : MonoBehaviour
         {
            
             canDamage.TakeDamage(DamageDependingOnEnergy());
-            Debug.Log("Tumama");
+            
         }
         Destroy(gameObject);
     }

@@ -7,6 +7,7 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class buttonManager : MonoBehaviour
 {
+    //Camara camera;
     int place;
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip button;
@@ -17,6 +18,7 @@ public class buttonManager : MonoBehaviour
         aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.unpause();
         gameManager.Instance.inMenu = !gameManager.Instance.inMenu;
+        
     }
 
     public void restart()
@@ -29,7 +31,11 @@ public class buttonManager : MonoBehaviour
     public void Save()
     {
         aud.PlayOneShot(button, audButtonVol);
-        saveLoadManager.Save();
+        saveLoadManager.SaveGame();
+    }
+    public void load()
+    {
+        saveLoadManager.LoadGame();
     }
 
     public void quit()
@@ -50,4 +56,38 @@ public class buttonManager : MonoBehaviour
         Item _item = gameManager.Instance.SelectItem(place);
         gameManager.Instance.DisplayItem(_item);
     }
+
+    public void Settings()
+    {
+        gameManager.Instance.Settings.SetActive(true);
+        gameManager.Instance.PauseMenu.SetActive(false);
+    }
+    public void Back()
+    {
+        gameManager.Instance.Settings.SetActive(false);
+        gameManager.Instance.PauseMenu.SetActive(true);
+    }
+
+
+    public void nextWeapon()
+    {
+        int index = gameManager.Instance.currentGunIndex + 1;
+        if (index < gameManager.Instance.gunAspects.Count)
+        {
+            gameManager.Instance.currentGunAspects = gameManager.Instance.gunAspects[index];
+        }
+        gameManager.Instance.modify.NextGun();
+    }
+
+    public void prevWeapon()
+    {
+        int index = gameManager.Instance.currentGunIndex - 1;
+        if (index < gameManager.Instance.gunAspects.Count)
+        {
+            gameManager.Instance.currentGunAspects = gameManager.Instance.gunAspects[index];
+        }
+        gameManager.Instance.modify.NextGun();
+    }
+
+
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, Damage
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour, Damage
     [SerializeField] AudioSource aud;
 
     [Header("----- Player Stats -----")]
+    [SerializeField] float interactDist;
     [Range(3, 8)][SerializeField] float PlayerSpeed;
     [Range(3, 30)][SerializeField] float jumpHeight;
     [Range(3, 25)][SerializeField] float gravityValue;
@@ -30,6 +32,10 @@ public class PlayerController : MonoBehaviour, Damage
     [SerializeField] public float speed;
     [SerializeField] public float Enery;
     [SerializeField] float maxEnergy;
+    [SerializeField] float jumpButtonGraceperiod;
+    [SerializeField] float? lastGoundedTime;
+    [SerializeField] float? jumpButtonPressedTime;
+    float originalStopOffset;
    
 
     [Header("------ Audio ------")]
@@ -79,7 +85,7 @@ public class PlayerController : MonoBehaviour, Damage
         PLayerUpdateUI();
         FOVorg = Camera.main.fieldOfView;
         respawnPlayer();
-      
+      originalStopOffset = controller.stepOffset;
       
     }
 
@@ -90,6 +96,7 @@ public class PlayerController : MonoBehaviour, Damage
         movement();
         selectGun();
         EnergyBuildUp();
+        canInteract();
         CD(isDashing);
     }
 
@@ -153,13 +160,29 @@ public class PlayerController : MonoBehaviour, Damage
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax)
+        if(controller.isGrounded)
         {
-            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
-            gameManager.Instance.SBar.enabled = true;
-            jumpTimes++;
-            playerVelocity.y = jumpHeight;
-      
+            lastGoundedTime = Time.time;
+        }
+        if(Input.GetButtonDown("Jump"))
+        {
+            jumpButtonPressedTime=Time.time;
+        }
+
+
+        if (Time.time - lastGoundedTime<= jumpButtonGraceperiod || jumpTimes < jumpMax)
+        {
+            controller.stepOffset = originalStopOffset;
+          
+            if(Time.time - jumpButtonPressedTime <= jumpButtonGraceperiod)
+            {
+                aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+                gameManager.Instance.SBar.enabled = true;
+                jumpTimes++;
+                playerVelocity.y = jumpHeight;
+                jumpButtonPressedTime = null;
+                lastGoundedTime = null;
+            }
         }
     }
     void Run()
@@ -223,6 +246,7 @@ public class PlayerController : MonoBehaviour, Damage
         }
 
     }
+
     IEnumerator Dashing()
     {
         isDashing = true;
@@ -233,7 +257,7 @@ public class PlayerController : MonoBehaviour, Damage
         {
             controller.Move(move * Time.deltaTime * DashSpeed);
         
-           yield return null;
+           yield return new WaitForEndOfFrame();
         }
         isDashing=false;
         
@@ -429,5 +453,21 @@ public class PlayerController : MonoBehaviour, Damage
             }
         }
         return Enery;
+    }
+
+    void canInteract()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, interactDist))
+        {
+            if (hit.collider.CompareTag("CraftBench"))
+            {
+                gameManager.Instance.isNear = true;
+            }
+        }
+        else
+        {
+            gameManager.Instance.isNear = false;
+        }
     }
 }
