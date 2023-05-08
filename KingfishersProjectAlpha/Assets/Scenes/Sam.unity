@@ -264,7 +264,7 @@ MonoBehaviour:
   bullet: {fileID: 0}
   navMeshA: {fileID: 166162230}
   headPos: {fileID: 0}
-  model: {fileID: 0}
+  model: {fileID: 166162225}
   effect: {fileID: 0}
 --- !u!195 &166162230
 NavMeshAgent:
@@ -282,7 +282,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
+  m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.9999999
   m_BaseOffset: 0.99999994
@@ -942,7 +942,7 @@ MonoBehaviour:
   fTimeTilTarget: 1.2
   playerDetector: {fileID: 2866924701908180198}
   bullet: {fileID: 5132483783722734408, guid: 5671371b839cc444f920b55c2b61c51d, type: 3}
-  model: {fileID: 0}
+  model: {fileID: 2866924702132592024}
   effect: {fileID: 0}
 --- !u!1 &2866924702596041442
 GameObject:

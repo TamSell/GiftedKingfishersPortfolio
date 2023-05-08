@@ -33,22 +33,22 @@ public class EnemySwarmer : MonoBehaviour, Damage
 
     [Header("--- Components ---")]
     [SerializeField] GameObject playerDetector;
-    [SerializeField] GameObject bullet;
     [SerializeField] NavMeshAgent navMeshA;
-    [SerializeField] Transform headPos;
     [SerializeField] Renderer model;
+    [SerializeField] GameObject meleeSwipe;
 
     [Header("--- Effects ---")]
     [SerializeField] GameObject effect;
 
     void Start()
     {
+        meleeSwipe.SetActive(false);
         navMeshA.stoppingDistance = 4;
         objectTracker = GetComponent<Tracker>();
     }
 
 
-    void LateUpdate()
+    void Update()
     {
         FindPlayer();
     }
@@ -65,10 +65,14 @@ public class EnemySwarmer : MonoBehaviour, Damage
         {
             PredictiveCutOff();
         }
-        else
+        else if (distanceToPlayer < 12)
         {
             //navMeshA.ResetPath();
             navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
+        }
+        if (distanceToPlayer < 3 && !isMeleeing)
+        {
+            StartCoroutine(melee());
         }
     }
 
@@ -95,9 +99,17 @@ public class EnemySwarmer : MonoBehaviour, Damage
         navMeshA.SetDestination(ProjectidePosition);
     }
 
-    IEnumerator MeleePlayer()
+    IEnumerator melee()
     {
-        yield return null;
+        isMeleeing = true;
+       // navMeshA.speed = 0;
+        yield return new WaitForSeconds(meleeWindUp);
+        meleeSwipe.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        meleeSwipe.SetActive(false);
+        navMeshA.speed = movementSpeed;
+        yield return new WaitForSeconds(meleeRate);
+        isMeleeing = false;
     }
 
     void FollowPlayer()
