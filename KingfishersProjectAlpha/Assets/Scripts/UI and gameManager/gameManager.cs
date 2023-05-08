@@ -12,21 +12,30 @@ public class gameManager : MonoBehaviour
     public GameObject PlayerModel;
     public PlayerController playerController;
     public GameObject playerSpawnPos;
+    [SerializeField] public List<GunStats2> gunAspects;
+    public GunStats2 currentGunAspects;
+    public int currentGunIndex = 0;
+    [SerializeField] public Crafting modify;
 
 
     [Header("------ UI Elements ------")]
     [SerializeField] GameObject Inventory;
+    [SerializeField] GameObject CraftIt;
     public Inventory inven;
     public TextMeshProUGUI invenDesc;
     public TextMeshProUGUI invenName;
-    public Image invenIcon;
+    public Sprite invenIcon;
     private GameObject activeMenu;
     public GameObject LostMenu;
     public GameObject WinMenu;
     public GameObject PauseMenu;
+    public GameObject MainMenu;
+    public GameObject Settings;
     public Image HPbar;
     public Image HPbarBack;
     public Image SBar;
+    public Image Speedbar;
+    public Image SpeedbarBack;
     public TextMeshProUGUI enemyCountTitle;
     public TextMeshProUGUI enemyCount;
     public GameObject reticle;
@@ -34,7 +43,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI mag;
     public TextMeshProUGUI reserve;
 
-    public bool teleporting;
+    public bool isNear;
     public bool inMenu;
     int enemyRemain;
     float timeScaleO;
@@ -46,6 +55,7 @@ public class gameManager : MonoBehaviour
         playerController = PlayerModel.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleO = Time.timeScale;
+        
 
     }
 
@@ -54,6 +64,7 @@ public class gameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel") && (activeMenu == null || activeMenu == PauseMenu))
         {
+            Settings.SetActive(false);
             inMenu = !inMenu;
             setMenu(PauseMenu);
             if (inMenu)
@@ -69,6 +80,19 @@ public class gameManager : MonoBehaviour
         {
             inMenu = !inMenu;
             setMenu(Inventory);
+            if (inMenu)
+            {
+                pause();
+            }
+            else
+            {
+                unpause();
+            }
+        }
+        if(Input.GetButtonDown("Interact") && (activeMenu==null || activeMenu == CraftIt) && isNear)
+        {
+            inMenu = !inMenu;
+            setMenu(CraftIt);
             if (inMenu)
             {
                 pause();
@@ -135,15 +159,14 @@ public class gameManager : MonoBehaviour
     public void addGun(Gun gun)
     {
         Item gunItem = null;
-        gunItem.id = gun.name;
-        gunItem.amount = 1;
+        gunItem.name = gun.name;
         if (gun.RayGunDamage != 0)
         {
             gunItem.description = "Damage: " + gun.RayGunDamage.ToString() + "\n";
         }
         else
         {
-            gunItem.description = "Damage: " + gun.bulletVals.damage + "\n";
+            gunItem.description = "Damage: " + gun.bulletVals.BasicDamage + "\n";
         }
         gunItem.description += "Magazine Size: " + gun.magSize.ToString() + "\n" + "Reserve Ammo: " + gun.totalAmmo.ToString();
         inven.InvenAdd(gunItem);
@@ -161,6 +184,8 @@ public class gameManager : MonoBehaviour
         SBar.enabled = false;
         HPbar.enabled = false;
         HPbarBack.enabled = false;
+        Speedbar.enabled = false;
+        SpeedbarBack.enabled = false;
         reticle.SetActive(false);
         enemyCountTitle.enabled = false;
         enemyCount.enabled = false;
@@ -174,6 +199,8 @@ public class gameManager : MonoBehaviour
         SBar.enabled = true;
         HPbar.enabled = true;
         HPbarBack.enabled = true;
+        Speedbar.enabled = true;
+        SpeedbarBack.enabled = true;
         reticle.SetActive(true);
         enemyCountTitle.enabled = true;
         enemyCount.enabled = true;

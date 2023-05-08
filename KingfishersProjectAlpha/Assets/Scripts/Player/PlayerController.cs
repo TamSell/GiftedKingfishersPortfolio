@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, Damage
 {
 
     [Header("----- Components-----")]
-    [SerializeField] CharacterController controller;
+    [SerializeField] public CharacterController controller;
     [SerializeField] AudioSource aud;
 
     [Header("----- Player Stats -----")]
+    [SerializeField] float interactDist;
     [Range(3, 8)][SerializeField] float PlayerSpeed;
     [Range(3, 30)][SerializeField] float jumpHeight;
     [Range(3, 25)][SerializeField] float gravityValue;
@@ -27,7 +29,14 @@ public class PlayerController : MonoBehaviour, Damage
     [Range(0, 1)][SerializeField] float DashTime;
     [Range(0,30)][SerializeField] float MaxStamina;
     [SerializeField] float Stamina;
-    public float speed;
+    [SerializeField] public float speed;
+    [SerializeField] public float Enery;
+    [SerializeField] float maxEnergy;
+    [SerializeField] float jumpButtonGraceperiod;
+    [SerializeField] float? lastGoundedTime;
+    [SerializeField] float? jumpButtonPressedTime;
+    float originalStopOffset;
+   
 
     [Header("------ Audio ------")]
     [SerializeField] AudioClip[] audSteps;
@@ -42,16 +51,20 @@ public class PlayerController : MonoBehaviour, Damage
     public MeshRenderer gunMaterial;
     public MeshFilter gunModel;
 
+    [Header("---- CoolDown----")]
+    [SerializeField] bool DashReady;
+    [SerializeField] public float DashCD;
+    [SerializeField]float maxCD;
 
 
-   
     public int selectedWeapon = 0;
     bool isPlaying;
     bool isPlayingSteps;
     int jumpTimes;
-    private Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     private bool groundedPlayer;
     private float StaminaOrig;
+    private float SpeedOrig;
     public Vector3 move;
     public int HPorig;
     public bool isrunning;
@@ -63,12 +76,16 @@ public class PlayerController : MonoBehaviour, Damage
     // Start is called before the first frame update
     void Start()
     {
-       StartCoroutine(CalculateSpeed());
+        DashCD = 6;
+        DashReady = true;
+        StartCoroutine(CalculateSpeed());
         HPorig = HP;
         StaminaOrig = Stamina;
+        SpeedOrig = speed;
         PLayerUpdateUI();
         FOVorg = Camera.main.fieldOfView;
         respawnPlayer();
+      originalStopOffset = controller.stepOffset;
       
     }
 
@@ -78,7 +95,19 @@ public class PlayerController : MonoBehaviour, Damage
         Dash();
         movement();
         selectGun();
+        EnergyBuildUp();
+        canInteract();
+        CD(isDashing);
     }
+
+    void CD(bool ability)
+    {
+        if(ability ==false && DashCD < maxCD)
+        {
+            DashCD += 1 * Time.deltaTime;
+        }
+    }
+
 
     void movement()
     {
@@ -131,13 +160,29 @@ public class PlayerController : MonoBehaviour, Damage
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax &&Stamina>0)
+        if(controller.isGrounded)
         {
-            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
-            gameManager.Instance.SBar.enabled = true;
-            jumpTimes++;
-            playerVelocity.y = jumpHeight;
-            Stamina -= 5;
+            lastGoundedTime = Time.time;
+        }
+        if(Input.GetButtonDown("Jump"))
+        {
+            jumpButtonPressedTime=Time.time;
+        }
+
+
+        if (Time.time - lastGoundedTime<= jumpButtonGraceperiod || jumpTimes < jumpMax)
+        {
+            controller.stepOffset = originalStopOffset;
+          
+            if(Time.time - jumpButtonPressedTime <= jumpButtonGraceperiod)
+            {
+                aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+                gameManager.Instance.SBar.enabled = true;
+                jumpTimes++;
+                playerVelocity.y = jumpHeight;
+                jumpButtonPressedTime = null;
+                lastGoundedTime = null;
+            }
         }
     }
     void Run()
@@ -179,14 +224,19 @@ public class PlayerController : MonoBehaviour, Damage
 
     void Dash()
     {
+        if(DashCD >5)
+        {
+            DashReady = true;
+        }
        if(move.x==0&&move.z==0)
         {
             return;
         }
         if(Input.GetButtonDown("Dash"))
         {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, RunFOV, Time.deltaTime * 0.5f);
             gameManager.Instance.SBar.enabled = true;
-            if (Stamina >0)
+            if (DashReady)
             {
                
               StartCoroutine(Dashing());
@@ -196,19 +246,24 @@ public class PlayerController : MonoBehaviour, Damage
         }
 
     }
+
     IEnumerator Dashing()
     {
         isDashing = true;
         float startTime = Time.time;
-
+        DashCD = 0;
+        DashReady = false;
         while( Time.time< startTime + DashTime)
         {
             controller.Move(move * Time.deltaTime * DashSpeed);
         
-           yield return null;
+           yield return new WaitForEndOfFrame();
         }
         isDashing=false;
+        
+       
     }
+  
 
 
     void StaminaRecovery()
@@ -238,6 +293,7 @@ public class PlayerController : MonoBehaviour, Damage
     {
         gameManager.Instance.SBar.fillAmount = Stamina / StaminaOrig;
         gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig;
+        gameManager.Instance.Speedbar.fillAmount = speed / SpeedOrig;
     }
 
     public void respawnPlayer()
@@ -268,7 +324,7 @@ public class PlayerController : MonoBehaviour, Damage
        usingGun.realoadSpeed = gun.realoadSpeed;
        usingGun.reaload = gun.reaload;
        
-       usingGun.RayCastWeapon = gun.RayCastWeapon;
+       usingGun.Sniper = gun.Sniper;
        
        usingGun = gun;
        
@@ -342,7 +398,7 @@ public class PlayerController : MonoBehaviour, Damage
        usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
        usingGun.reaload = gunList[selectedWeapon].reaload;
        
-       usingGun.RayCastWeapon = gunList[selectedWeapon].RayCastWeapon;
+       usingGun.Sniper = gunList[selectedWeapon].Sniper;
        
        usingGun.GunShot = gunList[selectedWeapon].GunShot;
        usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
@@ -370,7 +426,48 @@ public class PlayerController : MonoBehaviour, Damage
             yield return new WaitForFixedUpdate();
             speed = Mathf.RoundToInt(Vector3.Distance(transform.position, prevPos) / Time.fixedDeltaTime);
         }
+    }
 
+    public float EnergyBuildUp()
+    {
+        
+        if(Enery < maxEnergy)
+        {
+            if(speed > 12)
+            {
+                Enery += 3 * Time.deltaTime;
+            }
+            else if(speed > 20)
+            {
+                Enery += 5 * Time.deltaTime;
 
+            }
+            else if(speed > 40)
+            {
+                Enery += 10 * Time.deltaTime;
+            }
+            else if(Enery>0)
+            {
+                
+                Enery -= 1 * Time.deltaTime;
+            }
+        }
+        return Enery;
+    }
+
+    void canInteract()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, interactDist))
+        {
+            if (hit.collider.CompareTag("CraftBench"))
+            {
+                gameManager.Instance.isNear = true;
+            }
+        }
+        else
+        {
+            gameManager.Instance.isNear = false;
+        }
     }
 }

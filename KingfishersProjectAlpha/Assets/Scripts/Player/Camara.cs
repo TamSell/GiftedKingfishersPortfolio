@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Camara : MonoBehaviour
 {
-    [SerializeField] int sensHor;
-    [SerializeField] int sensVert;
+    [SerializeField] public int sensHor;
+    [SerializeField] public int sensVert;
     [SerializeField] int lockverMin;
     [SerializeField] int lockverMax;
+    [SerializeField] Slider XSlider;
+    [SerializeField] Slider YSlider;
 
     float xRotation;
     // Start is called before the first frame update
     void Start()
     {
+        XSlider.value = sensVert;
+        YSlider.value = sensHor;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -20,8 +25,10 @@ public class Camara : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensVert;
-        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensHor;
+        sensVert = (int)XSlider.value;
+        sensHor = (int)YSlider.value;
+        float mouseY = Input.GetAxis("Mouse Y") * Time.deltaTime * sensHor;
+        float mouseX = Input.GetAxis("Mouse X") * Time.deltaTime * sensVert;
 
         xRotation -= mouseY;
 

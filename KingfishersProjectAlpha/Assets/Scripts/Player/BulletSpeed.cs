@@ -8,7 +8,16 @@ public class BulletSpeed : MonoBehaviour
     [Header("----Bullet Settigns-----")]
     [SerializeField] float speed;
     [SerializeField] float timer;
-    [SerializeField] public int damage;
+    float Energy
+    {
+        get => gameManager.Instance.playerController.Enery;
+        set => gameManager.Instance.playerController.Enery = value;
+    }
+
+    [SerializeField] public int BasicDamage;
+    [SerializeField] public int LowDamage;
+    [SerializeField] public int MediumDamage;
+    [SerializeField] public int HighDamage;
     [SerializeField] GameObject TriggerEffect;
 
 
@@ -31,9 +40,7 @@ public class BulletSpeed : MonoBehaviour
     {
         if(IsSpinning)
         {
-            transform.Rotate(0, 0, Time.deltaTime * spin);
-
-           
+            transform.Rotate(0, 0, Time.deltaTime * spin);  
         }
 
         transform.Translate(0, 0, Time.deltaTime * speed);
@@ -63,11 +70,35 @@ public class BulletSpeed : MonoBehaviour
 
         if (canDamage != null)
         {
-            canDamage.TakeDamage(damage);
-            Debug.Log("Tumama");
+           
+            canDamage.TakeDamage(DamageDependingOnEnergy());
+            
         }
         Destroy(gameObject);
     }
+
+    int DamageDependingOnEnergy()
+    {
+       
+        if (Energy >= 75)
+        {
+            return HighDamage;
+        }
+        else if (Energy >= 50)
+        {
+            return MediumDamage;
+        }
+        else if (Energy >= 25)
+
+        {
+            return HighDamage;
+        }
+        else
+        {
+            return BasicDamage;
+        }
+    }
+
 
 
     IEnumerator hitEffect()
