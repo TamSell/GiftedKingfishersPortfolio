@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class buttonManager : MonoBehaviour
 {
-    Camara camera;
+    //Camara camera;
     int place;
-    [SerializeField] AudioClip aud;
-    [SerializeField] AudioSource button;
+    [SerializeField] AudioSource aud;
+    [SerializeField] AudioClip button;
     [Range(0, 1)][SerializeField] float audButtonVol;
 
     public void resume()
     {
-        button.PlayOneShot(aud, audButtonVol);
+        aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.unpause();
         gameManager.Instance.inMenu = !gameManager.Instance.inMenu;
+        
     }
 
     public void restart()
     {
-        button.PlayOneShot(aud, audButtonVol);
+        aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.unpause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Save()
     {
+        aud.PlayOneShot(button, audButtonVol);
         saveLoadManager.SaveGame();
     }
     public void load()
@@ -37,7 +40,7 @@ public class buttonManager : MonoBehaviour
 
     public void quit()
     {
-        button.PlayOneShot(aud, audButtonVol);
+        aud.PlayOneShot(button, audButtonVol);
         Application.Quit();
     }
     public void Respawnplayer()
