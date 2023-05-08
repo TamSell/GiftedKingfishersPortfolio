@@ -9,7 +9,7 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] GameObject TriggerEffect;
 
-    [SerializeField] BoxCollider box;
+    [SerializeField] CapsuleCollider box;
 
     GameObject effect;
     // Start is called before the first frame update
