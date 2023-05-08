@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, Damage
@@ -30,6 +31,10 @@ public class PlayerController : MonoBehaviour, Damage
     [SerializeField] public float speed;
     [SerializeField] public float Enery;
     [SerializeField] float maxEnergy;
+    [SerializeField] float jumpButtonGraceperiod;
+    [SerializeField] float? lastGoundedTime;
+    [SerializeField] float? jumpButtonPressedTime;
+    float originalStopOffset;
    
 
     [Header("------ Audio ------")]
@@ -79,7 +84,7 @@ public class PlayerController : MonoBehaviour, Damage
         PLayerUpdateUI();
         FOVorg = Camera.main.fieldOfView;
         respawnPlayer();
-      
+      originalStopOffset = controller.stepOffset;
       
     }
 
@@ -153,13 +158,29 @@ public class PlayerController : MonoBehaviour, Damage
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump") && jumpTimes < jumpMax)
+        if(controller.isGrounded)
         {
-            aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
-            gameManager.Instance.SBar.enabled = true;
-            jumpTimes++;
-            playerVelocity.y = jumpHeight;
-      
+            lastGoundedTime = Time.time;
+        }
+        if(Input.GetButtonDown("Jump"))
+        {
+            jumpButtonPressedTime=Time.time;
+        }
+
+
+        if (Time.time - lastGoundedTime<= jumpButtonGraceperiod || jumpTimes < jumpMax)
+        {
+            controller.stepOffset = originalStopOffset;
+          
+            if(Time.time - jumpButtonPressedTime <= jumpButtonGraceperiod)
+            {
+                aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+                gameManager.Instance.SBar.enabled = true;
+                jumpTimes++;
+                playerVelocity.y = jumpHeight;
+                jumpButtonPressedTime = null;
+                lastGoundedTime = null;
+            }
         }
     }
     void Run()
