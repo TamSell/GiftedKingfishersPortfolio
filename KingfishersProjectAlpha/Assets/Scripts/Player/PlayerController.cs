@@ -254,7 +254,7 @@ public class PlayerController : MonoBehaviour, Damage
         {
             controller.Move(move * Time.deltaTime * DashSpeed);
         
-           yield return null;
+           yield return new WaitForEndOfFrame();
         }
         isDashing=false;
         

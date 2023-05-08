@@ -25,6 +25,7 @@ public class gameManager : MonoBehaviour
     public GameObject WinMenu;
     public GameObject PauseMenu;
     public GameObject MainMenu;
+    public GameObject Settings;
     public Image HPbar;
     public Image HPbarBack;
     public Image SBar;
@@ -49,6 +50,7 @@ public class gameManager : MonoBehaviour
         playerController = PlayerModel.GetComponent<PlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleO = Time.timeScale;
+        
 
     }
 
@@ -57,6 +59,7 @@ public class gameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Cancel") && (activeMenu == null || activeMenu == PauseMenu))
         {
+            Settings.SetActive(false);
             inMenu = !inMenu;
             setMenu(PauseMenu);
             if (inMenu)
