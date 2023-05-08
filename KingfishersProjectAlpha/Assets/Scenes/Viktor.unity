@@ -2303,12 +2303,18 @@ MonoBehaviour:
   ShootRate: 0
   realoadSpeed: 0
   reaload: 0
+  hitEffect: {fileID: 0}
+  secondaryGun: 0
+  EnergyCost: 0
   RayGunDist: 0
   RayGunDamage: 0
   RayGunEffect: {fileID: 0}
+  ShotGunDist: 0
+  ShotGunDamage: 0
   shotgun: 0
   bulletPerShot: 0
-  inaccuracyDistance: 0
+  ImpulseTime: 0
+  ImpulseSpeed: 0
   magSize: 0
   totalAmmo: 0
   GunShot: {fileID: 0}
@@ -2318,7 +2324,7 @@ MonoBehaviour:
   bulletVals: {fileID: 0}
   bullet: {fileID: 0}
   Barrel: {fileID: 0}
-  RayCastWeapon: 0
+  Sniper: 0
 --- !u!1 &1920906270
 GameObject:
   m_ObjectHideFlags: 0
