@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyMelee : MonoBehaviour
+public class MeleeAttack : MonoBehaviour
 {
     [Header("----Melee Settings----")]
     [SerializeField] int damage;
-    [SerializeField] GameObject TriggerEffect;
 
-    [SerializeField] CapsuleCollider box;
+    [SerializeField] CapsuleCollider meleeZone;
 
     GameObject effect;
     // Start is called before the first frame update

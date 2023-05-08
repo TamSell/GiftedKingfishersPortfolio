@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
-public class EnemyTurret : MonoBehaviour, Damage
+public class EnemySwarmer : MonoBehaviour, Damage
 {
 
     [Header("----- Top of Enemy -----")]
@@ -12,15 +11,15 @@ public class EnemyTurret : MonoBehaviour, Damage
 
     [Header("--- Stats ---")]
     [SerializeField] int healthPoints;
-    [SerializeField] float fireRate;
-    [SerializeField] float fireSpeed;
-    [SerializeField] bool isShooting;
-
+    [SerializeField] float meleeRate;
+    [SerializeField] float meleeWindUp;
+    [SerializeField] float meleeSpeed;
+    [SerializeField] float movementSpeed;
+    [SerializeField] bool isMeleeing;
 
     [Header("--- AI Info ---")]
     [SerializeField] int turnSpeed;
     [SerializeField] Transform playerFinder;
-    [SerializeField] float fTimeTilTarget = 1.2f;
     Vector3 dirOfPlayer;
     Vector3 playerShooter;
     bool playerInRange;
@@ -34,85 +33,85 @@ public class EnemyTurret : MonoBehaviour, Damage
 
     [Header("--- Components ---")]
     [SerializeField] GameObject playerDetector;
-    [SerializeField] GameObject bullet;
+    [SerializeField] NavMeshAgent navMeshA;
     [SerializeField] Renderer model;
+    [SerializeField] GameObject meleeSwipe;
 
     [Header("--- Effects ---")]
     [SerializeField] GameObject effect;
 
-    // Start is called before the first frame update
     void Start()
     {
+        meleeSwipe.SetActive(false);
+        navMeshA.stoppingDistance = 4;
         objectTracker = GetComponent<Tracker>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (playerInRange)
-        {
-            FindPlayer();
-        }
+        FindPlayer();
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.isTrigger)
-        {
-            return;
-        }
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = true;
-        }
-    }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerInRange = false;
-        }
-    }
+
     void FindPlayer()
     {
         dirOfPlayer = (gameManager.Instance.PlayerModel.transform.position - playerFinder.position);
         viewAngle = Vector3.Angle(new Vector3(dirOfPlayer.x, 0, dirOfPlayer.z), playerFinder.forward);
-        distanceToPlayer = Vector3.Distance(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
+        distanceToPlayer = Vector3.Distance(transform.position, gameManager.Instance.PlayerModel.transform.position);
         Debug.DrawLine(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
 
         FollowPlayer();
-        if (!isShooting)
+        if (distanceToPlayer > 12)
         {
-           StartCoroutine(ShootPlayer());
+            PredictiveCutOff();
+        }
+        else if (distanceToPlayer < 12)
+        {
+            //navMeshA.ResetPath();
+            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
+        }
+        if (distanceToPlayer < 3 && !isMeleeing)
+        {
+            StartCoroutine(melee());
         }
     }
 
-    IEnumerator ShootPlayer()
+    void PredictiveCutOff()
     {
+       // navMeshA.ResetPath();
         int iIterations = 0;
-        isShooting = true;
         float fCheckTime = fBaseCheckTime;
-        yield return new WaitForSeconds(fireRate);
-        BaseProjectile freshBullet = GameObject.Instantiate(bullet, playerFinder.transform.position, transform.rotation).GetComponent<BaseProjectile>();
         Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
 
-        Vector3 ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
-        fDistance = (TargetPosition - ProjectilePosition).magnitude;
+        Vector3 ProjectidePosition = transform.position + ((TargetPosition - transform.position).normalized * movementSpeed * fCheckTime);
+        fDistance = (TargetPosition - ProjectidePosition).magnitude;
 
-        while (fDistance > 3.5f && iIterations < iMaxIters)
+        while (fDistance > 5f && iIterations < iMaxIters)
         {
             iIterations++;
             fCheckTime += fTimePercheck;
             TargetPosition = objectTracker.ProjectedPosition(fCheckTime);
 
-            ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
-            fDistance = (TargetPosition - ProjectilePosition).magnitude;
+            ProjectidePosition = transform.position + ((TargetPosition - transform.position).normalized * movementSpeed * fCheckTime);
+            fDistance = (TargetPosition - ProjectidePosition).magnitude;
         }
 
-        Vector3 v3Velocity = TargetPosition - playerFinder.transform.position;
-        freshBullet.Shoot(v3Velocity.normalized, fireSpeed);
-        isShooting = false;
-
+        navMeshA.SetDestination(ProjectidePosition);
     }
+
+    IEnumerator melee()
+    {
+        isMeleeing = true;
+       // navMeshA.speed = 0;
+        yield return new WaitForSeconds(meleeWindUp);
+        meleeSwipe.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        meleeSwipe.SetActive(false);
+        navMeshA.speed = movementSpeed;
+        yield return new WaitForSeconds(meleeRate);
+        isMeleeing = false;
+    }
+
     void FollowPlayer()
     {
         Quaternion enemyRotation = Quaternion.LookRotation(new Vector3(dirOfPlayer.x, dirOfPlayer.y, dirOfPlayer.z));
@@ -132,17 +131,18 @@ public class EnemyTurret : MonoBehaviour, Damage
         //StartCoroutine(hitEffect());
         //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
 
-        // Destroy(effect, 2);
+       // Destroy(effect, 2);
 
         if (healthPoints <= 0)
         {
             Destroy(gameObject);
         }
         else
-        { 
+        {
+            //navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
+            //navMeshA.stoppingDistance = 0;
             StartCoroutine(flashColor());
         }
 
     }
 }
-
