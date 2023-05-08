@@ -22,7 +22,11 @@ public class buttonManager : MonoBehaviour
 
     public void Save()
     {
-        saveLoadManager.Save();
+        saveLoadManager.SaveGame();
+    }
+    public void load()
+    {
+        saveLoadManager.LoadGame();
     }
 
     public void quit()

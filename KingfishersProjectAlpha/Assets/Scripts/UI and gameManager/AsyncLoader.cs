@@ -17,15 +17,15 @@ public class AsyncLoader : MonoBehaviour
     public void loadLevelButton(string levelToLoad)
     {
         mainMenu.SetActive(false);
-        loading.SetActive(true);
-
         StartCoroutine(LoadLevelAsync(levelToLoad));
     }
     IEnumerator LoadLevelAsync(string levelToLoad)
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
-        
-        while(!loadOperation.isDone)
+
+        loading.SetActive(true);
+
+        while (!loadOperation.isDone)
         {
             float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
             loadingSlider.value = progressValue;
