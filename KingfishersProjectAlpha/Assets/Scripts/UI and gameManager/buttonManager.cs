@@ -8,16 +8,20 @@ public class buttonManager : MonoBehaviour
 {
     Camara camera;
     int place;
-  
+    [SerializeField] AudioClip aud;
+    [SerializeField] AudioSource button;
+    [Range(0, 1)][SerializeField] float audButtonVol;
+
     public void resume()
     {
+        button.PlayOneShot(aud, audButtonVol);
         gameManager.Instance.unpause();
         gameManager.Instance.inMenu = !gameManager.Instance.inMenu;
-        
     }
 
     public void restart()
     {
+        button.PlayOneShot(aud, audButtonVol);
         gameManager.Instance.unpause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -33,6 +37,7 @@ public class buttonManager : MonoBehaviour
 
     public void quit()
     {
+        button.PlayOneShot(aud, audButtonVol);
         Application.Quit();
     }
     public void Respawnplayer()
