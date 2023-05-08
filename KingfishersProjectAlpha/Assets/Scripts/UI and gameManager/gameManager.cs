@@ -12,14 +12,19 @@ public class gameManager : MonoBehaviour
     public GameObject PlayerModel;
     public PlayerController playerController;
     public GameObject playerSpawnPos;
+    [SerializeField] public List<GunStats2> gunAspects;
+    public GunStats2 currentGunAspects;
+    public int currentGunIndex = 0;
+    [SerializeField] public Crafting modify;
 
 
     [Header("------ UI Elements ------")]
     [SerializeField] GameObject Inventory;
+    [SerializeField] GameObject CraftIt;
     public Inventory inven;
     public TextMeshProUGUI invenDesc;
     public TextMeshProUGUI invenName;
-    public Image invenIcon;
+    public Sprite invenIcon;
     private GameObject activeMenu;
     public GameObject LostMenu;
     public GameObject WinMenu;
@@ -38,7 +43,7 @@ public class gameManager : MonoBehaviour
     public TextMeshProUGUI mag;
     public TextMeshProUGUI reserve;
 
-
+    public bool isNear;
     public bool inMenu;
     int enemyRemain;
     float timeScaleO;
@@ -75,6 +80,19 @@ public class gameManager : MonoBehaviour
         {
             inMenu = !inMenu;
             setMenu(Inventory);
+            if (inMenu)
+            {
+                pause();
+            }
+            else
+            {
+                unpause();
+            }
+        }
+        if(Input.GetButtonDown("Interact") && (activeMenu==null || activeMenu == CraftIt) && isNear)
+        {
+            inMenu = !inMenu;
+            setMenu(CraftIt);
             if (inMenu)
             {
                 pause();
@@ -141,8 +159,7 @@ public class gameManager : MonoBehaviour
     public void addGun(Gun gun)
     {
         Item gunItem = null;
-        gunItem.id = gun.name;
-        gunItem.amount = 1;
+        gunItem.name = gun.name;
         if (gun.RayGunDamage != 0)
         {
             gunItem.description = "Damage: " + gun.RayGunDamage.ToString() + "\n";

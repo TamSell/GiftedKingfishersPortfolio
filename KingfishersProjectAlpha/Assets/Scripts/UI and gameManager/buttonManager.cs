@@ -24,7 +24,11 @@ public class buttonManager : MonoBehaviour
 
     public void Save()
     {
-        saveLoadManager.Save();
+        saveLoadManager.SaveGame();
+    }
+    public void load()
+    {
+        saveLoadManager.LoadGame();
     }
 
     public void quit()
@@ -44,6 +48,7 @@ public class buttonManager : MonoBehaviour
         Item _item = gameManager.Instance.SelectItem(place);
         gameManager.Instance.DisplayItem(_item);
     }
+
     public void Settings()
     {
         gameManager.Instance.Settings.SetActive(true);
@@ -54,4 +59,27 @@ public class buttonManager : MonoBehaviour
         gameManager.Instance.Settings.SetActive(false);
         gameManager.Instance.PauseMenu.SetActive(true);
     }
+
+
+    public void nextWeapon()
+    {
+        int index = gameManager.Instance.currentGunIndex + 1;
+        if (index < gameManager.Instance.gunAspects.Count)
+        {
+            gameManager.Instance.currentGunAspects = gameManager.Instance.gunAspects[index];
+        }
+        gameManager.Instance.modify.NextGun();
+    }
+
+    public void prevWeapon()
+    {
+        int index = gameManager.Instance.currentGunIndex - 1;
+        if (index < gameManager.Instance.gunAspects.Count)
+        {
+            gameManager.Instance.currentGunAspects = gameManager.Instance.gunAspects[index];
+        }
+        gameManager.Instance.modify.NextGun();
+    }
+
+
 }

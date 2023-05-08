@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0e8d9af63d95c147af27406bd3aebda, type: 3}
+  m_Name: ShotGun Drum Mag 1
+  m_EditorClassIdentifier: 
+  named: Drum Mag
+  description: Doubles the amount of Ammo the shotgun can contain and decreases reload
+    time
+  icon: {fileID: 21300000, guid: fb6df7dc5ceebe744a0ea02ca322493c, type: 3}
+  modifiedStats:
+  - 0
+  - 0
+  - 2
+  - 30
+  - 0
+  - 0
+  position: 0
+  equipped: 0

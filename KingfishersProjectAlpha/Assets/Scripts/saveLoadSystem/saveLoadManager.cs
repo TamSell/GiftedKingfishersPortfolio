@@ -9,7 +9,7 @@ public class saveLoadManager
 
     public const string saveDirectory = "/SaveData/";
     public const string FileName = "SaveGame.sav";
-    public static bool Save()
+    public static bool SaveGame()
     {
         var dir = Application.persistentDataPath + saveDirectory;
 
@@ -22,5 +22,23 @@ public class saveLoadManager
         GUIUtility.systemCopyBuffer = dir;
 
         return true;
+    }
+
+    public static void LoadGame()
+    {
+        string fullPath = Application.persistentDataPath + saveDirectory + FileName;
+        SaveData tempData = new SaveData();
+
+        if(File.Exists(fullPath))
+        {
+            string json = File.ReadAllText(fullPath);
+            tempData = JsonUtility.FromJson<SaveData>(json);
+        }
+        else
+        {
+            Debug.LogError(message:"Save File Doesn't Exist");
+        }
+
+        CurrentsaveData = tempData;
     }
 }
