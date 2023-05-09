@@ -26,11 +26,11 @@ public class MeleeWeapon : MonoBehaviour
     {
        
         
-       if ( gameManager.Instance.playerController.isrunning==false)
+       if ( gameManager.Instance.playerController.isRunning==false)
         {
             RunningTime = 0;
         }
-        else if(Input.GetButton("Run") &&gameManager.Instance.playerController.isrunning==true)
+        else if(Input.GetButton("Run") && gameManager.Instance.playerController.isRunning)
         {
            
             RunningTime += Time.deltaTime;

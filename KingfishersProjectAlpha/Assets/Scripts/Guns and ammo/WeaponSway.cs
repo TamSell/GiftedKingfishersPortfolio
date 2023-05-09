@@ -14,6 +14,7 @@ public class WeaponSway : MonoBehaviour
     private Quaternion Original;
     float mouseX;
     float mouseY;
+
     private void Start()
     {
         Original = transform.localRotation;
@@ -24,7 +25,7 @@ public class WeaponSway : MonoBehaviour
 
         
 
-        if(gameManager.Instance.playerController.isrunning==false)
+        if(gameManager.Instance.playerController.isRunning)
         {
              mouseX = Input.GetAxisRaw("Mouse X") * WalkingSway;
              mouseY = Input.GetAxisRaw("Mouse Y") * WalkingSway;
@@ -37,12 +38,12 @@ public class WeaponSway : MonoBehaviour
 
       
 
-        Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
-        Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
+        //Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
+        //Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
 
-        Quaternion targetRottaion =Original* rotationX * rotationY;
+        //Quaternion targetRottaion =Original* rotationX * rotationY;
 
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRottaion, smooth * Time.deltaTime);
+        //transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRottaion, smooth * Time.deltaTime);
     }
 
 }

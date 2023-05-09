@@ -968,6 +968,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 6461493174659232490, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+      propertyPath: aud
+      value: 
+      objectReference: {fileID: 1476115271}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
 --- !u!1001 &652869566
@@ -1728,6 +1732,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1476115271 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1476115271, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+  m_PrefabInstance: {fileID: 634840426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1743232853
 GameObject:
   m_ObjectHideFlags: 0
