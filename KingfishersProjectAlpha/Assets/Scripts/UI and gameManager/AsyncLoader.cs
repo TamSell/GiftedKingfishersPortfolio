@@ -19,6 +19,11 @@ public class AsyncLoader : MonoBehaviour
         mainMenu.SetActive(false);
         StartCoroutine(LoadLevelAsync(levelToLoad));
     }
+
+    public void startGameButtonPlease()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
     IEnumerator LoadLevelAsync(int levelToLoad)
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);

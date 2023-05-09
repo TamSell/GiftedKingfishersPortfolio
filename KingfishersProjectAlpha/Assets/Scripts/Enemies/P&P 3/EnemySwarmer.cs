@@ -136,6 +136,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
         if (healthPoints <= 0)
         {
             Destroy(gameObject);
+            gameManager.Instance.updateGoal(20);
         }
         else
         {
