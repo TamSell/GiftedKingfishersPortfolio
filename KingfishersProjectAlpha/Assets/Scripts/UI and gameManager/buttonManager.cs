@@ -13,6 +13,9 @@ public class buttonManager : MonoBehaviour
     [SerializeField] AudioClip button;
     [Range(0, 1)][SerializeField] float audButtonVol = 0.5f;
 
+    public bool isPlayingM;
+    public bool isPlayingMSFX;
+
     public void resume()
     {
         gameManager.Instance.unpause();
@@ -79,6 +82,7 @@ public class buttonManager : MonoBehaviour
 
     public void BackMenufromOp()
     {
+        VolumeControl._volInstance.UpdateVolume();
         MenusUi.menus.OptionMenu.SetActive(false);
         MenusUi.menus.MainMenu.SetActive(true);
     }
@@ -109,5 +113,21 @@ public class buttonManager : MonoBehaviour
         gameManager.Instance.modify.NextGun();
     }
 
+    public void MenuMusicButton()
+    {
+        isPlayingM = !isPlayingM;
+        if (isPlayingM)
+            MenusUi.menus.MenuMusicSource.enabled = true;
+        else
+            MenusUi.menus.MenuMusicSource.enabled = false;
+    }
 
+    public void MenuSFXButton()
+    {
+        isPlayingMSFX = !isPlayingMSFX;
+        if (isPlayingMSFX)
+            MenusUi.menus.MenuSFXSource.enabled = true;
+        else
+            MenusUi.menus.MenuSFXSource.enabled = false;
+    }
 }

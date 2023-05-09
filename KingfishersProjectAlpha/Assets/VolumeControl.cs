@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class VolumeControl : MonoBehaviour
 {
+    public static VolumeControl _volInstance;
+
     [SerializeField] string _volumeParamter;
     [SerializeField] AudioMixer _mixer;
     [SerializeField] UnityEngine.UI.Slider _slider;
@@ -47,12 +49,19 @@ public class VolumeControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _volInstance = this;
         _slider.value = PlayerPrefs.GetFloat(_volumeParamter, _slider.value);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateVolume();
+    }
+
+    public void UpdateVolume()
+    {
+        MenusUi.menus.MenuMusicSource.volume = _slider.value;
+        MenusUi.menus.MenuSFXSource.volume = _slider.value;
     }
 }
