@@ -312,6 +312,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6525470903284853814, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
+      propertyPath: m_Colors.m_ColorMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6525470903385193359, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6525470904037978883, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -402,14 +410,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6525470904037978887, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6525470904305629763, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
+      propertyPath: loading
+      value: 
+      objectReference: {fileID: 1265751349}
     - target: {fileID: 6525470904305629763, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
       propertyPath: mainMenu
       value: 
       objectReference: {fileID: 2020620761}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6525470903284854728, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
+--- !u!1 &1259955795 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6525470904305629762, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
+  m_PrefabInstance: {fileID: 599155954}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1265751349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6525470903385193359, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
+  m_PrefabInstance: {fileID: 599155954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1732554503
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1259955795}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1732554506
@@ -488,7 +511,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6525470904305629763, guid: 4c1dfb4f448b4924f852c3abb4c9692c, type: 3}
   m_PrefabInstance: {fileID: 599155954}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1259955795}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bf9064405d423145843d1e064ce5a12, type: 3}
@@ -501,10 +524,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1505944918, guid: 6736a2eeb51a2704496eab17bd7549fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067261179844550578, guid: 6736a2eeb51a2704496eab17bd7549fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8067261179844550578, guid: 6736a2eeb51a2704496eab17bd7549fe, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2032867733}
+    - target: {fileID: 8067261179844550578, guid: 6736a2eeb51a2704496eab17bd7549fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067261179844550578, guid: 6736a2eeb51a2704496eab17bd7549fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: loadLevelButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067261179844550578, guid: 6736a2eeb51a2704496eab17bd7549fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8067261179844550578, guid: 6736a2eeb51a2704496eab17bd7549fe, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8067261180221736515, guid: 6736a2eeb51a2704496eab17bd7549fe, type: 3}
       propertyPath: m_Pivot.x
       value: 0

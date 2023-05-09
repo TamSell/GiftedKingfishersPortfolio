@@ -17,13 +17,13 @@ public class AsyncLoader : MonoBehaviour
     public void loadLevelButton(int levelToLoad)
     {
         mainMenu.SetActive(false);
+        loading.SetActive(true);
         StartCoroutine(LoadLevelAsync(levelToLoad));
     }
     IEnumerator LoadLevelAsync(int levelToLoad)
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
 
-        loading.SetActive(true);
 
         while (!loadOperation.isDone)
         {
