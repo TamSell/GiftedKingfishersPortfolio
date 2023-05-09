@@ -106,7 +106,7 @@ public class gameManager : MonoBehaviour
     public void pause()
     {
         turnOffUI();
-        Time.timeScale = 0.000000001f;
+        Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
     }

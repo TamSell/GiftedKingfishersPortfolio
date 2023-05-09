@@ -921,8 +921,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensHor: 300
   sensVert: 300
-  lockVerMin: 90
-  lockVerMax: -90
+  lockVerMin: -90
+  lockVerMax: 90
 --- !u!20 &4860731158395514768
 Camera:
   m_ObjectHideFlags: 0
