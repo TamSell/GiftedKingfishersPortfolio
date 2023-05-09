@@ -15,22 +15,18 @@ public class buttonManager : MonoBehaviour
 
     public void resume()
     {
-        aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.unpause();
         gameManager.Instance.inMenu = !gameManager.Instance.inMenu;
-        
     }
 
     public void restart()
     {
         gameManager.Instance.unpause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        aud.PlayOneShot(button, audButtonVol);
     }
 
     public void Save()
     {
-        aud.PlayOneShot(button, audButtonVol);
         saveLoadManager.SaveGame();
     }
     public void load()
@@ -40,7 +36,6 @@ public class buttonManager : MonoBehaviour
 
     public void quit()
     {
-        aud.PlayOneShot(button, audButtonVol);
         Application.Quit();
     }
     public void Respawnplayer()
@@ -63,6 +58,18 @@ public class buttonManager : MonoBehaviour
         aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.PauseMenu.SetActive(false);
     }
+
+    public void OptionMenu()
+    {
+        MenusUi.menus.OptionMenu.SetActive(true);
+        MenusUi.menus.MainMenu.SetActive(false);
+    }
+    public void LevelSelect()
+    {
+        MenusUi.menus.LevelSMenu.SetActive(true);
+        MenusUi.menus.MainMenu.SetActive(false);
+    }
+
     public void Back()
     {
         gameManager.Instance.Settings.SetActive(false);
@@ -70,6 +77,17 @@ public class buttonManager : MonoBehaviour
         gameManager.Instance.PauseMenu.SetActive(true);
     }
 
+    public void BackMenufromOp()
+    {
+        MenusUi.menus.OptionMenu.SetActive(false);
+        MenusUi.menus.MainMenu.SetActive(true);
+    }
+
+    public void BackMenufromLevelS()
+    {
+        MenusUi.menus.LevelSMenu.SetActive(false);
+        MenusUi.menus.MainMenu.SetActive(true);
+    }
 
     public void nextWeapon()
     {
