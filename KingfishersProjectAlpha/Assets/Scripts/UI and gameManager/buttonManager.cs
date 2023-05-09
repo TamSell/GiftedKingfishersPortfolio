@@ -7,11 +7,11 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class buttonManager : MonoBehaviour
 {
-    //Camara camera;
+    Camara camera;
     int place;
     [SerializeField] AudioSource aud;
     [SerializeField] AudioClip button;
-    [Range(0, 1)][SerializeField] float audButtonVol;
+    [Range(0, 1)][SerializeField] float audButtonVol = 0.5f;
 
     public void resume()
     {
@@ -23,9 +23,9 @@ public class buttonManager : MonoBehaviour
 
     public void restart()
     {
-        aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.unpause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        aud.PlayOneShot(button, audButtonVol);
     }
 
     public void Save()
@@ -60,11 +60,13 @@ public class buttonManager : MonoBehaviour
     public void Settings()
     {
         gameManager.Instance.Settings.SetActive(true);
+        aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.PauseMenu.SetActive(false);
     }
     public void Back()
     {
         gameManager.Instance.Settings.SetActive(false);
+        aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.PauseMenu.SetActive(true);
     }
 

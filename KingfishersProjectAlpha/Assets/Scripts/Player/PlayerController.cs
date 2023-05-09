@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour, Damage
     public Vector3 playerVelocity;
     private bool groundedPlayer;
     private float StaminaOrig;
-    private float SpeedOrig;
+    private float EneryOrig;
     public Vector3 move;
     public int HPorig;
     public bool isrunning;
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour, Damage
         StartCoroutine(CalculateSpeed());
         HPorig = HP;
         StaminaOrig = Stamina;
-        SpeedOrig = speed;
+        EneryOrig = Enery;
         PLayerUpdateUI();
         FOVorg = Camera.main.fieldOfView;
         respawnPlayer();
@@ -293,7 +293,7 @@ public class PlayerController : MonoBehaviour, Damage
     {
         gameManager.Instance.SBar.fillAmount = Stamina / StaminaOrig;
         gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig;
-        gameManager.Instance.Speedbar.fillAmount = speed / SpeedOrig;
+        gameManager.Instance.Speedbar.fillAmount = Enery / EneryOrig;
     }
 
     public void respawnPlayer()
