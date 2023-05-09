@@ -8,4 +8,5 @@ using UnityEngine.SceneManagement;
 public class SaveData
 {
     //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //string levelScore = gameManager.playerScore(SceneManager.GetActiveSene().name);
 }

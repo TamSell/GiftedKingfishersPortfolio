@@ -45,7 +45,7 @@ public class gameManager : MonoBehaviour
 
     public bool isNear;
     public bool inMenu;
-    int enemyRemain;
+    int playerScore;
     float timeScaleO;
 
     void Awake()
@@ -123,13 +123,13 @@ public class gameManager : MonoBehaviour
 
     public void updateGoal(int amount)
     {
-        enemyRemain += amount;
-        enemyCount.text = enemyRemain.ToString("F0");
-        if (enemyRemain <= 0)
-        {
-            setMenu(WinMenu);
-            pause();
-        }
+        playerScore += amount;
+        enemyCount.text = playerScore.ToString("F0");
+        //if (playerScore <= 0)
+        //{
+        //    setMenu(WinMenu);
+        //    pause();
+        //}
     }
 
     public void death()
@@ -137,6 +137,7 @@ public class gameManager : MonoBehaviour
         
         pause();
         setMenu(LostMenu);
+        Time.timeScale = 0;
     }
 
     private void setMenu(GameObject menu)

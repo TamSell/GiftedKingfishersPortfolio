@@ -26,6 +26,7 @@ public class buttonManager : MonoBehaviour
     {
         gameManager.Instance.unpause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale= 1.0f;
     }
 
     public void Save()
@@ -40,6 +41,10 @@ public class buttonManager : MonoBehaviour
     public void quit()
     {
         Application.Quit();
+    }
+    public void MainMenuPress()
+    {
+        SceneManager.LoadScene(0);
     }
     public void Respawnplayer()
     {
