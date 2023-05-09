@@ -5,7 +5,7 @@ using UnityEngine;
 public class Obsticles : MonoBehaviour
 {
     [SerializeField] int damage;
-    [SerializeField] BoxCollider box;
+    [SerializeField] Collider box;
 
     private void OnTriggerEnter(Collider other)
     {

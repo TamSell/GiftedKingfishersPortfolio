@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour, Damage
     [Header("----- Components-----")]
     [SerializeField] public CharacterController controller;
     [SerializeField] AudioSource aud;
-    [SerializeField] Slider silderSensitivity;
+    //[SerializeField] Slider silderSensitivity;
 
     [Header("----- Player Stats -----")]
     [SerializeField] float interactDist;
@@ -95,15 +95,15 @@ public class PlayerController : MonoBehaviour, Damage
     // Update is called once per frame
     void Update()
     {
-        if(!isDead)
-        {
+        //if(!isDead)
+        
             Dash();
             movement();
             selectGun();
             EnergyBuildUp();
             canInteract();
             CD(isDashing);
-        }
+        
         
     }
 
@@ -311,7 +311,7 @@ public class PlayerController : MonoBehaviour, Damage
     {
         gameManager.Instance.SBar.fillAmount = Stamina / StaminaOrig;
         gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig;
-        gameManager.Instance.Speedbar.fillAmount = Enery / EneryOrig;
+        gameManager.Instance.Speedbar.fillAmount = Enery / 100;
     }
 
     public void respawnPlayer()
@@ -464,7 +464,7 @@ public class PlayerController : MonoBehaviour, Damage
             {
                 Enery += 10 * Time.deltaTime;
             }
-            else if(Enery>0)
+            else if(Enery > 0)
             {
                 
                 Enery -= 1 * Time.deltaTime;
