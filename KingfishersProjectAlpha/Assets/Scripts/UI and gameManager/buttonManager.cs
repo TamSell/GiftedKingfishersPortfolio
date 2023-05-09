@@ -39,6 +39,10 @@ public class buttonManager : MonoBehaviour
     {
         Application.Quit();
     }
+    public void MainMenuPress()
+    {
+        SceneManager.LoadScene(0);
+    }
     public void Respawnplayer()
     {
         gameManager.Instance.unpause();
