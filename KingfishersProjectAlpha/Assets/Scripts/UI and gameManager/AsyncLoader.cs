@@ -19,6 +19,8 @@ public class AsyncLoader : MonoBehaviour
         mainMenu.SetActive(false);
         loading.SetActive(true);
         StartCoroutine(LoadLevelAsync(levelToLoad));
+        SceneManager.LoadScene(levelToLoad);
+        Time.timeScale = 1.0f;
     }
     IEnumerator LoadLevelAsync(int levelToLoad)
     {
