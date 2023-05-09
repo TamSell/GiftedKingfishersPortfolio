@@ -5,6 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class ScenePortalCode : MonoBehaviour
 {
+    [SerializeField] int scoreNecessary;
+    [SerializeField] int ScoreCurrent;
+    [SerializeField] MeshRenderer renderer;
+    [SerializeField] BoxCollider collider;
+
+    void Start()
+    {
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+    }
+    void Update()
+    {
+        ScoreCurrent = gameManager.Instance.playerScore;
+        if(gameManager.Instance.playerScore >= scoreNecessary)
+        {
+            gameObject.GetComponent<MeshRenderer>().enabled = true;
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+            Debug.Log("Please");
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
