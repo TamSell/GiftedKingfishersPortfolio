@@ -10,7 +10,8 @@ public class gameManager : MonoBehaviour
 
     [Header("------ Player ------")]
     public GameObject PlayerModel;
-    public PlayerController playerController;
+    public FinalPlayerController playerController;
+    public Rigidbody rb;
     public GameObject playerSpawnPos;
     [SerializeField] public List<GunStats2> gunAspects;
     public GunStats2 currentGunAspects;
@@ -52,7 +53,7 @@ public class gameManager : MonoBehaviour
     {
         Instance = this;
         PlayerModel = GameObject.FindGameObjectWithTag("Player");
-        playerController = PlayerModel.GetComponent<PlayerController>();
+        playerController = PlayerModel.GetComponent<FinalPlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleO = Time.timeScale;
         

@@ -46,7 +46,7 @@ public class buttonManager : MonoBehaviour
     public void Respawnplayer()
     {
         gameManager.Instance.unpause();
-        gameManager.Instance.playerController.respawnPlayer();
+        //gameManager.Instance.playerController.respawnPlayer();
     }
 
     public void itemClick()
