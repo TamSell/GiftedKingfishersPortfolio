@@ -9,12 +9,12 @@ public class PlayerController : MonoBehaviour, Damage
 {
 
     [Header("----- Components-----")]
-    [SerializeField] public CharacterController controller;
     [SerializeField] AudioSource aud;
-    //[SerializeField] Slider silderSensitivity;
+    [SerializeField] Slider silderSensitivity;
+    [SerializeField] public Rigidbody rb;
 
     [Header("----- Player Stats -----")]
-    [SerializeField] float interactDist;
+    [SerializeField] public float interactDist;
     [Range(3, 8)][SerializeField] float PlayerSpeed;
     [Range(3, 30)][SerializeField] float jumpHeight;
     [Range(3, 25)][SerializeField] float gravityValue;
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour, Damage
     [SerializeField] float? lastGoundedTime;
     [SerializeField] float? jumpButtonPressedTime;
     float originalStopOffset;
+    [SerializeField] float baseAccel;
    
 
     [Header("------ Audio ------")]
@@ -72,25 +73,28 @@ public class PlayerController : MonoBehaviour, Damage
     public int HPorig;
     public bool isrunning;
     public bool isDashing;
+    public float velocity;
+    public bool inMomentum;
+    private bool isGrounded;
    
     
    
 
     // Start is called before the first frame update
-    void Start()
-    {
-        DashCD = 6;
-        DashReady = true;
-        StartCoroutine(CalculateSpeed());
-        HPorig = HP;
-        StaminaOrig = Stamina;
-        EneryOrig = Enery;
-        PLayerUpdateUI();
-        FOVorg = Camera.main.fieldOfView;
-        respawnPlayer();
-      originalStopOffset = controller.stepOffset;
+    //void Start()
+    //{
+    //    DashCD = 6;
+    //    DashReady = true;
+    //    StartCoroutine(CalculateSpeed());
+    //    HPorig = HP;
+    //    StaminaOrig = Stamina;
+    //    EneryOrig = Enery;
+    //    PLayerUpdateUI();
+    //    FOVorg = Camera.main.fieldOfView;
+    //    respawnPlayer();
+    //    originalStopOffset = rb.stepOffset;
       
-    }
+    //}
 
     // Update is called once per frame
     void Update()
@@ -118,8 +122,7 @@ public class PlayerController : MonoBehaviour, Damage
 
     void movement()
     {
-        groundedPlayer = controller.isGrounded;
-        if(groundedPlayer)
+        if(isGrounded)
         {
             if(!isPlayingSteps && move.normalized.magnitude >0.5)
             {
@@ -132,19 +135,28 @@ public class PlayerController : MonoBehaviour, Damage
             }
         }
 
-       
+       ActMomentumState();
 
         Run();
 
         move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
-        controller.Move(move * Time.deltaTime * PlayerSpeed);
+        rb.transform.position += (move * Time.deltaTime * PlayerSpeed);
 
         Jump();
       
         playerVelocity.y -= gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        rb.transform.position += (playerVelocity * Time.deltaTime);
 
         PLayerUpdateUI();
+    }
+
+    private void ActMomentumState()
+    {
+        if(Input.GetButtonDown("Momentum"))
+        {
+            inMomentum = !inMomentum;
+        }
+        
     }
 
     IEnumerator MoveSound()
@@ -167,7 +179,7 @@ public class PlayerController : MonoBehaviour, Damage
 
     void Jump()
     {
-        if(controller.isGrounded)
+        if(isGrounded)
         {
             lastGoundedTime = Time.time;
         }
@@ -179,7 +191,7 @@ public class PlayerController : MonoBehaviour, Damage
 
         if (Time.time - lastGoundedTime<= jumpButtonGraceperiod || jumpTimes < jumpMax)
         {
-            controller.stepOffset = originalStopOffset;
+            //controller.stepOffset = originalStopOffset;
           
             if(Time.time - jumpButtonPressedTime <= jumpButtonGraceperiod)
             {
@@ -203,7 +215,7 @@ public class PlayerController : MonoBehaviour, Damage
                 if (Stamina > 0 && isrunning)
                 {
                     Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, RunFOV, Time.deltaTime * 2.5f);
-                    controller.Move(move * Time.deltaTime * (PlayerSpeed + RunSpeed));
+                    rb.gameObject.transform.position += (move * Time.deltaTime * (PlayerSpeed + RunSpeed));
                     Stamina -= 3 * Time.deltaTime;
 
                 }
@@ -219,7 +231,7 @@ public class PlayerController : MonoBehaviour, Damage
 
                 isrunning = false;
                 Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, FOVorg, Time.deltaTime * 2.5f);
-                controller.Move(move * Time.deltaTime * PlayerSpeed);
+                rb.gameObject.transform.position += (move * Time.deltaTime * PlayerSpeed);
                 StaminaRecovery();
             }
         }
@@ -262,7 +274,7 @@ public class PlayerController : MonoBehaviour, Damage
         DashReady = false;
         while( Time.time< startTime + DashTime)
         {
-            controller.Move(move * Time.deltaTime * DashSpeed);
+            rb.gameObject.transform.position += (move * Time.deltaTime * DashSpeed);
         
            yield return new WaitForEndOfFrame();
         }
@@ -271,7 +283,18 @@ public class PlayerController : MonoBehaviour, Damage
        
     }
   
+    IEnumerator Accelerate(float amount)
+    {
+        if(inMomentum)
+        {
 
+        }
+        else
+        {
+            
+        }
+        yield return new Null();
+    }
 
     void StaminaRecovery()
     {
@@ -318,9 +341,9 @@ public class PlayerController : MonoBehaviour, Damage
     {
         HP = HPorig;
         PLayerUpdateUI();
-        controller.enabled = false;
+        rb.isKinematic = false;
         transform.position = gameManager.Instance.playerSpawnPos.transform.position;
-        controller.enabled = true;
+        rb.isKinematic = true;
     }
 
     public void gunPickup(Gun gun)
@@ -442,7 +465,7 @@ public class PlayerController : MonoBehaviour, Damage
             Vector3 prevPos = transform.position;
 
             yield return new WaitForFixedUpdate();
-            speed = Mathf.RoundToInt(Vector3.Distance(transform.position, prevPos) / Time.fixedDeltaTime);
+            speed = Vector3.Distance(transform.position, prevPos) / Time.fixedDeltaTime;
         }
     }
 
@@ -486,6 +509,22 @@ public class PlayerController : MonoBehaviour, Damage
         else
         {
             gameManager.Instance.isNear = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            isGrounded = true;
         }
     }
 }

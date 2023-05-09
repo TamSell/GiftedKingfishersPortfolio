@@ -20,8 +20,8 @@ public class Gun : MonoBehaviour
     [SerializeField] bool secondaryGun;
     [SerializeField] float EnergyCost;
     float Energy {
-        get => gameManager.Instance.playerController.Enery;
-        set => gameManager.Instance.playerController.Enery = value;
+        get => gameManager.Instance.playerController.currentEnergy;
+        set => gameManager.Instance.playerController.currentEnergy = value;
     }
     float CurrentEnergy;
     
@@ -247,7 +247,7 @@ public class Gun : MonoBehaviour
         {
             if(Energy > 0)
             {
-                gameManager.Instance.playerController.Enery += ammount;
+                gameManager.Instance.playerController.currentEnergy+= ammount;
             }
            
         }
@@ -326,7 +326,7 @@ public class Gun : MonoBehaviour
 
         while (Time.time < startTime + ImpulseTime)
         {
-            gameManager.Instance.playerController.controller.Move(-cam.forward * Time.deltaTime * ImpulseSpeed);
+            //gameManager.Instance.playerController.PlayerBody.AddForce(-gameManager.Instance.playerController.PlayerBody.transform.forward * Time.deltaTime * ImpulseSpeed, ForceMode.Impulse);
 
             yield return new WaitForEndOfFrame();
         }

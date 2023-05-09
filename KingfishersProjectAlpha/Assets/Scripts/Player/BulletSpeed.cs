@@ -10,8 +10,8 @@ public class BulletSpeed : MonoBehaviour
     [SerializeField] float timer;
     float Energy
     {
-        get => gameManager.Instance.playerController.Enery;
-        set => gameManager.Instance.playerController.Enery = value;
+        get => gameManager.Instance.playerController.currentEnergy;
+        set => gameManager.Instance.playerController.currentEnergy = value;
     }
 
     [SerializeField] public int BasicDamage;
