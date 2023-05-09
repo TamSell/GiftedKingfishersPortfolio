@@ -14,12 +14,12 @@ public class AsyncLoader : MonoBehaviour
     [Header("Slider")]
     [SerializeField] private Slider loadingSlider;
 
-    public void loadLevelButton(string levelToLoad)
+    public void loadLevelButton(int levelToLoad)
     {
         mainMenu.SetActive(false);
         StartCoroutine(LoadLevelAsync(levelToLoad));
     }
-    IEnumerator LoadLevelAsync(string levelToLoad)
+    IEnumerator LoadLevelAsync(int levelToLoad)
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
 
