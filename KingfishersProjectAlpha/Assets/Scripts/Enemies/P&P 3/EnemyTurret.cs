@@ -137,6 +137,7 @@ public class EnemyTurret : MonoBehaviour, Damage
         if (healthPoints <= 0)
         {
             Destroy(gameObject);
+            gameManager.Instance.updateGoal(40);
         }
         else
         { 

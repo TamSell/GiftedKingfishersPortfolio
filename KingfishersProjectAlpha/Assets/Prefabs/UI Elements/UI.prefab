@@ -5760,7 +5760,7 @@ GameObject:
   - component: {fileID: 3870831227007511568}
   - component: {fileID: 3870831227007511569}
   m_Layer: 5
-  m_Name: EnemiesRemain (1)
+  m_Name: ScoreElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5823,8 +5823,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281851357
-  m_fontColor: {r: 0.866395, g: 0.8679245, b: 0.21698113, a: 1}
+    rgba: 4281139431
+  m_fontColor: {r: 0.9056604, g: 0, b: 0.17497627, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5895,7 +5895,7 @@ GameObject:
   - component: {fileID: 3870831227674083904}
   - component: {fileID: 3870831227674083905}
   m_Layer: 5
-  m_Name: EnemiesRemain
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5919,7 +5919,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -850.4, y: 420.4}
+  m_AnchoredPosition: {x: 656, y: -423}
   m_SizeDelta: {x: 188.6182, y: 36.187}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3870831227674083904
@@ -5950,7 +5950,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enemies Remaining
+  m_text: 'Score:
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

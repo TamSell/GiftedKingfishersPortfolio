@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using TMPro;
 using UnityEngine.AI;
 
 public class EnemySkirmisher : MonoBehaviour, Damage
@@ -201,6 +202,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         if (healthPoints <= 0)
         {
             Destroy(gameObject);
+            gameManager.Instance.updateGoal(50);
         }
         else
         {

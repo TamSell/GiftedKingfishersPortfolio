@@ -23,6 +23,7 @@ public class buttonManager : MonoBehaviour
     {
         gameManager.Instance.unpause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale= 1.0f;
     }
 
     public void Save()
