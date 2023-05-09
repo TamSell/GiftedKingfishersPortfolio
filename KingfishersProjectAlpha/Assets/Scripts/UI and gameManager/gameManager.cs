@@ -45,7 +45,7 @@ public class gameManager : MonoBehaviour
 
     public bool isNear;
     public bool inMenu;
-    int playerScore;
+    public int playerScore;
     float timeScaleO;
 
     void Awake()

@@ -9,9 +9,11 @@ public class buttonManager : MonoBehaviour
 {
     Camara camera;
     int place;
-    [SerializeField] AudioSource aud;
-    [SerializeField] AudioClip button;
-    [Range(0, 1)][SerializeField] float audButtonVol = 0.5f;
+
+    bool isPlayingM;
+    bool isPlayingMSFX;
+    bool isPlayingMGame;
+    bool isPlayingGameSFX;
 
     public void resume()
     {
@@ -60,7 +62,6 @@ public class buttonManager : MonoBehaviour
     public void Settings()
     {
         gameManager.Instance.Settings.SetActive(true);
-        aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.PauseMenu.SetActive(false);
     }
 
@@ -78,12 +79,12 @@ public class buttonManager : MonoBehaviour
     public void Back()
     {
         gameManager.Instance.Settings.SetActive(false);
-        aud.PlayOneShot(button, audButtonVol);
         gameManager.Instance.PauseMenu.SetActive(true);
     }
 
     public void BackMenufromOp()
     {
+        VolumeControl._volInstance.UpdateVolume();
         MenusUi.menus.OptionMenu.SetActive(false);
         MenusUi.menus.MainMenu.SetActive(true);
     }
@@ -114,5 +115,39 @@ public class buttonManager : MonoBehaviour
         gameManager.Instance.modify.NextGun();
     }
 
+    public void MenuMusicButton()
+    {
+        isPlayingM = !isPlayingM;
+        if (isPlayingM)
+            MenusUi.menus.MenuMusicSource.enabled = true;
+        else
+            MenusUi.menus.MenuMusicSource.enabled = false;
+    }
 
+    public void GameMusicButton()
+    {
+        isPlayingMGame = !isPlayingMGame;
+        if (isPlayingMGame)
+            MenusUi.menus.GameMusicSource.enabled = true;
+        else
+            MenusUi.menus.GameMusicSource.enabled = false;
+    }
+
+    public void MenuSFXButton()
+    {
+        isPlayingMSFX = !isPlayingMSFX;
+        if (isPlayingMSFX)
+            MenusUi.menus.MenuSFXSource.enabled = true;
+        else
+            MenusUi.menus.MenuSFXSource.enabled = false;
+    }
+
+    public void GameSFXButton()
+    {
+        isPlayingGameSFX = !isPlayingGameSFX;
+        if (isPlayingGameSFX)
+            MenusUi.menus.GameSFXSource.enabled = true;
+        else
+            MenusUi.menus.GameSFXSource.enabled = false;
+    }
 }
