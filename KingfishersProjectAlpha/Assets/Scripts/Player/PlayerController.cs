@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, Damage
 {
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour, Damage
     [Header("----- Components-----")]
     [SerializeField] public CharacterController controller;
     [SerializeField] AudioSource aud;
+    [SerializeField] Slider silderSensitivity;
 
     [Header("----- Player Stats -----")]
     [SerializeField] float interactDist;
