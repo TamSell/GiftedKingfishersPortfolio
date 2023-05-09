@@ -137,7 +137,7 @@ public class gameManager : MonoBehaviour
         
         pause();
         setMenu(LostMenu);
-        Time.timeScale = 1;
+        Time.timeScale = 0;
     }
 
     private void setMenu(GameObject menu)
