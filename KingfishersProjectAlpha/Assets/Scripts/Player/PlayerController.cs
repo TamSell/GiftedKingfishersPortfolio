@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour, Damage
     [Range(3, 25)][SerializeField] float gravityValue;
     [Range(1, 4)][SerializeField] int jumpMax;
     [Range(1, 20)][SerializeField] public int HP;
-
+    [SerializeField] Animator animator;
     [Range(1, 200)][SerializeField] float FOVorg;
     [Range(1, 200)][SerializeField] float RunFOV;
 
@@ -64,7 +65,7 @@ public class PlayerController : MonoBehaviour, Damage
     public Vector3 playerVelocity;
     private bool groundedPlayer;
     private float StaminaOrig;
-    private float SpeedOrig;
+    private float EneryOrig;
     public Vector3 move;
     public int HPorig;
     public bool isrunning;
@@ -81,7 +82,7 @@ public class PlayerController : MonoBehaviour, Damage
         StartCoroutine(CalculateSpeed());
         HPorig = HP;
         StaminaOrig = Stamina;
-        SpeedOrig = speed;
+        EneryOrig = Enery;
         PLayerUpdateUI();
         FOVorg = Camera.main.fieldOfView;
         respawnPlayer();
@@ -92,12 +93,16 @@ public class PlayerController : MonoBehaviour, Damage
     // Update is called once per frame
     void Update()
     {
-        Dash();
-        movement();
-        selectGun();
-        EnergyBuildUp();
-        canInteract();
-        CD(isDashing);
+        if(!isDead)
+        {
+            Dash();
+            movement();
+            selectGun();
+            EnergyBuildUp();
+            canInteract();
+            CD(isDashing);
+        }
+        
     }
 
     void CD(bool ability)
@@ -277,15 +282,26 @@ public class PlayerController : MonoBehaviour, Damage
             gameManager.Instance.SBar.enabled = false;
         }
     }
+    public bool isDead
+    {
+        get
+        {
+            return HP == 0;
+        }
+    }
+    public void goDie()
+    {
+        gameManager.Instance.death();
+    }
 
     public void TakeDamage(int amount)
     {
         aud.PlayOneShot(auddamage[Random.Range(0, auddamage.Length)], auddamageVol);
         HP -= amount;
         PLayerUpdateUI();
-        if(HP <= 0)
+        if(isDead)
         {
-            gameManager.Instance.death();
+            animator.SetTrigger("Death");
         }
     }
     
@@ -293,7 +309,7 @@ public class PlayerController : MonoBehaviour, Damage
     {
         gameManager.Instance.SBar.fillAmount = Stamina / StaminaOrig;
         gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig;
-        gameManager.Instance.Speedbar.fillAmount = speed / SpeedOrig;
+        gameManager.Instance.Speedbar.fillAmount = Enery / EneryOrig;
     }
 
     public void respawnPlayer()
