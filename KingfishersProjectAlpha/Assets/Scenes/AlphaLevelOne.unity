@@ -451,6 +451,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4677495510374298048, guid: 872d72662d05ac84d97aad9dd3fa6ca9, type: 3}
   m_PrefabInstance: {fileID: 909807647}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &927938691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4860731158948960841, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+  m_PrefabInstance: {fileID: 860564444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1009298625
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,6 +2083,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4677495510374298049, guid: 872d72662d05ac84d97aad9dd3fa6ca9, type: 3}
+      propertyPath: trackedObject
+      value: 
+      objectReference: {fileID: 927938691}
     - target: {fileID: 4677495510374298058, guid: 872d72662d05ac84d97aad9dd3fa6ca9, type: 3}
       propertyPath: m_Name
       value: Turret
