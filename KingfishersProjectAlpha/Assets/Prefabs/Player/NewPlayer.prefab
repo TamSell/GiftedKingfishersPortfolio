@@ -881,7 +881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4860731158395514798}
-  - component: {fileID: 4860731158395514771}
+  - component: {fileID: 5017348785040043272}
   - component: {fileID: 4860731158395514768}
   - component: {fileID: 4860731158395514769}
   m_Layer: 0
@@ -907,7 +907,7 @@ Transform:
   m_Father: {fileID: 4860731158948960847}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.854}
---- !u!114 &4860731158395514771
+--- !u!114 &5017348785040043272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -921,10 +921,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensHor: 300
   sensVert: 300
-  lockverMin: -90
-  lockverMax: 50
-  XSlider: {fileID: 0}
-  YSlider: {fileID: 0}
+  lockVerMin: 90
+  lockVerMax: -90
 --- !u!20 &4860731158395514768
 Camera:
   m_ObjectHideFlags: 0
@@ -1029,6 +1027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4860731158948960840}
   aud: {fileID: 1586504566}
+  silderSensitivity: {fileID: 0}
   interactDist: 0
   PlayerSpeed: 4
   jumpHeight: 10.56
