@@ -1,7 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D;
 using UnityEngine;
 
 public class FinalPlayerController : MonoBehaviour
@@ -11,17 +9,19 @@ public class FinalPlayerController : MonoBehaviour
     [SerializeField] private Transform Feet;
     [SerializeField] private Transform Camera;
     [SerializeField] public Rigidbody PlayerBody;
+    [SerializeField] public PlayerMomentum1 Momentum;
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audio;
     [Space]
-    [SerializeField] private float PlayerSpeed;
+    [SerializeField] public float walkSpeed;
+    [SerializeField] public float airSpeed;
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
 
 
     [Header("---Stats---")]
     [SerializeField] public float HP;
-    [SerializeField] int speed;
+    [SerializeField] public float stamina;
     [SerializeField] public float energyMax;
     [SerializeField, Range(0f, 50f)] float interactDist;
     [SerializeField] int jumpMax;
@@ -29,7 +29,7 @@ public class FinalPlayerController : MonoBehaviour
 
     [Header("-----Runing stats-----")]
     [SerializeField] public float RunFov;
-    [SerializeField] float runSpeed;
+    [SerializeField] public float runSpeed;
     [SerializeField] float FovOrg;
 
     [Header("------Dash Stats------")]
@@ -50,66 +50,88 @@ public class FinalPlayerController : MonoBehaviour
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
     [Space]
-    
+    PlayerAudio auido;
+    public float PlayerSpeed;
+    public float CurrentSpeed;
     public Vector3 MoveVector;
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
     private Vector2 PlayerMouse;
     private float xRotation;
     public bool isRunning;
+    public bool isPlaying;
+    private bool isDead = false;
    // private bool isDead = false;
     public float origHP;
     public float currentEnergy = 0;
     public float origStamina;
-    [SerializeField] float CurrentSpeed;
-    bool isPlaying;
+    public float speed;
+    public bool isGrounded;
+
     private void Start()
     {
-
-        origHP = HP; 
-       // playerUpdateUI();
-        StartCoroutine(CalculateSpeed());
-       // respawnPlayer();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        FovOrg = UnityEngine.Camera.main.fieldOfView;
-        DashCD = 5;
+        origHP = HP;
+        origStamina = stamina;
+        currentEnergy = energyMax;
     }
     // Update is called once per frame
     void Update()
     {
-        playerUpdateUI();
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        Dash();
-        MovePlayer();
+        if (Input.GetButtonDown("MoveChange"))
+        {
+            Momentum.MomentumState();
+        }
         MouseMove();
+        Dash();
         CD(isDashing, ref DashCD, DashMaxCD);
         EneryBuildUP();
         canInteract();
     }
 
-   
-    void CD(bool ability, ref float abilityCD, float maxCD)
+    private void FixedUpdate()
     {
-        if (abilityCD > maxCD)
+        if(Momentum.inMomentum)
         {
-            abilityCD = maxCD;
+            Momentum.SecondaryMovement();
         }
-
-        else if (ability == false && abilityCD < maxCD)
-        {
-            abilityCD += 1 * Time.deltaTime;
-        }
+        else
+            MovePlayer();
     }
 
-
+    private void CD(bool ability, ref float abilityCD, float maxCD)
+    {
+       if(abilityCD > maxCD)
+       {
+            abilityCD = maxCD;
+       }
+       else if(ability == false && abilityCD < maxCD)
+       {
+            abilityCD += 1 * Time.deltaTime;
+       }
+    }
     private void MovePlayer()
     {
-        if (PlayerBody.velocity.y < 0)
+        Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
+        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+
+        //if (Physics.CheckSphere(Feet.position, 0.1f))
+        //{
+        //    isGrounded = true;
+        //    if (Input.GetButtonDown("Jump"))
+        //    {
+        //        PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        //        isGrounded = false;
+        //    }
+        //}
+        if (PlayerBody.velocity.y <0)
         {
             jumptimes = 0;
         }
+
         MoveVector = transform.TransformDirection(PlayerMovementInput + PlayerMovementAddition) * PlayerSpeed;
         PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
         if (Input.GetButtonDown("Jump"))
@@ -122,17 +144,14 @@ public class FinalPlayerController : MonoBehaviour
                 jumptimes++;
             }
         }
-        Run();
     }
 
     private void MouseMove()
     {
         xRotation -= PlayerMouse.y * sensitivity;
-        transform.Rotate(0f, PlayerMouse.x * sensitivity, 0f);
-        xRotation = Mathf.Clamp(xRotation, -90, 90);
+        transform.Rotate(0f, PlayerMouse.x*sensitivity, 0f);
         Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
-
     void Run()
     {
 

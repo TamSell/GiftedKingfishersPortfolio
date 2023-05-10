@@ -91,7 +91,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3859967245944884734
 Transform:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9b5117c615c1743a6bd76c462faef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackedObject: {fileID: 4860731158948960841, guid: 7d9781d844c11ae47b19491bceba49cb, type: 3}
+  trackedObject: {fileID: 364895669556308499, guid: 707f5423c0f36134087904948fbaa013, type: 3}
   averageVelocity: {x: 0, y: 0, z: 0}
   averageAccel: {x: 0, y: 0, z: 0}
 --- !u!114 &3859967245944884728
