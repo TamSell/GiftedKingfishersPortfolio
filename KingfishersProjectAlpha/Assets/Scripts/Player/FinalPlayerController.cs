@@ -60,7 +60,7 @@ public class FinalPlayerController : MonoBehaviour
     private float xRotation;
     public bool isRunning;
     public bool isPlaying;
-    private bool isDead = false;
+   // private bool isDead = false;
    // private bool isDead = false;
     public float origHP;
     public float currentEnergy = 0;
@@ -70,6 +70,9 @@ public class FinalPlayerController : MonoBehaviour
 
     private void Start()
     {
+        DashCD = 6;
+        DashReady = true;
+        StartCoroutine(CalculateSpeed());
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         origHP = HP;
@@ -139,9 +142,10 @@ public class FinalPlayerController : MonoBehaviour
             if (Physics.CheckSphere(Feet.position, 0.1f, Floor) )
             {
                
-                audio.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
-                PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+               PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 jumptimes++;
+                audio.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+
             }
         }
     }
