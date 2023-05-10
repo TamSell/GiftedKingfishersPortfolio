@@ -83,11 +83,18 @@ public class FinalPlayerController : MonoBehaviour
     void Update()
     {
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        if (Input.GetButtonDown("MoveChange"))
+        if(gameManager.Instance.inMenu)
         {
-            Momentum.MomentumState();
+            return;
         }
+        {
+            PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            if (Input.GetButtonDown("MoveChange"))
+            {
+                Momentum.MomentumState();
+            }
+        }
+       
         MouseMove();
         Dash();
         CD(isDashing, ref DashCD, DashMaxCD);

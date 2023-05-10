@@ -68,6 +68,7 @@ public class gameManager : MonoBehaviour
         if (Input.GetButtonDown("Cancel") && (activeMenu == null || activeMenu == PauseMenu))
         {
             Settings.SetActive(false);
+            Time.timeScale = 0f;
             inMenu = !inMenu;
             setMenu(PauseMenu);
             if (inMenu)
