@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class gameManager : MonoBehaviour
@@ -48,6 +49,7 @@ public class gameManager : MonoBehaviour
     public bool inMenu;
     public int playerScore;
     float timeScaleO;
+    public GameObject pauseMenuButt, settingsMenuButt;
 
     void Awake()
     {
@@ -110,6 +112,8 @@ public class gameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(pauseMenuButt);
     }
 
     public void unpause()
@@ -120,6 +124,7 @@ public class gameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         activeMenu.SetActive(false);
         activeMenu = null;
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
     public void updateGoal(int amount)
@@ -145,6 +150,8 @@ public class gameManager : MonoBehaviour
     {
         activeMenu = menu;
         activeMenu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(settingsMenuButt);
 
     }
 
