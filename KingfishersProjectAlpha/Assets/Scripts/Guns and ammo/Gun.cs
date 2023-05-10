@@ -332,11 +332,12 @@ public class Gun : MonoBehaviour
         while (Time.time < startTime + ImpulseTime)
         {
            
-            Vector3 MoveVector = transform.TransformDirection(gameManager.Instance.playerController.PlayerMovementInput) * ImpulseSpeed;
+            Vector3 MoveVector = Vector3.back * ImpulseSpeed;
             gameManager.Instance.playerController.PlayerMovementAddition = MoveVector;
             yield return new WaitForEndOfFrame();
         }
-       // Vector3.back
+        // 
+       // transform.TransformDirection(gameManager.Instance.playerController.PlayerMovementInput)
     }
 
 }
