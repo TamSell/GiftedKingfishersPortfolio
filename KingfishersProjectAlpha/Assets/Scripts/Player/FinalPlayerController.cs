@@ -11,7 +11,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] public Rigidbody PlayerBody;
     [SerializeField] public PlayerMomentum1 Momentum;
     [SerializeField] Animator animator;
-    [SerializeField] AudioSource audio;
+    [SerializeField] AudioSource audioPl;
     [Space]
     [SerializeField] public float walkSpeed;
     [SerializeField] public float airSpeed;
@@ -65,6 +65,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public float origStamina;
     public float speed;
     public bool isGrounded;
+    public bool isTeleporting;
+    public float minXLock;
+    public float maxXLock;
 
     private void Start()
     {
@@ -87,17 +90,20 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        if (Input.GetButtonDown("MoveChange"))
+        if(!isTeleporting)
         {
-            Momentum.MomentumState();
+            if (Input.GetButtonDown("MoveChange"))
+            {
+                Momentum.MomentumState();
+            }
+            Dash();
+            CD(isDashing, ref DashCD, DashMaxCD);
+            Run();
+            MouseMove();
+            EneryBuildUP();
+            canInteract();
+            playerUpdateUI();
         }
-        Dash();
-        CD(isDashing, ref DashCD, DashMaxCD);
-        Run();
-        MouseMove();
-        EneryBuildUP();
-        canInteract();
-        playerUpdateUI();
     }
 
     private void FixedUpdate()
@@ -142,7 +148,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
                 PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 isGrounded = false;
                 jumptimes++;
-                audio.PlayOneShot(audJump[Random.Range(0, audJump.Length-1)], audJumpVol);
+                audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length-1)], audJumpVol);
             }
         }
     }
@@ -150,6 +156,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     private void MouseMove()
     {
         xRotation -= PlayerMouse.y * sensitivity;
+        xRotation = Mathf.Clamp(xRotation, minXLock, maxXLock);
         transform.Rotate(0f, PlayerMouse.x*sensitivity, 0f);
         Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }

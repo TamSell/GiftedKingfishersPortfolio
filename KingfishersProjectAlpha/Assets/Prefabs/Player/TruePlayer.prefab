@@ -173,6 +173,9 @@ MonoBehaviour:
   origStamina: 0
   speed: 0
   isGrounded: 0
+  isTeleporting: 0
+  minXLock: -90
+  maxXLock: 50
 --- !u!114 &1900675959591840788
 MonoBehaviour:
   m_ObjectHideFlags: 0
