@@ -40,6 +40,9 @@ public class gameManager : MonoBehaviour
     public Image SpeedbarBack;
     public TextMeshProUGUI enemyCountTitle;
     public TextMeshProUGUI enemyCount;
+    public TextMeshProUGUI finalScore;
+    public TextMeshProUGUI finalScoreWin;
+    public TextMeshProUGUI enemiesEnded;
     public GameObject reticle;
     public TextMeshProUGUI magDivReserve;
     public TextMeshProUGUI mag;
@@ -48,6 +51,8 @@ public class gameManager : MonoBehaviour
     public bool isNear;
     public bool inMenu;
     public int playerScore;
+    public int enemyRemaining;
+    public int enemyTotal;
     float timeScaleO;
     public GameObject pauseMenuButt, settingsMenuButt;
 
@@ -127,15 +132,23 @@ public class gameManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
     }
 
-    public void updateGoal(int amount)
+    public void updateGoal(int amount, int enemies)
     {
         playerScore += amount;
+        enemyRemaining += enemies;
+        if (enemies > 0)
+        {
+            enemyTotal += enemies;
+        }
         enemyCount.text = playerScore.ToString("F0");
-        //if (playerScore <= 0)
-        //{
-        //    setMenu(WinMenu);
-        //    pause();
-        //}
+        enemiesEnded.text = enemyTotal.ToString("F0");
+        finalScoreWin.text = playerScore.ToString("F0");
+        if (enemyRemaining <= 0)
+        {
+            setMenu(WinMenu);
+            enemyCount.enabled = false;
+            enemyCountTitle.enabled = false;
+        }
     }
 
     public void death()

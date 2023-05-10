@@ -44,6 +44,7 @@ public class EnemyTurret : MonoBehaviour, Damage
     void Start()
     {
         objectTracker = GetComponent<Tracker>();
+        gameManager.Instance.updateGoal(0, 1);
     }
 
     // Update is called once per frame
@@ -136,8 +137,8 @@ public class EnemyTurret : MonoBehaviour, Damage
 
         if (healthPoints <= 0)
         {
+            gameManager.Instance.updateGoal(40, -1);
             Destroy(gameObject);
-            gameManager.Instance.updateGoal(40);
         }
         else
         { 
