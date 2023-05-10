@@ -1138,6 +1138,22 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 364895669556308496, guid: 707f5423c0f36134087904948fbaa013, type: 3}
   m_PrefabInstance: {fileID: 364895670366629922}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1471978036 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 236422772, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+  m_PrefabInstance: {fileID: 364895670366629922}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1471978040 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1900675959591840788, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+  m_PrefabInstance: {fileID: 364895670366629922}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1471978033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890d684f7b63b7d4bad76e207a6c9659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1909385329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1399,6 +1415,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: audio
+      value: 
+      objectReference: {fileID: 1471978036}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: Momentum
+      value: 
+      objectReference: {fileID: 1471978040}
     - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
       propertyPath: airSpeed
       value: 10
