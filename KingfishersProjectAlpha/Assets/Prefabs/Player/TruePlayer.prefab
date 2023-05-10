@@ -41,7 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 364895669556308501}
   - component: {fileID: 8859523049371031426}
+  - component: {fileID: 542624620087822368}
   - component: {fileID: 364895669556308506}
+  - component: {fileID: 1900675959591840788}
   - component: {fileID: 364895669556308500}
   - component: {fileID: 364895669556308503}
   - component: {fileID: 364895669556308502}
@@ -106,6 +108,25 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc708075fcb61004682f0c06fc03c2c7, type: 3}
   - {fileID: 8300000, guid: 1c3732f8a948e4944acb74280bfc088d, type: 3}
   - {fileID: 8300000, guid: 3c21a4a4b5833fa4ba1222c14684f357, type: 3}
+--- !u!114 &542624620087822368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364895669556308499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890d684f7b63b7d4bad76e207a6c9659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energizer: {fileID: 364895669556308506}
+  speedMultiplier: 0
+  speedLimit: 0
+  airSpeed: 0
+  sprintSpeed: 0
+  inMomentum: 0
+  slowing: 0
 --- !u!114 &364895669556308506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,12 +145,15 @@ MonoBehaviour:
   Feet: {fileID: 364895669101988487}
   Camera: {fileID: 364895669908387300}
   PlayerBody: {fileID: 364895669556308496}
+  Momentum: {fileID: 542624620087822368}
   animator: {fileID: 236422771}
-  PlayerSpeed: 5
+  audio: {fileID: 0}
+  walkSpeed: 0
+  airSpeed: 0
   sensitivity: 1
   jumpForce: 5
   HP: 50
-  speed: 0
+  stamina: 0
   energyMax: 100
   interactDist: 0
   jumpMax: 1
@@ -143,15 +167,42 @@ MonoBehaviour:
   DashMaxCD: 1
   DashReady: 0
   isDashing: 0
+  audJumpVol: 0
+  audJump: []
+  audDamageVol: 0
+  audDamage: []
   currentGun: {fileID: 0}
+  PlayerSpeed: 5
+  CurrentSpeed: 0
   MoveVector: {x: 0, y: 0, z: 0}
   PlayerMovementInput: {x: 0, y: 0, z: 0}
   PlayerMovementAddition: {x: 0, y: 0, z: 0}
   isRunning: 0
+  isPlaying: 0
   origHP: 0
   currentEnergy: 0
   origStamina: 0
-  CurrentSpeed: 0
+  speed: 0
+  isGrounded: 0
+--- !u!114 &1900675959591840788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364895669556308499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890d684f7b63b7d4bad76e207a6c9659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energizer: {fileID: 364895669556308506}
+  speedMultiplier: 10
+  speedLimit: 200
+  airSpeed: 5
+  sprintSpeed: 0
+  inMomentum: 0
+  slowing: 0
 --- !u!33 &364895669556308500
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -741,7 +792,7 @@ MonoBehaviour:
   shotgun: 1
   bulletPerShot: 5
   ImpulseTime: 0.25
-  ImpulseSpeed: 50
+  ImpulseSpeed: 5
   magSize: 30
   totalAmmo: 300
   GunShot: {fileID: 8300000, guid: f2b8fed5376f83b4c87a38514f492321, type: 3}
@@ -1705,7 +1756,7 @@ MonoBehaviour:
   shotgun: 0
   bulletPerShot: 3
   ImpulseTime: 0.25
-  ImpulseSpeed: 5
+  ImpulseSpeed: 50
   magSize: 30
   totalAmmo: 300
   GunShot: {fileID: 8300000, guid: e2542b4f5b714704abccb7d513972c22, type: 3}

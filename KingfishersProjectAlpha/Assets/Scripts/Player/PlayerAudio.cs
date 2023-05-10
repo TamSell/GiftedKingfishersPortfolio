@@ -34,10 +34,10 @@ public class PlayerAudio : MonoBehaviour
         isPlayingSteps = false;
     }
 
-    public IEnumerator JumpSound(float audJumpVol)
+    public void JumpSound(float audJumpVol)
     {
         player.PlayOneShot(audJump[UnityEngine.Random.Range(0, audJump.Length)], audJumpVol);
-        yield return new Null();
+        //yield return new Null();
     }
 
     public IEnumerator DamageSound(float auddamageVol)

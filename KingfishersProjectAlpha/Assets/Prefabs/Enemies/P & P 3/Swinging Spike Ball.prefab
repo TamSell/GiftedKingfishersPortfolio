@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 2022461546312585166}
   - component: {fileID: 2022461546312585167}
   - component: {fileID: 2022461546312585152}
-  - component: {fileID: 2022461546312585165}
+  - component: {fileID: 2181738441823034942}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -292,7 +292,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2022461546312585165
+--- !u!114 &2181738441823034942
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15fb70696dc64944ea4e8b19141ba66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 100
   box: {fileID: 2022461546312585152}
 --- !u!1 &2022461546764465502
 GameObject:
@@ -316,6 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2022461546764465500}
   - component: {fileID: 2022461546764465501}
+  - component: {fileID: 1160093063686753664}
   m_Layer: 0
   m_Name: Swinging Spike Ball
   m_TagString: Untagged
@@ -353,7 +354,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c5fa9e0d3bbd9cd42905ca04ca433770, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -361,3 +362,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1160093063686753664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022461546764465502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15fb70696dc64944ea4e8b19141ba66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  box: {fileID: 2022461546312585152}
