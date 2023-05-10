@@ -152,7 +152,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         //    navMeshA.SetDestination(transform.position + transform.right);
         //}
 
-        Debug.Log("IT WORKE+S");
+        //Debug.Log("IT WORKE+S");
         yield return new WaitForSeconds(4);
         navMeshA.speed = movementSpeed;
         isShimmy = false;

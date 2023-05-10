@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class FinalPlayerController : MonoBehaviour
 {
+
     [SerializeField] private LayerMask Floor;
     [SerializeField] private Transform Feet;
     [SerializeField] private Transform Camera;
     [SerializeField] public Rigidbody PlayerBody;
-    [SerializeField] private PlayerMomentum1 Momentum;
+    [SerializeField] Animator animator;
+    [SerializeField] AudioSource audio;
     [Space]
     [SerializeField] public float walkSpeed;
     [SerializeField] public float runSpeed;
@@ -16,15 +18,40 @@ public class FinalPlayerController : MonoBehaviour
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
 
+
     [Header("---Stats---")]
     [SerializeField] public float HP;
     [SerializeField] public float stamina;
     [SerializeField] public float energyMax;
     [SerializeField, Range(0f, 50f)] float interactDist;
+    [SerializeField] int jumpMax;
+    [SerializeField] int jumptimes;
+
+    [Header("-----Runing stats-----")]
+    [SerializeField] public float RunFov;
+    [SerializeField] float runSpeed;
+    [SerializeField] float FovOrg;
+
+    [Header("------Dash Stats------")]
+    [SerializeField] float DashSpeed;
+    [SerializeField] float Dashtime;
+    [SerializeField] float DashCD;
+    [SerializeField] float DashMaxCD;
+    public bool DashReady;
+    public bool isDashing;
+
+    [Header("----Audio -----")]
+    [Range(0, 1)][SerializeField] float audJumpVol;
+    [SerializeField] AudioClip[] auddamage;
+
+
 
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
-
+    [Space]
+    PlayerAudio auido;
+    public Vector3 MoveVector;
+    public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
     private Vector3 PlayerMovementInput;
     private Vector2 PlayerMouse;
@@ -50,12 +77,16 @@ public class FinalPlayerController : MonoBehaviour
     {
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        
-        if(Input.GetButtonDown("MoveChange"))
+        if (Input.GetButtonDown("MoveChange"))
         {
             Momentum.MomentumState();
         }
         MouseMove();
+        Dash();
+        MovePlayer();
+        CD(isDashing, ref DashCD, DashMaxCD);
+        EneryBuildUP();
+        canInteract();
     }
 
     private void FixedUpdate()
@@ -70,16 +101,31 @@ public class FinalPlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
-        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+        //Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
+        //PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
 
-        if (Physics.CheckSphere(Feet.position, 0.1f))
+        //if (Physics.CheckSphere(Feet.position, 0.1f))
+        //{
+        //    isGrounded = true;
+        //    if (Input.GetButtonDown("Jump"))
+        //    {
+        //        PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        //        isGrounded = false;
+        //    }
+        //}
+        if (PlayerBody.velocity.y <0)
         {
-            isGrounded = true;
-            if (Input.GetButtonDown("Jump"))
+            jumptimes=0;
+        }
+        MoveVector = transform.TransformDirection(PlayerMovementInput + PlayerMovementAddition) * PlayerSpeed;
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (Physics.CheckSphere(Feet.position, 0.1f) && jumptimes < jumpMax)
             {
+                
+              auido.JumpSound(0.5f);
                 PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                isGrounded = false;
+                jumptimes++;
             }
         }
     }
@@ -89,5 +135,143 @@ public class FinalPlayerController : MonoBehaviour
         xRotation -= PlayerMouse.y * sensitivity;
         transform.Rotate(0f, PlayerMouse.x*sensitivity, 0f);
         Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+    }
+    void Run()
+    {
+
+        if (Input.GetButton("Run"))
+        {
+            gameManager.Instance.SBar.enabled = true;
+            isRunning = true;
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
+            MoveVector = transform.TransformDirection(PlayerMovementInput) * PlayerSpeed * runSpeed;
+            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+        }
+        else
+        {
+            isRunning = false;
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 2.5f);
+
+        }
+    }
+
+    void Dash()
+    {
+        if (DashCD > DashMaxCD)
+        {
+            DashReady = true;
+        }
+        if (PlayerMovementInput.x == 0 && PlayerMovementInput.z == 0)
+        {
+            return;
+        }
+        if (Input.GetButtonDown("Dash"))
+        {
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 1f);
+            if (DashReady)
+            {
+                StartCoroutine(Dashing());
+            }
+        }
+    }
+
+    IEnumerator Dashing()
+    {
+        isDashing = true;
+        float startTime = Time.time;
+        DashCD = 0;
+        DashReady = false;
+        while (Time.time < startTime + Dashtime)
+        {
+            MoveVector = transform.TransformDirection(PlayerMovementInput) * PlayerSpeed * DashSpeed;
+            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+            yield return new WaitForEndOfFrame();
+
+        }
+        isDashing = false;
+    }
+
+    public void goDie()
+    {
+        gameManager.Instance.death();
+    }
+    public void TakeDamage(int amount)
+    {
+        HP -= amount;
+        playerUpdateUI();
+        if (isDead)
+        {
+            animator.SetTrigger("Death");
+        }
+    }
+    void playerUpdateUI()
+    {
+        gameManager.Instance.HPbar.fillAmount = (float)HP / origHP;
+        gameManager.Instance.Speedbar.fillAmount = currentEnergy / 100;
+    }
+    public void addHP(int amount)
+    {
+        HP += amount;
+    }
+
+    IEnumerator CalculateSpeed()
+    {
+        isPlaying = true;
+        while (isPlaying)
+        {
+            Vector3 prevPos = transform.position;
+            yield return new WaitForFixedUpdate();
+            CurrentSpeed = Vector3.Distance(transform.position, prevPos) / Time.fixedDeltaTime;
+        }
+        isPlaying = false;
+    }
+
+    public float EneryBuildUP()
+    {
+        if (currentEnergy < energyMax)
+        {
+            if (CurrentSpeed > 30)
+            {
+                currentEnergy += 15 * Time.deltaTime;
+            }
+            else if (CurrentSpeed > 20)
+            {
+                currentEnergy += 12 * Time.deltaTime;
+            }
+            else if (CurrentSpeed > 12)
+            {
+                currentEnergy += 10 * Time.deltaTime;
+            }
+
+        }
+        if (currentEnergy > 0)
+        {
+            currentEnergy -= 1 * Time.deltaTime;
+        }
+        return currentEnergy;
+    }
+    public void respawnPlayer()
+    {
+        HP = origHP;
+        //playerUpdateUI();
+        PlayerBody.isKinematic = true;
+        transform.position = gameManager.Instance.playerSpawnPos.transform.position;
+        PlayerBody.isKinematic = false;
+    }
+
+    void canInteract()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, interactDist))
+        {
+            if (hit.collider.CompareTag("CraftBench"))
+            {
+                gameManager.Instance.isNear = true;
+            }
+        }
+        else
+        {
+            gameManager.Instance.isNear = false;
+        }
     }
 }
