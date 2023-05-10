@@ -5,36 +5,43 @@ using UnityEngine;
 
 public class MirrorPlayer : MonoBehaviour
 {
-    [SerializeField] Rigidbody m_Player;
+    [SerializeField] FinalPlayerController m_Player;
     [SerializeField] Transform currentPortal;
-    [SerializeField] GameObject nextPortal;
+    [SerializeField] Transform nextPortal;
 
+    private Vector3 currentVelocity;
     public Vector3 position;
-    public Boolean teleporting;
     private Vector3 rotationRelation;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (teleporting == false)
+        if (!m_Player.isTeleporting)
             StartCoroutine(Teleport());
+        else
+            StartCoroutine(TeleportCD());
     }
 
 
     IEnumerator Teleport()
     {
-        teleporting = true;
+        m_Player.isTeleporting = true;
+        currentVelocity = m_Player.PlayerBody.velocity;
         gameManager.Instance.playerController.PlayerBody.isKinematic = true;
         //Movement
-        position = m_Player.transform.position - currentPortal.transform.position;
-        position.x = Mathf.Clamp(position.x, -10, 10);
-        position.y = Mathf.Clamp(position.y, -5, 5);
-        m_Player.transform.position = position + nextPortal.transform.position;
+        position = m_Player.transform.position - currentPortal.position;
+        m_Player.transform.position = nextPortal.position + position;
         //Rotation
-        rotationRelation = m_Player.transform.forward - currentPortal.transform.forward;
-        m_Player.transform.rotation = Quaternion.Euler(rotationRelation + nextPortal.transform.forward);
-        m_Player.transform.position += m_Player.transform.forward * 2f;
+        rotationRelation = currentPortal.forward - m_Player.transform.forward;
+        Quaternion relation = Quaternion.Euler(rotationRelation.x - nextPortal.forward.x, rotationRelation.y - nextPortal.forward.y, rotationRelation.z - nextPortal.forward.z);
+        m_Player.PlayerBody.MoveRotation(relation);
+        m_Player.transform.position += nextPortal.transform.forward * 2.5f;
         yield return new WaitForSeconds(0.1f);
         gameManager.Instance.playerController.PlayerBody.isKinematic = false;
-        teleporting = false;
+        m_Player.PlayerBody.velocity = currentVelocity;
+    }
+    IEnumerator TeleportCD()
+    {
+        yield return new WaitForSeconds(0.2f);
+        m_Player.isTeleporting = false;
     }
 }

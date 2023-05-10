@@ -10,6 +10,7 @@ using UnityEngine.UIElements;
 public class Gun : MonoBehaviour
 {
     [SerializeField] Transform cam;
+    [SerializeField] GunStats2 stats;
     [SerializeField] AudioSource aud;
     [Header("----Gun Basic Stats-----")]
     [Range(0, 2)][SerializeField] public float ShootRate;
@@ -59,18 +60,21 @@ public class Gun : MonoBehaviour
     [SerializeField] public Transform Barrel;
     public bool Sniper;
     GameObject DestroyEffect;
-    
 
 
 
 
 
+    private void Awake()
+    {
+        if (!gameManager.Instance.playerController.currentGun)
+            gameManager.Instance.playerController.currentGun = stats;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         RealoadingLogic();
-      
     }
 
     // Update is called once per frame

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 364895669101988487}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 364895669556308501}
   - component: {fileID: 8859523049371031426}
-  - component: {fileID: 542624620087822368}
   - component: {fileID: 364895669556308506}
   - component: {fileID: 1900675959591840788}
   - component: {fileID: 364895669556308500}
@@ -50,7 +49,7 @@ GameObject:
   - component: {fileID: 364895669556308496}
   - component: {fileID: 236422772}
   - component: {fileID: 236422771}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TruePlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -108,25 +107,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc708075fcb61004682f0c06fc03c2c7, type: 3}
   - {fileID: 8300000, guid: 1c3732f8a948e4944acb74280bfc088d, type: 3}
   - {fileID: 8300000, guid: 3c21a4a4b5833fa4ba1222c14684f357, type: 3}
---- !u!114 &542624620087822368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364895669556308499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 890d684f7b63b7d4bad76e207a6c9659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energizer: {fileID: 364895669556308506}
-  speedMultiplier: 0
-  speedLimit: 0
-  airSpeed: 0
-  sprintSpeed: 0
-  inMomentum: 0
-  slowing: 0
 --- !u!114 &364895669556308506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,21 +125,21 @@ MonoBehaviour:
   Feet: {fileID: 364895669101988487}
   Camera: {fileID: 364895669908387300}
   PlayerBody: {fileID: 364895669556308496}
-  Momentum: {fileID: 542624620087822368}
+  Momentum: {fileID: 1900675959591840788}
   animator: {fileID: 236422771}
-  audio: {fileID: 0}
-  walkSpeed: 0
-  airSpeed: 0
+  audioPl: {fileID: 236422772}
+  walkSpeed: 10
+  airSpeed: 5
   sensitivity: 1
   jumpForce: 5
   HP: 50
   stamina: 0
   energyMax: 100
-  interactDist: 0
+  interactDist: 12.5
   jumpMax: 1
   jumptimes: 0
   RunFov: 56
-  runSpeed: 3
+  runSpeed: 30
   FovOrg: 0
   DashSpeed: 20
   Dashtime: 0.25
@@ -167,12 +147,21 @@ MonoBehaviour:
   DashMaxCD: 1
   DashReady: 0
   isDashing: 0
-  audJumpVol: 0
-  audJump: []
-  audDamageVol: 0
-  audDamage: []
+  audJumpVol: 0.244
+  audJump:
+  - {fileID: 8300000, guid: 29c2f7e0f29e7784b98a134c01eda264, type: 3}
+  - {fileID: 8300000, guid: e9a6d2819827bb347b701ff30413a4ac, type: 3}
+  - {fileID: 8300000, guid: 5e73fe784bf8bca478b7c7985ae85a00, type: 3}
+  audDamageVol: 0.255
+  audDamage:
+  - {fileID: 8300000, guid: fd413a2a7b61f7749a5430623863472f, type: 3}
+  - {fileID: 8300000, guid: 661bdd533104ff9498333f596f140cf7, type: 3}
+  - {fileID: 8300000, guid: ddf37afe83278ff45b4c139c6cf453ad, type: 3}
+  - {fileID: 8300000, guid: cc708075fcb61004682f0c06fc03c2c7, type: 3}
+  - {fileID: 8300000, guid: 1c3732f8a948e4944acb74280bfc088d, type: 3}
+  - {fileID: 8300000, guid: 3c21a4a4b5833fa4ba1222c14684f357, type: 3}
   currentGun: {fileID: 0}
-  PlayerSpeed: 5
+  PlayerSpeed: 10
   CurrentSpeed: 0
   MoveVector: {x: 0, y: 0, z: 0}
   PlayerMovementInput: {x: 0, y: 0, z: 0}
@@ -184,6 +173,9 @@ MonoBehaviour:
   origStamina: 0
   speed: 0
   isGrounded: 0
+  isTeleporting: 0
+  minXLock: -90
+  maxXLock: 50
 --- !u!114 &1900675959591840788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,10 +189,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energizer: {fileID: 364895669556308506}
-  speedMultiplier: 10
-  speedLimit: 200
+  speedMultiplier: 4
+  speedLimit: 100
   airSpeed: 5
-  sprintSpeed: 0
+  sprintSpeed: 20
   inMomentum: 0
   slowing: 0
 --- !u!33 &364895669556308500
@@ -410,7 +402,7 @@ GameObject:
   - component: {fileID: 364895669908387300}
   - component: {fileID: 364895669908387303}
   - component: {fileID: 364895669908387302}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -493,7 +485,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2223774606602746758}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GunTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3878869302760525303}
   - component: {fileID: 3878869302760525192}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun switching
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +568,7 @@ GameObject:
   - component: {fileID: 8544618813339589686}
   - component: {fileID: 3855455527372093376}
   - component: {fileID: 3577601927679626797}
-  m_Layer: 9
+  m_Layer: 3
   m_Name: Bayonet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +696,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8547913628507668036}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,7 +732,7 @@ GameObject:
   - component: {fileID: 8547913628853106931}
   - component: {fileID: 8547913628853106928}
   - component: {fileID: 8547913628853106929}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShotGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -862,7 +854,7 @@ BoxCollider:
   m_GameObject: {fileID: 8547913628853106943}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -975,7 +967,7 @@ GameObject:
   - component: {fileID: 8547913629000591364}
   - component: {fileID: 8547913629000591365}
   - component: {fileID: 8547913629000591362}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Secondary Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1191,7 +1183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8547913629285629548}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1226,7 +1218,7 @@ GameObject:
   - component: {fileID: 8547913629750965790}
   - component: {fileID: 8547913629750965791}
   - component: {fileID: 8547913629750965777}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Secondary Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1445,7 +1437,7 @@ GameObject:
   - component: {fileID: 8978216430425253476}
   - component: {fileID: 8998756025053423550}
   - component: {fileID: 8991027467692296116}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Aim_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1528,7 +1520,7 @@ GameObject:
   - component: {fileID: 8978216436088172952}
   - component: {fileID: 8998756023914314958}
   - component: {fileID: 8991027469154126770}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muzzle_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1611,7 +1603,7 @@ GameObject:
   - component: {fileID: 8978216431356504808}
   - component: {fileID: 8998756024095841068}
   - component: {fileID: 8991027466329158966}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Top_Part_02(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1696,7 +1688,7 @@ GameObject:
   - component: {fileID: 2223774605440156331}
   - component: {fileID: 6730882184286197455}
   - component: {fileID: 8547913629828320552}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fast shooting weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1985,7 +1977,7 @@ GameObject:
   - component: {fileID: 8978216432770743234}
   - component: {fileID: 8998756027053424860}
   - component: {fileID: 8991027466066730228}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Middle_Part_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2068,7 +2060,7 @@ GameObject:
   - component: {fileID: 8978216435941064172}
   - component: {fileID: 8998756023930332170}
   - component: {fileID: 8991027467712926802}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bottom_Part_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2151,7 +2143,7 @@ GameObject:
   - component: {fileID: 8978216435917261300}
   - component: {fileID: 8998756023526931820}
   - component: {fileID: 8991027468702677840}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle_02(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2234,7 +2226,7 @@ GameObject:
   - component: {fileID: 8978216435978435276}
   - component: {fileID: 8998756024852576996}
   - component: {fileID: 8991027466823338708}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Back_Part_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

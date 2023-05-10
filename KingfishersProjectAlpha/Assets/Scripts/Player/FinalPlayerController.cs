@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinalPlayerController : MonoBehaviour
+public class FinalPlayerController : MonoBehaviour, Damage
 {
 
     [SerializeField] private LayerMask Floor;
@@ -11,7 +11,7 @@ public class FinalPlayerController : MonoBehaviour
     [SerializeField] public Rigidbody PlayerBody;
     [SerializeField] public PlayerMomentum1 Momentum;
     [SerializeField] Animator animator;
-    [SerializeField] AudioSource audio;
+    [SerializeField] AudioSource audioPl;
     [Space]
     [SerializeField] public float walkSpeed;
     [SerializeField] public float airSpeed;
@@ -43,12 +43,13 @@ public class FinalPlayerController : MonoBehaviour
     [Header("----Audio -----")]
     [Range(0, 1)][SerializeField] float audJumpVol;
     [SerializeField] AudioClip[] audJump;
-    [Range(0,1)][SerializeField] float audDamageVol;
+    [Range(0, 1)][SerializeField] float audDamageVol;
     [SerializeField] AudioClip[] audDamage;
 
 
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
+
     [Space]
     PlayerAudio auido;
     public float PlayerSpeed;
@@ -60,16 +61,18 @@ public class FinalPlayerController : MonoBehaviour
     private float xRotation;
     public bool isRunning;
     public bool isPlaying;
-   // private bool isDead = false;
-   // private bool isDead = false;
     public float origHP;
     public float currentEnergy = 0;
     public float origStamina;
     public float speed;
     public bool isGrounded;
+    public bool isTeleporting;
+    public float minXLock;
+    public float maxXLock;
 
     private void Start()
     {
+        FovOrg = UnityEngine.Camera.main.fieldOfView;
         DashCD = 6;
         DashReady = true;
         StartCoroutine(CalculateSpeed());
@@ -82,7 +85,7 @@ public class FinalPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameManager.Instance.inMenu)
+        if (gameManager.Instance.inMenu)
         {
             return;
         }
@@ -92,16 +95,18 @@ public class FinalPlayerController : MonoBehaviour
         {
             Momentum.MomentumState();
         }
-        MouseMove();
         Dash();
         CD(isDashing, ref DashCD, DashMaxCD);
+        Run();
+        MouseMove();
         EneryBuildUP();
         canInteract();
+        playerUpdateUI();
     }
 
     private void FixedUpdate()
     {
-        if(Momentum.inMomentum)
+        if (Momentum.inMomentum)
         {
             Momentum.SecondaryMovement();
         }
@@ -111,45 +116,37 @@ public class FinalPlayerController : MonoBehaviour
 
     private void CD(bool ability, ref float abilityCD, float maxCD)
     {
-       if(abilityCD > maxCD)
-       {
+        if (abilityCD > maxCD)
+        {
             abilityCD = maxCD;
-       }
-       else if(ability == false && abilityCD < maxCD)
-       {
+        }
+        else if (ability == false && abilityCD < maxCD)
+        {
             abilityCD += 1 * Time.deltaTime;
-       }
+        }
     }
     private void MovePlayer()
     {
         Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
         PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-
-        //if (Physics.CheckSphere(Feet.position, 0.1f))
-        //{
-        //    isGrounded = true;
-        //    if (Input.GetButtonDown("Jump"))
-        //    {
-        //        PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        //        isGrounded = false;
-        //    }
-        //}
-        if (PlayerBody.velocity.y <0)
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.05f, Floor))
         {
+            isGrounded = true;
             jumptimes = 0;
         }
-
-        MoveVector = transform.TransformDirection(PlayerMovementInput + PlayerMovementAddition) * PlayerSpeed;
-        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-        if (Input.GetButtonDown("Jump"))
+        else
         {
-            if (Physics.CheckSphere(Feet.position, 0.1f, Floor) )
+            isGrounded = false;
+        }
+        if (Input.GetButtonDown("Jump") && (isGrounded || jumptimes < jumpMax))
+        {
+            if (isGrounded)
             {
-               
-               PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isGrounded = false;
                 jumptimes++;
-                audio.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
-
+                audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
             }
         }
     }
@@ -157,7 +154,8 @@ public class FinalPlayerController : MonoBehaviour
     private void MouseMove()
     {
         xRotation -= PlayerMouse.y * sensitivity;
-        transform.Rotate(0f, PlayerMouse.x*sensitivity, 0f);
+        xRotation = Mathf.Clamp(xRotation, minXLock, maxXLock);
+        transform.Rotate(0f, PlayerMouse.x * sensitivity, 0f);
         Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
     void Run()
@@ -168,7 +166,7 @@ public class FinalPlayerController : MonoBehaviour
             gameManager.Instance.SBar.enabled = true;
             isRunning = true;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
-            MoveVector = transform.TransformDirection(PlayerMovementInput) * PlayerSpeed * runSpeed;
+            MoveVector = transform.TransformDirection(PlayerMovementInput) * runSpeed;
             PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
         }
         else
@@ -214,7 +212,7 @@ public class FinalPlayerController : MonoBehaviour
         }
         isDashing = false;
     }
-   public bool isDead
+    public bool isDead
     {
         get
         {
@@ -228,11 +226,12 @@ public class FinalPlayerController : MonoBehaviour
     }
     public void TakeDamage(int amount)
     {
-       // audio.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
+        // audio.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         HP -= amount;
         playerUpdateUI();
         if (isDead)
         {
+            goDie();
             animator.SetTrigger("Death");
         }
     }

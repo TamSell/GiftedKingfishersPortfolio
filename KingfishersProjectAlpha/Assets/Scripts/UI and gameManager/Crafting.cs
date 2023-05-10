@@ -20,7 +20,7 @@ public class Crafting : MonoBehaviour
     private float dist;
     private int AttachmentIndex;
 
-    private void Awake()
+    private void Start()
     {
         if (gameManager.Instance.currentGunAspects)
         {
@@ -112,7 +112,8 @@ public class Crafting : MonoBehaviour
                     result.gunHeld.Attachments[AttachmentIndex].equipped = false;
                 }
                 Attachment current = currentAttach.attachObject;
-                current.equipped = true;
+                result.gunHeld.Attachments[AttachmentIndex] = currentAttach.attachObject;
+                currentAttach.attachObject.equipped = true;
                 result.gunHeld.damage += current.modifiedStats[0];
                 result.gunHeld.shootRange += current.modifiedStats[1];
                 result.gunHeld.realoadSpeed += current.modifiedStats[2];
@@ -127,7 +128,7 @@ public class Crafting : MonoBehaviour
     {
         for (int x = 0; x < 4; x++)
         {
-            if (result.gunHeld.Attachments[x].equipped)
+            if (result.gunHeld.Attachments[x] != null && result.gunHeld.Attachments[x].equipped)
             {
                 result.gunHeld.damage -= result.gunHeld.Attachments[x].modifiedStats[0];
                 result.gunHeld.shootRange -= result.gunHeld.Attachments[x].modifiedStats[1];
