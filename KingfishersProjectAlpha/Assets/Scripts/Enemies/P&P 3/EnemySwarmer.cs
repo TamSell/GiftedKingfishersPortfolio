@@ -45,6 +45,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
         meleeSwipe.SetActive(false);
         navMeshA.stoppingDistance = 4;
         objectTracker = GetComponent<Tracker>();
+        gameManager.Instance.updateGoal(0, 1);
     }
 
 
@@ -136,7 +137,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
         if (healthPoints <= 0)
         {
             Destroy(gameObject);
-            gameManager.Instance.updateGoal(20);
+            gameManager.Instance.updateGoal(20,-1);
         }
         else
         {

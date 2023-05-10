@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager.Instance.updateGoal(prefabMaxNum);
+    //    gameManager.Instance.updateGoal(prefabMaxNum);
     }
 
     // Update is called once per frame

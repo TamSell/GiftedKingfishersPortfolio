@@ -51,6 +51,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     {
         navMeshA.stoppingDistance = 10;
         objectTracker = GetComponent<Tracker>();
+        gameManager.Instance.updateGoal(0, 1);
     }
 
     // Update is called once per frame
@@ -202,7 +203,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         if (healthPoints <= 0)
         {
             Destroy(gameObject);
-            gameManager.Instance.updateGoal(50);
+            gameManager.Instance.updateGoal(50, -1);
         }
         else
         {
