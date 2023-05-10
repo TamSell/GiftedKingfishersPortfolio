@@ -7,8 +7,8 @@ public class ScenePortalCode : MonoBehaviour
 {
     [SerializeField] int scoreNecessary;
     [SerializeField] int ScoreCurrent;
-    [SerializeField] MeshRenderer renderer;
-    [SerializeField] BoxCollider collider;
+    [SerializeField] MeshRenderer renderCamera;
+    [SerializeField] BoxCollider teleportIt;
 
     void Start()
     {

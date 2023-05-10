@@ -7,9 +7,12 @@ public class FinalPlayerController : MonoBehaviour
     [SerializeField] private LayerMask Floor;
     [SerializeField] private Transform Feet;
     [SerializeField] private Transform Camera;
-    [SerializeField] private Rigidbody PlayerBody;
+    [SerializeField] public Rigidbody PlayerBody;
+    [SerializeField] private PlayerMomentum1 Momentum;
     [Space]
-    [SerializeField] private float Speed;
+    [SerializeField] public float walkSpeed;
+    [SerializeField] public float runSpeed;
+    [SerializeField] public float airSpeed;
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
 
@@ -31,31 +34,51 @@ public class FinalPlayerController : MonoBehaviour
     public float currentEnergy = 0;
     public float origStamina;
     public float speed;
+    public bool isGrounded;
+
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        origHP = HP;
+        origStamina = stamina;
+        currentEnergy = energyMax;
     }
     // Update is called once per frame
     void Update()
     {
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-
-        MovePlayer();
+        
+        if(Input.GetButtonDown("MoveChange"))
+        {
+            Momentum.MomentumState();
+        }
         MouseMove();
+    }
+
+    private void FixedUpdate()
+    {
+        if(Momentum.inMomentum)
+        {
+            Momentum.SecondaryMovement();
+        }
+        else
+            MovePlayer();
     }
 
     private void MovePlayer()
     {
-        Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * Speed;
+        Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
         PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
 
-        if(Input.GetButtonDown("Jump"))
+        if (Physics.CheckSphere(Feet.position, 0.1f))
         {
-            if(Physics.CheckSphere(Feet.position, 0.1f))
+            isGrounded = true;
+            if (Input.GetButtonDown("Jump"))
             {
                 PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isGrounded = false;
             }
         }
     }
