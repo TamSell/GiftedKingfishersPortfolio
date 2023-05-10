@@ -72,6 +72,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     private void Start()
     {
+        playerUpdateUI();
         FovOrg = UnityEngine.Camera.main.fieldOfView;
         DashCD = 6;
         DashReady = true;
