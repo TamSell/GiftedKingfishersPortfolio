@@ -7,9 +7,7 @@ public class ScenePortalCode : MonoBehaviour
 {
     [SerializeField] int scoreNecessary;
     [SerializeField] int ScoreCurrent;
-    [SerializeField] MeshRenderer renderCamera;
-    [SerializeField] BoxCollider teleportIt;
-
+    [SerializeField] int levelSelect;
     void Start()
     {
         gameObject.GetComponent<MeshRenderer>().enabled = false;
@@ -27,6 +25,13 @@ public class ScenePortalCode : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if(levelSelect > -1)
+        {
+            SceneManager.LoadScene(levelSelect);
+        }
+        else
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }
