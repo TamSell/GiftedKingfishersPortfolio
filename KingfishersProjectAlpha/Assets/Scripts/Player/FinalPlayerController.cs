@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinalPlayerController : MonoBehaviour
+public class FinalPlayerController : MonoBehaviour, Damage
 {
 
     [SerializeField] private LayerMask Floor;
@@ -226,6 +226,7 @@ public class FinalPlayerController : MonoBehaviour
         playerUpdateUI();
         if (isDead)
         {
+            goDie();
             animator.SetTrigger("Death");
         }
     }
