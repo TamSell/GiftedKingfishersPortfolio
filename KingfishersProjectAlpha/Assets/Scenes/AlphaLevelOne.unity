@@ -306,6 +306,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4531593677802264625, guid: 3c671e71afc5cc44b8a69eefcb315e3f, type: 3}
+      propertyPath: levelSelect
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4531593677802264628, guid: 3c671e71afc5cc44b8a69eefcb315e3f, type: 3}
       propertyPath: m_Name
       value: LevelEndDoor
