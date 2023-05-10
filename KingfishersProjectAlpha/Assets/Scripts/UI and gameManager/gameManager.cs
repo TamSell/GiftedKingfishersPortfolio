@@ -63,8 +63,13 @@ public class gameManager : MonoBehaviour
         playerController = PlayerModel.GetComponent<FinalPlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleO = Time.timeScale;
-        
+    }
 
+    private void Start()
+    {
+        currentGunAspects = playerController.currentGun;
+        modify.result.gunHeld = currentGunAspects;
+        modify.ResetGun();
     }
 
     // Update is called once per frame

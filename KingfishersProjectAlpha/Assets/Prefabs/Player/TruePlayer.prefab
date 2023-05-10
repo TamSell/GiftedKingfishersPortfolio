@@ -127,7 +127,7 @@ MonoBehaviour:
   PlayerBody: {fileID: 364895669556308496}
   Momentum: {fileID: 1900675959591840788}
   animator: {fileID: 236422771}
-  audio: {fileID: 236422772}
+  audioPl: {fileID: 236422772}
   walkSpeed: 10
   airSpeed: 5
   sensitivity: 1
@@ -139,7 +139,7 @@ MonoBehaviour:
   jumpMax: 1
   jumptimes: 0
   RunFov: 56
-  runSpeed: 3
+  runSpeed: 30
   FovOrg: 0
   DashSpeed: 20
   Dashtime: 0.25

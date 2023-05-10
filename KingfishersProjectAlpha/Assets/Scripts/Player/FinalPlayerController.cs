@@ -43,12 +43,13 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [Header("----Audio -----")]
     [Range(0, 1)][SerializeField] float audJumpVol;
     [SerializeField] AudioClip[] audJump;
-    [Range(0,1)][SerializeField] float audDamageVol;
+    [Range(0, 1)][SerializeField] float audDamageVol;
     [SerializeField] AudioClip[] audDamage;
 
 
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
+
     [Space]
     PlayerAudio auido;
     public float PlayerSpeed;
@@ -84,31 +85,28 @@ public class FinalPlayerController : MonoBehaviour, Damage
     // Update is called once per frame
     void Update()
     {
-        if(gameManager.Instance.inMenu)
+        if (gameManager.Instance.inMenu)
         {
             return;
         }
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        if(!isTeleporting)
+        if (Input.GetButtonDown("MoveChange"))
         {
-            if (Input.GetButtonDown("MoveChange"))
-            {
-                Momentum.MomentumState();
-            }
-            Dash();
-            CD(isDashing, ref DashCD, DashMaxCD);
-            Run();
-            MouseMove();
-            EneryBuildUP();
-            canInteract();
-            playerUpdateUI();
+            Momentum.MomentumState();
         }
+        Dash();
+        CD(isDashing, ref DashCD, DashMaxCD);
+        Run();
+        MouseMove();
+        EneryBuildUP();
+        canInteract();
+        playerUpdateUI();
     }
 
     private void FixedUpdate()
     {
-        if(Momentum.inMomentum)
+        if (Momentum.inMomentum)
         {
             Momentum.SecondaryMovement();
         }
@@ -118,14 +116,14 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     private void CD(bool ability, ref float abilityCD, float maxCD)
     {
-       if(abilityCD > maxCD)
-       {
+        if (abilityCD > maxCD)
+        {
             abilityCD = maxCD;
-       }
-       else if(ability == false && abilityCD < maxCD)
-       {
+        }
+        else if (ability == false && abilityCD < maxCD)
+        {
             abilityCD += 1 * Time.deltaTime;
-       }
+        }
     }
     private void MovePlayer()
     {
@@ -148,7 +146,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
                 PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 isGrounded = false;
                 jumptimes++;
-                audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length-1)], audJumpVol);
+                audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
             }
         }
     }
@@ -157,7 +155,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         xRotation -= PlayerMouse.y * sensitivity;
         xRotation = Mathf.Clamp(xRotation, minXLock, maxXLock);
-        transform.Rotate(0f, PlayerMouse.x*sensitivity, 0f);
+        transform.Rotate(0f, PlayerMouse.x * sensitivity, 0f);
         Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
     void Run()
@@ -214,7 +212,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
         isDashing = false;
     }
-   public bool isDead
+    public bool isDead
     {
         get
         {
@@ -228,7 +226,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     }
     public void TakeDamage(int amount)
     {
-       // audio.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
+        // audio.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         HP -= amount;
         playerUpdateUI();
         if (isDead)
