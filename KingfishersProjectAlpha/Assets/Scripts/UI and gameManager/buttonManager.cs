@@ -7,7 +7,7 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class buttonManager : MonoBehaviour
 {
-    Camara camera;
+    Camara cameraChange;
     int place;
 
     bool isPlayingM;
