@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour, Damage
         DashCD = 6;
         DashReady = true;
         StartCoroutine(CalculateSpeed());
-        HPorig = HP;
+        HPorig = 50;
         StaminaOrig = Stamina;
         EneryOrig = Enery;
         PLayerUpdateUI();

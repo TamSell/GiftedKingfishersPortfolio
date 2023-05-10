@@ -42,21 +42,22 @@ public class FinalPlayerController : MonoBehaviour
 
     [Header("----Audio -----")]
     [Range(0, 1)][SerializeField] float audJumpVol;
-    [SerializeField] AudioClip[] auddamage;
-
+    [SerializeField] AudioClip[] audJump;
+    [Range(0,1)][SerializeField] float audDamageVol;
+    [SerializeField] AudioClip[] audDamage;
 
 
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
     [Space]
-    PlayerAudio auido;
+    
     public Vector3 MoveVector;
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
     private Vector2 PlayerMouse;
     private float xRotation;
     public bool isRunning;
-    private bool isDead = false;
+   // private bool isDead = false;
     public float origHP;
     public float currentEnergy = 0;
     public float origStamina;
@@ -65,10 +66,10 @@ public class FinalPlayerController : MonoBehaviour
     private void Start()
     {
 
-        HP = origHP;
-        playerUpdateUI();
+        origHP = HP; 
+       // playerUpdateUI();
         StartCoroutine(CalculateSpeed());
-        respawnPlayer();
+       // respawnPlayer();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         FovOrg = UnityEngine.Camera.main.fieldOfView;
@@ -88,11 +89,7 @@ public class FinalPlayerController : MonoBehaviour
         canInteract();
     }
 
-    private void FixedUpdate()
-    {
-        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-    }
-
+   
     void CD(bool ability, ref float abilityCD, float maxCD)
     {
         if (abilityCD > maxCD)
@@ -109,17 +106,18 @@ public class FinalPlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        if(PlayerBody.velocity.y <0)
+        if (PlayerBody.velocity.y < 0)
         {
-            jumptimes=0;
+            jumptimes = 0;
         }
         MoveVector = transform.TransformDirection(PlayerMovementInput + PlayerMovementAddition) * PlayerSpeed;
+        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
         if (Input.GetButtonDown("Jump"))
         {
-            if (Physics.CheckSphere(Feet.position, 0.1f) && jumptimes < jumpMax)
+            if (Physics.CheckSphere(Feet.position, 0.1f, Floor) )
             {
-                
-              auido.JumpSound(0.5f);
+               
+                audio.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
                 PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 jumptimes++;
             }
@@ -189,6 +187,13 @@ public class FinalPlayerController : MonoBehaviour
         }
         isDashing = false;
     }
+   public bool isDead
+    {
+        get
+        {
+            return HP == 0;
+        }
+    }
 
     public void goDie()
     {
@@ -196,6 +201,7 @@ public class FinalPlayerController : MonoBehaviour
     }
     public void TakeDamage(int amount)
     {
+       // audio.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         HP -= amount;
         playerUpdateUI();
         if (isDead)
