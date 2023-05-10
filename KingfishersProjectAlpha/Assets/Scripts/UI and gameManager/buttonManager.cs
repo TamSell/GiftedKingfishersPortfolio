@@ -14,6 +14,7 @@ public class buttonManager : MonoBehaviour
     bool isPlayingMSFX;
     bool isPlayingMGame;
     bool isPlayingGameSFX;
+    public GameObject mainMenuButt, optionsMenuButt, levelSelectButt;
 
     public void resume()
     {
@@ -67,13 +68,18 @@ public class buttonManager : MonoBehaviour
 
     public void OptionMenu()
     {
+
         MenusUi.menus.OptionMenu.SetActive(true);
         MenusUi.menus.MainMenu.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionsMenuButt);
     }
     public void LevelSelect()
     {
         MenusUi.menus.LevelSMenu.SetActive(true);
         MenusUi.menus.MainMenu.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(levelSelectButt);
     }
 
     public void Back()
@@ -87,12 +93,16 @@ public class buttonManager : MonoBehaviour
         VolumeControl._volInstance.UpdateVolume();
         MenusUi.menus.OptionMenu.SetActive(false);
         MenusUi.menus.MainMenu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(mainMenuButt);
     }
 
     public void BackMenufromLevelS()
     {
         MenusUi.menus.LevelSMenu.SetActive(false);
         MenusUi.menus.MainMenu.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(mainMenuButt);
     }
 
     public void nextWeapon()
