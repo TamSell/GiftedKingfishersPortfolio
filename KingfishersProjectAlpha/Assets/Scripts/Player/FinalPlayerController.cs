@@ -6,21 +6,26 @@ using UnityEngine;
 
 public class FinalPlayerController : MonoBehaviour
 {
+
     [SerializeField] private LayerMask Floor;
     [SerializeField] private Transform Feet;
     [SerializeField] private Transform Camera;
     [SerializeField] public Rigidbody PlayerBody;
     [SerializeField] Animator animator;
+    [SerializeField] AudioSource audio;
     [Space]
     [SerializeField] private float PlayerSpeed;
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
+
 
     [Header("---Stats---")]
     [SerializeField] public float HP;
     [SerializeField] int speed;
     [SerializeField] public float energyMax;
     [SerializeField, Range(0f, 50f)] float interactDist;
+    [SerializeField] int jumpMax;
+    [SerializeField] int jumptimes;
 
     [Header("-----Runing stats-----")]
     [SerializeField] public float RunFov;
@@ -35,9 +40,16 @@ public class FinalPlayerController : MonoBehaviour
     public bool DashReady;
     public bool isDashing;
 
+    [Header("----Audio -----")]
+    [Range(0, 1)][SerializeField] float audJumpVol;
+    [SerializeField] AudioClip[] auddamage;
+
+
 
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
+    [Space]
+    PlayerAudio auido;
     public Vector3 MoveVector;
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
@@ -76,11 +88,6 @@ public class FinalPlayerController : MonoBehaviour
         canInteract();
     }
 
-    private void LateUpdate()
-    {
-        MoveVector = transform.TransformDirection(PlayerMovementInput + PlayerMovementAddition) * PlayerSpeed;
-    }
-
     private void FixedUpdate()
     {
         PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
@@ -102,11 +109,19 @@ public class FinalPlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
+        if(PlayerBody.velocity.y <0)
+        {
+            jumptimes=0;
+        }
+        MoveVector = transform.TransformDirection(PlayerMovementInput + PlayerMovementAddition) * PlayerSpeed;
         if (Input.GetButtonDown("Jump"))
         {
-            if (Physics.CheckSphere(Feet.position, 0.1f))
+            if (Physics.CheckSphere(Feet.position, 0.1f) && jumptimes < jumpMax)
             {
+                
+              auido.JumpSound(0.5f);
                 PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                jumptimes++;
             }
         }
         Run();
