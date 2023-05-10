@@ -194,7 +194,7 @@ public class NewEnemy : MonoBehaviour, Damage
             dropItem(Drop);
             meleeSwipe.SetActive(false);
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
-            gameManager.Instance.updateGoal(-1);
+           // gameManager.Instance.updateGoal(-1);
             animator.SetBool("Death", true);
             GetComponent<CapsuleCollider>().enabled = false;
             navMeshA.enabled = false;

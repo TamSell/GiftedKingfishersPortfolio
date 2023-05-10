@@ -81,6 +81,10 @@ public class FinalPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameManager.Instance.inMenu)
+        {
+            return;
+        }
         PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         if (Input.GetButtonDown("MoveChange"))
@@ -191,8 +195,8 @@ public class FinalPlayerController : MonoBehaviour
         while (Time.time < startTime + Dashtime)
         {
             MoveVector = transform.TransformDirection(PlayerMovementInput) * PlayerSpeed * DashSpeed;
-            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-            yield return new ();
+            gameManager.Instance.playerController.PlayerMovementAddition = MoveVector;
+            yield return new WaitForEndOfFrame();
 
         }
         isDashing = false;

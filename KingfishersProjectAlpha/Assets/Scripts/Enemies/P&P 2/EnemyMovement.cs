@@ -171,7 +171,7 @@ public class EnemyMovement : MonoBehaviour, Damage
             StopAllCoroutines();
             dropItem(Drop);
             aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
-            gameManager.Instance.updateGoal(-1);
+          //  gameManager.Instance.updateGoal(-1);
             animatorRanged.SetBool("Dead", true);
             GetComponent<CapsuleCollider>().enabled = false;
             navMeshA.enabled = false;
