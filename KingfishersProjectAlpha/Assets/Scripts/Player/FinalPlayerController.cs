@@ -60,8 +60,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
     private float xRotation;
     public bool isRunning;
     public bool isPlaying;
-   // private bool isDead = false;
-   // private bool isDead = false;
     public float origHP;
     public float currentEnergy = 0;
     public float origStamina;
@@ -70,6 +68,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     private void Start()
     {
+        FovOrg = UnityEngine.Camera.main.fieldOfView;
         DashCD = 6;
         DashReady = true;
         StartCoroutine(CalculateSpeed());
@@ -92,11 +91,13 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             Momentum.MomentumState();
         }
-        MouseMove();
         Dash();
         CD(isDashing, ref DashCD, DashMaxCD);
+        Run();
+        MouseMove();
         EneryBuildUP();
         canInteract();
+        playerUpdateUI();
     }
 
     private void FixedUpdate()
@@ -124,32 +125,24 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
         PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-
-        //if (Physics.CheckSphere(Feet.position, 0.1f))
-        //{
-        //    isGrounded = true;
-        //    if (Input.GetButtonDown("Jump"))
-        //    {
-        //        PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        //        isGrounded = false;
-        //    }
-        //}
-        if (PlayerBody.velocity.y <0)
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.05f, Floor))
         {
+            isGrounded = true;
             jumptimes = 0;
         }
-
-        MoveVector = transform.TransformDirection(PlayerMovementInput + PlayerMovementAddition) * PlayerSpeed;
-        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-        if (Input.GetButtonDown("Jump"))
+        else
         {
-            if (Physics.CheckSphere(Feet.position, 0.1f, Floor) )
+            isGrounded = false;
+        }
+        if (Input.GetButtonDown("Jump") && (isGrounded || jumptimes < jumpMax))
+        {
+            if (isGrounded)
             {
-               
-               PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                isGrounded = false;
                 jumptimes++;
-                audio.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
-
+                audio.PlayOneShot(audJump[Random.Range(0, audJump.Length-1)], audJumpVol);
             }
         }
     }
@@ -168,7 +161,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
             gameManager.Instance.SBar.enabled = true;
             isRunning = true;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
-            MoveVector = transform.TransformDirection(PlayerMovementInput) * PlayerSpeed * runSpeed;
+            MoveVector = transform.TransformDirection(PlayerMovementInput) * runSpeed;
             PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
         }
         else

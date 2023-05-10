@@ -9,6 +9,7 @@ public class MirrorPlayer : MonoBehaviour
     [SerializeField] Transform currentPortal;
     [SerializeField] GameObject nextPortal;
 
+    private Vector3 currentVelocity;
     public Vector3 position;
     public Boolean teleporting;
     private Vector3 rotationRelation;
@@ -23,6 +24,7 @@ public class MirrorPlayer : MonoBehaviour
     IEnumerator Teleport()
     {
         teleporting = true;
+        currentVelocity = m_Player.velocity;
         gameManager.Instance.playerController.PlayerBody.isKinematic = true;
         //Movement
         position = m_Player.transform.position - currentPortal.transform.position;
@@ -35,6 +37,7 @@ public class MirrorPlayer : MonoBehaviour
         m_Player.transform.position += m_Player.transform.forward * 2f;
         yield return new WaitForSeconds(0.1f);
         gameManager.Instance.playerController.PlayerBody.isKinematic = false;
+        m_Player.velocity = currentVelocity;
         teleporting = false;
     }
 }
