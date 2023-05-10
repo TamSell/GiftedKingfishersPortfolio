@@ -7,11 +7,9 @@ public class ScenePortalCode : MonoBehaviour
 {
     [SerializeField] int scoreNecessary;
     [SerializeField] int ScoreCurrent;
-    [SerializeField] MeshRenderer renderer;
-    [SerializeField] BoxCollider collider;
 
     void Start()
-    {
+    {   
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         gameObject.GetComponent<BoxCollider>().enabled = false;
     }
