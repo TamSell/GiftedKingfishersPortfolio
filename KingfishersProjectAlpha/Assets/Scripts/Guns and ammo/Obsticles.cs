@@ -9,8 +9,10 @@ public class Obsticles : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Damage dam = other.GetComponent<Damage>();
-        dam.TakeDamage(damage);
+        if(other.TryGetComponent<Damage>(out Damage dam))
+        {
+            dam.TakeDamage(damage);
+        }
 
     }
 

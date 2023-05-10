@@ -76,25 +76,25 @@ public class PlayerController : MonoBehaviour, Damage
     public float velocity;
     public bool inMomentum;
     private bool isGrounded;
-   
-    
-   
+
+
+
 
     // Start is called before the first frame update
-    //void Start()
-    //{
-    //    DashCD = 6;
-    //    DashReady = true;
-    //    StartCoroutine(CalculateSpeed());
-    //    HPorig = HP;
-    //    StaminaOrig = Stamina;
-    //    EneryOrig = Enery;
-    //    PLayerUpdateUI();
-    //    FOVorg = Camera.main.fieldOfView;
-    //    respawnPlayer();
-    //    originalStopOffset = rb.stepOffset;
-      
-    //}
+    void Start()
+    {
+        DashCD = 6;
+        DashReady = true;
+        StartCoroutine(CalculateSpeed());
+        HPorig = HP;
+        StaminaOrig = Stamina;
+        EneryOrig = Enery;
+        PLayerUpdateUI();
+        FOVorg = Camera.main.fieldOfView;
+        respawnPlayer();
+       // originalStopOffset = rb.stepOffset;
+
+    }
 
     // Update is called once per frame
     void Update()
