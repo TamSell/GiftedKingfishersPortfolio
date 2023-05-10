@@ -32,7 +32,7 @@ public class MirrorPlayer : MonoBehaviour
         //Rotation
         rotationRelation = m_Player.transform.forward - currentPortal.transform.forward;
         m_Player.transform.rotation = Quaternion.Euler(rotationRelation + nextPortal.transform.forward);
-        m_Player.transform.position += m_Player.transform.forward * 1f;
+        m_Player.transform.position += m_Player.transform.forward * 2f;
         yield return new WaitForSeconds(0.1f);
         gameManager.Instance.playerController.PlayerBody.isKinematic = false;
         teleporting = false;

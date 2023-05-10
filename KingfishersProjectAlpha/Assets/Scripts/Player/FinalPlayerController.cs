@@ -25,6 +25,7 @@ public class FinalPlayerController : MonoBehaviour
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
 
+    public Vector3 PlayerMovementAddition;
     private Vector3 PlayerMovementInput;
     private Vector2 PlayerMouse;
     private float xRotation;
