@@ -119,6 +119,10 @@ public class Gun : MonoBehaviour
             {
                 StartCoroutine(SecondaryShoot());
             }
+            else
+            {
+                gameManager.Instance.playerController.PlayerMovementAddition /= 2;
+            }
         }
 
 
@@ -138,7 +142,8 @@ public class Gun : MonoBehaviour
             }
             else
             {
-                RayGunEffect.SetActive(false);
+                RayGunEffect.SetActive(false); 
+                   
             }
         }
     }
@@ -223,7 +228,7 @@ public class Gun : MonoBehaviour
 
 
         }
-       
+
     }
     IEnumerator SecondaryShoot()
     {
@@ -326,8 +331,8 @@ public class Gun : MonoBehaviour
 
         while (Time.time < startTime + ImpulseTime)
         {
-            //gameManager.Instance.playerController.PlayerBody.AddForce(-gameManager.Instance.playerController.PlayerBody.transform.forward * Time.deltaTime * ImpulseSpeed, ForceMode.Impulse);
-
+            Vector3 MoveVector = Vector3.back * ImpulseSpeed;
+            gameManager.Instance.playerController.PlayerMovementAddition = MoveVector;
             yield return new WaitForEndOfFrame();
         }
      

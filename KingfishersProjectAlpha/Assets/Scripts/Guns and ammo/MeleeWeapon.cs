@@ -52,7 +52,7 @@ public class MeleeWeapon : MonoBehaviour
             {
 
                // if(RunningTime > ChargeTime)
-               if(gameManager.Instance.playerController.speed>11)
+               if(gameManager.Instance.playerController.energyMax>11)
                 {
 
                     Damage canDamage = other.GetComponent<Damage>();
