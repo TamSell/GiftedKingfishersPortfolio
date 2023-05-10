@@ -9,11 +9,11 @@ public class FinalPlayerController : MonoBehaviour
     [SerializeField] private Transform Feet;
     [SerializeField] private Transform Camera;
     [SerializeField] public Rigidbody PlayerBody;
+    [SerializeField] public PlayerMomentum1 Momentum;
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audio;
     [Space]
     [SerializeField] public float walkSpeed;
-    [SerializeField] public float runSpeed;
     [SerializeField] public float airSpeed;
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
@@ -29,7 +29,7 @@ public class FinalPlayerController : MonoBehaviour
 
     [Header("-----Runing stats-----")]
     [SerializeField] public float RunFov;
-    [SerializeField] float runSpeed;
+    [SerializeField] public float runSpeed;
     [SerializeField] float FovOrg;
 
     [Header("------Dash Stats------")]
@@ -50,13 +50,15 @@ public class FinalPlayerController : MonoBehaviour
     [SerializeField] public GunStats2 currentGun;
     [Space]
     PlayerAudio auido;
+    public float PlayerSpeed;
+    public float CurrentSpeed;
     public Vector3 MoveVector;
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
-    private Vector3 PlayerMovementInput;
     private Vector2 PlayerMouse;
     private float xRotation;
     public bool isRunning;
+    public bool isPlaying;
     private bool isDead = false;
     public float origHP;
     public float currentEnergy = 0;
@@ -83,7 +85,6 @@ public class FinalPlayerController : MonoBehaviour
         }
         MouseMove();
         Dash();
-        MovePlayer();
         CD(isDashing, ref DashCD, DashMaxCD);
         EneryBuildUP();
         canInteract();
@@ -99,10 +100,21 @@ public class FinalPlayerController : MonoBehaviour
             MovePlayer();
     }
 
+    private void CD(bool ability, ref float abilityCD, float maxCD)
+    {
+       if(abilityCD > maxCD)
+       {
+            abilityCD = maxCD;
+       }
+       else if(ability == false && abilityCD < maxCD)
+       {
+            abilityCD += 1 * Time.deltaTime;
+       }
+    }
     private void MovePlayer()
     {
-        //Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
-        //PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+        Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
+        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
 
         //if (Physics.CheckSphere(Feet.position, 0.1f))
         //{
@@ -117,7 +129,7 @@ public class FinalPlayerController : MonoBehaviour
         {
             jumptimes=0;
         }
-        MoveVector = transform.TransformDirection(PlayerMovementInput + PlayerMovementAddition) * PlayerSpeed;
+
         if (Input.GetButtonDown("Jump"))
         {
             if (Physics.CheckSphere(Feet.position, 0.1f) && jumptimes < jumpMax)
