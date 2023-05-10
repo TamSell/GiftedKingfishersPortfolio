@@ -208,7 +208,7 @@ public class FinalPlayerController : MonoBehaviour
         while (Time.time < startTime + Dashtime)
         {
             MoveVector = transform.TransformDirection(PlayerMovementInput) * PlayerSpeed * DashSpeed;
-            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+            gameManager.Instance.playerController.PlayerMovementAddition = MoveVector;
             yield return new WaitForEndOfFrame();
 
         }
