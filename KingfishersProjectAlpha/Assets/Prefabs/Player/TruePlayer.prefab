@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 364895669101988487}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 364895669556308496}
   - component: {fileID: 236422772}
   - component: {fileID: 236422771}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TruePlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 364895669908387300}
   - component: {fileID: 364895669908387303}
   - component: {fileID: 364895669908387302}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2223774606602746758}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GunTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3878869302760525303}
   - component: {fileID: 3878869302760525192}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gun switching
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 8544618813339589686}
   - component: {fileID: 3855455527372093376}
   - component: {fileID: 3577601927679626797}
-  m_Layer: 9
+  m_Layer: 3
   m_Name: Bayonet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +704,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8547913628507668036}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -740,7 +740,7 @@ GameObject:
   - component: {fileID: 8547913628853106931}
   - component: {fileID: 8547913628853106928}
   - component: {fileID: 8547913628853106929}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShotGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -862,7 +862,7 @@ BoxCollider:
   m_GameObject: {fileID: 8547913628853106943}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -975,7 +975,7 @@ GameObject:
   - component: {fileID: 8547913629000591364}
   - component: {fileID: 8547913629000591365}
   - component: {fileID: 8547913629000591362}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Secondary Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1191,7 +1191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8547913629285629548}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1226,7 +1226,7 @@ GameObject:
   - component: {fileID: 8547913629750965790}
   - component: {fileID: 8547913629750965791}
   - component: {fileID: 8547913629750965777}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Secondary Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1445,7 +1445,7 @@ GameObject:
   - component: {fileID: 8978216430425253476}
   - component: {fileID: 8998756025053423550}
   - component: {fileID: 8991027467692296116}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Aim_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1528,7 +1528,7 @@ GameObject:
   - component: {fileID: 8978216436088172952}
   - component: {fileID: 8998756023914314958}
   - component: {fileID: 8991027469154126770}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Muzzle_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1611,7 +1611,7 @@ GameObject:
   - component: {fileID: 8978216431356504808}
   - component: {fileID: 8998756024095841068}
   - component: {fileID: 8991027466329158966}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Top_Part_02(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1696,7 +1696,7 @@ GameObject:
   - component: {fileID: 2223774605440156331}
   - component: {fileID: 6730882184286197455}
   - component: {fileID: 8547913629828320552}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: fast shooting weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1985,7 +1985,7 @@ GameObject:
   - component: {fileID: 8978216432770743234}
   - component: {fileID: 8998756027053424860}
   - component: {fileID: 8991027466066730228}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Middle_Part_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2068,7 +2068,7 @@ GameObject:
   - component: {fileID: 8978216435941064172}
   - component: {fileID: 8998756023930332170}
   - component: {fileID: 8991027467712926802}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bottom_Part_01(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2151,7 +2151,7 @@ GameObject:
   - component: {fileID: 8978216435917261300}
   - component: {fileID: 8998756023526931820}
   - component: {fileID: 8991027468702677840}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Handle_02(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2234,7 +2234,7 @@ GameObject:
   - component: {fileID: 8978216435978435276}
   - component: {fileID: 8998756024852576996}
   - component: {fileID: 8991027466823338708}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Back_Part_03(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
