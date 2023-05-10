@@ -97,6 +97,7 @@ public class FinalPlayerController : MonoBehaviour
         MouseMove();
         EneryBuildUP();
         canInteract();
+        playerUpdateUI();
     }
 
     private void FixedUpdate()
@@ -124,10 +125,15 @@ public class FinalPlayerController : MonoBehaviour
     {
         Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
         PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-        if (Physics.CheckSphere(Feet.position, 0.01f, Floor))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.05f, Floor))
         {
-            jumptimes = 0;
             isGrounded = true;
+            jumptimes = 0;
+        }
+        else
+        {
+            isGrounded = false;
         }
         if (Input.GetButtonDown("Jump") && (isGrounded || jumptimes < jumpMax))
         {
@@ -155,8 +161,8 @@ public class FinalPlayerController : MonoBehaviour
             gameManager.Instance.SBar.enabled = true;
             isRunning = true;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
-            MoveVector = transform.TransformDirection(PlayerMovementInput) * PlayerSpeed * runSpeed;
-            PlayerBody.velocity = new Vector3(MoveVector.x, MoveVector.y, MoveVector.z);
+            MoveVector = transform.TransformDirection(PlayerMovementInput) * runSpeed;
+            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
         }
         else
         {
