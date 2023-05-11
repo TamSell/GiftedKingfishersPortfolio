@@ -10,7 +10,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
 
 
     [Header("----- Top of Enemy -----")]
-
+    [SerializeField] GameObject ItemToDrop;
 
     [Header("--- Stats ---")]
     [SerializeField] int healthPoints;
@@ -200,8 +200,14 @@ public class EnemySkirmisher : MonoBehaviour, Damage
 
         // Destroy(effect, 2);
 
+
         if (healthPoints <= 0)
         {
+            if(ItemToDrop)
+            {
+                ItemDrop();
+            }
+
             Destroy(gameObject);
             gameManager.Instance.updateGoal(50, -1);
         }
@@ -210,6 +216,10 @@ public class EnemySkirmisher : MonoBehaviour, Damage
             //navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
             //navMeshA.stoppingDistance = 0;
             StartCoroutine(flashColor());
+        }
+        void ItemDrop()
+        {
+            Instantiate(ItemToDrop, transform.position, transform.rotation);
         }
 
     }

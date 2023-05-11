@@ -8,7 +8,7 @@ public class EnemyTurret : MonoBehaviour, Damage
 {
 
     [Header("----- Top of Enemy -----")]
-
+    [SerializeField] GameObject ItemToDrop;
 
     [Header("--- Stats ---")]
     [SerializeField] int healthPoints;
@@ -134,9 +134,14 @@ public class EnemyTurret : MonoBehaviour, Damage
         //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
 
         // Destroy(effect, 2);
-
+      
+        
         if (healthPoints <= 0)
         {
+            if (ItemToDrop != null)
+            {
+                ItemDrop();
+            }
             gameManager.Instance.updateGoal(40, -1);
             Destroy(gameObject);
         }
@@ -145,6 +150,10 @@ public class EnemyTurret : MonoBehaviour, Damage
             StartCoroutine(flashColor());
         }
 
+    }
+    void ItemDrop()
+    {
+        Instantiate(ItemToDrop, transform.position, transform.rotation);
     }
 }
 
