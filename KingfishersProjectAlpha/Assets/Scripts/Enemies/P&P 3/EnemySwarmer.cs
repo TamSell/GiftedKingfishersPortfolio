@@ -7,7 +7,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
 {
 
     [Header("----- Top of Enemy -----")]
-
+    [SerializeField] GameObject iTemToDrop;
 
     [Header("--- Stats ---")]
     [SerializeField] int healthPoints;
@@ -133,9 +133,15 @@ public class EnemySwarmer : MonoBehaviour, Damage
         //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
 
        // Destroy(effect, 2);
+    
+
 
         if (healthPoints <= 0)
         {
+            if (iTemToDrop)
+            {
+                ItemDrop();
+            }
             gameManager.Instance.updateGoal(20,-1);
             Destroy(gameObject);
         }
@@ -146,5 +152,9 @@ public class EnemySwarmer : MonoBehaviour, Damage
             StartCoroutine(flashColor());
         }
 
+    }
+    void ItemDrop()
+    {
+        Instantiate(iTemToDrop, transform.position, transform.rotation);
     }
 }
