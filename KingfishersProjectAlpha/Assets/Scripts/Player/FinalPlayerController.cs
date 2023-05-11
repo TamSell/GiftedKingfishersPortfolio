@@ -96,9 +96,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             Momentum.MomentumState();
         }
-        Dash();
+      
         CD(isDashing, ref DashCD, DashMaxCD);
-        Run();
+        
         MouseMove();
         EneryBuildUP();
         canInteract();
@@ -131,6 +131,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
         Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
         PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
         RaycastHit hit;
+        Run();
+        Dashs();
+         
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.05f, Floor))
         {
             isGrounded = true;
@@ -178,19 +181,22 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
     }
 
-    void Dash()
+    void Dashs()
     {
         if (DashCD > DashMaxCD)
         {
             DashReady = true;
         }
-        if (PlayerMovementInput.x == 0 && PlayerMovementInput.z == 0)
-        {
-            return;
-        }
+        //if (PlayerMovementInput.x == 0 && PlayerMovementInput.z == 0)
+        //{
+        //    return;
+        //}
         if (Input.GetButtonDown("Dash"))
         {
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 1f);
+
+            // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
+            //  PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
             if (DashReady)
             {
                 StartCoroutine(Dashing());
@@ -206,8 +212,11 @@ public class FinalPlayerController : MonoBehaviour, Damage
         DashReady = false;
         while (Time.time < startTime + Dashtime)
         {
-            MoveVector = transform.TransformDirection(PlayerMovementInput) * PlayerSpeed * DashSpeed;
-            gameManager.Instance.playerController.PlayerMovementAddition = MoveVector;
+           // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
+           // PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+            MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
+            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+
             yield return new WaitForEndOfFrame();
 
         }
