@@ -11,40 +11,35 @@ public class PlayerMomentum1 : MonoBehaviour
     [SerializeField] private float speedLimit;
     [SerializeField] private float airSpeed;
     [SerializeField] private float sprintSpeed;
-    private Vector3 direction;
     private float newMoveSpeed;
     private float prevMoveSpeed;
     private float currentSpeed;
-    private float energy;
     public bool inMomentum;
     public bool slowing;
 
-    public void SecondaryMovement()
+    public void SecondaryMovement(Vector3 dir)
     {
-        direction = energizer.PlayerBody.transform.forward * Input.GetAxis("Vertical") + energizer.PlayerBody.transform.right * Input.GetAxis("Horizontal");
-        energy = energizer.currentEnergy;
-        MovePlayerDiff();
         determineSpeed();
-        EnergyBuildUp();
         SlowDown();
+        MovePlayerDiff(dir);
     }
 
     public void determineSpeed()
     {
-        if(Input.GetButtonDown("Run") && energizer.isGrounded)
+        if(!energizer.isGrounded)
         {
-            newMoveSpeed = energizer.runSpeed * 2;
+            newMoveSpeed = energizer.currAirSpeed;
         }
-        else if(!energizer.isGrounded)
+        else if(energizer.isRunning)
         {
-            newMoveSpeed = energizer.airSpeed * 2;
+            newMoveSpeed = energizer.currRunSpeed;
         }
         else
         {
-            newMoveSpeed = energizer.walkSpeed * 2;
+            newMoveSpeed = energizer.currWalkSpeed;
         }
 
-        if(Mathf.Abs(newMoveSpeed-prevMoveSpeed) > 4f && currentSpeed != 0)
+        if((energizer.CurrentSpeed > 2 * speedLimit || Mathf.Abs(newMoveSpeed - prevMoveSpeed) > 4f) && currentSpeed != 0)
         {
             StopAllCoroutines();
             StartCoroutine(SlowDown());
@@ -53,10 +48,11 @@ public class PlayerMomentum1 : MonoBehaviour
         {
             currentSpeed = newMoveSpeed;
         }
-        prevMoveSpeed = newMoveSpeed;
+
+        newMoveSpeed = prevMoveSpeed;
     }
 
-    private void MovePlayerDiff()
+    private void MovePlayerDiff(Vector3 direction)
     {
         if (energizer.isGrounded)
         {
@@ -64,52 +60,42 @@ public class PlayerMomentum1 : MonoBehaviour
         }
         else
         {
-            energizer.PlayerBody.AddForce(direction.normalized * currentSpeed * 10f * airSpeed, ForceMode.Force);
+            energizer.PlayerBody.AddForce(direction.normalized * currentSpeed * 10f * energizer.currAirSpeed, ForceMode.Force);
         }
-    }
-
-    private float EnergyBuildUp()
-    {
-
-        if (energy < energizer.energyMax)
-        {
-            if (energizer.speed > 12)
-            {
-                energizer.currentEnergy += 3 * Time.deltaTime;
-            }
-            else if (energizer.speed > 20)
-            {
-                energizer.currentEnergy += 5 * Time.deltaTime;
-
-            }
-            else if (energizer.speed > 40)
-            {
-                energizer.currentEnergy += 10 * Time.deltaTime;
-            }
-            else if (energizer.currentEnergy > 0)
-            {
-
-                energizer.currentEnergy -= 1 * Time.deltaTime;
-            }
-        }
-        return energy;
     }
 
     public void MomentumState()
     {
-        inMomentum =!inMomentum;
+        inMomentum = !inMomentum;
+        MomentumChange();
+    }
+
+    public void MomentumChange()
+    {
+        if (inMomentum)
+        {
+            energizer.currAirSpeed = energizer.airSpeedMomentum;
+            energizer.currRunSpeed= energizer.runSpeedMomentum;
+            energizer.currWalkSpeed= energizer.walkSpeedMomentum;
+        }
+        else
+        {
+            energizer.currAirSpeed = energizer.airSpeedBase;
+            energizer.currRunSpeed = energizer.runSpeedBase;
+            energizer.currWalkSpeed = energizer.walkSpeedBase;
+        }
     }
 
     IEnumerator SlowDown()
     {
         float stop = 0;
-        float diff = Mathf.Abs(newMoveSpeed - currentSpeed);
+        float diff = Mathf.Abs(newMoveSpeed - energizer.CurrentSpeed);
         float startSpeed = currentSpeed;
         slowing = true;
 
         while (stop < diff)
         {
-            currentSpeed = Mathf.Lerp(startSpeed, newMoveSpeed, stop/diff);
+            currentSpeed = Mathf.Lerp(startSpeed, newMoveSpeed, stop / diff);
             stop += Time.deltaTime * speedMultiplier;
         }
 
@@ -122,10 +108,12 @@ public class PlayerMomentum1 : MonoBehaviour
     {
         Vector3 currVelocity = new Vector3(energizer.PlayerBody.velocity.x, 0f, energizer.PlayerBody.velocity.z);
 
-        if(currVelocity.magnitude > speedLimit)
+        if (currVelocity.magnitude > speedLimit)
         {
-            Vector3 engageLimit = currVelocity.normalized * currentSpeed;
-            energizer.PlayerBody.velocity = engageLimit;
+            Vector3 engageLimit = currVelocity.normalized * energizer.CurrentSpeed;
+            energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y,engageLimit.z);
         }
     }
+
+
 }

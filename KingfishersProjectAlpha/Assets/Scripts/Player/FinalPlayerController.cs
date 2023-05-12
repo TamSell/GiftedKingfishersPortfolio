@@ -13,8 +13,12 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioPl;
     [Space]
-    [SerializeField] public float walkSpeed;
-    [SerializeField] public float airSpeed;
+    [SerializeField] public float walkSpeedBase;
+    [SerializeField] public float airSpeedBase;
+    [SerializeField] public float runSpeedBase;
+    [SerializeField] public float walkSpeedMomentum;
+    [SerializeField] public float airSpeedMomentum;
+    [SerializeField] public float runSpeedMomentum;
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
 
@@ -24,6 +28,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] public float stamina;
     [SerializeField] public float energyMax;
     [SerializeField, Range(0f, 50f)] float interactDist;
+    [SerializeField] float fallMult;
+    [SerializeField] public float MomentumDrag;
+    [SerializeField] public float StandardDrag;
     [SerializeField] int jumpMax;
     [SerializeField] int jumptimes;
 
@@ -54,11 +61,15 @@ public class FinalPlayerController : MonoBehaviour, Damage
     PlayerAudio auido;
     public float PlayerSpeed;
     public float CurrentSpeed;
+    public float currWalkSpeed;
+    public float currAirSpeed;
+    public float currRunSpeed;
     public Vector3 MoveVector;
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
     private Vector2 PlayerMouse;
     private float xRotation;
+    private int energyfallOff;
     public bool isRunning;
     public bool isPlaying;
     public float origHP;
@@ -81,7 +92,12 @@ public class FinalPlayerController : MonoBehaviour, Damage
         Cursor.lockState = CursorLockMode.Locked;
         origHP = HP;
         origStamina = stamina;
-        currentEnergy = energyMax;
+        currentEnergy = 0;
+        Momentum.MomentumChange();
+        currRunSpeed = runSpeedBase;
+        currWalkSpeed = walkSpeedBase;
+        currAirSpeed = airSpeedBase;
+        energyfallOff = 5;
     }
     // Update is called once per frame
     void Update()
@@ -90,66 +106,53 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             return;
         }
-        PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-        PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        if (Input.GetButtonDown("MoveChange"))
-        {
-            Momentum.MomentumState();
-        }
-        Dash();
-        CD(isDashing, ref DashCD, DashMaxCD);
-        Run();
+        //Check if Grounded
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.05f, Floor);
+        //PlayerInput
+        PlayerInput();
         MouseMove();
         EneryBuildUP();
         canInteract();
         playerUpdateUI();
     }
 
-    private void FixedUpdate()
+    public void PlayerInput()
     {
-        if (Momentum.inMomentum)
+        //Obtain Input from keyboard
+        PlayerMovementInput = PlayerBody.transform.forward * Input.GetAxis("Vertical") + PlayerBody.transform.right * Input.GetAxis("Horizontal");
+        //Obtain Mouse Input
+        PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        //Check Run
+        Run();
+        //MomentumState
+        if (Input.GetButtonDown("MoveChange"))
         {
-            Momentum.SecondaryMovement();
+            Momentum.MomentumState();
         }
-        else
-            MovePlayer();
-    }
-
-    private void CD(bool ability, ref float abilityCD, float maxCD)
-    {
-        if (abilityCD > maxCD)
-        {
-            abilityCD = maxCD;
-        }
-        else if (ability == false && abilityCD < maxCD)
-        {
-            abilityCD += 1 * Time.deltaTime;
-        }
-    }
-    private void MovePlayer()
-    {
-        Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
-        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.05f, Floor))
-        {
-            isGrounded = true;
-            jumptimes = 0;
-        }
-        else
-        {
-            isGrounded = false;
-        }
+        //Jump
         if (Input.GetButtonDown("Jump") && (isGrounded || jumptimes < jumpMax))
         {
-            if (isGrounded)
-            {
-                PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                isGrounded = false;
-                jumptimes++;
-                audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
-            }
+            Jump();
         }
+        //Dash
+        CD(isDashing, ref DashCD, DashMaxCD);
+        Dash();
+    }
+
+    private void FixedUpdate()
+    {
+        Momentum.SecondaryMovement(PlayerMovementInput);
+        if (!isGrounded)
+        {
+            PlayerBody.velocity += fallMult * Physics.gravity;
+            PlayerBody.drag = PlayerBody.drag * 0.05f;
+        }
+        else
+            if (Momentum.inMomentum)
+            PlayerBody.drag = MomentumDrag;
+        else
+            PlayerBody.drag = StandardDrag;
+
     }
 
     private void MouseMove()
@@ -159,6 +162,19 @@ public class FinalPlayerController : MonoBehaviour, Damage
         transform.Rotate(0f, PlayerMouse.x * sensitivity, 0f);
         Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
+
+    private void Jump()
+    {
+        if (isGrounded)
+        {
+            jumptimes = 0;
+        }
+        PlayerBody.velocity = new Vector3(PlayerBody.velocity.x, 0f, PlayerBody.velocity.z);
+        PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        jumptimes++;
+        audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
+    }
+
     void Run()
     {
 
@@ -167,8 +183,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
             gameManager.Instance.SBar.enabled = true;
             isRunning = true;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
-            MoveVector = transform.TransformDirection(PlayerMovementInput) * runSpeed;
-            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
         }
         else
         {
@@ -213,6 +227,19 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
         isDashing = false;
     }
+
+    private void CD(bool ability, ref float abilityCD, float maxCD)
+    {
+        if (abilityCD > maxCD)
+        {
+            abilityCD = maxCD;
+        }
+        else if (ability == false && abilityCD < maxCD)
+        {
+            abilityCD += 1 * Time.deltaTime;
+        }
+    }
+
     public bool isDead
     {
         get
@@ -264,23 +291,29 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             if (CurrentSpeed > 30)
             {
-                currentEnergy += 15 * Time.deltaTime;
+                currentEnergy += 15 * Time.deltaTime * 2f;
             }
             else if (CurrentSpeed > 20)
             {
-                currentEnergy += 12 * Time.deltaTime;
+                currentEnergy += 12 * Time.deltaTime * 2f;
             }
             else if (CurrentSpeed > 12)
             {
-                currentEnergy += 10 * Time.deltaTime;
+                currentEnergy += 8 * Time.deltaTime * 2f;
             }
 
         }
         if (currentEnergy > 0)
         {
-            currentEnergy -= 1 * Time.deltaTime;
+            currentEnergy -= (1 * energyfallOff) * Time.deltaTime * 5f;
         }
         return currentEnergy;
+    }
+
+    public void Recoil()
+    {
+        Vector3 direction = Camera.forward;
+        PlayerBody.AddForce(-direction.normalized * currentGun.recoil, ForceMode.Impulse);
     }
     public void respawnPlayer()
     {

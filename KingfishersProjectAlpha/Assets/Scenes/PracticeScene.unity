@@ -2160,12 +2160,64 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: fallMult
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: maxXLock
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: jumpForce
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
       propertyPath: audJumpVol
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: currentGun
+      value: 
+      objectReference: {fileID: 11400000, guid: 38d897400e7ac1a46889045bcb575e09, type: 2}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: MomentumDrag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: StandardDrag
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: airSpeedBase
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
       propertyPath: audDamageVol
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: runSpeedBase
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: walkSpeedBase
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: airSpeedMomentum
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: runSpeedMomentum
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: walkSpeedMomentum
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900675959591840788, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: speedLimit
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1900675959591840788, guid: 707f5423c0f36134087904948fbaa013, type: 3}
       propertyPath: speedMultiplier

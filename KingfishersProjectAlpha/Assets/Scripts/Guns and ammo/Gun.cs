@@ -114,6 +114,7 @@ public class Gun : MonoBehaviour
         if (!isShooting && Input.GetButton("Shoot"))
         {
             reaload = false;
+            gameManager.Instance.playerController.Recoil();
             StartCoroutine(FirstShoot());
         }
        
