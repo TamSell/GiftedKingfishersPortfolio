@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 364895669556308496}
   - component: {fileID: 236422772}
   - component: {fileID: 236422771}
+  - component: {fileID: 82974300}
   m_Layer: 3
   m_Name: TruePlayer
   m_TagString: Player
@@ -128,14 +129,21 @@ MonoBehaviour:
   Momentum: {fileID: 1900675959591840788}
   animator: {fileID: 236422771}
   audioPl: {fileID: 236422772}
-  walkSpeed: 10
-  airSpeed: 5
+  walkSpeedBase: 5
+  airSpeedBase: 0.5
+  runSpeedBase: 10
+  walkSpeedMomentum: 10
+  airSpeedMomentum: 2.5
+  runSpeedMomentum: 20
   sensitivity: 1
-  jumpForce: 5
+  jumpForce: 25
   HP: 50
   stamina: 0
   energyMax: 100
   interactDist: 12.5
+  fallMult: 0.1
+  MomentumDrag: 0.5
+  StandardDrag: 5
   jumpMax: 1
   jumptimes: 0
   RunFov: 56
@@ -147,12 +155,12 @@ MonoBehaviour:
   DashMaxCD: 1
   DashReady: 0
   isDashing: 0
-  audJumpVol: 0.244
+  audJumpVol: 1
   audJump:
   - {fileID: 8300000, guid: 29c2f7e0f29e7784b98a134c01eda264, type: 3}
   - {fileID: 8300000, guid: e9a6d2819827bb347b701ff30413a4ac, type: 3}
   - {fileID: 8300000, guid: 5e73fe784bf8bca478b7c7985ae85a00, type: 3}
-  audDamageVol: 0.255
+  audDamageVol: 1
   audDamage:
   - {fileID: 8300000, guid: fd413a2a7b61f7749a5430623863472f, type: 3}
   - {fileID: 8300000, guid: 661bdd533104ff9498333f596f140cf7, type: 3}
@@ -160,9 +168,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc708075fcb61004682f0c06fc03c2c7, type: 3}
   - {fileID: 8300000, guid: 1c3732f8a948e4944acb74280bfc088d, type: 3}
   - {fileID: 8300000, guid: 3c21a4a4b5833fa4ba1222c14684f357, type: 3}
-  currentGun: {fileID: 0}
+  currentGun: {fileID: 11400000, guid: 38d897400e7ac1a46889045bcb575e09, type: 2}
   PlayerSpeed: 10
   CurrentSpeed: 0
+  currWalkSpeed: 0
+  currAirSpeed: 0
+  currRunSpeed: 0
   MoveVector: {x: 0, y: 0, z: 0}
   PlayerMovementInput: {x: 0, y: 0, z: 0}
   PlayerMovementAddition: {x: 0, y: 0, z: 0}
@@ -175,7 +186,7 @@ MonoBehaviour:
   isGrounded: 0
   isTeleporting: 0
   minXLock: -90
-  maxXLock: 50
+  maxXLock: 80
 --- !u!114 &1900675959591840788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,8 +200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energizer: {fileID: 364895669556308506}
-  speedMultiplier: 4
-  speedLimit: 100
+  speedMultiplier: 2
+  speedLimit: 50
   airSpeed: 5
   sprintSpeed: 20
   inMomentum: 0
@@ -391,6 +402,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!136 &82974300
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364895669556308499}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &364895669908387297
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,6 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 364895669908387300}
+  stats: {fileID: 11400000, guid: 136b5d9110902fa47bfe707c66de5221, type: 2}
   aud: {fileID: 8547913628853106929}
   ShootRate: 0.75
   realoadSpeed: 1
@@ -1002,6 +1028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 364895669908387300}
+  stats: {fileID: 0}
   aud: {fileID: 8547913629000591362}
   ShootRate: 0.827
   realoadSpeed: 2
@@ -1254,6 +1281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 364895669908387300}
+  stats: {fileID: 0}
   aud: {fileID: 8547913629750965777}
   ShootRate: 0.301
   realoadSpeed: 3
@@ -1733,6 +1761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 364895669908387300}
+  stats: {fileID: 11400000, guid: 38d897400e7ac1a46889045bcb575e09, type: 2}
   aud: {fileID: 8547913629828320552}
   ShootRate: 1.04
   realoadSpeed: 2
