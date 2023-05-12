@@ -9,7 +9,7 @@ public class supportItem : MonoBehaviour
     public bool Health;
     [SerializeField] int addIt;
     [SerializeField] GameObject ItemEffect;
-    [SerializeField] AudioSource audio;
+    [SerializeField] AudioSource aud;
     [SerializeField] int DestroyTime;
     GameObject DestroyEffect;
     [SerializeField] MeshRenderer mesh;
@@ -35,7 +35,7 @@ public class supportItem : MonoBehaviour
             {
                 Effect();
                 Instantiate(SoundEffect, transform.position, drop.transform.rotation);
-                audio.PlayOneShot(SoundEffect, Volume);
+                aud.PlayOneShot(SoundEffect, Volume);
            
                 if(gameManager.Instance.playerController.origHP > gameManager.Instance.playerController.HP + addIt)
                     gameManager.Instance.playerController.HP += addIt;
@@ -45,7 +45,7 @@ public class supportItem : MonoBehaviour
             else
             {
                 Effect();
-                audio.PlayOneShot(SoundEffect, Volume);
+                aud.PlayOneShot(SoundEffect, Volume);
                
                 gameManager.Instance.playerController.currentGun.totalAmmo += addIt;
             }
