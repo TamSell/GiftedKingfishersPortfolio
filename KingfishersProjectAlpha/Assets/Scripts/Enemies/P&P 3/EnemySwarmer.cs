@@ -7,7 +7,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
 {
 
     [Header("----- Top of Enemy -----")]
-    [SerializeField] GameObject iTemToDrop;
+    [SerializeField] GameObject[] ItemToDrop;
 
     [Header("--- Stats ---")]
     [SerializeField] int healthPoints;
@@ -138,7 +138,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
 
         if (healthPoints <= 0)
         {
-            if (iTemToDrop)
+            if (ItemToDrop.Length != 0)
             {
                 ItemDrop();
             }
@@ -155,6 +155,11 @@ public class EnemySwarmer : MonoBehaviour, Damage
     }
     void ItemDrop()
     {
-        Instantiate(iTemToDrop, transform.position, transform.rotation);
+        int Item = Random.Range(0, 5);
+
+        if (ItemToDrop.Length > Item)
+        {
+            Instantiate(ItemToDrop[Item], transform.position, transform.rotation);
+        }
     }
 }
