@@ -81,8 +81,11 @@ public class Gun : MonoBehaviour
     void Update()
     {
         CurrentEnergy = Energy;
-
-        Reloading();
+        if(!secondaryGun)
+        {
+            Reloading();
+        }
+      
         if (reaload == true)
         {
             Invoke("shooting", realoadSpeed);
@@ -269,6 +272,10 @@ public class Gun : MonoBehaviour
 
     public void Reloading()
     {
+        if(secondaryGun)
+        {
+            return;
+        }
         
         if (!isShooting)
         {
@@ -341,8 +348,8 @@ public class Gun : MonoBehaviour
             gameManager.Instance.playerController.PlayerMovementAddition = MoveVector;
             yield return new WaitForEndOfFrame();
         }
-        // 
-       // transform.TransformDirection(gameManager.Instance.playerController.PlayerMovementInput)
+        // Vector3.back
+        // transform.TransformDirection(gameManager.Instance.playerController.PlayerMovementInput)
     }
 
 }

@@ -8,7 +8,7 @@ public class EnemyTurret : MonoBehaviour, Damage
 {
 
     [Header("----- Top of Enemy -----")]
-
+    [SerializeField] GameObject[] ItemToDrop;
 
     [Header("--- Stats ---")]
     [SerializeField] int healthPoints;
@@ -135,8 +135,15 @@ public class EnemyTurret : MonoBehaviour, Damage
 
         // Destroy(effect, 2);
 
+
         if (healthPoints <= 0)
         {
+
+            if (ItemToDrop.Length != 0)
+            {
+                ItemDrop();
+            }
+ 
             gameManager.Instance.updateGoal(40, -1);
             Destroy(gameObject);
         }
@@ -145,6 +152,15 @@ public class EnemyTurret : MonoBehaviour, Damage
             StartCoroutine(flashColor());
         }
 
+    }
+    void ItemDrop()
+    {
+        int Item = Random.Range(0, 5);
+
+        if(ItemToDrop.Length >Item)
+        {
+            Instantiate(ItemToDrop[Item], transform.position, transform.rotation);
+        }
     }
 }
 
