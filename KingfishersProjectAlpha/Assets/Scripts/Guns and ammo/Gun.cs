@@ -202,6 +202,7 @@ public class Gun : MonoBehaviour
             isShooting = true;
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
+            aud.PlayOneShot(GunShot, gunShotVol);
             ShootImpulse();
             for (int i = 0; i < bulletPerShot; i++)
             {

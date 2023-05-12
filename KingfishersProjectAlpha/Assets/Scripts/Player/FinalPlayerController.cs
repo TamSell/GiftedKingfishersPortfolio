@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FinalPlayerController : MonoBehaviour, Damage
@@ -31,6 +32,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] public float RunFov;
     [SerializeField] public float runSpeed;
     [SerializeField] float FovOrg;
+    [SerializeField] GameObject runningEffect;
 
     [Header("------Dash Stats------")]
     [SerializeField] float DashSpeed;
@@ -86,6 +88,16 @@ public class FinalPlayerController : MonoBehaviour, Damage
     // Update is called once per frame
     void Update()
     {
+        if(CurrentSpeed>12)
+        {
+            runningEffect.SetActive(true);
+            
+        }
+        else
+        {
+            runningEffect.SetActive(false);
+        }
+
         if (gameManager.Instance.inMenu)
         {
             return;
@@ -167,6 +179,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
         if (Input.GetButton("Run"))
         {
+          
             gameManager.Instance.SBar.enabled = true;
             isRunning = true;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
@@ -175,6 +188,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
         else
         {
+           
             isRunning = false;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 2.5f);
 
