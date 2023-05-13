@@ -138,7 +138,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             Jump();
         }
-        Dash2();
+        //Dash2();
         //CD(isDashing, ref DashCD, DashMaxCD);
         //Dash();
     }
@@ -194,7 +194,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             isRunning = false;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 2.5f);
-
         }
     }
 
@@ -329,7 +328,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     public float EneryBuildUP()
     {
-        StartCoroutine(CalculateSpeed());
         if (currentEnergy < energyMax)
         {
             if (CurrentSpeed > 30)

@@ -54,7 +54,7 @@ public class PlayerMomentum1 : MonoBehaviour
             currentSpeed = newMoveSpeed;
         }
 
-        newMoveSpeed = prevMoveSpeed;
+        prevMoveSpeed = newMoveSpeed;
     }
 
     private void MovePlayerDiff(Vector3 direction)
@@ -115,7 +115,7 @@ public class PlayerMomentum1 : MonoBehaviour
 
         if (currVelocity.magnitude > speedLimit)
         {
-            Vector3 engageLimit = currVelocity.normalized * energizer.CurrentSpeed;
+            Vector3 engageLimit = currVelocity.normalized * currentSpeed;
             energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y,engageLimit.z);
         }
     }
