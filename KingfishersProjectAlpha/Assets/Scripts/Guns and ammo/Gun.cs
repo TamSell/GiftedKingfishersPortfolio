@@ -343,8 +343,8 @@ public class Gun : MonoBehaviour
 
         while (Time.time < startTime + ImpulseTime)
         {
-            gameManager.Instance.playerController.Recoil();
             yield return new WaitForEndOfFrame();
+            gameManager.Instance.playerController.Recoil();
         }
         // Vector3.back
         // transform.TransformDirection(gameManager.Instance.playerController.PlayerMovementInput)
