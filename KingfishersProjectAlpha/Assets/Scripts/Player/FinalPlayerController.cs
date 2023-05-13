@@ -100,6 +100,16 @@ public class FinalPlayerController : MonoBehaviour, Damage
     // Update is called once per frame
     void Update()
     {
+        if(CurrentSpeed>12)
+        {
+            runningEffect.SetActive(true);
+            
+        }
+        else
+        {
+            runningEffect.SetActive(false);
+        }
+
         if (gameManager.Instance.inMenu)
         {
             return;
