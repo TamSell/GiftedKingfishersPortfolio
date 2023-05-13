@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-//using UnityEditor.Search;
 using UnityEngine;
 
 public class PlayerMomentum1 : MonoBehaviour
@@ -9,92 +8,61 @@ public class PlayerMomentum1 : MonoBehaviour
     [SerializeField] private FinalPlayerController energizer;
     [SerializeField] private float speedMultiplier;
     [SerializeField] private float speedLimit;
-    [SerializeField] private float airSpeed;
-    [SerializeField] private float sprintSpeed;
+    private Vector3 direction;
     private float newMoveSpeed;
     private float prevMoveSpeed;
-    private float currentSpeed;
+    public float currentSpeed;
     public bool inMomentum;
     public bool slowing;
 
-    public void SecondaryMovement(Vector3 dir)
+    public void SetUp()
     {
+        Limiters();
         determineSpeed();
-        SlowlyChangeSpeed();
-        MovePlayerDiff(dir);
     }
 
     public void determineSpeed()
     {
-        if(!energizer.isGrounded)
-        {
-            newMoveSpeed = energizer.currAirSpeed;
-        }
-        else if(energizer.isRunning)
+        if (energizer.isRunning && energizer.isGrounded)
         {
             newMoveSpeed = energizer.currRunSpeed;
         }
-        else if(energizer.isDashing)
+        else if (!energizer.isGrounded)
         {
-            newMoveSpeed = energizer.DashSpeed;
+            newMoveSpeed = energizer.currAirSpeed;
         }
         else
         {
             newMoveSpeed = energizer.currWalkSpeed;
         }
 
-        if((energizer.CurrentSpeed > 2 * speedLimit || Mathf.Abs(newMoveSpeed - prevMoveSpeed) > 4f) && currentSpeed != 0)
+        if (Mathf.Abs(newMoveSpeed - prevMoveSpeed) > 4f && currentSpeed != 0)
         {
             StopAllCoroutines();
-            StartCoroutine(SlowlyChangeSpeed());
+            StartCoroutine(SlowDown());
         }
         else
         {
-            StopAllCoroutines();
             currentSpeed = newMoveSpeed;
         }
-
         prevMoveSpeed = newMoveSpeed;
     }
 
-    private void MovePlayerDiff(Vector3 direction)
+    public void MovePlayerDiff()
     {
-        if (energizer.isGrounded)
-        {
-            energizer.PlayerBody.AddForce(direction.normalized * currentSpeed * 10f, ForceMode.Force);
-        }
-        else
-        {
-            energizer.PlayerBody.AddForce(direction.normalized * currentSpeed * 10f * energizer.currAirSpeed, ForceMode.Force);
-        }
+        direction = energizer.PlayerMovementInput;
+        energizer.PlayerBody.AddForce(direction.normalized * currentSpeed * 10f, ForceMode.Force);
     }
 
     public void MomentumState()
     {
         inMomentum = !inMomentum;
-        MomentumChange();
     }
 
-    public void MomentumChange()
-    {
-        if (inMomentum)
-        {
-            energizer.currAirSpeed = energizer.airSpeedMomentum;
-            energizer.currRunSpeed= energizer.runSpeedMomentum;
-            energizer.currWalkSpeed= energizer.walkSpeedMomentum;
-        }
-        else
-        {
-            energizer.currAirSpeed = energizer.airSpeedBase;
-            energizer.currRunSpeed = energizer.runSpeedBase;
-            energizer.currWalkSpeed = energizer.walkSpeedBase;
-        }
-    }
-
-    IEnumerator SlowlyChangeSpeed()
+    IEnumerator SlowDown()
     {
         float stop = 0;
-        float diff = Mathf.Abs(newMoveSpeed - energizer.CurrentSpeed);
+        float diff = Mathf.Abs(newMoveSpeed - currentSpeed);
         float startSpeed = currentSpeed;
         slowing = true;
 
@@ -102,9 +70,9 @@ public class PlayerMomentum1 : MonoBehaviour
         {
             currentSpeed = Mathf.Lerp(startSpeed, newMoveSpeed, stop / diff);
             stop += Time.deltaTime * speedMultiplier;
-            yield return null;
         }
 
+        yield return new Null();
         slowing = false;
         currentSpeed = newMoveSpeed;
     }
@@ -115,10 +83,8 @@ public class PlayerMomentum1 : MonoBehaviour
 
         if (currVelocity.magnitude > speedLimit)
         {
-            Vector3 engageLimit = currVelocity.normalized * currentSpeed;
-            energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y,engageLimit.z);
+            Vector3 engageLimit = currVelocity.normalized * speedLimit;
+            energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y, engageLimit.z);
         }
     }
-
-
 }

@@ -117,7 +117,6 @@ public class Gun : MonoBehaviour
         if (!isShooting && Input.GetButton("Shoot"))
         {
             reaload = false;
-            gameManager.Instance.playerController.Recoil();
             StartCoroutine(FirstShoot());
         }
        
@@ -343,9 +342,7 @@ public class Gun : MonoBehaviour
 
         while (Time.time < startTime + ImpulseTime)
         {
-           
-            Vector3 MoveVector = Vector3.back * ImpulseSpeed;
-            gameManager.Instance.playerController.PlayerMovementAddition = MoveVector;
+            gameManager.Instance.playerController.Recoil();
             yield return new WaitForEndOfFrame();
         }
         // Vector3.back

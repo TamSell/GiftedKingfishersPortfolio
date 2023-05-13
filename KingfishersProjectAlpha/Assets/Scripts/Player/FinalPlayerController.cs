@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+//using UnityEditor.Search;
 using UnityEngine;
 
 public class FinalPlayerController : MonoBehaviour, Damage
@@ -14,12 +15,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioPl;
     [Space]
-    [SerializeField] public float walkSpeedBase;
-    [SerializeField] public float airSpeedBase;
-    [SerializeField] public float runSpeedBase;
-    [SerializeField] public float walkSpeedMomentum;
-    [SerializeField] public float airSpeedMomentum;
-    [SerializeField] public float runSpeedMomentum;
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
 
@@ -28,25 +23,28 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] public float HP;
     [SerializeField] public float stamina;
     [SerializeField] public float energyMax;
-    [SerializeField] float energyfallOff;
     [SerializeField, Range(0f, 50f)] float interactDist;
-    [SerializeField] float fallMult;
+    [SerializeField] public float walkSpeedBase;
+    [SerializeField] public float airSpeedBase;
+    [SerializeField] public float runSpeedBase;
+    [SerializeField] public float walkSpeedMomentum;
+    [SerializeField] public float airSpeedMomentum;
+    [SerializeField] public float runSpeedMomentum;
     [SerializeField] public float MomentumDrag;
     [SerializeField] public float StandardDrag;
+    [SerializeField] float fallMult;
+    [SerializeField] public float energyFallOff;
     [SerializeField] int jumpMax;
     [SerializeField] int jumptimes;
 
     [Header("-----Runing stats-----")]
     [SerializeField] public float RunFov;
-    [SerializeField] public float runSpeed;
     [SerializeField] float FovOrg;
+    [SerializeField] GameObject runningEffect;
 
     [Header("------Dash Stats------")]
-    [SerializeField] public bool useCamForDash;
-    [SerializeField] public float DashSpeed;
-    [SerializeField] private float dashUp;
+    [SerializeField] float DashSpeed;
     [SerializeField] float Dashtime;
-    [SerializeField] float DashFov;
     [SerializeField] float DashCD;
     [SerializeField] float DashMaxCD;
     public bool DashReady;
@@ -64,12 +62,10 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     [Space]
     PlayerAudio auido;
-    public float PlayerSpeed;
-    public float CurrentSpeed;
     public float currWalkSpeed;
     public float currAirSpeed;
     public float currRunSpeed;
-    private Vector3 dashForce;
+    public float CurrentSpeed;
     public Vector3 MoveVector;
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
@@ -83,6 +79,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public float speed;
     public bool isGrounded;
     public bool isTeleporting;
+    public bool isJumping;
     public float minXLock;
     public float maxXLock;
 
@@ -97,11 +94,8 @@ public class FinalPlayerController : MonoBehaviour, Damage
         Cursor.lockState = CursorLockMode.Locked;
         origHP = HP;
         origStamina = stamina;
-        currentEnergy = 0;
-        Momentum.MomentumChange();
-        currRunSpeed = runSpeedBase;
-        currWalkSpeed = walkSpeedBase;
-        currAirSpeed = airSpeedBase;
+        currentEnergy = energyMax;
+        SpeedSwitch();
     }
     // Update is called once per frame
     void Update()
@@ -110,48 +104,17 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             return;
         }
-        //Check if Grounded
+        //if (CurrentSpeed > 12)
+        //{
+        //    runningEffect.SetActive(true);
+
+        //}
+        //else
+        //{
+        //    runningEffect.SetActive(false);
+        //}
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.05f, Floor);
-        //PlayerInput
-        PlayerInput();
-        MouseMove();
-        EneryBuildUP();
-        canInteract();
-        playerUpdateUI();
-    }
-
-    public void PlayerInput()
-    {
-        //Obtain Input from keyboard
-        PlayerMovementInput = PlayerBody.transform.forward * Input.GetAxis("Vertical") + PlayerBody.transform.right * Input.GetAxis("Horizontal");
-        //Obtain Mouse Input
-        PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        //Check Run
-        Run();
-        //MomentumState
-        if (Input.GetButtonDown("MoveChange"))
-        {
-            Momentum.MomentumState();
-        }
-        //Jump
-        if (Input.GetButtonDown("Jump") && (isGrounded || jumptimes < jumpMax))
-        {
-            Jump();
-        }
-        //Dash2();
-        //CD(isDashing, ref DashCD, DashMaxCD);
-        //Dash();
-    }
-
-    private void FixedUpdate()
-    {
-        Momentum.SecondaryMovement(PlayerMovementInput);
-        if (!isGrounded)
-        {
-            PlayerBody.velocity += fallMult * Physics.gravity;
-            PlayerBody.drag = PlayerBody.drag * 0.05f;
-        }
-        else
+        if (isGrounded)
         {
             if (Momentum.inMomentum)
                 PlayerBody.drag = MomentumDrag;
@@ -159,114 +122,40 @@ public class FinalPlayerController : MonoBehaviour, Damage
                 PlayerBody.drag = StandardDrag;
         }
 
+        PlayerInput();
+        MouseMove();
+        EneryBuildUP();
+        playerUpdateUI();
     }
 
-    private void MouseMove()
+    private void PlayerInput()
     {
-        xRotation -= PlayerMouse.y * sensitivity;
-        xRotation = Mathf.Clamp(xRotation, minXLock, maxXLock);
-        transform.Rotate(0f, PlayerMouse.x * sensitivity, 0f);
-        Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-    }
-
-    private void Jump()
-    {
-        if (isGrounded)
+        PlayerMovementInput = Input.GetAxis("Horizontal") * PlayerBody.transform.right + PlayerBody.transform.forward * Input.GetAxis("Vertical");
+        PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Momentum.SetUp();
+        if (Input.GetButtonDown("MoveChange"))
         {
-            jumptimes = 0;
+            Momentum.MomentumState();
+            SpeedSwitch();
         }
-        PlayerBody.velocity = new Vector3(PlayerBody.velocity.x, 0f, PlayerBody.velocity.z);
-        PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        jumptimes++;
-        audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
-    }
-
-    void Run()
-    {
-
-        if (Input.GetButton("Run"))
+        if (Input.GetButtonDown("Jump") && (isGrounded || jumptimes < jumpMax))
         {
-            gameManager.Instance.SBar.enabled = true;
-            isRunning = true;
-            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
+            Jump();
         }
-        else
+        canInteract();
+        Run();
+        //CD(isDashing, ref DashCD, DashMaxCD);
+        //Dashs();
+    }
+
+    private void FixedUpdate()
+    {
+        Momentum.MovePlayerDiff();
+        if (!isGrounded)
         {
-            isRunning = false;
-            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 2.5f);
+            PlayerBody.velocity += fallMult * Physics.gravity;
+            PlayerBody.drag = PlayerBody.drag * 0.9f;
         }
-    }
-
-    void Dash()
-    {
-        if (DashCD > DashMaxCD)
-        {
-            DashReady = true;
-        }
-        //if (PlayerMovementInput.x == 0 && PlayerMovementInput.z == 0)
-        //{
-        //    return;
-        //}
-        if (Input.GetButtonDown("Dash"))
-        {
-            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 1f);
-
-            // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-            //  PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-            if (DashReady)
-            {
-                StartCoroutine(Dashing());
-            }
-        }
-    }
-
-    void Dash2()
-    {
-        if (DashCD != DashMaxCD)
-            return;
-        else
-            DashCD= DashMaxCD;
-        isDashing = true;
-        
-        UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, DashFov, Time.deltaTime);
-
-        Transform dir;
-        if (useCamForDash)
-            dir = Camera;
-        else
-            dir = PlayerBody.transform;
-
-        Vector3 dashDir = dir.forward * PlayerMovementInput.x + dir.right * PlayerMovementInput.z;
-        Vector3 dashForce = dashDir * DashSpeed + PlayerBody.transform.up * dashUp;
-
-        Invoke(nameof(DelayDash), 0.025f);
-        Invoke(nameof(DashCD2), DashCD);
-    }
-
-    private void DelayDash()
-    {
-        PlayerBody.velocity = Vector3.zero;
-        PlayerBody.AddForce(dashForce, ForceMode.Impulse);
-    }
-    void DashCD2()
-    {
-        isDashing = false;
-        UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime);
-    }
-
-    IEnumerator Dashing()
-    {
-        isDashing = true;
-        float startTime = Time.time;
-        DashCD = 0;
-        DashReady = false;
-        while (Time.time < startTime + Dashtime)
-        {
-            MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-            PlayerBody.AddForce(MoveVector, ForceMode.Impulse);
-        }
-        yield return new WaitForEndOfFrame();
-        isDashing = false;
     }
 
     private void CD(bool ability, ref float abilityCD, float maxCD)
@@ -279,6 +168,109 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             abilityCD += 1 * Time.deltaTime;
         }
+    }
+
+    private void MouseMove()
+    {
+        xRotation -= PlayerMouse.y * sensitivity;
+        xRotation = Mathf.Clamp(xRotation, minXLock, maxXLock);
+        transform.Rotate(0f, PlayerMouse.x * sensitivity, 0f);
+        Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+    }
+
+    private void SpeedSwitch()
+    {
+        if (Momentum.inMomentum)
+        {
+            currAirSpeed = airSpeedMomentum;
+            currRunSpeed = runSpeedMomentum;
+            currWalkSpeed = walkSpeedMomentum;
+        }
+        else
+        {
+            currAirSpeed = airSpeedBase;
+            currRunSpeed = runSpeedBase;
+            currWalkSpeed = walkSpeedBase;
+        }
+    }
+
+    public void Jump()
+    {
+        isJumping = true;
+        if (isGrounded)
+        {
+            jumptimes = 0;
+        }
+        PlayerBody.velocity = new Vector3(PlayerBody.velocity.x, 0f, PlayerBody.velocity.z);
+        PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        jumptimes++;
+        audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
+        isJumping= false;
+    }
+
+    void Run()
+    {
+        if (Input.GetButton("Run"))
+        {
+            //gameManager.Instance.SBar.enabled = true;
+            isRunning = true;
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
+        }
+        else
+        {
+
+            isRunning = false;
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 2.5f);
+
+        }
+    }
+
+    //void Dashs()
+    //{
+    //    if (DashCD > DashMaxCD)
+    //    {
+    //        DashReady = true;
+    //    }
+    //    //if (PlayerMovementInput.x == 0 && PlayerMovementInput.z == 0)
+    //    //{
+    //    //    return;
+    //    //}
+    //    if (Input.GetButtonDown("Dash"))
+    //    {
+    //        UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 1f);
+
+    //        // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
+    //        //  PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+    //        if (DashReady)
+    //        {
+    //            StartCoroutine(Dashing());
+    //        }
+    //    }
+    //}
+
+    //IEnumerator Dashing()
+    //{
+    //    isDashing = true;
+    //    float startTime = Time.time;
+    //    DashCD = 0;
+    //    DashReady = false;
+    //    while (Time.time < startTime + Dashtime)
+    //    {
+    //        // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
+    //        // PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+    //        MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
+    //        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+
+    //        yield return new WaitForEndOfFrame();
+
+    //    }
+    //    isDashing = false;
+    //}
+
+    public void Recoil()
+    {
+        Vector3 direction = Camera.forward;
+        PlayerBody.AddForce(-direction.normalized * currentGun.recoil, ForceMode.Impulse);
     }
 
     public bool isDead
@@ -328,46 +320,50 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     public float EneryBuildUP()
     {
+        float mult;
+        if(isJumping)
+        {
+            mult = 1.5f;
+        }
+        else
+        {
+            mult = 2f;
+        }
         if (currentEnergy < energyMax)
         {
             if (CurrentSpeed > 30)
             {
-                currentEnergy += 25 * Time.deltaTime * 2f;
+                currentEnergy += 25 * Time.deltaTime * mult;
             }
             else if (CurrentSpeed > 20)
             {
-                currentEnergy += 15 * Time.deltaTime * 2f;
+                currentEnergy += 15 * Time.deltaTime * mult;
             }
             else if (CurrentSpeed > 15)
             {
-                currentEnergy += 10 * Time.deltaTime * 2f;
+                currentEnergy += 10 * Time.deltaTime * mult;
             }
             else if (CurrentSpeed > 10)
             {
-                currentEnergy += energyfallOff * Time.deltaTime * 2f;
+                currentEnergy += energyFallOff * Time.deltaTime * mult;
             }
-            else if(CurrentSpeed < 2)
+            else if (CurrentSpeed < 2)
             {
-                currentEnergy -= energyfallOff * Time.deltaTime * (currentEnergy / 15);
+                currentEnergy -= energyFallOff * Time.deltaTime * (currentEnergy / 15);
             }
 
         }
         if (currentEnergy > 0)
         {
-            currentEnergy -= energyfallOff * Time.deltaTime * (currentEnergy / 15);
+            currentEnergy -= energyFallOff * Time.deltaTime * (currentEnergy / 15);
         }
         return currentEnergy;
     }
 
-    public void Recoil()
-    {
-        Vector3 direction = Camera.forward;
-        PlayerBody.AddForce(-direction.normalized * currentGun.recoil, ForceMode.Impulse);
-    }
     public void respawnPlayer()
     {
         HP = origHP;
-        //playerUpdateUI();
+        playerUpdateUI();
         PlayerBody.isKinematic = true;
         transform.position = gameManager.Instance.playerSpawnPos.transform.position;
         PlayerBody.isKinematic = false;
