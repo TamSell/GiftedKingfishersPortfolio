@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour, Damage
 
     [Header("-------Player Movement--------")]
     [Range(0, 10)][SerializeField] float RunSpeed;
-    [Range(5, 250)][SerializeField] float DashSpeed;
+    [Range(5, 250)][SerializeField] public float DashSpeed;
     [Range(0, 1)][SerializeField] float DashTime;
     [Range(0,30)][SerializeField] float MaxStamina;
     [SerializeField] float Stamina;

@@ -20,7 +20,7 @@ public class PlayerMomentum1 : MonoBehaviour
     public void SecondaryMovement(Vector3 dir)
     {
         determineSpeed();
-        SlowDown();
+        SlowlyChangeSpeed();
         MovePlayerDiff(dir);
     }
 
@@ -34,6 +34,10 @@ public class PlayerMomentum1 : MonoBehaviour
         {
             newMoveSpeed = energizer.currRunSpeed;
         }
+        else if(energizer.isDashing)
+        {
+            newMoveSpeed = energizer.DashSpeed;
+        }
         else
         {
             newMoveSpeed = energizer.currWalkSpeed;
@@ -42,10 +46,11 @@ public class PlayerMomentum1 : MonoBehaviour
         if((energizer.CurrentSpeed > 2 * speedLimit || Mathf.Abs(newMoveSpeed - prevMoveSpeed) > 4f) && currentSpeed != 0)
         {
             StopAllCoroutines();
-            StartCoroutine(SlowDown());
+            StartCoroutine(SlowlyChangeSpeed());
         }
         else
         {
+            StopAllCoroutines();
             currentSpeed = newMoveSpeed;
         }
 
@@ -86,7 +91,7 @@ public class PlayerMomentum1 : MonoBehaviour
         }
     }
 
-    IEnumerator SlowDown()
+    IEnumerator SlowlyChangeSpeed()
     {
         float stop = 0;
         float diff = Mathf.Abs(newMoveSpeed - energizer.CurrentSpeed);
@@ -97,9 +102,9 @@ public class PlayerMomentum1 : MonoBehaviour
         {
             currentSpeed = Mathf.Lerp(startSpeed, newMoveSpeed, stop / diff);
             stop += Time.deltaTime * speedMultiplier;
+            yield return null;
         }
 
-        yield return new Null();
         slowing = false;
         currentSpeed = newMoveSpeed;
     }

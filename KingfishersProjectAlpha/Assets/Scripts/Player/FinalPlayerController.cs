@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FinalPlayerController : MonoBehaviour, Damage
@@ -27,6 +28,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] public float HP;
     [SerializeField] public float stamina;
     [SerializeField] public float energyMax;
+    [SerializeField] float energyfallOff;
     [SerializeField, Range(0f, 50f)] float interactDist;
     [SerializeField] float fallMult;
     [SerializeField] public float MomentumDrag;
@@ -40,8 +42,11 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] float FovOrg;
 
     [Header("------Dash Stats------")]
-    [SerializeField] float DashSpeed;
+    [SerializeField] public bool useCamForDash;
+    [SerializeField] public float DashSpeed;
+    [SerializeField] private float dashUp;
     [SerializeField] float Dashtime;
+    [SerializeField] float DashFov;
     [SerializeField] float DashCD;
     [SerializeField] float DashMaxCD;
     public bool DashReady;
@@ -64,12 +69,12 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public float currWalkSpeed;
     public float currAirSpeed;
     public float currRunSpeed;
+    private Vector3 dashForce;
     public Vector3 MoveVector;
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
     private Vector2 PlayerMouse;
     private float xRotation;
-    private int energyfallOff;
     public bool isRunning;
     public bool isPlaying;
     public float origHP;
@@ -97,7 +102,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
         currRunSpeed = runSpeedBase;
         currWalkSpeed = walkSpeedBase;
         currAirSpeed = airSpeedBase;
-        energyfallOff = 5;
     }
     // Update is called once per frame
     void Update()
@@ -134,9 +138,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             Jump();
         }
-        //Dash
-        CD(isDashing, ref DashCD, DashMaxCD);
-        Dash();
+        Dash2();
+        //CD(isDashing, ref DashCD, DashMaxCD);
+        //Dash();
     }
 
     private void FixedUpdate()
@@ -148,10 +152,12 @@ public class FinalPlayerController : MonoBehaviour, Damage
             PlayerBody.drag = PlayerBody.drag * 0.05f;
         }
         else
+        {
             if (Momentum.inMomentum)
-            PlayerBody.drag = MomentumDrag;
-        else
-            PlayerBody.drag = StandardDrag;
+                PlayerBody.drag = MomentumDrag;
+            else
+                PlayerBody.drag = StandardDrag;
+        }
 
     }
 
@@ -192,7 +198,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
     }
 
-    void Dashs()
+    void Dash()
     {
         if (DashCD > DashMaxCD)
         {
@@ -215,6 +221,40 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
     }
 
+    void Dash2()
+    {
+        if (DashCD != DashMaxCD)
+            return;
+        else
+            DashCD= DashMaxCD;
+        isDashing = true;
+        
+        UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, DashFov, Time.deltaTime);
+
+        Transform dir;
+        if (useCamForDash)
+            dir = Camera;
+        else
+            dir = PlayerBody.transform;
+
+        Vector3 dashDir = dir.forward * PlayerMovementInput.x + dir.right * PlayerMovementInput.z;
+        Vector3 dashForce = dashDir * DashSpeed + PlayerBody.transform.up * dashUp;
+
+        Invoke(nameof(DelayDash), 0.025f);
+        Invoke(nameof(DashCD2), DashCD);
+    }
+
+    private void DelayDash()
+    {
+        PlayerBody.velocity = Vector3.zero;
+        PlayerBody.AddForce(dashForce, ForceMode.Impulse);
+    }
+    void DashCD2()
+    {
+        isDashing = false;
+        UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime);
+    }
+
     IEnumerator Dashing()
     {
         isDashing = true;
@@ -223,14 +263,10 @@ public class FinalPlayerController : MonoBehaviour, Damage
         DashReady = false;
         while (Time.time < startTime + Dashtime)
         {
-           // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-           // PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
             MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-
-            yield return new WaitForEndOfFrame();
-
+            PlayerBody.AddForce(MoveVector, ForceMode.Impulse);
         }
+        yield return new WaitForEndOfFrame();
         isDashing = false;
     }
 
@@ -293,25 +329,34 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     public float EneryBuildUP()
     {
+        StartCoroutine(CalculateSpeed());
         if (currentEnergy < energyMax)
         {
             if (CurrentSpeed > 30)
             {
-                currentEnergy += 15 * Time.deltaTime * 2f;
+                currentEnergy += 25 * Time.deltaTime * 2f;
             }
             else if (CurrentSpeed > 20)
             {
-                currentEnergy += 12 * Time.deltaTime * 2f;
+                currentEnergy += 15 * Time.deltaTime * 2f;
             }
-            else if (CurrentSpeed > 12)
+            else if (CurrentSpeed > 15)
             {
-                currentEnergy += 8 * Time.deltaTime * 2f;
+                currentEnergy += 10 * Time.deltaTime * 2f;
+            }
+            else if (CurrentSpeed > 10)
+            {
+                currentEnergy += energyfallOff * Time.deltaTime * 2f;
+            }
+            else if(CurrentSpeed < 2)
+            {
+                currentEnergy -= energyfallOff * Time.deltaTime * (currentEnergy / 15);
             }
 
         }
         if (currentEnergy > 0)
         {
-            currentEnergy -= (1 * energyfallOff) * Time.deltaTime * 5f;
+            currentEnergy -= energyfallOff * Time.deltaTime * (currentEnergy / 15);
         }
         return currentEnergy;
     }
