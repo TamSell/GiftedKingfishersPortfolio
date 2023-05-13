@@ -308,7 +308,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public void respawnPlayer()
     {
         HP = origHP;
-        //playerUpdateUI();
+        playerUpdateUI();
         PlayerBody.isKinematic = true;
         transform.position = gameManager.Instance.playerSpawnPos.transform.position;
         PlayerBody.isKinematic = false;
