@@ -412,9 +412,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         HP = origHP;
         playerUpdateUI();
-        PlayerBody.isKinematic = true;
+        //PlayerBody.isKinematic = false;
         transform.position = gameManager.Instance.playerSpawnPos.transform.position;
-        PlayerBody.isKinematic = false;
+      //  PlayerBody.isKinematic = true;
     }
 
     void canInteract()
