@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &52273270 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 364895669556308499, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+  m_PrefabInstance: {fileID: 1604296903}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &69987477
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +193,7 @@ Transform:
   - {fileID: 843939435}
   - {fileID: 391746841}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &293073998
 GameObject:
@@ -336,7 +341,7 @@ Transform:
   - {fileID: 807365559}
   - {fileID: 1428673739}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 60, z: 0}
 --- !u!65 &300350431
 BoxCollider:

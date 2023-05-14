@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098164101}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 5}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.25, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 364895669556308501}
-  m_RootOrder: 2
+  m_Father: {fileID: 364895669908387300}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &2098164103
 ParticleSystem:
@@ -4882,7 +4882,6 @@ Transform:
   m_Children:
   - {fileID: 364895669101988487}
   - {fileID: 364895669908387300}
-  - {fileID: 2098164104}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4941,24 +4940,33 @@ MonoBehaviour:
   Momentum: {fileID: 1900675959591840788}
   animator: {fileID: 236422771}
   audioPl: {fileID: 236422772}
-  walkSpeed: 5
-  airSpeed: 5
   sensitivity: 1
-  jumpForce: 6
+  jumpForce: 30
   HP: 100
   stamina: 0
   energyMax: 100
   interactDist: 12.5
+  walkSpeedBase: 3
+  airSpeedBase: 5
+  runSpeedBase: 6
+  walkSpeedMomentum: 4
+  airSpeedMomentum: 6
+  runSpeedMomentum: 10
+  MomentumDrag: 0.15
+  StandardDrag: 3.5
+  fallMult: 0.1
+  energyFallOff: 6.5
   jumpMax: 1
   jumptimes: 0
   RunFov: 56
-  runSpeed: 30
   FovOrg: 0
   runningEffect: {fileID: 2098164101}
-  DashSpeed: 2
+  DashFov: 75
+  DashSpeed: 200
   Dashtime: 0.25
-  DashCD: 0
-  DashMaxCD: 2
+  dashUp: 1.5
+  DashCD: 0.25
+  useCamForDash: 1
   DashReady: 0
   isDashing: 0
   audJumpVol: 0.5
@@ -4974,8 +4982,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc708075fcb61004682f0c06fc03c2c7, type: 3}
   - {fileID: 8300000, guid: 1c3732f8a948e4944acb74280bfc088d, type: 3}
   - {fileID: 8300000, guid: 3c21a4a4b5833fa4ba1222c14684f357, type: 3}
-  currentGun: {fileID: 0}
-  PlayerSpeed: 10
+  currentGun: {fileID: 11400000, guid: 38d897400e7ac1a46889045bcb575e09, type: 2}
+  currWalkSpeed: 0
+  currAirSpeed: 0
+  currRunSpeed: 0
   CurrentSpeed: 0
   MoveVector: {x: 0, y: 0, z: 0}
   PlayerMovementInput: {x: 0, y: 0, z: 0}
@@ -4988,8 +4998,9 @@ MonoBehaviour:
   speed: 0
   isGrounded: 0
   isTeleporting: 0
+  isJumping: 0
   minXLock: -90
-  maxXLock: 50
+  maxXLock: 80
 --- !u!114 &1900675959591840788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5004,9 +5015,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energizer: {fileID: 364895669556308506}
   speedMultiplier: 4
-  speedLimit: 100
-  airSpeed: 5
-  sprintSpeed: 20
+  speedLimit: 50
+  currentSpeed: 0
   inMomentum: 0
   slowing: 0
 --- !u!33 &364895669556308500
@@ -5235,6 +5245,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2098164104}
   - {fileID: 3878869302760525303}
   - {fileID: 1142188019348218151}
   m_Father: {fileID: 364895669556308501}
@@ -5321,7 +5332,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 364895669908387300}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3878869302760525192
 MonoBehaviour:
@@ -5355,6 +5366,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 364895669908387300}
+    - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 136b5d9110902fa47bfe707c66de5221, type: 2}
     - target: {fileID: 1131126266864982032, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
@@ -5377,7 +5392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalScale.x

@@ -118,6 +118,7 @@ public class Gun : MonoBehaviour
         {
             reaload = false;
             StartCoroutine(FirstShoot());
+            StartCoroutine(Impulse());
         }
        
         if (secondaryGun)
@@ -159,14 +160,12 @@ public class Gun : MonoBehaviour
 
     IEnumerator FirstShoot()
     {
-       
         if (Sniper)
         {
             isShooting = true;
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
             aud.PlayOneShot(GunShot, gunShotVol);
-            ShootImpulse();
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
             {
@@ -203,7 +202,6 @@ public class Gun : MonoBehaviour
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
             aud.PlayOneShot(GunShot, gunShotVol);
-            ShootImpulse();
             for (int i = 0; i < bulletPerShot; i++)
             {
                 RaycastHit hit;
@@ -224,9 +222,6 @@ public class Gun : MonoBehaviour
                         DestroyEffect = Instantiate(hitEffect, hit.point, transform.rotation);
                         Destroy(DestroyEffect, 2);
                     }
-
-
-                   
                 }
               
             }
@@ -322,32 +317,13 @@ public class Gun : MonoBehaviour
         gameManager.Instance.loadText(totalAmmo, currentMag);
     }
 
-
-
-
-    void ShootImpulse()
-    {
-       
-        if (isShooting)
-        {
-
-            StartCoroutine(Impulse());
-
-        }
-
-    }
     IEnumerator Impulse()
     {
      
         float startTime = Time.time;
-
-        while (Time.time < startTime + ImpulseTime)
-        {
-           
-            Vector3 MoveVector = Vector3.back * ImpulseSpeed;
-            gameManager.Instance.playerController.PlayerMovementAddition = MoveVector;
-            yield return new WaitForEndOfFrame();
-        }
+            yield return new WaitForFixedUpdate();
+            if(stats)
+                gameManager.Instance.playerController.Recoil(stats.recoil);
         // Vector3.back
         // transform.TransformDirection(gameManager.Instance.playerController.PlayerMovementInput)
     }

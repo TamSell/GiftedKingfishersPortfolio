@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using Unity.VisualScripting;
+//using UnityEditor.Search;
 using UnityEngine;
 
 public class FinalPlayerController : MonoBehaviour, Damage
@@ -14,8 +16,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] Animator animator;
     [SerializeField] AudioSource audioPl;
     [Space]
-    [SerializeField] public float walkSpeed;
-    [SerializeField] public float airSpeed;
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
 
@@ -25,20 +25,31 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] public float stamina;
     [SerializeField] public float energyMax;
     [SerializeField, Range(0f, 50f)] float interactDist;
+    [SerializeField] public float walkSpeedBase;
+    [SerializeField] public float airSpeedBase;
+    [SerializeField] public float runSpeedBase;
+    [SerializeField] public float walkSpeedMomentum;
+    [SerializeField] public float airSpeedMomentum;
+    [SerializeField] public float runSpeedMomentum;
+    [SerializeField] public float MomentumDrag;
+    [SerializeField] public float StandardDrag;
+    [SerializeField] float fallMult;
+    [SerializeField] public float energyFallOff;
     [SerializeField] int jumpMax;
     [SerializeField] int jumptimes;
 
     [Header("-----Runing stats-----")]
     [SerializeField] public float RunFov;
-    [SerializeField] public float runSpeed;
     [SerializeField] float FovOrg;
     [SerializeField] GameObject runningEffect;
 
     [Header("------Dash Stats------")]
-    [SerializeField] float DashSpeed;
+    [SerializeField] float DashFov;
+    [SerializeField] public float DashSpeed;
     [SerializeField] float Dashtime;
+    [SerializeField] float dashUp;
     [SerializeField] float DashCD;
-    [SerializeField] float DashMaxCD;
+    [SerializeField] bool useCamForDash;
     public bool DashReady;
     public bool isDashing;
 
@@ -54,12 +65,16 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     [Space]
     PlayerAudio auido;
-    public float PlayerSpeed;
+    public float currWalkSpeed;
+    public float currAirSpeed;
+    public float currRunSpeed;
     public float CurrentSpeed;
     public Vector3 MoveVector;
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
     private Vector2 PlayerMouse;
+    Vector3 dashForce;
+    private float DashMaxCD;
     private float xRotation;
     public bool isRunning;
     public bool isPlaying;
@@ -69,6 +84,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public float speed;
     public bool isGrounded;
     public bool isTeleporting;
+    public bool isJumping;
     public float minXLock;
     public float maxXLock;
 
@@ -76,7 +92,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         playerUpdateUI();
         FovOrg = UnityEngine.Camera.main.fieldOfView;
-        DashCD = 6;
+        DashMaxCD = DashCD;
         DashReady = true;
         StartCoroutine(CalculateSpeed());
         Cursor.visible = false;
@@ -84,14 +100,15 @@ public class FinalPlayerController : MonoBehaviour, Damage
         origHP = HP;
         origStamina = stamina;
         currentEnergy = energyMax;
+        SpeedSwitch();
     }
     // Update is called once per frame
     void Update()
     {
-        if(CurrentSpeed>12)
+        if (CurrentSpeed > 12)
         {
             runningEffect.SetActive(true);
-            
+
         }
         else
         {
@@ -102,29 +119,59 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             return;
         }
-        PlayerMovementInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        //if (CurrentSpeed > 12)
+        //{
+        //    runningEffect.SetActive(true);
+
+        //}
+        //else
+        //{
+        //    runningEffect.SetActive(false);
+        //}
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.05f, Floor);
+        if (isGrounded)
+        {
+            if (Momentum.inMomentum)
+                PlayerBody.drag = MomentumDrag;
+            else
+                PlayerBody.drag = StandardDrag;
+        }
+
+        PlayerInput();
+        MouseMove();
+        EneryBuildUP();
+        playerUpdateUI();
+    }
+
+    private void PlayerInput()
+    {
+        PlayerMovementInput = Input.GetAxis("Horizontal") * PlayerBody.transform.right + PlayerBody.transform.forward * Input.GetAxis("Vertical");
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Momentum.SetUp();
         if (Input.GetButtonDown("MoveChange"))
         {
             Momentum.MomentumState();
+            SpeedSwitch();
         }
-      
-        CD(isDashing, ref DashCD, DashMaxCD);
-        
-        MouseMove();
-        EneryBuildUP();
+        if (Input.GetButtonDown("Jump") && (isGrounded || jumptimes < jumpMax))
+        {
+            Jump();
+        }
         canInteract();
-        playerUpdateUI();
+        Run();
+        //Dash2();
+        CD(isDashing, ref DashCD, DashMaxCD);
+        Dashs();
     }
 
     private void FixedUpdate()
     {
-        if (Momentum.inMomentum)
+        Momentum.MovePlayerDiff();
+        if (!isGrounded)
         {
-            Momentum.SecondaryMovement();
+            PlayerBody.velocity += fallMult * Physics.gravity;
+            PlayerBody.drag = PlayerBody.drag * 0.9f;
         }
-        else
-            MovePlayer();
     }
 
     private void CD(bool ability, ref float abilityCD, float maxCD)
@@ -138,34 +185,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
             abilityCD += 1 * Time.deltaTime;
         }
     }
-    private void MovePlayer()
-    {
-        Vector3 MoveVector = transform.TransformDirection(PlayerMovementInput) * walkSpeed;
-        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-        RaycastHit hit;
-        Run();
-        Dashs();
-         
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.05f, Floor))
-        {
-            isGrounded = true;
-            jumptimes = 0;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-        if (Input.GetButtonDown("Jump") && (isGrounded || jumptimes < jumpMax))
-        {
-            if (isGrounded)
-            {
-                PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                isGrounded = false;
-                jumptimes++;
-                audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
-            }
-        }
-    }
 
     private void MouseMove()
     {
@@ -174,21 +193,48 @@ public class FinalPlayerController : MonoBehaviour, Damage
         transform.Rotate(0f, PlayerMouse.x * sensitivity, 0f);
         Camera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
-    void Run()
-    {
 
-        if (Input.GetButton("Run"))
+    private void SpeedSwitch()
+    {
+        if (Momentum.inMomentum)
         {
-          
-            gameManager.Instance.SBar.enabled = true;
-            isRunning = true;
-            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
-            MoveVector = transform.TransformDirection(PlayerMovementInput) * runSpeed;
-            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+            currAirSpeed = airSpeedMomentum;
+            currRunSpeed = runSpeedMomentum;
+            currWalkSpeed = walkSpeedMomentum;
         }
         else
         {
-           
+            currAirSpeed = airSpeedBase;
+            currRunSpeed = runSpeedBase;
+            currWalkSpeed = walkSpeedBase;
+        }
+    }
+
+    public void Jump()
+    {
+        isJumping = true;
+        if (isGrounded)
+        {
+            jumptimes = 0;
+        }
+        PlayerBody.velocity = new Vector3(PlayerBody.velocity.x, 0f, PlayerBody.velocity.z);
+        PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        jumptimes++;
+        audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
+        isJumping = false;
+    }
+
+    void Run()
+    {
+        if (Input.GetButton("Run"))
+        {
+            //gameManager.Instance.SBar.enabled = true;
+            isRunning = true;
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
+        }
+        else
+        {
+
             isRunning = false;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 2.5f);
 
@@ -197,17 +243,13 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     void Dashs()
     {
-        if (DashCD > DashMaxCD)
-        {
+        if (DashCD != DashMaxCD)
+            return;
+        else
             DashReady = true;
-        }
-        //if (PlayerMovementInput.x == 0 && PlayerMovementInput.z == 0)
-        //{
-        //    return;
-        //}
         if (Input.GetButtonDown("Dash"))
         {
-            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 1f);
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, DashFov, Time.deltaTime * 1f);
 
             // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
             //  PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
@@ -221,21 +263,64 @@ public class FinalPlayerController : MonoBehaviour, Damage
     IEnumerator Dashing()
     {
         isDashing = true;
+        PlayerBody.drag = 0;
         float startTime = Time.time;
         DashCD = 0;
         DashReady = false;
-        while (Time.time < startTime + Dashtime)
-        {
-           // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-           // PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-            MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-            PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-
-            yield return new WaitForEndOfFrame();
-
-        }
+        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+        Vector3 direction = Camera.transform.forward * verticalInput + Camera.transform.right * horizontalInput;
+        if (verticalInput == 0 && horizontalInput == 0)
+            direction = Camera.transform.forward;
+        Vector3 forceApplied =  direction.normalized * DashSpeed + Camera.transform.up * dashUp;
+        PlayerBody.AddForce(forceApplied, ForceMode.Impulse);
+        yield return new WaitForEndOfFrame();
         isDashing = false;
+        UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 1f);
+
     }
+    //void Dash2()
+    //{
+    //    if (DashCD != DashMaxCD)
+    //        return;
+    //    else
+    //        DashCD = DashMaxCD;
+    //    isDashing = true;
+
+    //    UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, DashFov, Time.deltaTime);
+
+    //    Transform dir;
+    //    if (useCamForDash)
+    //        dir = Camera;
+    //    else
+    //        dir = PlayerBody.transform;
+
+    //    Vector3 dashDir = dir.forward * PlayerMovementInput.z + dir.right * PlayerMovementInput.x;
+    //    dashForce = dashDir * DashSpeed + PlayerBody.transform.up * dashUp;
+    //    Invoke(nameof(DelayDash), 0.025f);
+    //    DashReady = false;
+    //    Invoke(nameof(DashCD2), DashCD);
+    //}
+
+    //private void DelayDash()
+    //{
+    //    PlayerBody.velocity = Vector3.zero;
+    //    PlayerBody.AddForce(dashForce, ForceMode.Impulse);
+    //}
+
+    //void DashCD2()
+    //{
+    //    isDashing = false;
+    //    UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime);
+    //    DashReady = true;
+    //}
+
+    public void Recoil(float recoil)
+    {
+        Vector3 direction = Camera.forward;
+        PlayerBody.AddForce(-direction.normalized * recoil, ForceMode.Impulse);
+    }
+
     public bool isDead
     {
         get
@@ -283,28 +368,46 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     public float EneryBuildUP()
     {
-        if (currentEnergy < energyMax)
+        float mult;
+        if (isJumping)
+        {
+            mult = 1.5f;
+        }
+        else
+        {
+            mult = 2f;
+        }
+        if (currentEnergy < energyMax && (!isDashing||DashReady))
         {
             if (CurrentSpeed > 30)
             {
-                currentEnergy += 15 * Time.deltaTime;
+                currentEnergy += 25 * Time.deltaTime * mult;
             }
             else if (CurrentSpeed > 20)
             {
-                currentEnergy += 12 * Time.deltaTime;
+                currentEnergy += 15 * Time.deltaTime * mult;
             }
-            else if (CurrentSpeed > 12)
+            else if (CurrentSpeed > 15)
             {
-                currentEnergy += 10 * Time.deltaTime;
+                currentEnergy += 10 * Time.deltaTime * mult;
+            }
+            else if (CurrentSpeed > 10)
+            {
+                currentEnergy += energyFallOff * Time.deltaTime * mult;
+            }
+            else if (CurrentSpeed < 2)
+            {
+                currentEnergy -= energyFallOff * Time.deltaTime * (currentEnergy / 15);
             }
 
         }
         if (currentEnergy > 0)
         {
-            currentEnergy -= 1 * Time.deltaTime;
+            currentEnergy -= energyFallOff * Time.deltaTime * (currentEnergy / 15);
         }
         return currentEnergy;
     }
+
     public void respawnPlayer()
     {
         HP = origHP;
