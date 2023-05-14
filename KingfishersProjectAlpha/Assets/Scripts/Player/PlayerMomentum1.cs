@@ -61,6 +61,7 @@ public class PlayerMomentum1 : MonoBehaviour
     public void MomentumState()
     {
         inMomentum = !inMomentum;
+        gameManager.Instance.MomentumOverlay.enabled = inMomentum;
     }
 
     IEnumerator SlowDown()
