@@ -146,7 +146,7 @@ MonoBehaviour:
   energyFallOff: 6.5
   jumpMax: 1
   jumptimes: 0
-  RunFov: 56
+  RunFov: 65
   FovOrg: 0
   runningEffect: {fileID: 0}
   DashFov: 75
@@ -183,7 +183,6 @@ MonoBehaviour:
   origHP: 0
   currentEnergy: 0
   origStamina: 0
-  speed: 0
   isGrounded: 0
   isTeleporting: 0
   isJumping: 0
@@ -577,6 +576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoubleBerralWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 4962994291947976680, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -591,15 +594,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.13633251
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.22199345
+      value: -0.22
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.73700714
+      value: 0.571
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.w

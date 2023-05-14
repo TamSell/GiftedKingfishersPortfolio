@@ -7,7 +7,7 @@ public class PlayerMomentum1 : MonoBehaviour
 {
     [SerializeField] private FinalPlayerController energizer;
     [SerializeField] private float speedMultiplier;
-    [SerializeField] private float speedLimit;
+    [SerializeField] public float speedLimit;
     private Vector3 direction;
     private float newMoveSpeed;
     private float prevMoveSpeed;
