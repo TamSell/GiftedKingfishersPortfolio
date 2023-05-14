@@ -29,7 +29,6 @@ public class EnemySwarmer : MonoBehaviour, Damage
     float fBaseCheckTime = 0.15f;
     float fTimePercheck = 0.05f;
     int iMaxIters = 100;
-    
     private Tracker objectTracker;
 
     [Header("--- Components ---")]
@@ -139,14 +138,12 @@ public class EnemySwarmer : MonoBehaviour, Damage
 
         if (healthPoints <= 0)
         {
-          
             if (ItemToDrop.Length != 0)
             {
                 ItemDrop();
             }
             gameManager.Instance.updateGoal(20,-1);
             Destroy(gameObject);
-           // gameManager.Instance.enemySpawner.EnemyCount--;
         }
         else
         {
