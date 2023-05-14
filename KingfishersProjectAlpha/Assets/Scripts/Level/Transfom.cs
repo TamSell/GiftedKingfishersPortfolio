@@ -14,8 +14,9 @@ public class Transfom : MonoBehaviour
     [SerializeField] bool TypeOfDoor;
     [SerializeField] bool Obsticle;
     [SerializeField] bool OpenByScore;
-    [SerializeField] int ScoreToOpen;
-
+    [SerializeField] int scoreToOpen;
+   
+    
     bool open;
    
 
@@ -52,9 +53,13 @@ public class Transfom : MonoBehaviour
         }
         else
         {
-            if(gameManager.Instance.playerScore >900 )
+            if(gameManager.Instance.playerScore > scoreToOpen)   
             {
                 StartCoroutine(Open());
+            }
+            else
+            {
+                StartCoroutine(Close());
             }
         }
        
