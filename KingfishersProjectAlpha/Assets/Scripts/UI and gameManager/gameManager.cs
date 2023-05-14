@@ -18,7 +18,7 @@ public class gameManager : MonoBehaviour
     public GunStats2 currentGunAspects;
     public int currentGunIndex = 0;
     [SerializeField] public Crafting modify;
-
+    public EnemySpawner enemySpawner;
 
     [Header("------ UI Elements ------")]
     [SerializeField] GameObject Inventory;
