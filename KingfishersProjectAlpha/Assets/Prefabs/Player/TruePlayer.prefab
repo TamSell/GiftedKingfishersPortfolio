@@ -4952,7 +4952,7 @@ MonoBehaviour:
   walkSpeedMomentum: 4
   airSpeedMomentum: 6
   runSpeedMomentum: 10
-  MomentumDrag: 0.1
+  MomentumDrag: 0.15
   StandardDrag: 3.5
   fallMult: 0.1
   energyFallOff: 6.5
@@ -4961,10 +4961,12 @@ MonoBehaviour:
   RunFov: 56
   FovOrg: 0
   runningEffect: {fileID: 2098164101}
-  DashSpeed: 2
+  DashFov: 75
+  DashSpeed: 200
   Dashtime: 0.25
-  DashCD: 0
-  DashMaxCD: 2
+  dashUp: 1.5
+  DashCD: 0.25
+  useCamForDash: 1
   DashReady: 0
   isDashing: 0
   audJumpVol: 0.5
@@ -4980,7 +4982,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc708075fcb61004682f0c06fc03c2c7, type: 3}
   - {fileID: 8300000, guid: 1c3732f8a948e4944acb74280bfc088d, type: 3}
   - {fileID: 8300000, guid: 3c21a4a4b5833fa4ba1222c14684f357, type: 3}
-  currentGun: {fileID: 0}
+  currentGun: {fileID: 11400000, guid: 38d897400e7ac1a46889045bcb575e09, type: 2}
   currWalkSpeed: 0
   currAirSpeed: 0
   currRunSpeed: 0
@@ -4998,7 +5000,7 @@ MonoBehaviour:
   isTeleporting: 0
   isJumping: 0
   minXLock: -90
-  maxXLock: 50
+  maxXLock: 80
 --- !u!114 &1900675959591840788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5013,7 +5015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energizer: {fileID: 364895669556308506}
   speedMultiplier: 4
-  speedLimit: 100
+  speedLimit: 50
   currentSpeed: 0
   inMomentum: 0
   slowing: 0
@@ -5364,6 +5366,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 364895669908387300}
+    - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 136b5d9110902fa47bfe707c66de5221, type: 2}
     - target: {fileID: 1131126266864982032, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 

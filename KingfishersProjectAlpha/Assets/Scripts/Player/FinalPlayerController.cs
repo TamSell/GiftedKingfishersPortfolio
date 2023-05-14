@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using Unity.VisualScripting;
 //using UnityEditor.Search;
 using UnityEngine;
@@ -43,10 +44,12 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] GameObject runningEffect;
 
     [Header("------Dash Stats------")]
-    [SerializeField] float DashSpeed;
+    [SerializeField] float DashFov;
+    [SerializeField] public float DashSpeed;
     [SerializeField] float Dashtime;
+    [SerializeField] float dashUp;
     [SerializeField] float DashCD;
-    [SerializeField] float DashMaxCD;
+    [SerializeField] bool useCamForDash;
     public bool DashReady;
     public bool isDashing;
 
@@ -70,6 +73,8 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public Vector3 PlayerMovementInput;
     public Vector3 PlayerMovementAddition;
     private Vector2 PlayerMouse;
+    Vector3 dashForce;
+    private float DashMaxCD;
     private float xRotation;
     public bool isRunning;
     public bool isPlaying;
@@ -87,7 +92,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         playerUpdateUI();
         FovOrg = UnityEngine.Camera.main.fieldOfView;
-        DashCD = 6;
+        DashMaxCD = DashCD;
         DashReady = true;
         StartCoroutine(CalculateSpeed());
         Cursor.visible = false;
@@ -100,10 +105,10 @@ public class FinalPlayerController : MonoBehaviour, Damage
     // Update is called once per frame
     void Update()
     {
-        if(CurrentSpeed>12)
+        if (CurrentSpeed > 12)
         {
             runningEffect.SetActive(true);
-            
+
         }
         else
         {
@@ -154,8 +159,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
         canInteract();
         Run();
-        //CD(isDashing, ref DashCD, DashMaxCD);
-        //Dashs();
+        //Dash2();
+        CD(isDashing, ref DashCD, DashMaxCD);
+        Dashs();
     }
 
     private void FixedUpdate()
@@ -215,7 +221,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         PlayerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         jumptimes++;
         audioPl.PlayOneShot(audJump[Random.Range(0, audJump.Length - 1)], audJumpVol);
-        isJumping= false;
+        isJumping = false;
     }
 
     void Run()
@@ -235,52 +241,84 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
     }
 
-    //void Dashs()
-    //{
-    //    if (DashCD > DashMaxCD)
-    //    {
-    //        DashReady = true;
-    //    }
-    //    //if (PlayerMovementInput.x == 0 && PlayerMovementInput.z == 0)
-    //    //{
-    //    //    return;
-    //    //}
-    //    if (Input.GetButtonDown("Dash"))
-    //    {
-    //        UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 1f);
+    void Dashs()
+    {
+        if (DashCD != DashMaxCD)
+            return;
+        else
+            DashReady = true;
+        if (Input.GetButtonDown("Dash"))
+        {
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, DashFov, Time.deltaTime * 1f);
 
-    //        // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-    //        //  PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-    //        if (DashReady)
-    //        {
-    //            StartCoroutine(Dashing());
-    //        }
-    //    }
-    //}
+            // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
+            //  PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
+            if (DashReady)
+            {
+                StartCoroutine(Dashing());
+            }
+        }
+    }
 
-    //IEnumerator Dashing()
+    IEnumerator Dashing()
+    {
+        isDashing = true;
+        PlayerBody.drag = 0;
+        float startTime = Time.time;
+        DashCD = 0;
+        DashReady = false;
+        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+        Vector3 direction = Camera.transform.forward * verticalInput + Camera.transform.right * horizontalInput;
+        if (verticalInput == 0 && horizontalInput == 0)
+            direction = Camera.transform.forward;
+        Vector3 forceApplied =  direction.normalized * DashSpeed + Camera.transform.up * dashUp;
+        PlayerBody.AddForce(forceApplied, ForceMode.Impulse);
+        yield return new WaitForEndOfFrame();
+        isDashing = false;
+        UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 1f);
+
+    }
+    //void Dash2()
     //{
+    //    if (DashCD != DashMaxCD)
+    //        return;
+    //    else
+    //        DashCD = DashMaxCD;
     //    isDashing = true;
-    //    float startTime = Time.time;
-    //    DashCD = 0;
+
+    //    UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, DashFov, Time.deltaTime);
+
+    //    Transform dir;
+    //    if (useCamForDash)
+    //        dir = Camera;
+    //    else
+    //        dir = PlayerBody.transform;
+
+    //    Vector3 dashDir = dir.forward * PlayerMovementInput.z + dir.right * PlayerMovementInput.x;
+    //    dashForce = dashDir * DashSpeed + PlayerBody.transform.up * dashUp;
+    //    Invoke(nameof(DelayDash), 0.025f);
     //    DashReady = false;
-    //    while (Time.time < startTime + Dashtime)
-    //    {
-    //        // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-    //        // PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-    //        MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
-    //        PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
-
-    //        yield return new WaitForEndOfFrame();
-
-    //    }
-    //    isDashing = false;
+    //    Invoke(nameof(DashCD2), DashCD);
     //}
 
-    public void Recoil()
+    //private void DelayDash()
+    //{
+    //    PlayerBody.velocity = Vector3.zero;
+    //    PlayerBody.AddForce(dashForce, ForceMode.Impulse);
+    //}
+
+    //void DashCD2()
+    //{
+    //    isDashing = false;
+    //    UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime);
+    //    DashReady = true;
+    //}
+
+    public void Recoil(float recoil)
     {
         Vector3 direction = Camera.forward;
-        PlayerBody.AddForce(-direction.normalized * currentGun.recoil, ForceMode.Impulse);
+        PlayerBody.AddForce(-direction.normalized * recoil, ForceMode.Impulse);
     }
 
     public bool isDead
@@ -331,7 +369,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public float EneryBuildUP()
     {
         float mult;
-        if(isJumping)
+        if (isJumping)
         {
             mult = 1.5f;
         }
@@ -339,7 +377,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             mult = 2f;
         }
-        if (currentEnergy < energyMax)
+        if (currentEnergy < energyMax && (!isDashing||DashReady))
         {
             if (CurrentSpeed > 30)
             {

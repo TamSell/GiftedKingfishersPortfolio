@@ -23,7 +23,11 @@ public class PlayerMomentum1 : MonoBehaviour
 
     public void determineSpeed()
     {
-        if (energizer.isRunning && energizer.isGrounded)
+        if(energizer.isDashing)
+        {
+            newMoveSpeed = energizer.DashSpeed;
+        }
+        else if (energizer.isRunning && energizer.isGrounded)
         {
             newMoveSpeed = energizer.currRunSpeed;
         }
@@ -81,9 +85,14 @@ public class PlayerMomentum1 : MonoBehaviour
     {
         Vector3 currVelocity = new Vector3(energizer.PlayerBody.velocity.x, 0f, energizer.PlayerBody.velocity.z);
 
-        if (currVelocity.magnitude > speedLimit)
+        if (currVelocity.magnitude > speedLimit && !energizer.isDashing)
         {
             Vector3 engageLimit = currVelocity.normalized * speedLimit;
+            energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y, engageLimit.z);
+        }
+        else if(!energizer.DashReady)
+        {
+            Vector3 engageLimit = currVelocity.normalized * (speedLimit * 0.5f);
             energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y, engageLimit.z);
         }
     }
