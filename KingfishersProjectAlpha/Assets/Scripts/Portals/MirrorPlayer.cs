@@ -8,6 +8,10 @@ public class MirrorPlayer : MonoBehaviour
     [SerializeField] FinalPlayerController m_Player;
     [SerializeField] Transform currentPortal;
     [SerializeField] Transform nextPortal;
+    [SerializeField] AudioSource aud;
+
+    [SerializeField] AudioClip clip;
+    [SerializeField] float clipVol;
 
     private Vector3 currentVelocity;
     public Vector3 position;
@@ -35,6 +39,7 @@ public class MirrorPlayer : MonoBehaviour
         Quaternion relation = Quaternion.Euler(rotationRelation.x - nextPortal.forward.x, rotationRelation.y - nextPortal.forward.y, rotationRelation.z - nextPortal.forward.z);
         m_Player.PlayerBody.MoveRotation(relation);
         m_Player.transform.position += nextPortal.transform.forward * 2.5f;
+        aud.PlayOneShot(clip, clipVol);
         yield return new WaitForSeconds(0.01f);
         gameManager.Instance.playerController.PlayerBody.isKinematic = false;
         m_Player.PlayerBody.velocity = currentVelocity;
