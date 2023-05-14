@@ -35,7 +35,7 @@ public class MirrorPlayer : MonoBehaviour
         Quaternion relation = Quaternion.Euler(rotationRelation.x - nextPortal.forward.x, rotationRelation.y - nextPortal.forward.y, rotationRelation.z - nextPortal.forward.z);
         m_Player.PlayerBody.MoveRotation(relation);
         m_Player.transform.position += nextPortal.transform.forward * 2.5f;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.01f);
         gameManager.Instance.playerController.PlayerBody.isKinematic = false;
         m_Player.PlayerBody.velocity = currentVelocity;
     }
