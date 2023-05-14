@@ -4942,6 +4942,7 @@ MonoBehaviour:
   audioPl: {fileID: 236422772}
   sensitivity: 1
   jumpForce: 30
+  gotHitOverlay: {fileID: 0}
   HP: 100
   stamina: 0
   energyMax: 100
@@ -5015,7 +5016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energizer: {fileID: 364895669556308506}
   speedMultiplier: 4
-  speedLimit: 50
+  speedLimit: 100
   currentSpeed: 0
   inMomentum: 0
   slowing: 0
@@ -5226,6 +5227,7 @@ GameObject:
   - component: {fileID: 364895669908387300}
   - component: {fileID: 364895669908387303}
   - component: {fileID: 364895669908387302}
+  - component: {fileID: 182417174}
   m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5302,6 +5304,62 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364895669908387297}
   m_Enabled: 1
+--- !u!114 &182417174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364895669908387297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b8fdbf86252d04aa25b9a2b0347f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startShake: 0
+  shakeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0013656616
+      value: 0.009433746
+      inSlope: 0.0072591035
+      outSlope: 0.0072591035
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.61175436
+    - serializedVersion: 3
+      time: 0.1411618
+      value: 0.102589786
+      inSlope: -0.24785826
+      outSlope: -0.24785826
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.28491372
+      value: 0.06801766
+      inSlope: -0.24129564
+      outSlope: -0.24129564
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.56488776
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9972534
+      value: 0.0070762634
+      inSlope: -0.08555103
+      outSlope: -0.08555103
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 0.5
 --- !u!1 &3878869302760525302
 GameObject:
   m_ObjectHideFlags: 0

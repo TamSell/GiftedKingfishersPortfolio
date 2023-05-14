@@ -4,6 +4,8 @@ using System.Security;
 using Unity.VisualScripting;
 //using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class FinalPlayerController : MonoBehaviour, Damage
 {
@@ -18,6 +20,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [Space]
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
+    [SerializeField] GameObject gotHitOverlay;
 
 
     [Header("---Stats---")]
@@ -95,8 +98,8 @@ public class FinalPlayerController : MonoBehaviour, Damage
         DashMaxCD = DashCD;
         DashReady = true;
         StartCoroutine(CalculateSpeed());
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         origHP = HP;
         origStamina = stamina;
         currentEnergy = energyMax;
@@ -118,6 +121,16 @@ public class FinalPlayerController : MonoBehaviour, Damage
         if (gameManager.Instance.inMenu)
         {
             return;
+        }
+
+        if(gotHitOverlay !=null)
+        {
+            if(gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color.a > 0)
+            {
+                var color = gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color;
+                color.a -= 0.01f;
+                gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color = color;
+            }
         }
         //if (CurrentSpeed > 12)
         //{
@@ -337,6 +350,13 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         // audio.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         HP -= amount;
+        var colorOverlay = gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color;
+        colorOverlay.a = 0.9f;
+        gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color = colorOverlay;
+
+        Camera.GetComponent<CameraShake>().startShake = true;
+            //GetComponent<CameraShake>().startShake = true;
+
         playerUpdateUI();
         if (isDead)
         {
