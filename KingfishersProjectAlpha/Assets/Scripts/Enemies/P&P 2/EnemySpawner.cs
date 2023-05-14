@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float spawnRate;
     [SerializeField] Transform[] spawnPos;
     [SerializeField] int prefabMaxNum;
+    [SerializeField] public int EnemyCount;
    
     public List<GameObject> spawnList = new List<GameObject>();
     
@@ -43,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = true;
         // GameObject Spawn = Instantiate(prefab, spawnPos[Random.Range(0, spawnPos.Length)].position, prefab.transform.rotation);
         int index = Random.Range(0, prefab.Length);
-
+        EnemyCount++;
         GameObject Spawn = Instantiate(prefab[index], spawnPos[Random.Range(0, spawnPos.Length)].position, prefab[index].transform.rotation);
         spawnList.Add(Spawn);
         prefabSpawncount++;

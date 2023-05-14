@@ -27,10 +27,10 @@ public class VolumeControl : MonoBehaviour
         if (_disableToggleEvent)
             return;
 
-        if (enableSound)
-            _slider.value = _slider.maxValue;
-        else
+        if (!enableSound)
             _slider.value = _slider.minValue;
+        else
+            _slider.value = _slider.maxValue;
     }
 
     private void OnDisable()
@@ -61,9 +61,6 @@ public class VolumeControl : MonoBehaviour
 
     public void UpdateVolume()
     {
-        MenusUi.menus.MenuMusicSource.volume = _slider.value;
-        MenusUi.menus.MenuSFXSource.volume = _slider.value;
-
         MenusUi.menus.GameMusicSource.volume = _slider.value;
         MenusUi.menus.GameSFXSource.volume = _slider.value;
     }

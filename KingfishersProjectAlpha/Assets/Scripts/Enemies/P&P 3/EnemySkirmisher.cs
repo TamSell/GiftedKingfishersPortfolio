@@ -203,6 +203,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
 
         if (healthPoints <= 0)
         {
+          
             if (ItemToDrop.Length != 0)
             {
                 ItemDrop();
@@ -210,6 +211,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
 
             Destroy(gameObject);
             gameManager.Instance.updateGoal(50, -1);
+          //  gameManager.Instance.enemySpawner.EnemyCount--;
         }
         else
         {

@@ -138,7 +138,7 @@ public class EnemyTurret : MonoBehaviour, Damage
 
         if (healthPoints <= 0)
         {
-
+          
             if (ItemToDrop.Length != 0)
             {
                 ItemDrop();
@@ -146,6 +146,7 @@ public class EnemyTurret : MonoBehaviour, Damage
  
             gameManager.Instance.updateGoal(40, -1);
             Destroy(gameObject);
+          //  gameManager.Instance.enemySpawner.EnemyCount--;
         }
         else
         { 
