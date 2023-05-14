@@ -125,15 +125,6 @@ public class buttonManager : MonoBehaviour
         gameManager.Instance.modify.NextGun();
     }
 
-    public void MenuMusicButton()
-    {
-        isPlayingM = !isPlayingM;
-        if (isPlayingM)
-            MenusUi.menus.MenuMusicSource.enabled = true;
-        else
-            MenusUi.menus.MenuMusicSource.enabled = false;
-    }
-
     public void GameMusicButton()
     {
         isPlayingMGame = !isPlayingMGame;
@@ -141,15 +132,6 @@ public class buttonManager : MonoBehaviour
             MenusUi.menus.GameMusicSource.enabled = true;
         else
             MenusUi.menus.GameMusicSource.enabled = false;
-    }
-
-    public void MenuSFXButton()
-    {
-        isPlayingMSFX = !isPlayingMSFX;
-        if (isPlayingMSFX)
-            MenusUi.menus.MenuSFXSource.enabled = true;
-        else
-            MenusUi.menus.MenuSFXSource.enabled = false;
     }
 
     public void GameSFXButton()
