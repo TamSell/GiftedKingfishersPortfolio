@@ -6,11 +6,12 @@ public class EnemySpawner : MonoBehaviour
 {
     //[SerializeField] GameObject prefab;
     [SerializeField] GameObject[] prefab;
-    [SerializeField] int spawnRate;
+    [SerializeField] float spawnRate;
     [SerializeField] Transform[] spawnPos;
     [SerializeField] int prefabMaxNum;
+   
     public List<GameObject> spawnList = new List<GameObject>();
-
+    
     int prefabSpawncount;
     bool playerInRange;
     bool isSpawning;
