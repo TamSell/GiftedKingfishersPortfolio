@@ -353,22 +353,21 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         get
         {
-            return HP == 0;
+            return HP <= 0;
         }
     }
 
-    public void goDie()
-    {
-        gameManager.Instance.death();
-    }
+    //public void goDie()
+    //{
+    //    gameManager.Instance.death();
+    //}
     public void TakeDamage(int amount)
     {
         audioPl.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         HP -= amount;
         playerUpdateUI();
-        if (isDead)
+        if (HP <= 0)
         {
-            goDie();
             animator.SetTrigger("Death");
         }
     }

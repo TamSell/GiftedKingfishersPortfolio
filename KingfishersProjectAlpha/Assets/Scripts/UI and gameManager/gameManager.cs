@@ -21,8 +21,8 @@ public class gameManager : MonoBehaviour
 
 
     [Header("------ UI Elements ------")]
-    [SerializeField] GameObject Inventory;
-    [SerializeField] GameObject CraftIt;
+    //[SerializeField] GameObject Inventory;
+    [SerializeField] GameObject WeaponSwap;
     public Inventory inven;
     public TextMeshProUGUI invenDesc;
     public TextMeshProUGUI invenName;
@@ -90,23 +90,23 @@ public class gameManager : MonoBehaviour
                 unpause();
             }
         }
-        if (Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == Inventory))
+        //if (Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == Inventory))
+        //{
+        //    inMenu = !inMenu;
+        //    setMenu(Inventory);
+        //    if (inMenu)
+        //    {
+        //        pause();
+        //    }
+        //    else
+        //    {
+        //        unpause();
+        //    }
+        //}
+        if(Input.GetButtonDown("Interact") && (activeMenu==null || activeMenu == WeaponSwap) && isNear)
         {
             inMenu = !inMenu;
-            setMenu(Inventory);
-            if (inMenu)
-            {
-                pause();
-            }
-            else
-            {
-                unpause();
-            }
-        }
-        if(Input.GetButtonDown("Interact") && (activeMenu==null || activeMenu == CraftIt) && isNear)
-        {
-            inMenu = !inMenu;
-            setMenu(CraftIt);
+            setMenu(WeaponSwap);
             if (inMenu)
             {
                 pause();
@@ -159,7 +159,6 @@ public class gameManager : MonoBehaviour
 
     public void death()
     {
-        
         pause();
         setMenu(LostMenu);
         Time.timeScale = 0;
