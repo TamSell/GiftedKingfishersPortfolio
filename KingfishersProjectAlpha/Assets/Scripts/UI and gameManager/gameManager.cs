@@ -38,6 +38,7 @@ public class gameManager : MonoBehaviour
     public Image SBar;
     public Image Speedbar;
     public Image SpeedbarBack;
+    public Slider ReloadBar;
     public TextMeshProUGUI enemyCountTitle;
     public TextMeshProUGUI enemyCount;
     public TextMeshProUGUI finalScore;

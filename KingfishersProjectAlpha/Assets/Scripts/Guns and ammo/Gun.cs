@@ -20,6 +20,7 @@ public class Gun : MonoBehaviour
     [SerializeField] GameObject gunModelAnim;
     [SerializeField] ParticleSystem physicalSystem;
     [SerializeField] ParticleSystem energySystem;
+    float reloadTempTime = 0;
 
    [Header("-----Secondary Gun------")]
     [SerializeField] bool secondaryGun;
@@ -97,7 +98,6 @@ public class Gun : MonoBehaviour
             {
                 RayGunEffect.SetActive(false);
             }
-
         }
         else
         {
@@ -105,7 +105,7 @@ public class Gun : MonoBehaviour
             RayCastSetActive();
 
         }
-
+        ReloadVisual(realoadSpeed);
 
     }
 
@@ -278,7 +278,7 @@ public class Gun : MonoBehaviour
         {
             return;
         }
-        
+        reloadTempTime = 0;
         if (!isShooting)
         {
             if (Input.GetButtonDown("Reloading"))
@@ -354,5 +354,13 @@ public class Gun : MonoBehaviour
         }
         yield return new WaitForSeconds(fireRate);
         gunModelAnim.GetComponent<Animator>().Play("New State");
+    }
+
+    private void ReloadVisual(float reloadTime)
+    {
+        gameManager.Instance.ReloadBar.enabled = true;
+        reloadTempTime += Time.deltaTime * reloadTime;
+        gameManager.Instance.ReloadBar.value = Mathf.Lerp(0, 1, Time.deltaTime * reloadTempTime);
+
     }
 }

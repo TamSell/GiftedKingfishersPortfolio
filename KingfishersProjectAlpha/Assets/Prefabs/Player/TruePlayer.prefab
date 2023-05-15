@@ -15371,6 +15371,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 136b5d9110902fa47bfe707c66de5221, type: 2}
     - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: reaload
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: energySystem
       value: 
       objectReference: {fileID: 1557755174}
@@ -15394,6 +15398,10 @@ PrefabInstance:
       propertyPath: gunModelAnim
       value: 
       objectReference: {fileID: 1140648270849720689}
+    - target: {fileID: 1131126266864982032, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: realoadSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1131126266864982032, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: physicalSystem
       value: 
