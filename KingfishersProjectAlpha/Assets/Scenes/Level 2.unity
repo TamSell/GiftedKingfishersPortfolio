@@ -323,7 +323,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24500
+  m_Name: pb_Mesh28432
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1011,7 +1011,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24638
+  m_Name: pb_Mesh28572
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1237,7 +1237,7 @@ PrefabInstance:
     - target: {fileID: 4450603593107296665, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 677163016}
+      objectReference: {fileID: 864229215}
     - target: {fileID: 4450603593107296667, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 165.37811
@@ -1944,43 +1944,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!84 &100799143
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MirrorFrame's RenderTexture.
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 748
-  m_Height: 748
-  m_AntiAliasing: 8
-  m_MipCount: -1
-  m_DepthStencilFormat: 0
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 0
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 2
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1 &116393659
 GameObject:
   m_ObjectHideFlags: 0
@@ -5544,6 +5507,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 91.111, z: 0}
+--- !u!84 &432288463
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MirrorFrame's RenderTexture.
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 748
+  m_Height: 748
+  m_AntiAliasing: 8
+  m_MipCount: -1
+  m_DepthStencilFormat: 0
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 0
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 2
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &444395873
 GameObject:
   m_ObjectHideFlags: 0
@@ -9794,43 +9794,6 @@ Transform:
   m_Father: {fileID: 1813076097}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!84 &677163016
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MirrorFrame's RenderTexture.
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 748
-  m_Height: 748
-  m_AntiAliasing: 8
-  m_MipCount: -1
-  m_DepthStencilFormat: 0
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 0
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 2
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!1 &687755565
 GameObject:
   m_ObjectHideFlags: 0
@@ -15690,7 +15653,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25858
+  m_Name: pb_Mesh29806
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15869,7 +15832,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25204
+  m_Name: pb_Mesh29136
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17057,6 +17020,43 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!84 &864229215
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MirrorFrame's RenderTexture.
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 748
+  m_Height: 748
+  m_AntiAliasing: 8
+  m_MipCount: -1
+  m_DepthStencilFormat: 0
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 0
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 2
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!1 &869226532
 GameObject:
   m_ObjectHideFlags: 0
@@ -23167,7 +23167,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25952
+  m_Name: pb_Mesh29900
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23458,8 +23458,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419289866}
   m_LocalRotation: {x: -0.084428966, y: 0.040998336, z: 0.0034768167, w: 0.99557966}
-  m_LocalPosition: {x: 26.86, y: 69.57, z: -107.24}
-  m_LocalScale: {x: 1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 27.68, y: 65.02, z: -106.52}
+  m_LocalScale: {x: 3, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -23890,7 +23890,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24576
+  m_Name: pb_Mesh28510
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -27560,15 +27560,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 93.5
+      value: 96.75
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 62.2
+      value: 62.19
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.97
+      value: -20.61
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28262,7 +28262,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25772
+  m_Name: pb_Mesh29720
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -32085,31 +32085,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.82
+      value: 24.96
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 63.82
+      value: 64.95
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -107.46
+      value: -106.34
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6920898
+      value: 0.6087614
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7218114
+      value: 0.7933534
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -32117,7 +32117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 92.408
+      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -32256,7 +32256,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24290
+  m_Name: pb_Mesh28222
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -32613,7 +32613,7 @@ PrefabInstance:
     - target: {fileID: 4450603593107296665, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 100799143}
+      objectReference: {fileID: 2121111098}
     - target: {fileID: 4450603593107296667, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 560.3737
@@ -32644,50 +32644,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
---- !u!84 &1663165284
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MirrorFrame's RenderTexture.
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_IsAlphaChannelOptional: 0
-  serializedVersion: 5
-  m_Width: 748
-  m_Height: 748
-  m_AntiAliasing: 8
-  m_MipCount: -1
-  m_DepthStencilFormat: 0
-  m_ColorFormat: 4
-  m_MipMap: 0
-  m_GenerateMips: 0
-  m_SRGB: 1
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 2
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
-  m_ShadowSamplingMode: 2
 --- !u!43 &1666752922
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25466
+  m_Name: pb_Mesh29408
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -37328,6 +37291,103 @@ Transform:
   m_Father: {fileID: 1888174219}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1767134245
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1767134249}
+  - component: {fileID: 1767134248}
+  - component: {fileID: 1767134247}
+  - component: {fileID: 1767134246}
+  m_Layer: 0
+  m_Name: Cube (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1767134246
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767134245}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1767134247
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767134245}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1767134248
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767134245}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1767134249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767134245}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 94.18, y: 62.62, z: -20.48}
+  m_LocalScale: {x: 3, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 42
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1767829164
 GameObject:
   m_ObjectHideFlags: 0
@@ -40435,7 +40495,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25618
+  m_Name: pb_Mesh29562
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -41846,7 +41906,7 @@ PrefabInstance:
     - target: {fileID: 4450603593107296665, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1663165284}
+      objectReference: {fileID: 432288463}
     - target: {fileID: 4450603593107296665, guid: 3ba81a6281d26ee439fee42a7cd8041b, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 3039
@@ -44750,6 +44810,43 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!84 &2121111098
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MirrorFrame's RenderTexture.
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 5
+  m_Width: 748
+  m_Height: 748
+  m_AntiAliasing: 8
+  m_MipCount: -1
+  m_DepthStencilFormat: 0
+  m_ColorFormat: 4
+  m_MipMap: 0
+  m_GenerateMips: 0
+  m_SRGB: 1
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 2
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
+  m_ShadowSamplingMode: 2
 --- !u!4 &2126828313 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2007558776729975255, guid: a9f3742a5ef1d4a40bd9b40fc791fe04, type: 3}
