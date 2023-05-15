@@ -386,6 +386,13 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         audioPl.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         HP -= amount;
+        var colorOverlay = gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color;
+        colorOverlay.a = 0.9f;
+        gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color = colorOverlay;
+
+        Camera.GetComponent<CameraShake>().startShake = true;
+        //GetComponent<CameraShake>().startShake = true;
+
         playerUpdateUI();
         if (HP <= 0)
         {
