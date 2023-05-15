@@ -1,7 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
-<<<<<<< HEAD
-=======
 --- !u!1 &2098164101
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 7
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -869,7 +867,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 15
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -3929,13 +3927,13 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 0
+    enabled: 1
     mode: 0
     ratio: 1
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.015
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4764,6 +4762,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4814,7 +4813,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
->>>>>>> 2aa99443d63871b289ad76dddc3abb5d6531adb9
 --- !u!1 &364895669101988486
 GameObject:
   m_ObjectHideFlags: 0
@@ -4958,12 +4956,12 @@ MonoBehaviour:
   MomentumDrag: 0.15
   StandardDrag: 3.5
   fallMult: 0.1
-  energyFallOff: 6.5
+  energyFallOff: 1
   jumpMax: 1
   jumptimes: 0
-  RunFov: 65
+  RunFov: 56
   FovOrg: 0
-  runningEffect: {fileID: 0}
+  runningEffect: {fileID: 2098164101}
   DashFov: 75
   DashSpeed: 200
   Dashtime: 0.25
@@ -4998,6 +4996,7 @@ MonoBehaviour:
   origHP: 0
   currentEnergy: 0
   origStamina: 0
+  speed: 0
   isGrounded: 0
   isTeleporting: 0
   isJumping: 0
@@ -5017,7 +5016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energizer: {fileID: 364895669556308506}
   speedMultiplier: 4
-  speedLimit: 50
+  speedLimit: 40
   currentSpeed: 0
   inMomentum: 0
   slowing: 0
@@ -5247,6 +5246,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2098164104}
   - {fileID: 3878869302760525303}
   - {fileID: 1142188019348218151}
   m_Father: {fileID: 364895669556308501}
@@ -5333,7 +5333,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 364895669908387300}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3878869302760525192
 MonoBehaviour:
@@ -5391,13 +5391,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoubleBerralWeapon
       objectReference: {fileID: 0}
-    - target: {fileID: 4962994291947976680, guid: 1437973d469ed894795cecd46887fd86, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalScale.x
@@ -5405,19 +5401,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.10000001
+      value: 0.100000024
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.27
+      value: 0.13632783
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.22
+      value: -0.2219925
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.571
+      value: 0.73700696
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5425,15 +5421,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000022417908
+      value: 0.000022417866
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0030065747
+      value: -0.0030065775
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0074560763
+      value: 0.0074560773
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5449,6 +5445,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+--- !u!1 &1140648270849720689 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4962994291947976680, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+  m_PrefabInstance: {fileID: 5419093194055939737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3883548690254353229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140648270849720689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f6a0309f70b4f468fb8c01a161c7cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smooth: 1
+  WalkingSway: 2
+  RunningSway: 3
 --- !u!4 &1142188019348218151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
