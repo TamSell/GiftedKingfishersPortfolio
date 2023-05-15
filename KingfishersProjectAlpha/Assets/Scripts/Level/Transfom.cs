@@ -13,10 +13,7 @@ public class Transfom : MonoBehaviour
     [SerializeField] int UpTime;
     [SerializeField] bool TypeOfDoor;
     [SerializeField] bool Obsticle;
-    [SerializeField] bool OpenByScore;
-    [SerializeField] int scoreToOpen;
-   
-    
+
     bool open;
    
 
@@ -25,35 +22,9 @@ public class Transfom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!OpenByScore)
+        if(TypeOfDoor)
         {
-            if (TypeOfDoor)
-            {
-                if (open)
-                {
-                    StartCoroutine(Open());
-                }
-                else
-                {
-                    StartCoroutine(Close());
-                }
-            }
-            if (Obsticle)
-            {
-                if (open)
-                {
-                    StartCoroutine(Open());
-                }
-                else
-                {
-                    StartCoroutine(Close());
-                }
-
-            }
-        }
-        else
-        {
-            if(gameManager.Instance.playerScore > scoreToOpen)   
+            if (open)
             {
                 StartCoroutine(Open());
             }
@@ -62,7 +33,18 @@ public class Transfom : MonoBehaviour
                 StartCoroutine(Close());
             }
         }
-       
+        if(Obsticle)
+        {
+            if (open)
+            {
+                StartCoroutine(Open());
+            }
+            else
+            {
+                StartCoroutine(Close());
+            }
+
+        }
        
        
      
