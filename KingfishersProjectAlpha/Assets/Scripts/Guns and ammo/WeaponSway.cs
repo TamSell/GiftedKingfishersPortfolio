@@ -36,14 +36,14 @@ public class WeaponSway : MonoBehaviour
              mouseY = Input.GetAxisRaw("Mouse Y") * RunningSway;
         }
 
-      
 
-        //Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
-        //Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
 
-        //Quaternion targetRottaion =Original* rotationX * rotationY;
+        Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);
+        Quaternion rotationY = Quaternion.AngleAxis(mouseX, Vector3.up);
 
-        //transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRottaion, smooth * Time.deltaTime);
+        Quaternion targetRottaion = Original * rotationX * rotationY;
+
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRottaion, smooth * Time.deltaTime);
     }
 
 }
