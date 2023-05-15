@@ -27,10 +27,10 @@ public class VolumeControl : MonoBehaviour
         if (_disableToggleEvent)
             return;
 
-        if (!enableSound)
-            _slider.value = _slider.minValue;
-        else
+        if (enableSound)
             _slider.value = _slider.maxValue;
+        else
+            _slider.value = _slider.minValue;
     }
 
     private void OnDisable()

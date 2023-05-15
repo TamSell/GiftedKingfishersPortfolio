@@ -18,7 +18,7 @@ public class gameManager : MonoBehaviour
     public GunStats2 currentGunAspects;
     public int currentGunIndex = 0;
     [SerializeField] public Crafting modify;
-    public EnemySpawner enemySpawner;
+
 
     [Header("------ UI Elements ------")]
     [SerializeField] GameObject Inventory;
@@ -38,6 +38,7 @@ public class gameManager : MonoBehaviour
     public Image SBar;
     public Image Speedbar;
     public Image SpeedbarBack;
+    public Image MomentumOverlay;
     public TextMeshProUGUI enemyCountTitle;
     public TextMeshProUGUI enemyCount;
     public TextMeshProUGUI finalScore;
