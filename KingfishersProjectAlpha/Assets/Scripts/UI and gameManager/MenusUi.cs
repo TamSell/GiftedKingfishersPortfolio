@@ -18,6 +18,14 @@ public class MenusUi : MonoBehaviour
     [SerializeField] public GameObject OptionMenu;
     [SerializeField] public GameObject LevelSMenu;
 
+
+    [Header("----- Menu Volume Control -----")]
+    [SerializeField] public AudioSource MenuMusicSource;
+    [SerializeField] public AudioSource MenuSFXSource;
+    [SerializeField] public AudioMixer MenuMixer;
+    [SerializeField] public Slider Musicvalue;
+    [SerializeField] public Slider SFXvalue;
+
     [Header("----- Game Volume Control -----")]
     [SerializeField] public AudioSource GameMusicSource;
     [SerializeField] public AudioSource GameSFXSource;
@@ -50,8 +58,11 @@ public class MenusUi : MonoBehaviour
 
     void UpdateVolume()
     {
-        GameMixer.SetFloat("SFXVolume", Mathf.Log10(GSFXvalue.value) * 30);
-        GameMixer.SetFloat("MusicVolume", Mathf.Log10(GMusicvalue.value) * 30);
+        MenuMixer.SetFloat("SFXVolume", Mathf.Log10(SFXvalue.value) * 30);
+        MenuMixer.SetFloat("MusicVolume", Mathf.Log10(Musicvalue.value) * 30);
+
+        MenuMixer.SetFloat("SFXVolume", Mathf.Log10(GSFXvalue.value) * 30);
+        MenuMixer.SetFloat("MusicVolume", Mathf.Log10(GMusicvalue.value) * 30);
     }
 
     IEnumerator Click()

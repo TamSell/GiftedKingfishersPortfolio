@@ -78,10 +78,11 @@ public class FinalPlayerController : MonoBehaviour, Damage
     private float xRotation;
     public bool isRunning;
     public bool isPlaying;
+    private float currFov;
+    private float nextFov;
     public float origHP;
     public float currentEnergy = 0;
     public float origStamina;
-    public float speed;
     public bool isGrounded;
     public bool isTeleporting;
     public bool isJumping;
@@ -148,6 +149,8 @@ public class FinalPlayerController : MonoBehaviour, Damage
         PlayerMovementInput = Input.GetAxis("Horizontal") * PlayerBody.transform.right + PlayerBody.transform.forward * Input.GetAxis("Vertical");
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         Momentum.SetUp();
+        currFov = UnityEngine.Camera.main.fieldOfView;
+        SpeedCamera();
         if (Input.GetButtonDown("MoveChange"))
         {
             Momentum.MomentumState();
@@ -174,6 +177,15 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
     }
 
+    private void SpeedCamera()
+    {
+        if(CurrentSpeed != 0)
+        {
+            float newFov = currFov + (CurrentSpeed / Momentum.speedLimit) / 5;
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, newFov, 2.5f); ;
+
+        }
+    }
     private void CD(bool ability, ref float abilityCD, float maxCD)
     {
         if (abilityCD > maxCD)
@@ -231,12 +243,14 @@ public class FinalPlayerController : MonoBehaviour, Damage
             //gameManager.Instance.SBar.enabled = true;
             isRunning = true;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, RunFov, Time.deltaTime * 2.5f);
+            currFov = RunFov;
         }
         else
         {
 
             isRunning = false;
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 2.5f);
+            currFov = FovOrg;
 
         }
     }
@@ -250,7 +264,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         if (Input.GetButtonDown("Dash"))
         {
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, DashFov, Time.deltaTime * 1f);
-
+            currFov = DashFov;
             // MoveVector = transform.TransformDirection(PlayerMovementInput) * DashSpeed;
             //  PlayerBody.velocity = new Vector3(MoveVector.x, PlayerBody.velocity.y, MoveVector.z);
             if (DashReady)
@@ -277,6 +291,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         yield return new WaitForEndOfFrame();
         isDashing = false;
         UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 1f);
+        currFov = FovOrg;
 
     }
     //void Dash2()
@@ -412,9 +427,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         HP = origHP;
         playerUpdateUI();
-        //PlayerBody.isKinematic = false;
+        PlayerBody.isKinematic = true;
         transform.position = gameManager.Instance.playerSpawnPos.transform.position;
-      //  PlayerBody.isKinematic = true;
+        PlayerBody.isKinematic = false;
     }
 
     void canInteract()

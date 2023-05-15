@@ -1530,17 +1530,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1160093063686753664, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
-      propertyPath: damage
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 2022461546312585152, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_Radius
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546312585152, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2022461546764465500, guid: d038bb3738455ca4e814cfb1d816662d, type: 3}
       propertyPath: m_RootOrder

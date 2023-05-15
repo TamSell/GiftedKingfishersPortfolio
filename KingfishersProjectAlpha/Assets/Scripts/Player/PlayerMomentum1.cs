@@ -7,7 +7,7 @@ public class PlayerMomentum1 : MonoBehaviour
 {
     [SerializeField] private FinalPlayerController energizer;
     [SerializeField] private float speedMultiplier;
-    [SerializeField] private float speedLimit;
+    [SerializeField] public float speedLimit;
     private Vector3 direction;
     private float newMoveSpeed;
     private float prevMoveSpeed;
@@ -61,6 +61,7 @@ public class PlayerMomentum1 : MonoBehaviour
     public void MomentumState()
     {
         inMomentum = !inMomentum;
+        gameManager.Instance.MomentumOverlay.enabled = inMomentum;
     }
 
     IEnumerator SlowDown()
