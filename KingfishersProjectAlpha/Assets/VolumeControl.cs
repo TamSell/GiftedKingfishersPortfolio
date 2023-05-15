@@ -61,9 +61,6 @@ public class VolumeControl : MonoBehaviour
 
     public void UpdateVolume()
     {
-        MenusUi.menus.MenuMusicSource.volume = _slider.value;
-        MenusUi.menus.MenuSFXSource.volume = _slider.value;
-
         MenusUi.menus.GameMusicSource.volume = _slider.value;
         MenusUi.menus.GameSFXSource.volume = _slider.value;
     }
