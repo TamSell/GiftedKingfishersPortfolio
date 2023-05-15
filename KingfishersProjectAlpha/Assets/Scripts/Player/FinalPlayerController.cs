@@ -344,10 +344,10 @@ public class FinalPlayerController : MonoBehaviour, Damage
         }
     }
 
-    public void goDie()
-    {
-        gameManager.Instance.death();
-    }
+    //public void goDie()
+    //{
+    //    gameManager.Instance.death();
+    //}
     public void TakeDamage(int amount)
     {
         // audio.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
