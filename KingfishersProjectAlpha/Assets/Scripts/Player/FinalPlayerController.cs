@@ -90,6 +90,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public bool isJumping;
     public float minXLock;
     public float maxXLock;
+    float reloadTimer;
+    float reloadSliding;
+    float reloadFinal;
 
     private void Start()
     {
@@ -148,6 +151,23 @@ public class FinalPlayerController : MonoBehaviour, Damage
                 PlayerBody.drag = MomentumDrag;
             else
                 PlayerBody.drag = StandardDrag;
+        }
+        if(reloadTimer >= 2.0f)
+        {
+            gameManager.Instance.ReloadBar.gameObject.SetActive(false);
+        }
+        else
+        {
+            gameManager.Instance.ReloadBar.gameObject.SetActive(true);
+            reloadTimer += Time.deltaTime;
+            reloadTimer = Mathf.Clamp(reloadTimer, 0, 2);
+        }
+        gameManager.Instance.ReloadBar.value = reloadTimer / 2;
+        if (Input.GetButtonDown("Reloading"))
+        {
+            Debug.Log("Reloading");
+           // gameManager.Instance.ReloadBar.enabled = true;
+            reloadTimer = 0.0f;
         }
 
         PlayerInput();
@@ -361,7 +381,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
         if (isDead)
         {
             goDie();
-            animator.SetTrigger("Death");
+         //   animator.SetTrigger("Death");
         }
     }
     void playerUpdateUI()

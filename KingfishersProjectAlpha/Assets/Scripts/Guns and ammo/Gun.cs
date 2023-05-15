@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
@@ -90,7 +91,6 @@ public class Gun : MonoBehaviour
         {
             Reloading();
         }
-      
         if (reaload == true)
         {
             Invoke("shooting", realoadSpeed);
@@ -105,7 +105,6 @@ public class Gun : MonoBehaviour
             RayCastSetActive();
 
         }
-        ReloadVisual(realoadSpeed);
 
     }
 
@@ -278,7 +277,6 @@ public class Gun : MonoBehaviour
         {
             return;
         }
-        reloadTempTime = 0;
         if (!isShooting)
         {
             if (Input.GetButtonDown("Reloading"))
@@ -296,7 +294,6 @@ public class Gun : MonoBehaviour
     }
     public void RealoadingLogic()
     {
-
         if (totalAmmo == 0)
         {
             return;
@@ -354,13 +351,5 @@ public class Gun : MonoBehaviour
         }
         yield return new WaitForSeconds(fireRate);
         gunModelAnim.GetComponent<Animator>().Play("New State");
-    }
-
-    private void ReloadVisual(float reloadTime)
-    {
-        gameManager.Instance.ReloadBar.enabled = true;
-        reloadTempTime += Time.deltaTime * reloadTime;
-        gameManager.Instance.ReloadBar.value = Mathf.Lerp(0, 1, Time.deltaTime * reloadTempTime);
-
     }
 }
