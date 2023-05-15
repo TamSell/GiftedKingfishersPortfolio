@@ -18,6 +18,9 @@ public class Gun : MonoBehaviour
     [SerializeField] public bool reaload;
     [SerializeField] GameObject hitEffect;
     [SerializeField] GameObject gunModelAnim;
+    [SerializeField] ParticleSystem physicalSystem;
+    [SerializeField] ParticleSystem energySystem;
+
    [Header("-----Secondary Gun------")]
     [SerializeField] bool secondaryGun;
     [SerializeField] float EnergyCost;
@@ -337,14 +340,17 @@ public class Gun : MonoBehaviour
         if(gunType == 1)
         {
             gunModelAnim.GetComponent<Animator>().Play("shotgunRecoil");
+            physicalSystem.Play();
         }
         else if (gunType == 2)
         {
             gunModelAnim.GetComponent<Animator>().Play("gunRecoil");
+            physicalSystem.Play();
         }
         else if (gunType == 3)
         {
             gunModelAnim.GetComponent<Animator>().Play("smgRecoil");
+            energySystem.Play();
         }
         yield return new WaitForSeconds(fireRate);
         gunModelAnim.GetComponent<Animator>().Play("New State");
