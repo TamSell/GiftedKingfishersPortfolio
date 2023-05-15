@@ -50,9 +50,9 @@ MonoBehaviour:
   speed: 100
   timer: 2
   BasicDamage: 3
-  LowDamage: 5
-  MediumDamage: 10
-  HighDamage: 200
+  LowDamage: 8
+  MediumDamage: 16
+  HighDamage: 24
   TriggerEffect: {fileID: 100004, guid: b46890100828db6429ff69c322b45893, type: 3}
   spin: 0
   IsSpinning: 0
@@ -84,7 +84,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &76349910900706678
 TrailRenderer:
