@@ -58,6 +58,8 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] AudioClip[] audJump;
     [Range(0, 1)][SerializeField] float audDamageVol;
     [SerializeField] AudioClip[] audDamage;
+    [SerializeField] AudioClip[] audSteps;
+    [Range(0, 1)][SerializeField] float audStepsVol;
 
 
     [Header("---Gun---")]
@@ -88,6 +90,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public bool isJumping;
     public float minXLock;
     public float maxXLock;
+    bool isPlayingSteps;
 
     private void Start()
     {
@@ -146,11 +149,21 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     private void PlayerInput()
     {
+        
         PlayerMovementInput = Input.GetAxis("Horizontal") * PlayerBody.transform.right + PlayerBody.transform.forward * Input.GetAxis("Vertical");
         PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         Momentum.SetUp();
         currFov = UnityEngine.Camera.main.fieldOfView;
         SpeedCamera();
+       if (isGrounded)
+        {
+            if(!isPlayingSteps && PlayerMovementInput.normalized.magnitude >0.5)
+            {
+                StartCoroutine(MoveSound());
+            }
+        }
+
+
         if (Input.GetButtonDown("MoveChange"))
         {
             Momentum.MomentumState();
@@ -350,7 +363,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     }
     public void TakeDamage(int amount)
     {
-        // audio.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
+        audioPl.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         HP -= amount;
         playerUpdateUI();
         if (isDead)
@@ -446,5 +459,24 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             gameManager.Instance.isNear = false;
         }
+    }
+    IEnumerator MoveSound()
+    {
+        isPlayingSteps = true;
+        audioPl.PlayOneShot(audSteps[Random.Range(0, audSteps.Length)], audStepsVol);
+        if(isRunning)
+        {
+           yield return new WaitForSeconds(0.3f);
+        }
+        else if(CurrentSpeed > 15)
+        {
+            yield return new WaitForSeconds(0.2f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        isPlayingSteps = false;
     }
 }

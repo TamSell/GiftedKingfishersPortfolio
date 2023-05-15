@@ -88,6 +88,7 @@ public class Gun : MonoBehaviour
       
         if (reaload == true)
         {
+            Debug.Log("Im working");
             Invoke("shooting", realoadSpeed);
             if (Sniper)
             {
