@@ -125,6 +125,11 @@ public class buttonManager : MonoBehaviour
         gameManager.Instance.modify.NextGun();
     }
 
+    public void gunEquip(bool secondary)
+    {
+        
+    }
+
     public void MenuMusicButton()
     {
         isPlayingM = !isPlayingM;
