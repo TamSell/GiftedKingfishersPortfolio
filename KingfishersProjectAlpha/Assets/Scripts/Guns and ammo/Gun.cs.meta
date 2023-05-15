@@ -3,7 +3,17 @@ guid: b067ea13732289f41abc26a66c1c6910
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cam: {instanceID: 0}
+  - stats: {instanceID: 0}
+  - aud: {instanceID: 0}
+  - hitEffect: {instanceID: 0}
+  - gunModelAnim: {fileID: 4962994291947976680, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+  - RayGunEffect: {instanceID: 0}
+  - GunShot: {instanceID: 0}
+  - bulletVals: {instanceID: 0}
+  - bullet: {instanceID: 0}
+  - Barrel: {instanceID: 0}
   executionOrder: 3
   icon: {instanceID: 0}
   userData: 

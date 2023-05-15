@@ -17,6 +17,7 @@ public class Gun : MonoBehaviour
     [SerializeField] public int realoadSpeed;
     [SerializeField] public bool reaload;
     [SerializeField] GameObject hitEffect;
+    [SerializeField] GameObject gunModelAnim;
    [Header("-----Secondary Gun------")]
     [SerializeField] bool secondaryGun;
     [SerializeField] float EnergyCost;
@@ -166,6 +167,7 @@ public class Gun : MonoBehaviour
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
             aud.PlayOneShot(GunShot, gunShotVol);
+            StartCoroutine(ShootingAnim(2, (float)ShootRate));
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
             {
@@ -202,6 +204,7 @@ public class Gun : MonoBehaviour
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
             aud.PlayOneShot(GunShot, gunShotVol);
+            StartCoroutine(ShootingAnim(1, ShootRate));
             for (int i = 0; i < bulletPerShot; i++)
             {
                 RaycastHit hit;
@@ -240,6 +243,7 @@ public class Gun : MonoBehaviour
         {
             isShooting = true;
             aud.PlayOneShot(GunShot, gunShotVol);
+            StartCoroutine(ShootingAnim(3, ShootRate));
             Instantiate(bullet, Barrel.position, cam.rotation);
             yield return new WaitForSeconds(ShootRate);
             isShooting = false;
@@ -328,4 +332,21 @@ public class Gun : MonoBehaviour
         // transform.TransformDirection(gameManager.Instance.playerController.PlayerMovementInput)
     }
 
+    IEnumerator ShootingAnim(int gunType, float fireRate)
+    {
+        if(gunType == 1)
+        {
+            gunModelAnim.GetComponent<Animator>().Play("shotgunRecoil");
+        }
+        else if (gunType == 2)
+        {
+            gunModelAnim.GetComponent<Animator>().Play("gunRecoil");
+        }
+        else if (gunType == 3)
+        {
+            gunModelAnim.GetComponent<Animator>().Play("smgRecoil");
+        }
+        yield return new WaitForSeconds(fireRate);
+        gunModelAnim.GetComponent<Animator>().Play("New State");
+    }
 }
