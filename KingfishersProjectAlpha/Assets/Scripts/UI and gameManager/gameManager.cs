@@ -159,7 +159,6 @@ public class gameManager : MonoBehaviour
 
     public void death()
     {
-        
         pause();
         setMenu(LostMenu);
         Time.timeScale = 0;
