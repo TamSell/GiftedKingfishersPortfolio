@@ -127,6 +127,16 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             return;
         }
+
+        if (gotHitOverlay != null)
+        {
+            if (gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color.a > 0)
+            {
+                var color = gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color;
+                color.a -= 0.01f;
+                gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color = color;
+            }
+        }
         //if (CurrentSpeed > 12)
         //{
         //    runningEffect.SetActive(true);
