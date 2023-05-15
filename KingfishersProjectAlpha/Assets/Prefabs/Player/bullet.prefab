@@ -47,12 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c699fc8aa09bb4eaeeaf817a143f7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 100
   timer: 2
   BasicDamage: 1
-  LowDamage: 3
-  MediumDamage: 5
-  HighDamage: 10
+  LowDamage: 7
+  MediumDamage: 13
+  HighDamage: 18
   TriggerEffect: {fileID: 100006, guid: 9e95c7b2183a4f345aaf86846f8f1918, type: 3}
   spin: 0
   IsSpinning: 0
@@ -84,7 +84,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &-3883019208101976472
 TrailRenderer:
