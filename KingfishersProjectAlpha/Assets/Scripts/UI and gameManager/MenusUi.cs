@@ -17,6 +17,7 @@ public class MenusUi : MonoBehaviour
     [SerializeField] public GameObject MainMenu;
     [SerializeField] public GameObject OptionMenu;
     [SerializeField] public GameObject LevelSMenu;
+    [SerializeField] public GameObject CreditsMenu;
 
     [Header("----- Game Volume Control -----")]
     [SerializeField] public AudioSource GameMusicSource;

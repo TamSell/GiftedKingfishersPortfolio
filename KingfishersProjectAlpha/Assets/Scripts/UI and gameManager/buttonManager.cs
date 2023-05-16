@@ -82,6 +82,12 @@ public class buttonManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(levelSelectButt);
     }
 
+    public void Credits()
+    {
+        MenusUi.menus.CreditsMenu.SetActive(true);
+        MenusUi.menus.MainMenu.SetActive(false);
+    }
+
     public void Back()
     {
         gameManager.Instance.Settings.SetActive(false);
@@ -103,6 +109,12 @@ public class buttonManager : MonoBehaviour
         MenusUi.menus.MainMenu.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(mainMenuButt);
+    }
+
+    public void BackMenufromCredits()
+    {
+        MenusUi.menus.CreditsMenu.SetActive(false);
+        MenusUi.menus.MainMenu.SetActive(true);
     }
 
     public void nextWeapon()
