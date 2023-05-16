@@ -88,6 +88,12 @@ public class buttonManager : MonoBehaviour
         MenusUi.menus.MainMenu.SetActive(false);
     }
 
+    public void Controls()
+    {
+        MenusUi.menus.ControlsMenu.SetActive(true);
+        MenusUi.menus.MainMenu.SetActive(false);
+    }
+
     public void Back()
     {
         gameManager.Instance.Settings.SetActive(false);
@@ -114,6 +120,12 @@ public class buttonManager : MonoBehaviour
     public void BackMenufromCredits()
     {
         MenusUi.menus.CreditsMenu.SetActive(false);
+        MenusUi.menus.MainMenu.SetActive(true);
+    }
+
+    public void BackMenufromControls()
+    {
+        MenusUi.menus.ControlsMenu.SetActive(false);
         MenusUi.menus.MainMenu.SetActive(true);
     }
 
