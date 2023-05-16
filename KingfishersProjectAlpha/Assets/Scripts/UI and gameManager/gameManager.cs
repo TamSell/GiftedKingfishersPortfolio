@@ -155,8 +155,12 @@ public class gameManager : MonoBehaviour
         {
             setMenu(WinMenu);
             inMenu = !inMenu;
-            enemyRemaining = 1;
-            enemyCount.enabled = false;
+            if (Input.GetButtonDown("Cancel") && (activeMenu == null || activeMenu == PauseMenu))
+            {
+                unpause();
+            }
+                //enemyRemaining = 1;
+                enemyCount.enabled = false;
             enemyCountTitle.enabled = false;
         }
     }
