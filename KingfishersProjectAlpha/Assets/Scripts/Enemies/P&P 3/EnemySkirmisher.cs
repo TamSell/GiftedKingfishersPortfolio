@@ -82,7 +82,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         FollowPlayer();
         if (distanceToPlayer > 20)
         {
-            PredictiveCutOff();
+            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
         }
         if (10 < distanceToPlayer && distanceToPlayer < 20 && !isShimmy)
         {
@@ -97,7 +97,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         //    navMeshA.ResetPath();
         //    navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
         //}
-        if (distanceToPlayer < 25 && !isShooting)
+        if (distanceToPlayer < 15 && !isShooting)
         {
            StartCoroutine(ShootPlayer());
         }
@@ -119,6 +119,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         isShooting = true;
         float fCheckTime = fBaseCheckTime;
         yield return new WaitForSeconds(fireRate);
+        animatorSkirmisher.GetComponent<Animator>().Play("demo_combat_shoot");
         BaseProjectile freshBullet = GameObject.Instantiate(bullet, playerFinder.transform.position, transform.rotation).GetComponent<BaseProjectile>();
         Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
 
@@ -137,6 +138,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
 
         Vector3 v3Velocity = TargetPosition - playerFinder.transform.position;
         freshBullet.Shoot(v3Velocity.normalized, fireSpeed);
+        animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
         isShooting = false;
 
     }
@@ -144,6 +146,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     IEnumerator TangentShimmy()
     {
         isShimmy = true;
+        animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
         navMeshA.speed = 30;
         int flipper = Random.Range(0, 2);
         navMeshA.stoppingDistance = 0;
