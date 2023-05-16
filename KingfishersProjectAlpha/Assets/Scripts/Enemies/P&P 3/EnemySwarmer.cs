@@ -169,7 +169,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
            // aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             GetComponent<CapsuleCollider>().enabled = false;
             navMeshA.enabled = false;
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
         else
         {
