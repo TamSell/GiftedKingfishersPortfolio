@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using Unity.VisualScripting;
 
 public class gameManager : MonoBehaviour
 {
@@ -182,21 +183,21 @@ public class gameManager : MonoBehaviour
         return inven.InvenSelect(index);
     }
 
-    public void addGun(Gun gun)
-    {
-        Item gunItem = null;
-        gunItem.name = gun.name;
-        if (gun.RayGunDamage != 0)
-        {
-            gunItem.description = "Damage: " + gun.RayGunDamage.ToString() + "\n";
-        }
-        else
-        {
-            gunItem.description = "Damage: " + gun.bulletVals.BasicDamage + "\n";
-        }
-        gunItem.description += "Magazine Size: " + gun.magSize.ToString() + "\n" + "Reserve Ammo: " + gun.totalAmmo.ToString();
-        inven.InvenAdd(gunItem);
-    }
+    //public void addGun(Gun gun)
+    //{
+    //    Item gunItem = null;
+    //    gunItem.name = gun.name;
+    //    if (gun.RayGunDamage != 0)
+    //    {
+    //        gunItem.description = "Damage: " + gun..ToString() + "\n";
+    //    }
+    //    else
+    //    {
+    //        gunItem.description = "Damage: " + gun.bulletVals.BasicDamage + "\n";
+    //    }
+    //    gunItem.description += "Magazine Size: " + gun.magSize.ToString() + "\n" + "Reserve Ammo: " + gun.totalAmmo.ToString();
+    //    inven.InvenAdd(gunItem);
+    //}
 
     public void DisplayItem(Item _item)
     {

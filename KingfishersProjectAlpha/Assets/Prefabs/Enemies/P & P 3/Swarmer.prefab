@@ -200,7 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c21bf5d1e4ae34ebe741f272715787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 10
+  ItemToDrop: []
+  healthPoints: 15
   meleeRate: 1
   meleeWindUp: 0.5
   meleeSpeed: 2

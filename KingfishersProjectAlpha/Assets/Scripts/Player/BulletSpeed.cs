@@ -26,7 +26,7 @@ public class BulletSpeed : MonoBehaviour
     [SerializeField] GameObject model;
     GameObject effect;
     float timeToDestroy;
-
+    private float gunBaseDamage;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +51,12 @@ public class BulletSpeed : MonoBehaviour
             Destroy(gameObject);
 
     }
+
+    public void changeDamage(float damage)
+    {
+        gunBaseDamage = damage;
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         if(other.isTrigger)
@@ -82,16 +88,20 @@ public class BulletSpeed : MonoBehaviour
        
         if (Energy >= 75)
         {
-            return HighDamage;
+            return (int)gunBaseDamage * HighDamage;
         }
         else if (Energy >= 50)
         {
-            return MediumDamage;
+            return (int)gunBaseDamage * MediumDamage;
         }
         else if (Energy >= 25)
 
         {
-            return HighDamage;
+            return (int)gunBaseDamage * LowDamage;
+        }
+        else if(Energy >= 10)
+        {
+            return (int)gunBaseDamage;
         }
         else
         {

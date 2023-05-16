@@ -29,12 +29,10 @@ public class Gun : MonoBehaviour
 
     [Header("-----Sniper Stats------")]
     [SerializeField] public float RayGunDist;
-    [SerializeField] public int RayGunDamage;
     [SerializeField] public GameObject RayGunEffect;
 
     [Header("---ShotGun-----")]
     [SerializeField] public float ShotGunDist;
-    [SerializeField] public int ShotGunDamage;
     [SerializeField] public bool shotgun;
     [SerializeField] public int bulletPerShot;
 
@@ -60,6 +58,7 @@ public class Gun : MonoBehaviour
     [SerializeField] public Transform Barrel;
     public bool Sniper;
     GameObject DestroyEffect;
+    private int PrimaryDamage;
 
 
 
@@ -67,7 +66,7 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
-
+        SetStats();
     }
 
     // Start is called before the first frame update
@@ -105,7 +104,17 @@ public class Gun : MonoBehaviour
 
     }
 
-
+    public void SetStats()
+    {
+        int damage = (int)gameManager.Instance.playerController.held.secondaryGuns[0].damage;
+        if (bulletVals)
+            bulletVals.changeDamage(damage);
+        else
+            PrimaryDamage = (int)gameManager.Instance.playerController.held.primaryGuns[0].damage;
+        totalAmmo = (int)gameManager.Instance.playerController.held.primaryGuns[0].totalAmmo;
+        magSize = (int)gameManager.Instance.playerController.held.primaryGuns[0].magSize;
+        realoadSpeed = (int)gameManager.Instance.playerController.held.primaryGuns[0].realoadSpeed;
+    }
     public void shooting()
     {
 
@@ -184,7 +193,7 @@ public class Gun : MonoBehaviour
                     Damage damage = hit.collider.GetComponent<Damage>();
                     if (damage != null)
                     {
-                        damage.TakeDamage(RayGunDamage);
+                        damage.TakeDamage(PrimaryDamage);
                     }
                 }
 
@@ -214,7 +223,7 @@ public class Gun : MonoBehaviour
                     Damage damage = hit.collider.GetComponent<Damage>();
                     if (damage != null)
                     {
-                        damage.TakeDamage(ShotGunDamage);
+                        damage.TakeDamage(PrimaryDamage);
                     }
                    
                     if (hitEffect)

@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour, Damage
         
             Dash();
             movement();
-            selectGun();
+            //selectGun();
             EnergyBuildUp();
             canInteract();
             CD(isDashing);
@@ -342,111 +342,109 @@ public class PlayerController : MonoBehaviour, Damage
         rb.isKinematic = true;
     }
 
-    public void gunPickup(Gun gun)
-    {
-       gunList.Add(gun);
+    //public void gunPickup(Gun gun)
+    //{
+    //   gunList.Add(gun);
 
-       usingGun.currentMag = gun.currentMag;
-       usingGun.bullet = gun.bullet;
-       usingGun.Barrel = gun.Barrel;
+    //   usingGun.currentMag = gun.currentMag;
+    //   usingGun.bullet = gun.bullet;
+    //   usingGun.Barrel = gun.Barrel;
        
-       usingGun.magSize = gun.magSize;
-       usingGun.totalAmmo = gun.totalAmmo;
+    //   usingGun.magSize = gun.magSize;
+    //   usingGun.totalAmmo = gun.totalAmmo;
        
-       usingGun.RayGunDist = gun.RayGunDist;
-       usingGun.RayGunDamage = gun.RayGunDamage;
-       usingGun.RayGunEffect = gun.RayGunEffect;
+    //   usingGun.RayGunDist = gun.RayGunDist;
+    //   usingGun.RayGunDamage = gun.RayGunDamage;
+    //   usingGun.RayGunEffect = gun.RayGunEffect;
        
-       usingGun.ShootRate = gun.ShootRate;
-       usingGun.realoadSpeed = gun.realoadSpeed;
-       usingGun.reaload = gun.reaload;
+    //   usingGun.ShootRate = gun.ShootRate;
+    //   usingGun.realoadSpeed = gun.realoadSpeed;
+    //   usingGun.reaload = gun.reaload;
        
-       usingGun.Sniper = gun.Sniper;
+    //   usingGun.Sniper = gun.Sniper;
        
-       usingGun = gun;
+    //   usingGun = gun;
        
-       gunModel.mesh = gun.GetComponent<MeshFilter>().sharedMesh;
-       gunMaterial.material = gun.GetComponent<MeshRenderer>().sharedMaterial;
-    }
+    //   gunModel.mesh = gun.GetComponent<MeshFilter>().sharedMesh;
+    //   gunMaterial.material = gun.GetComponent<MeshRenderer>().sharedMaterial;
+    //}
 
-     void selectGun()
-     {
-         int previousSelectedWeapon = selectedWeapon;
+     //void selectGun()
+     //{
+     //    int previousSelectedWeapon = selectedWeapon;
      
-         if (Input.GetKeyDown(KeyCode.Alpha1))
-         {
-             selectedWeapon = 0;
-         }
-         else if (Input.GetKeyDown(KeyCode.Alpha2))
-         {
-             selectedWeapon = 1;
-         }
-         else if (Input.GetKeyDown(KeyCode.Alpha3))
-         {
-             selectedWeapon = 2;
-         }
-         else if (Input.GetKeyDown(KeyCode.Alpha4))
-         {
-             selectedWeapon = 3;
-         }
+     //    if (Input.GetKeyDown(KeyCode.Alpha1))
+     //    {
+     //        selectedWeapon = 0;
+     //    }
+     //    else if (Input.GetKeyDown(KeyCode.Alpha2))
+     //    {
+     //        selectedWeapon = 1;
+     //    }
+     //    else if (Input.GetKeyDown(KeyCode.Alpha3))
+     //    {
+     //        selectedWeapon = 2;
+     //    }
+     //    else if (Input.GetKeyDown(KeyCode.Alpha4))
+     //    {
+     //        selectedWeapon = 3;
+     //    }
      
-         if (previousSelectedWeapon != selectedWeapon)
-             SelectGun();
-         //Invoke("SelectWeapon", 0.5f);  
+     //    if (previousSelectedWeapon != selectedWeapon)
+     //        SelectGun();
+     //    //Invoke("SelectWeapon", 0.5f);  
      
-         if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunList.Count - 1)
-         {
-             selectedWeapon++;
-             changeGun();
-         }
-         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
-         {
-             selectedWeapon--;
-             changeGun();
-         }
-     }
-     void SelectGun()
-     {
-         int i = 0;
-         foreach (Gun gun in gunList)
-         {
-             if (i == selectedWeapon)
-                 gunList[i].gameObject.SetActive(true);
-             else
-                 gunList[i].gameObject.SetActive(false);
-             i++;
-         }
-     }
+     //    if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedWeapon < gunList.Count - 1)
+     //    {
+     //        selectedWeapon++;
+     //        changeGun();
+     //    }
+     //    else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedWeapon > 0)
+     //    {
+     //        selectedWeapon--;
+     //        changeGun();
+     //    }
+     //}
+     //void SelectGun()
+     //{
+     //    int i = 0;
+     //    foreach (Gun gun in gunList)
+     //    {
+     //        if (i == selectedWeapon)
+     //            gunList[i].gameObject.SetActive(true);
+     //        else
+     //            gunList[i].gameObject.SetActive(false);
+     //        i++;
+     //    }
+     //}
 
-    void changeGun()
-    {
-       usingGun.currentMag = gunList[selectedWeapon].currentMag;
-       usingGun.bullet = gunList[selectedWeapon].bullet;
-       usingGun.Barrel = gunList[selectedWeapon].Barrel;
+    //void changeGun()
+    //{
+    //   usingGun.currentMag = gunList[selectedWeapon].currentMag;
+    //   usingGun.bullet = gunList[selectedWeapon].bullet;
+    //   usingGun.Barrel = gunList[selectedWeapon].Barrel;
        
-       usingGun.magSize = gunList[selectedWeapon].magSize;
-       usingGun.totalAmmo = gunList[selectedWeapon].totalAmmo;
+    //   usingGun.magSize = gunList[selectedWeapon].magSize;
+    //   usingGun.totalAmmo = gunList[selectedWeapon].totalAmmo;
        
-       usingGun.RayGunDist = gunList[selectedWeapon].RayGunDist;
-       usingGun.RayGunDamage = gunList[selectedWeapon].RayGunDamage;
-       usingGun.RayGunEffect = gunList[selectedWeapon].RayGunEffect;
+    //   usingGun.RayGunDist = gunList[selectedWeapon].RayGunDist;
+    //   usingGun.RayGunDamage = gunList[selectedWeapon].RayGunDamage;
+    //   usingGun.RayGunEffect = gunList[selectedWeapon].RayGunEffect;
        
-       usingGun.ShootRate = gunList[selectedWeapon].ShootRate;
-       usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
-       usingGun.reaload = gunList[selectedWeapon].reaload;
+    //   usingGun.ShootRate = gunList[selectedWeapon].ShootRate;
+    //   usingGun.realoadSpeed = gunList[selectedWeapon].realoadSpeed;
+    //   usingGun.reaload = gunList[selectedWeapon].reaload;
        
-       usingGun.Sniper = gunList[selectedWeapon].Sniper;
+    //   usingGun.Sniper = gunList[selectedWeapon].Sniper;
        
-       usingGun.GunShot = gunList[selectedWeapon].GunShot;
-       usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
+    //   usingGun.GunShot = gunList[selectedWeapon].GunShot;
+    //   usingGun.gunShotVol = gunList[selectedWeapon].gunShotVol;
        
-       usingGun = gunList[selectedWeapon];
+    //   usingGun = gunList[selectedWeapon];
        
-       gunModel.mesh = gunList[selectedWeapon].GetComponent<MeshFilter>().sharedMesh;
-       gunMaterial.material = gunList[selectedWeapon].GetComponent<MeshRenderer>().sharedMaterial;
-        
-    
-    }
+    //   gunModel.mesh = gunList[selectedWeapon].GetComponent<MeshFilter>().sharedMesh;
+    //   gunMaterial.material = gunList[selectedWeapon].GetComponent<MeshRenderer>().sharedMaterial;
+    //}
 
    public void addHP(int amount)
     {

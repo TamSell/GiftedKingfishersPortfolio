@@ -20,4 +20,5 @@ public class GunStats2 : Item
     public GameObject Magazine;
     public GameObject Stock;
     public GameObject Body;
+    public float[] origStats = new float[7];
 }

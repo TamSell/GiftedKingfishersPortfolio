@@ -127,14 +127,10 @@ public class buttonManager : MonoBehaviour
 
     public void equipGun(bool secondary, int x)
     {
-        if(secondary)
-        {
-
-        }
+        if (secondary)
+            gameManager.Instance.currentGunIndex = x;
         else
-        {
-
-        }
+            gameManager.Instance.currentGunIndex = x;
     }
 
     public void GameMusicButton()
