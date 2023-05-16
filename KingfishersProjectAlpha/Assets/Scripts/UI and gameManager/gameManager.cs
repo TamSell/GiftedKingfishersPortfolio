@@ -154,7 +154,7 @@ public class gameManager : MonoBehaviour
         if (enemyRemaining <= 0)
         {
             setMenu(WinMenu);
-                enemyCount.enabled = false;
+            enemyCount.enabled = false;
             enemyCountTitle.enabled = false;
         }
     }
