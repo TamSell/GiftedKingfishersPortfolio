@@ -338,18 +338,18 @@ public class Gun : MonoBehaviour
     {
         if (gunType == 1)
         {
-            gunModelAnim.GetComponent<Animator>().Play("shotgunRecoil");
-            physicalSystem.Play();
+            gunModelAnim.GetComponent<Animator>().Play("shotGunAnim");
+           // physicalSystem.Play();
         }
         else if (gunType == 2)
         {
-            gunModelAnim.GetComponent<Animator>().Play("gunRecoil");
-            physicalSystem.Play();
+            gunModelAnim.GetComponent<Animator>().Play("sniperGunAnim");
+           // physicalSystem.Play();
         }
         else if (gunType == 3)
         {
-            gunModelAnim.GetComponent<Animator>().Play("smgRecoil");
-            energySystem.Play();
+            gunModelAnim.GetComponent<Animator>().Play("smgGunAnim");
+          //  energySystem.Play();
         }
         yield return new WaitForSeconds(fireRate);
         gunModelAnim.GetComponent<Animator>().Play("New State");

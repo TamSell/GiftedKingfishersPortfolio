@@ -5484,6 +5484,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 364895669908387300}
+    - target: {fileID: 1092843644682668608, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: gunModelAnim
+      value: 
+      objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
@@ -5492,14 +5496,26 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 136b5d9110902fa47bfe707c66de5221, type: 2}
+    - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: gunModelAnim
+      value: 
+      objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1131126266864982032, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 364895669908387300}
+    - target: {fileID: 1131126266864982032, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: gunModelAnim
+      value: 
+      objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1131126267292222932, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 364895669908387300}
+    - target: {fileID: 1131126267292222932, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: gunModelAnim
+      value: 
+      objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1136069907031365206, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5538,31 +5554,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99996775
+      value: 0.9999677
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000022417866
+      value: 0.000021255848
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0030065775
+      value: -0.003002285
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0074560773
+      value: 0.007452623
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -0.345
+      value: -0.344
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 0.854
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1437973d469ed894795cecd46887fd86, type: 3}
@@ -5586,6 +5602,26 @@ MonoBehaviour:
   smooth: 1
   WalkingSway: 2
   RunningSway: 3
+--- !u!95 &1606380516
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140648270849720689}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e63ae1fcbfd7ad34e82487fd92b6e8c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &1142188019348218151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
