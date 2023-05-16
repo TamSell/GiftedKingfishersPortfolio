@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2098164104
 Transform:
   m_ObjectHideFlags: 0
@@ -4943,7 +4943,7 @@ MonoBehaviour:
   sensitivity: 1
   jumpForce: 30
   gotHitOverlay: {fileID: 0}
-  HP: 100
+  HP: 20
   stamina: 0
   energyMax: 100
   interactDist: 12.5
@@ -4961,7 +4961,7 @@ MonoBehaviour:
   jumptimes: 0
   RunFov: 56
   FovOrg: 0
-  runningEffect: {fileID: 2098164101}
+  runningEffect: {fileID: 0}
   DashFov: 75
   DashSpeed: 200
   Dashtime: 0.25
