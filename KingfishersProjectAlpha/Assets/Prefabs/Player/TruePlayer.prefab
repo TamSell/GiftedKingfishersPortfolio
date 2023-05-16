@@ -5563,6 +5563,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1efe5f6d0217f4345849267a5f403fd5, type: 2}
     - target: {fileID: 1092843644682668608, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: GunShot
+      value: 
+      objectReference: {fileID: 8300000, guid: efb65af2873498f408625e3ee8872f43, type: 3}
+    - target: {fileID: 1092843644682668608, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: ImpulseTime
       value: 20
       objectReference: {fileID: 0}
@@ -5608,11 +5612,11 @@ PrefabInstance:
       objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1136069904279110998, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1136069907031365206, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1136069907728883527, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_IsActive
@@ -5636,15 +5640,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.35344476
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.236
+      value: -0.24
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.6124383
+      value: 0.76
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.w
