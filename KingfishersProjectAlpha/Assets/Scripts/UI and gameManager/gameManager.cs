@@ -169,6 +169,7 @@ public class gameManager : MonoBehaviour
     {
         pause();
         setMenu(LostMenu);
+        LevelMusic.enabled = false;
         Time.timeScale = 0;
     }
 
