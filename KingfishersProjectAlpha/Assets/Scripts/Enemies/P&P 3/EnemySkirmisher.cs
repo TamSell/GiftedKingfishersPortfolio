@@ -37,6 +37,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     float timePassed;
     int iMaxIters = 100;
     private Tracker objectTracker;
+    float speed;
 
     [Header("--- Components ---")]
     [SerializeField] GameObject playerDetector;
@@ -70,6 +71,9 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     void Update()
     {
         FindPlayer();
+        speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
+        animatorSkirmisher.SetFloat("Speed", speed);
+        aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
     }
 
     void FindPlayer()
@@ -107,6 +111,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     {
         Quaternion enemyRotation = Quaternion.LookRotation(new Vector3(dirOfPlayer.x, dirOfPlayer.y, dirOfPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * turnSpeed);
+        animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
     }
 
     void GivePlayerSpace()
@@ -123,6 +128,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         BaseProjectile freshBullet = GameObject.Instantiate(bullet, playerFinder.transform.position, transform.rotation).GetComponent<BaseProjectile>();
         Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
 
+        aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
         Vector3 ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
         fDistance = (TargetPosition - ProjectilePosition).magnitude;
 
@@ -214,7 +220,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
 
         // Destroy(effect, 2);
-
+        aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
 
         if (healthPoints <= 0)
         {

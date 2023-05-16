@@ -160,7 +160,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6221109818559952401}
-  m_LocalRotation: {x: -0, y: -0.75162464, z: -0, w: 0.659591}
+  m_LocalRotation: {x: 0, y: -0.75162685, z: 0, w: 0.65958863}
   m_LocalPosition: {x: -1.0921888, y: 0.09, z: 2.97}
   m_LocalScale: {x: 0.18683, y: 0.18683, z: 0.18683}
   m_ConstrainProportionsScale: 0
@@ -222,11 +222,15 @@ MonoBehaviour:
   meleeSwipe: {fileID: 242879028286051738}
   aud: {fileID: 0}
   animatorSwarmer: {fileID: 6221109818550420603}
-  audAmbience: []
+  audAmbience:
+  - {fileID: 8300000, guid: ab16e728c89aa6c41adeb9b250929d4a, type: 3}
+  - {fileID: 8300000, guid: 4717dd7ba4f8ac947bc15a1723f4ce2e, type: 3}
   audAmbienceVol: 0
-  audAttack: []
+  audAttack:
+  - {fileID: 8300000, guid: 0ea424d35c2fa2c4bbeb52867b5e28f2, type: 3}
   audAttackVol: 0
-  audHit: []
+  audHit:
+  - {fileID: 8300000, guid: ec99d54a3b6e9634f86146e08e238ae7, type: 3}
   audhitVol: 0
   audDeath: []
   auddeathVol: 0

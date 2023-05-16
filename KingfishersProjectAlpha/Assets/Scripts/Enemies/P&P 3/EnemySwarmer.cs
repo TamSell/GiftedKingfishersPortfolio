@@ -65,7 +65,8 @@ public class EnemySwarmer : MonoBehaviour, Damage
     void Update()
     {
         FindPlayer();
-       // animatorSwarmer.GetComponent<Animator>().Play("Blend Tree");
+        // animatorSwarmer.GetComponent<Animator>().Play("Blend Tree");
+        //aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
         speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
         animatorSwarmer.SetFloat("Speed", speed);
     }
@@ -120,7 +121,8 @@ public class EnemySwarmer : MonoBehaviour, Damage
     IEnumerator melee()
     {
         isMeleeing = true;
-       // navMeshA.speed = 0;
+       // aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
+        // navMeshA.speed = 0;
         yield return new WaitForSeconds(meleeWindUp);
         meleeSwipe.SetActive(true);
         yield return new WaitForSeconds(0.1f);
@@ -151,8 +153,8 @@ public class EnemySwarmer : MonoBehaviour, Damage
         //StartCoroutine(hitEffect());
         //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
 
-       // Destroy(effect, 2);
-    
+        // Destroy(effect, 2);
+       // aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
 
 
         if (healthPoints <= 0)
