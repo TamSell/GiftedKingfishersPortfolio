@@ -70,8 +70,7 @@ public class Gun : MonoBehaviour
 
     private void Awake()
     {
-        if (!gameManager.Instance.playerController.currentGun)
-            gameManager.Instance.playerController.currentGun = stats;
+
     }
 
     // Start is called before the first frame update

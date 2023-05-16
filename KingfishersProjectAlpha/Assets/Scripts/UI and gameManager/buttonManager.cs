@@ -149,6 +149,18 @@ public class buttonManager : MonoBehaviour
         gameManager.Instance.modify.NextGun();
     }
 
+    public void equipGun(bool secondary, int x)
+    {
+        if(secondary)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
     public void GameMusicButton()
     {
         isPlayingMGame = !isPlayingMGame;

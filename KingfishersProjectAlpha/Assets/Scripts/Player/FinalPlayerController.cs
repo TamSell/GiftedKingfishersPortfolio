@@ -64,7 +64,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
 
     [Header("---Gun---")]
-    [SerializeField] public GunStats2 currentGun;
+    [SerializeField] public GunsHeld held;
 
     [Space]
     PlayerAudio auido;
@@ -412,7 +412,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     void playerUpdateUI()
     {
         gameManager.Instance.HPbar.fillAmount = (float)HP / origHP;
-        gameManager.Instance.Speedbar.fillAmount = currentEnergy / 100;
+        gameManager.Instance.EnergyBar.fillAmount = (currentEnergy / 100) / 2;
     }
     public void addHP(int amount)
     {
