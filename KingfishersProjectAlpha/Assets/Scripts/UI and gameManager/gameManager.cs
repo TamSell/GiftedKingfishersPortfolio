@@ -34,10 +34,8 @@ public class gameManager : MonoBehaviour
     public GameObject MainMenu;
     public GameObject Settings;
     public Image HPbar;
-    public Image HPbarBack;
-    public Image SBar;
-    public Image Speedbar;
-    public Image SpeedbarBack;
+    public Image EnergyBar;
+    public Image BarBack;
     public Image MomentumOverlay;
     public Slider ReloadBar;
     public TextMeshProUGUI enemyCountTitle;
@@ -210,11 +208,9 @@ public class gameManager : MonoBehaviour
 
     public void turnOffUI()
     {
-        SBar.enabled = false;
         HPbar.enabled = false;
-        HPbarBack.enabled = false;
-        Speedbar.enabled = false;
-        SpeedbarBack.enabled = false;
+        EnergyBar.enabled = false;
+        BarBack.enabled = false;
         reticle.SetActive(false);
         enemyCountTitle.enabled = false;
         enemyCount.enabled = false;
@@ -225,11 +221,9 @@ public class gameManager : MonoBehaviour
 
     public void turnOnUI()
     {
-        SBar.enabled = true;
         HPbar.enabled = true;
-        HPbarBack.enabled = true;
-        Speedbar.enabled = true;
-        SpeedbarBack.enabled = true;
+        EnergyBar.enabled = true;
+        BarBack.enabled = true;
         reticle.SetActive(true);
         enemyCountTitle.enabled = true;
         enemyCount.enabled = true;
