@@ -43,6 +43,18 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     [SerializeField] GameObject bullet;
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent navMeshA;
+    [SerializeField] AudioSource aud;
+    [SerializeField] Animator animatorSkirmisher;
+
+    [Header("--- Audio ---")]
+    [SerializeField] AudioClip[] audAmbience;
+    [Range(0, 1)][SerializeField] float audAmbienceVol;
+    [SerializeField] AudioClip[] audAttack;
+    [Range(0, 1)][SerializeField] float audAttackVol;
+    [SerializeField] AudioClip[] audHit;
+    [Range(0, 1)][SerializeField] float audhitVol;
+    [SerializeField] AudioClip[] audDeath;
+    [Range(0, 1)][SerializeField] float auddeathVol;
 
     [Header("--- Effects ---")]
     [SerializeField] GameObject effect;
