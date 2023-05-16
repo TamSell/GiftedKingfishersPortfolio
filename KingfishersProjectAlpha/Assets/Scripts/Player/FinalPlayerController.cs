@@ -18,6 +18,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [Space]
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
+    [SerializeField] GameObject gotHitOverlay;
 
 
     [Header("---Stats---")]
@@ -91,6 +92,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public float minXLock;
     public float maxXLock;
     bool isPlayingSteps;
+    float reloadTimer;
+    float reloadSliding;
+    float reloadFinal;
 
     private void Start()
     {
@@ -123,6 +127,16 @@ public class FinalPlayerController : MonoBehaviour, Damage
         {
             return;
         }
+
+        if (gotHitOverlay != null)
+        {
+            if (gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color.a > 0)
+            {
+                var color = gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color;
+                color.a -= 0.01f;
+                gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color = color;
+            }
+        }
         //if (CurrentSpeed > 12)
         //{
         //    runningEffect.SetActive(true);
@@ -139,6 +153,23 @@ public class FinalPlayerController : MonoBehaviour, Damage
                 PlayerBody.drag = MomentumDrag;
             else
                 PlayerBody.drag = StandardDrag;
+        }
+        if (reloadTimer >= 2.0f)
+        {
+            gameManager.Instance.ReloadBar.gameObject.SetActive(false);
+        }
+        else
+        {
+            gameManager.Instance.ReloadBar.gameObject.SetActive(true);
+            reloadTimer += Time.deltaTime;
+            reloadTimer = Mathf.Clamp(reloadTimer, 0, 2);
+        }
+        gameManager.Instance.ReloadBar.value = reloadTimer / 2;
+        if (Input.GetButtonDown("Reloading"))
+        {
+            Debug.Log("Reloading");
+            // gameManager.Instance.ReloadBar.enabled = true;
+            reloadTimer = 0.0f;
         }
 
         PlayerInput();
@@ -365,6 +396,13 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         audioPl.PlayOneShot(audDamage[Random.Range(0, audDamage.Length)], audDamageVol);
         HP -= amount;
+        var colorOverlay = gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color;
+        colorOverlay.a = 0.9f;
+        gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color = colorOverlay;
+
+        Camera.GetComponent<CameraShake>().startShake = true;
+        //GetComponent<CameraShake>().startShake = true;
+
         playerUpdateUI();
         if (HP <= 0)
         {

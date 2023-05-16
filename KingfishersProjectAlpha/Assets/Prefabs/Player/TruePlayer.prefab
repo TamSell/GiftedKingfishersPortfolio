@@ -4942,6 +4942,7 @@ MonoBehaviour:
   audioPl: {fileID: 236422772}
   sensitivity: 1
   jumpForce: 30
+  gotHitOverlay: {fileID: 0}
   HP: 100
   stamina: 0
   energyMax: 100
@@ -4982,6 +4983,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc708075fcb61004682f0c06fc03c2c7, type: 3}
   - {fileID: 8300000, guid: 1c3732f8a948e4944acb74280bfc088d, type: 3}
   - {fileID: 8300000, guid: 3c21a4a4b5833fa4ba1222c14684f357, type: 3}
+  audSteps:
+  - {fileID: 8300000, guid: 3983799e3b77c054d9e555ec9c11ca15, type: 3}
+  - {fileID: 8300000, guid: 4beda9259416891409aa80e32170071e, type: 3}
+  - {fileID: 8300000, guid: 685d7e66384add04a883a5829d439c81, type: 3}
+  - {fileID: 8300000, guid: f64b542b2d74df645a81afa49bd1a36a, type: 3}
+  - {fileID: 8300000, guid: ca92d05bf5f431d4aa4a637e372cb8a5, type: 3}
+  - {fileID: 8300000, guid: 61f1076477511d64d9a3603b73942945, type: 3}
+  - {fileID: 8300000, guid: e6cc54fadd9970a4384fd9a0046ccb47, type: 3}
+  - {fileID: 8300000, guid: aad2aa8bd0a1ffc4588a2cc074efd508, type: 3}
+  - {fileID: 8300000, guid: d1437d079236fca4792b881983f79d6a, type: 3}
+  audStepsVol: 0.5
   currentGun: {fileID: 11400000, guid: 38d897400e7ac1a46889045bcb575e09, type: 2}
   currWalkSpeed: 0
   currAirSpeed: 0
@@ -5014,7 +5026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energizer: {fileID: 364895669556308506}
   speedMultiplier: 4
-  speedLimit: 40
+  speedLimit: 100
   currentSpeed: 0
   inMomentum: 0
   slowing: 0
@@ -5225,6 +5237,7 @@ GameObject:
   - component: {fileID: 364895669908387300}
   - component: {fileID: 364895669908387303}
   - component: {fileID: 364895669908387302}
+  - component: {fileID: 885336082}
   m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5301,6 +5314,62 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364895669908387297}
   m_Enabled: 1
+--- !u!114 &885336082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364895669908387297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b8fdbf86252d04aa25b9a2b0347f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startShake: 0
+  shakeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0027275085
+      value: 0.011791229
+      inSlope: 3.1913943
+      outSlope: 3.1913943
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.13371342
+      value: 0.42981893
+      inSlope: -0.9560552
+      outSlope: -0.9560552
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.14662388
+    - serializedVersion: 3
+      time: 0.3533388
+      value: 0.1948747
+      inSlope: -0.45305732
+      outSlope: -0.45305732
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.12808137
+    - serializedVersion: 3
+      time: 0.9945679
+      value: 0.01651001
+      inSlope: -0.27816066
+      outSlope: -0.27816066
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 1
 --- !u!1 &783446017282331612
 GameObject:
   m_ObjectHideFlags: 0
@@ -5415,6 +5484,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 364895669908387300}
+    - target: {fileID: 1092843644682668608, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: gunModelAnim
+      value: 
+      objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
@@ -5423,14 +5496,26 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 136b5d9110902fa47bfe707c66de5221, type: 2}
+    - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: gunModelAnim
+      value: 
+      objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1131126266864982032, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 364895669908387300}
+    - target: {fileID: 1131126266864982032, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: gunModelAnim
+      value: 
+      objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1131126267292222932, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 364895669908387300}
+    - target: {fileID: 1131126267292222932, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: gunModelAnim
+      value: 
+      objectReference: {fileID: 1140648270849720689}
     - target: {fileID: 1136069907031365206, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5457,43 +5542,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.13632783
+      value: 0.209
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2219925
+      value: -0.236
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.73700696
+      value: 0.772
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99996775
+      value: 0.9999677
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000022417866
+      value: 0.000021255848
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0030065775
+      value: -0.003002285
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0074560773
+      value: 0.007452623
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -0.345
+      value: -0.344
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 0.854
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1437973d469ed894795cecd46887fd86, type: 3}
@@ -5502,6 +5587,26 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4962994291947976680, guid: 1437973d469ed894795cecd46887fd86, type: 3}
   m_PrefabInstance: {fileID: 5419093194055939737}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1606380516
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140648270849720689}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e63ae1fcbfd7ad34e82487fd92b6e8c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &3883548690254353229
 MonoBehaviour:
   m_ObjectHideFlags: 0
