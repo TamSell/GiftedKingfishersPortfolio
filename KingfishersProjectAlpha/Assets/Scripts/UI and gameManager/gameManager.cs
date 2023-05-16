@@ -33,6 +33,7 @@ public class gameManager : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject MainMenu;
     public GameObject Settings;
+    public AudioSource LevelMusic;
     public Image HPbar;
     public Image EnergyBar;
     public Image BarBack;
@@ -79,6 +80,7 @@ public class gameManager : MonoBehaviour
         {
             Settings.SetActive(false);
             inMenu = !inMenu;
+            LevelMusic.enabled = false;
             setMenu(PauseMenu);
             if (inMenu)
             {
@@ -87,6 +89,7 @@ public class gameManager : MonoBehaviour
             else
             {
                 unpause();
+                LevelMusic.enabled = true;
             }
         }
         //if (Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == Inventory))
@@ -151,6 +154,8 @@ public class gameManager : MonoBehaviour
         if (enemyRemaining <= 0)
         {
             setMenu(WinMenu);
+            inMenu = !inMenu;
+            enemyRemaining = 1;
             enemyCount.enabled = false;
             enemyCountTitle.enabled = false;
         }

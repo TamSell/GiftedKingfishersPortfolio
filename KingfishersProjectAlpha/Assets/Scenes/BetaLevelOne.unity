@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: a46f8107fc646664b8c445fbacbc7f2b, type: 2}
+--- !u!82 &38307537 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 172629250, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
+  m_PrefabInstance: {fileID: 5844062281245647350}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &771827943
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +286,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 33892411, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747491719483795940, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+      propertyPath: LevelMusic
+      value: 
+      objectReference: {fileID: 38307537}
     - target: {fileID: 2534308665637074339, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
