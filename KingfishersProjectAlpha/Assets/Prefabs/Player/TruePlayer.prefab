@@ -5587,21 +5587,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4962994291947976680, guid: 1437973d469ed894795cecd46887fd86, type: 3}
   m_PrefabInstance: {fileID: 5419093194055939737}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3883548690254353229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140648270849720689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15f6a0309f70b4f468fb8c01a161c7cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smooth: 1
-  WalkingSway: 2
-  RunningSway: 3
 --- !u!95 &1606380516
 Animator:
   serializedVersion: 5
@@ -5622,6 +5607,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &3883548690254353229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140648270849720689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f6a0309f70b4f468fb8c01a161c7cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smooth: 1
+  WalkingSway: 2
+  RunningSway: 3
 --- !u!4 &1142188019348218151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
