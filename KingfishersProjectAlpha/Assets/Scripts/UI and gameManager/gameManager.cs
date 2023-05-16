@@ -68,7 +68,6 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
-        currentGunAspects = playerController.currentGun;
         modify.result.gunHeld = currentGunAspects;
         modify.ResetGun();
     }
