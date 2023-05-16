@@ -6788,7 +6788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9112078691237050348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7949,7 +7949,7 @@ PrefabInstance:
     - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
       propertyPath: HPbar
       value: 
-      objectReference: {fileID: 9052246386408259473}
+      objectReference: {fileID: 6623447422201102431}
     - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
       propertyPath: inven
       value: 
@@ -7958,6 +7958,10 @@ PrefabInstance:
       propertyPath: modify
       value: 
       objectReference: {fileID: 3048391364054944761}
+    - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
+      propertyPath: BarBack
+      value: 
+      objectReference: {fileID: 5034590648143812676}
     - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
       propertyPath: CraftIt
       value: 
@@ -7994,6 +7998,10 @@ PrefabInstance:
       propertyPath: Speedbar
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
+      propertyPath: EnergyBar
+      value: 
+      objectReference: {fileID: 7872427326628572309}
     - target: {fileID: 8657545208702926887, guid: 25833d9380d7d714d9f95c9afd5e91e6, type: 3}
       propertyPath: HPbarBack
       value: 
