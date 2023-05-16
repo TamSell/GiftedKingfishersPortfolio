@@ -64,11 +64,15 @@ public class EnemySwarmer : MonoBehaviour, Damage
 
     void Update()
     {
-        FindPlayer();
-        // animatorSwarmer.GetComponent<Animator>().Play("Blend Tree");
-        aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
-        speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
-        animatorSwarmer.SetFloat("Speed", speed);
+        if(navMeshA.isActiveAndEnabled)
+        {
+            FindPlayer();
+            // animatorSwarmer.GetComponent<Animator>().Play("Blend Tree");
+            aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
+            speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
+            animatorSwarmer.SetFloat("Speed", speed);
+        }
+    
     }
 
     void FindPlayer()
@@ -169,7 +173,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
            // aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             GetComponent<CapsuleCollider>().enabled = false;
             navMeshA.enabled = false;
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
         else
         {
