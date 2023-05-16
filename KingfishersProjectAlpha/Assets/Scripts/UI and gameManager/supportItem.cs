@@ -46,8 +46,8 @@ public class supportItem : MonoBehaviour
             {
                 Effect();
                 aud.PlayOneShot(SoundEffect, Volume);
-               //Change 0 to a variable to determine what gun is equipped
-                gameManager.Instance.playerController.held.primaryGuns[0].totalAmmo += addIt;
+               
+                gameManager.Instance.playerController.currentGun.totalAmmo += addIt;
             }
             drop.GetComponentInChildren<Renderer>().enabled = false;
             

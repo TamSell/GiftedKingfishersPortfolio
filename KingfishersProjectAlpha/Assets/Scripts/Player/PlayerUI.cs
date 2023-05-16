@@ -7,7 +7,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] PlayerController2 player;
     public void PlayerUpdateUI()
     {
+        gameManager.Instance.SBar.fillAmount = player.stamina / player.origStamina;
         gameManager.Instance.HPbar.fillAmount = (float)player.HP / player.origHP;
-        gameManager.Instance.EnergyBar.fillAmount = player.currentEnergy / player.energyMax;
+        gameManager.Instance.Speedbar.fillAmount = player.currentEnergy / player.energyMax;
     }
 }

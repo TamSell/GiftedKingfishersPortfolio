@@ -196,6 +196,7 @@ public class PlayerController : MonoBehaviour, Damage
             if(Time.time - jumpButtonPressedTime <= jumpButtonGraceperiod)
             {
                 aud.PlayOneShot(audJump[Random.Range(0, audJump.Length)], audJumpVol);
+                gameManager.Instance.SBar.enabled = true;
                 jumpTimes++;
                 playerVelocity.y = jumpHeight;
                 jumpButtonPressedTime = null;
@@ -209,6 +210,7 @@ public class PlayerController : MonoBehaviour, Damage
         {
             if (Input.GetButton("Run"))
             {
+                gameManager.Instance.SBar.enabled = true;
                 isrunning = true;
                 if (Stamina > 0 && isrunning)
                 {
@@ -230,12 +232,12 @@ public class PlayerController : MonoBehaviour, Damage
                 isrunning = false;
                 Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, FOVorg, Time.deltaTime * 2.5f);
                 rb.gameObject.transform.position += (move * Time.deltaTime * PlayerSpeed);
-                //StaminaRecovery();
+                StaminaRecovery();
             }
         }
         else
         {
-            //StaminaRecovery();
+            StaminaRecovery();
         }
     }
 
@@ -252,6 +254,7 @@ public class PlayerController : MonoBehaviour, Damage
         if(Input.GetButtonDown("Dash"))
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, RunFOV, Time.deltaTime * 0.5f);
+            gameManager.Instance.SBar.enabled = true;
             if (DashReady)
             {
                
@@ -293,17 +296,17 @@ public class PlayerController : MonoBehaviour, Damage
         yield return new Null();
     }
 
-    //void StaminaRecovery()
-    //{
-    //    if (Stamina < MaxStamina)
-    //    {
-    //        Stamina += 1 * Time.deltaTime;
-    //    }
-    //    else
-    //    {
-    //        gameManager.Instance.SBar.enabled = false;
-    //    }
-    //}
+    void StaminaRecovery()
+    {
+        if (Stamina < MaxStamina)
+        {
+            Stamina += 1 * Time.deltaTime;
+        }
+        else
+        {
+            gameManager.Instance.SBar.enabled = false;
+        }
+    }
     public bool isDead
     {
         get
@@ -329,8 +332,9 @@ public class PlayerController : MonoBehaviour, Damage
     
     void PLayerUpdateUI()
     {
+        gameManager.Instance.SBar.fillAmount = Stamina / StaminaOrig;
         gameManager.Instance.HPbar.fillAmount = (float)HP / HPorig;
-        gameManager.Instance.EnergyBar.fillAmount = (Enery / 100) / 2;
+        gameManager.Instance.Speedbar.fillAmount = Enery / 100;
     }
 
     public void respawnPlayer()

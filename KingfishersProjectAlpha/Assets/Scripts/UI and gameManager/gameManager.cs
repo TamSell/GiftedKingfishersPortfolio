@@ -34,8 +34,10 @@ public class gameManager : MonoBehaviour
     public GameObject MainMenu;
     public GameObject Settings;
     public Image HPbar;
-    public Image EnergyBar;
-    public Image HealthnEnergyBack;
+    public Image HPbarBack;
+    public Image SBar;
+    public Image Speedbar;
+    public Image SpeedbarBack;
     public Image MomentumOverlay;
     public Slider ReloadBar;
     public TextMeshProUGUI enemyCountTitle;
@@ -67,6 +69,7 @@ public class gameManager : MonoBehaviour
 
     private void Start()
     {
+        currentGunAspects = playerController.currentGun;
         modify.result.gunHeld = currentGunAspects;
         modify.ResetGun();
     }
@@ -207,9 +210,11 @@ public class gameManager : MonoBehaviour
 
     public void turnOffUI()
     {
+        SBar.enabled = false;
         HPbar.enabled = false;
-        EnergyBar.enabled = false;
-        HealthnEnergyBack.enabled = false;
+        HPbarBack.enabled = false;
+        Speedbar.enabled = false;
+        SpeedbarBack.enabled = false;
         reticle.SetActive(false);
         enemyCountTitle.enabled = false;
         enemyCount.enabled = false;
@@ -220,9 +225,11 @@ public class gameManager : MonoBehaviour
 
     public void turnOnUI()
     {
+        SBar.enabled = true;
         HPbar.enabled = true;
-        EnergyBar.enabled = true;
-        HealthnEnergyBack.enabled = true;
+        HPbarBack.enabled = true;
+        Speedbar.enabled = true;
+        SpeedbarBack.enabled = true;
         reticle.SetActive(true);
         enemyCountTitle.enabled = true;
         enemyCount.enabled = true;
