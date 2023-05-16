@@ -37,12 +37,25 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     float timePassed;
     int iMaxIters = 100;
     private Tracker objectTracker;
+    float speed;
 
     [Header("--- Components ---")]
     [SerializeField] GameObject playerDetector;
     [SerializeField] GameObject bullet;
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent navMeshA;
+    [SerializeField] AudioSource aud;
+    [SerializeField] Animator animatorSkirmisher;
+
+    [Header("--- Audio ---")]
+    [SerializeField] AudioClip[] audAmbience;
+    [Range(0, 1)][SerializeField] float audAmbienceVol;
+    [SerializeField] AudioClip[] audAttack;
+    [Range(0, 1)][SerializeField] float audAttackVol;
+    [SerializeField] AudioClip[] audHit;
+    [Range(0, 1)][SerializeField] float audhitVol;
+    [SerializeField] AudioClip[] audDeath;
+    [Range(0, 1)][SerializeField] float auddeathVol;
 
     [Header("--- Effects ---")]
     [SerializeField] GameObject effect;
@@ -58,6 +71,9 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     void Update()
     {
         FindPlayer();
+        speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
+        animatorSkirmisher.SetFloat("Speed", speed);
+        aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
     }
 
     void FindPlayer()
@@ -70,7 +86,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         FollowPlayer();
         if (distanceToPlayer > 20)
         {
-            PredictiveCutOff();
+            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
         }
         if (10 < distanceToPlayer && distanceToPlayer < 20 && !isShimmy)
         {
@@ -85,7 +101,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         //    navMeshA.ResetPath();
         //    navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
         //}
-        if (distanceToPlayer < 25 && !isShooting)
+        if (distanceToPlayer < 15 && !isShooting)
         {
            StartCoroutine(ShootPlayer());
         }
@@ -95,6 +111,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     {
         Quaternion enemyRotation = Quaternion.LookRotation(new Vector3(dirOfPlayer.x, dirOfPlayer.y, dirOfPlayer.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * turnSpeed);
+        animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
     }
 
     void GivePlayerSpace()
@@ -107,9 +124,11 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         isShooting = true;
         float fCheckTime = fBaseCheckTime;
         yield return new WaitForSeconds(fireRate);
+        animatorSkirmisher.GetComponent<Animator>().Play("demo_combat_shoot");
         BaseProjectile freshBullet = GameObject.Instantiate(bullet, playerFinder.transform.position, transform.rotation).GetComponent<BaseProjectile>();
         Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
 
+        aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
         Vector3 ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
         fDistance = (TargetPosition - ProjectilePosition).magnitude;
 
@@ -125,6 +144,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
 
         Vector3 v3Velocity = TargetPosition - playerFinder.transform.position;
         freshBullet.Shoot(v3Velocity.normalized, fireSpeed);
+        animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
         isShooting = false;
 
     }
@@ -132,6 +152,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     IEnumerator TangentShimmy()
     {
         isShimmy = true;
+        animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
         navMeshA.speed = 30;
         int flipper = Random.Range(0, 2);
         navMeshA.stoppingDistance = 0;
@@ -199,7 +220,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
 
         // Destroy(effect, 2);
-
+        aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
 
         if (healthPoints <= 0)
         {
