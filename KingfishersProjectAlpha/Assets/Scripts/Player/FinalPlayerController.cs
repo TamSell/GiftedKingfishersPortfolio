@@ -18,7 +18,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [Space]
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
-    [SerializeField] GameObject gotHitOverlay;
+    [SerializeField] public GameObject gotHitOverlay;
 
 
     [Header("---Stats---")]

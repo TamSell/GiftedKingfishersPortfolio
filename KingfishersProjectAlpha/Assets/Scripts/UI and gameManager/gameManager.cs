@@ -213,6 +213,8 @@ public class gameManager : MonoBehaviour
 
     public void turnOffUI()
     {
+        playerController.gotHitOverlay.SetActive(false);
+        MomentumOverlay.enabled = false;
         HPbar.enabled = false;
         EnergyBar.enabled = false;
         BarBack.enabled = false;
