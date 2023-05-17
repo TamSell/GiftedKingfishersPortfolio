@@ -80,11 +80,12 @@ public class gameManager : MonoBehaviour
         {
             Settings.SetActive(false);
             inMenu = !inMenu;
-            LevelMusic.enabled = false;
+           // LevelMusic.enabled = false;
             setMenu(PauseMenu);
             if (inMenu)
             {
                 pause();
+                LevelMusic.enabled = false;
             }
             else
             {
