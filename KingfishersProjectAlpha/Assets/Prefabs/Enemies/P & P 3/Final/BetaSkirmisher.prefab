@@ -966,7 +966,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc89ca18f4d2bc640999dd27e83072d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemToDrop: []
+  ItemToDrop:
+  - {fileID: 5413447967687114253, guid: 5777dd229e05ff94bacf383707c02585, type: 3}
   healthPoints: 9
   fireRate: 2
   fireSpeed: 60
@@ -1043,7 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9b5117c615c1743a6bd76c462faef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackedObject: {fileID: 364895669556308499, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+  trackedObject: {fileID: 0}
   averageVelocity: {x: 0, y: 0, z: 0}
   averageAccel: {x: 0, y: 0, z: 0}
 --- !u!82 &765236329662270110
