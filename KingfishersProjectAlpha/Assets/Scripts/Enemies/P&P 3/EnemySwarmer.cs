@@ -97,6 +97,10 @@ public class EnemySwarmer : MonoBehaviour, Damage
         {
             StartCoroutine(melee());
         }
+        if (distanceToPlayer <= 2)
+        {
+            navMeshA.SetDestination(transform.position - transform.forward);
+        }
     }
 
     void PredictiveCutOff()
