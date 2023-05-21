@@ -26,7 +26,7 @@ public class BulletSpeed : MonoBehaviour
     [SerializeField] GameObject model;
     GameObject effect;
     float timeToDestroy;
-
+    public int baseDamage;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,6 @@ public class BulletSpeed : MonoBehaviour
     }
 
     // Update is called once per frame
-
     public void Update()
     {
         if(IsSpinning)
@@ -79,27 +78,24 @@ public class BulletSpeed : MonoBehaviour
 
     int DamageDependingOnEnergy()
     {
-       
         if (Energy >= 75)
         {
-            return HighDamage;
+            return HighDamage * baseDamage;
         }
         else if (Energy >= 50)
         {
-            return MediumDamage;
+            return MediumDamage * baseDamage;
         }
         else if (Energy >= 25)
 
         {
-            return HighDamage;
+            return LowDamage * baseDamage;
         }
         else
         {
             return BasicDamage;
         }
     }
-
-
 
     IEnumerator hitEffect()
     {

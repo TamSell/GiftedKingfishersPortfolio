@@ -65,7 +65,8 @@ public class Gun : MonoBehaviour
     GameObject DestroyEffect;
 
 
-
+    public int currentPrimDamage;
+    public int currentSecDamage;
 
 
     private void Awake()
@@ -78,6 +79,15 @@ public class Gun : MonoBehaviour
     void Start()
     {
         RealoadingLogic();
+        if(secondaryGun)
+        {
+            SetPrimDamage(0);
+        }
+        else
+        {
+            SetSecDamage(0);
+            bulletVals.baseDamage = currentSecDamage;
+        }
     }
 
     // Update is called once per frame
@@ -109,6 +119,15 @@ public class Gun : MonoBehaviour
 
     }
 
+    private void SetPrimDamage(int currentPrim)
+    {
+        currentPrimDamage = (int)gameManager.Instance.playerController.Held.primaryGuns[currentPrim].damage;
+    }
+
+    private void SetSecDamage(int currentSec)
+    {
+        currentSecDamage = (int)gameManager.Instance.playerController.Held.secondaryGuns[currentSec].damage;
+    }
 
     public void shooting()
     {
@@ -160,7 +179,17 @@ public class Gun : MonoBehaviour
         }
     }
 
-
+    public void newGun( int nextGun)
+    {
+        if(!secondaryGun)
+        {
+            SetPrimDamage(nextGun);
+        }
+        else
+        {
+            SetSecDamage(nextGun);
+        }
+    }
 
     IEnumerator FirstShoot()
     {
@@ -189,7 +218,7 @@ public class Gun : MonoBehaviour
                     Damage damage = hit.collider.GetComponent<Damage>();
                     if (damage != null)
                     {
-                        damage.TakeDamage(RayGunDamage);
+                        damage.TakeDamage(currentPrimDamage);
                     }
                 }
 
@@ -220,7 +249,7 @@ public class Gun : MonoBehaviour
                     Damage damage = hit.collider.GetComponent<Damage>();
                     if (damage != null)
                     {
-                        damage.TakeDamage(ShotGunDamage);
+                        damage.TakeDamage(currentPrimDamage);
                     }
                    
                     if (hitEffect)

@@ -4956,7 +4956,7 @@ MonoBehaviour:
   MomentumDrag: 0.15
   StandardDrag: 3.5
   fallMult: 0.1
-  energyFallOff: 1
+  energyFallOff: 1.5
   jumpMax: 1
   jumptimes: 0
   RunFov: 56
@@ -4995,6 +4995,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d1437d079236fca4792b881983f79d6a, type: 3}
   audStepsVol: 0.5
   currentGun: {fileID: 11400000, guid: 38d897400e7ac1a46889045bcb575e09, type: 2}
+  Held: {fileID: 11400000, guid: fd7a30be1c0add544a0a63e2172586d5, type: 2}
   currWalkSpeed: 0
   currAirSpeed: 0
   currRunSpeed: 0
@@ -5012,6 +5013,7 @@ MonoBehaviour:
   isJumping: 0
   minXLock: -90
   maxXLock: 80
+  exitSlope: 0
 --- !u!114 &1900675959591840788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5027,9 +5029,10 @@ MonoBehaviour:
   energizer: {fileID: 364895669556308506}
   speedMultiplier: 4
   speedLimit: 100
+  maxSlopeAngle: 0
   currentSpeed: 0
   inMomentum: 0
-  slowing: 0
+  slideMult: 0
 --- !u!33 &364895669556308500
 MeshFilter:
   m_ObjectHideFlags: 0

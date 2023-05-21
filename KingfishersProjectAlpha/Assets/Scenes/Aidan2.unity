@@ -247,6 +247,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: Held
+      value: 
+      objectReference: {fileID: 11400000, guid: fd7a30be1c0add544a0a63e2172586d5, type: 2}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: gotHitOverlay
+      value: 
+      objectReference: {fileID: 2094508398}
+    - target: {fileID: 364895669556308506, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: runningEffect
+      value: 
+      objectReference: {fileID: 2017599361}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 707f5423c0f36134087904948fbaa013, type: 3}
 --- !u!1 &293073998
@@ -1393,6 +1405,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912537986}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2017599361 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2487786839523721777, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+  m_PrefabInstance: {fileID: 2134946671}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2094508398 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 700472086, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+  m_PrefabInstance: {fileID: 2134946671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2134946671
 PrefabInstance:
   m_ObjectHideFlags: 0

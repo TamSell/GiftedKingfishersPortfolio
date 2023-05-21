@@ -65,6 +65,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
+    [SerializeField] public GunInven Held;
 
     [Space]
     PlayerAudio auido;
