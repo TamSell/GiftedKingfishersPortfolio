@@ -114,69 +114,62 @@ public class FinalPlayerController : MonoBehaviour, Damage
     // Update is called once per frame
     void Update()
     {
-        if (CurrentSpeed > 12.5)
+        if(!isDead)
         {
-            runningEffect.SetActive(true);
-
-        }
-        else
-        {
-            runningEffect.SetActive(false);
-        }
-
-        if (gameManager.Instance.inMenu)
-        {
-            return;
-        }
-
-        if (gotHitOverlay != null)
-        {
-            if (gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color.a > 0)
+            if (CurrentSpeed > 12.5)
             {
-                var color = gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color;
-                color.a -= 0.01f;
-                gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color = color;
+                runningEffect.SetActive(true);
             }
-        }
-        //if (CurrentSpeed > 12)
-        //{
-        //    runningEffect.SetActive(true);
-
-        //}
-        //else
-        //{
-        //    runningEffect.SetActive(false);
-        //}
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.05f, Floor);
-        if (isGrounded)
-        {
-            if (Momentum.inMomentum)
-                PlayerBody.drag = MomentumDrag;
             else
-                PlayerBody.drag = StandardDrag;
-        }
-        if (reloadTimer >= 2.0f)
-        {
-            gameManager.Instance.ReloadBar.gameObject.SetActive(false);
-        }
-        else
-        {
-            gameManager.Instance.ReloadBar.gameObject.SetActive(true);
-            reloadTimer += Time.deltaTime;
-            reloadTimer = Mathf.Clamp(reloadTimer, 0, 2);
-        }
-        gameManager.Instance.ReloadBar.value = reloadTimer / 2;
-        if (Input.GetButtonDown("Reloading"))
-        {
-            Debug.Log("Reloading");
-            // gameManager.Instance.ReloadBar.enabled = true;
-            reloadTimer = 0.0f;
-        }
+            {
+                runningEffect.SetActive(false);
+            }
 
-        PlayerInput();
-        MouseMove();
-        EneryBuildUP();
-        playerUpdateUI();
+            if (gameManager.Instance.inMenu)
+            {
+                return;
+            }
+
+            if (gotHitOverlay != null)
+            {
+                if (gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color.a > 0)
+                {
+                    var color = gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color;
+                    color.a -= 0.01f;
+                    gotHitOverlay.GetComponent<UnityEngine.UI.Image>().color = color;
+                }
+            }
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.05f, Floor);
+            if (isGrounded)
+            {
+                if (Momentum.inMomentum)
+                    PlayerBody.drag = MomentumDrag;
+                else
+                    PlayerBody.drag = StandardDrag;
+            }
+            if (reloadTimer >= 2.0f)
+            {
+                gameManager.Instance.ReloadBar.gameObject.SetActive(false);
+            }
+            else
+            {
+                gameManager.Instance.ReloadBar.gameObject.SetActive(true);
+                reloadTimer += Time.deltaTime;
+                reloadTimer = Mathf.Clamp(reloadTimer, 0, 2);
+            }
+            gameManager.Instance.ReloadBar.value = reloadTimer / 2;
+            if (Input.GetButtonDown("Reloading"))
+            {
+                Debug.Log("Reloading");
+                // gameManager.Instance.ReloadBar.enabled = true;
+                reloadTimer = 0.0f;
+            }
+
+            PlayerInput();
+            MouseMove();
+            EneryBuildUP();
+            playerUpdateUI();
+        }
     }
 
     private void PlayerInput()
@@ -479,6 +472,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public void respawnPlayer()
     {
         HP = origHP;
+        currentEnergy = 0;
         playerUpdateUI();
         PlayerBody.isKinematic = true;
         transform.position = gameManager.Instance.playerSpawnPos.transform.position;
