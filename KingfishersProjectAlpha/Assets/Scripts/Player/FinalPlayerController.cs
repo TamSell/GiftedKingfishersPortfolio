@@ -94,7 +94,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public float maxXLock;
     public bool exitSlope;
     bool isPlayingSteps;
-    float reloadTimer;
+    public float reloadTimer;
     float reloadSliding;
     float reloadFinal;
 
@@ -148,7 +148,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
                 else
                     PlayerBody.drag = StandardDrag;
             }
-            if (reloadTimer >= 2.0f)
+            if (reloadTimer >= 3.25f)
             {
                 gameManager.Instance.ReloadBar.gameObject.SetActive(false);
             }
@@ -156,7 +156,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
             {
                 gameManager.Instance.ReloadBar.gameObject.SetActive(true);
                 reloadTimer += Time.deltaTime;
-                reloadTimer = Mathf.Clamp(reloadTimer, 0, 2);
+                reloadTimer = Mathf.Clamp(reloadTimer, 0, 3.25f);
             }
             gameManager.Instance.ReloadBar.value = reloadTimer / 2;
             if (Input.GetButtonDown("Reloading"))

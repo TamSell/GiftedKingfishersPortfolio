@@ -319,6 +319,7 @@ public class Gun : MonoBehaviour
             {
                 reaload = true;
                 RealoadingLogic();
+                gameManager.Instance.playerController.reloadTimer = 0.0f;
             }
         }
 
