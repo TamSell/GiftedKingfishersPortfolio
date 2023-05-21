@@ -56,6 +56,7 @@ public class gameManager : MonoBehaviour
     public int enemyTotal;
     float timeScaleO;
     public GameObject pauseMenuButt, settingsMenuButt;
+    private string Pause;
 
     void Awake()
     {
@@ -64,6 +65,14 @@ public class gameManager : MonoBehaviour
         playerController = PlayerModel.GetComponent<FinalPlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleO = Time.timeScale;
+        if (Application.platform != RuntimePlatform.WebGLPlayer)
+        {
+            Pause = "Cancel";
+        }
+        else
+        {
+            Pause = "WebGLPause";
+        }
     }
 
     private void Start()
@@ -76,7 +85,7 @@ public class gameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") && (activeMenu == null || activeMenu == PauseMenu))
+        if (Input.GetButtonDown(Pause) && (activeMenu == null || activeMenu == PauseMenu))
         {
             Settings.SetActive(false);
             inMenu = !inMenu;

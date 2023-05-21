@@ -79,7 +79,7 @@ public class Gun : MonoBehaviour
     void Start()
     {
         RealoadingLogic();
-        if(secondaryGun)
+        if(!secondaryGun)
         {
             SetPrimDamage(0);
         }
