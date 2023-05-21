@@ -2257,6 +2257,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 949665912}
     - target: {fileID: 1900675959591840788, guid: 707f5423c0f36134087904948fbaa013, type: 3}
+      propertyPath: slideMult
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900675959591840788, guid: 707f5423c0f36134087904948fbaa013, type: 3}
       propertyPath: maxSlopeAngle
       value: 45
       objectReference: {fileID: 0}
