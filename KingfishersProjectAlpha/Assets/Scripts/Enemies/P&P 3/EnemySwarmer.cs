@@ -88,7 +88,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
         //    PredictiveCutOff();
         //}
         //if (distanceToPlayer < 10 && distanceToPlayer > 3)
-        if( distanceToPlayer > 3)
+        if( distanceToPlayer > 3.5)
         {
             //navMeshA.ResetPath();
             navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
@@ -97,7 +97,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
         {
             StartCoroutine(melee());
         }
-        if (distanceToPlayer <= 2)
+        if (distanceToPlayer <= 2.5)
         {
             navMeshA.SetDestination(transform.position - transform.forward);
         }
