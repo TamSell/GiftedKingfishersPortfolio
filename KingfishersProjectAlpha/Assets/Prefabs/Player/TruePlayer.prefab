@@ -5005,6 +5005,7 @@ MonoBehaviour:
   PlayerMovementAddition: {x: 0, y: 0, z: 0}
   isRunning: 0
   isPlaying: 0
+  maxFov: 70
   origHP: 0
   currentEnergy: 0
   origStamina: 0
@@ -5014,6 +5015,7 @@ MonoBehaviour:
   minXLock: -90
   maxXLock: 80
   exitSlope: 0
+  reloadTimer: 0
 --- !u!114 &1900675959591840788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5028,7 +5030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energizer: {fileID: 364895669556308506}
   speedMultiplier: 4
-  speedLimit: 100
+  speedLimit: 40
   maxSlopeAngle: 0
   currentSpeed: 0
   inMomentum: 0
@@ -5290,7 +5292,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0

@@ -84,6 +84,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public bool isPlaying;
     private float currFov;
     private float nextFov;
+    public float maxFov;
     public float origHP;
     public float currentEnergy = 0;
     public float origStamina;
@@ -219,11 +220,14 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     private void SpeedCamera()
     {
-        if(CurrentSpeed != 0)
+        if(CurrentSpeed != 0 && currFov < maxFov - 0.5)
         {
-            float newFov = currFov + (CurrentSpeed / Momentum.speedLimit) / 5;
-            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, newFov, 2.5f); ;
-
+            float newFov = Mathf.Clamp(currFov + (CurrentSpeed / Momentum.speedLimit) / 10, FovOrg, maxFov);
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, newFov, 2.5f);
+        }
+        else if(CurrentSpeed != 0 && currFov > maxFov - 0.5)
+        {
+            UnityEngine.Camera.main.fieldOfView = maxFov;
         }
     }
     private void CD(bool ability, ref float abilityCD, float maxCD)
@@ -470,10 +474,17 @@ public class FinalPlayerController : MonoBehaviour, Damage
         return currentEnergy;
     }
 
-    public void respawnPlayer()
+    public void respawnPlayer(bool fell = false)
     {
-        HP = origHP;
-        currentEnergy = 0;
+        if(!fell)
+        {
+            HP = origHP;
+            currentEnergy = 0;
+        }
+        else
+        {
+            UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 50f);
+        }
         playerUpdateUI();
         PlayerBody.isKinematic = true;
         transform.position = gameManager.Instance.playerSpawnPos.transform.position;
