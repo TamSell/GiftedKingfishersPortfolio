@@ -91,6 +91,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     public bool isJumping;
     public float minXLock;
     public float maxXLock;
+    public bool exitSlope;
     bool isPlayingSteps;
     float reloadTimer;
     float reloadSliding;
@@ -187,8 +188,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
         currFov = UnityEngine.Camera.main.fieldOfView;
         SpeedCamera();
        if (isGrounded)
-        {
-            if(!isPlayingSteps && PlayerMovementInput.normalized.magnitude >0.5)
+       {
+            exitSlope = false;
+            if (!isPlayingSteps && PlayerMovementInput.normalized.magnitude >0.5)
             {
                 StartCoroutine(MoveSound());
             }
@@ -268,6 +270,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     public void Jump()
     {
+        exitSlope = true;
         isJumping = true;
         if (isGrounded)
         {

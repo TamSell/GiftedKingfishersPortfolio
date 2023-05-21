@@ -8,12 +8,16 @@ public class PlayerMomentum1 : MonoBehaviour
     [SerializeField] private FinalPlayerController energizer;
     [SerializeField] private float speedMultiplier;
     [SerializeField] public float speedLimit;
+    [SerializeField] public float maxSlopeAngle;
+    private RaycastHit hit;
     private Vector3 direction;
     private float newMoveSpeed;
     private float prevMoveSpeed;
     public float currentSpeed;
     public bool inMomentum;
-    public bool slowing;
+    public float slideMult;
+    private bool slowing;
+    private bool slideDown;
 
     public void SetUp()
     {
@@ -55,7 +59,18 @@ public class PlayerMomentum1 : MonoBehaviour
     public void MovePlayerDiff()
     {
         direction = energizer.PlayerMovementInput;
-        energizer.PlayerBody.AddForce(direction.normalized * currentSpeed * 10f, ForceMode.Force);
+        if(OnSlope() && !energizer.exitSlope && energizer.PlayerBody.velocity.y < -0.1f)
+        {
+            energizer.PlayerBody.AddForce(SlopeMoveAngle(direction) * currentSpeed * 10f * slideMult, ForceMode.Force);
+        }
+        else if(OnSlope() && !energizer.exitSlope)
+        {
+            energizer.PlayerBody.AddForce(SlopeMoveAngle(direction) * currentSpeed * 10f, ForceMode.Force);
+        }
+        else
+        {
+            energizer.PlayerBody.AddForce(direction.normalized * currentSpeed * 10f, ForceMode.Force);
+        }
     }
 
     public void MomentumState()
@@ -82,19 +97,46 @@ public class PlayerMomentum1 : MonoBehaviour
         currentSpeed = newMoveSpeed;
     }
 
+    public bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.2f))
+        {
+            energizer.isGrounded = true;
+            float angle = Vector3.Angle(Vector3.up, hit.normal);
+            if(angle < maxSlopeAngle && angle != 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    public Vector3 SlopeMoveAngle(Vector3 director)
+    {
+        return Vector3.ProjectOnPlane(director,hit.normal).normalized;
+    }
+
     public void Limiters()
     {
-        Vector3 currVelocity = new Vector3(energizer.PlayerBody.velocity.x, 0f, energizer.PlayerBody.velocity.z);
-
-        if (currVelocity.magnitude > speedLimit && !energizer.isDashing)
+        if(OnSlope() && !energizer.exitSlope)
         {
-            Vector3 engageLimit = currVelocity.normalized * speedLimit;
-            energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y, engageLimit.z);
+            if(energizer.PlayerBody.velocity.magnitude > speedLimit)
+            {
+                energizer.PlayerBody.velocity = energizer.PlayerBody.velocity.normalized * speedLimit;
+            }
         }
-        else if(!energizer.DashReady)
+        else
         {
-            Vector3 engageLimit = currVelocity.normalized * (speedLimit * 0.5f);
-            energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y, engageLimit.z);
+            Vector3 currVelocity = new Vector3(energizer.PlayerBody.velocity.x, 0f, energizer.PlayerBody.velocity.z);
+            if (currVelocity.magnitude > speedLimit && !energizer.isDashing)
+            {
+                Vector3 engageLimit = currVelocity.normalized * speedLimit;
+                energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y, engageLimit.z);
+            }
+            else if (!energizer.DashReady)
+            {
+                Vector3 engageLimit = currVelocity.normalized * (speedLimit * 0.5f);
+                energizer.PlayerBody.velocity = new Vector3(engageLimit.x, energizer.PlayerBody.velocity.y, engageLimit.z);
+            }
         }
     }
 }
