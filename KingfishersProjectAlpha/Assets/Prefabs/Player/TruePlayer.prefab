@@ -4943,7 +4943,7 @@ MonoBehaviour:
   sensitivity: 1
   jumpForce: 30
   gotHitOverlay: {fileID: 0}
-  HP: 20
+  HP: 50
   stamina: 0
   energyMax: 100
   interactDist: 12.5
@@ -5005,7 +5005,7 @@ MonoBehaviour:
   PlayerMovementAddition: {x: 0, y: 0, z: 0}
   isRunning: 0
   isPlaying: 0
-  maxFov: 70
+  maxFov: 75
   origHP: 0
   currentEnergy: 0
   origStamina: 0
