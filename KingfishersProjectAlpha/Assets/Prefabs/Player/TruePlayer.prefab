@@ -5583,6 +5583,14 @@ PrefabInstance:
       propertyPath: gunModelAnim
       value: 
       objectReference: {fileID: 1140648270849720689}
+    - target: {fileID: 1092843644682668609, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 5543389805528311476, guid: e16727d18015ccf469c2cd67b5669df7, type: 2}
+    - target: {fileID: 1131126266354093507, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 5543389805528311476, guid: e16727d18015ccf469c2cd67b5669df7, type: 2}
     - target: {fileID: 1131126266354093508, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
@@ -5615,6 +5623,10 @@ PrefabInstance:
       propertyPath: gunModelAnim
       value: 
       objectReference: {fileID: 1140648270849720689}
+    - target: {fileID: 1131126266864982033, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 5543389805528311476, guid: e16727d18015ccf469c2cd67b5669df7, type: 2}
     - target: {fileID: 1131126267292222932, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: cam
       value: 
@@ -5627,6 +5639,10 @@ PrefabInstance:
       propertyPath: gunModelAnim
       value: 
       objectReference: {fileID: 1140648270849720689}
+    - target: {fileID: 1131126267292222933, guid: 1437973d469ed894795cecd46887fd86, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 5543389805528311476, guid: e16727d18015ccf469c2cd67b5669df7, type: 2}
     - target: {fileID: 1136069904279110998, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_IsActive
       value: 1
