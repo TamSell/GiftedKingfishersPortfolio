@@ -154,7 +154,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -256,7 +256,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2487786839523721777, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
   m_PrefabInstance: {fileID: 938288379}
   m_PrefabAsset: {fileID: 0}
---- !u!84 &879086762
+--- !u!84 &811288885
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,10 +300,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 33892411, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1747491719483795940, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
       propertyPath: LevelMusic
       value: 
@@ -754,6 +750,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 172629250, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1071432288059826079, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
       propertyPath: trackedObject
       value: 
@@ -786,26 +786,6 @@ PrefabInstance:
       propertyPath: trackedObject
       value: 
       objectReference: {fileID: 1789251268}
-    - target: {fileID: 5234444120796414040, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 5234444120796414040, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 5234444121016201222, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 5234444121199614084, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.6552393
-      objectReference: {fileID: 0}
-    - target: {fileID: 5234444121199614084, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.8346
-      objectReference: {fileID: 0}
     - target: {fileID: 5844062279262127546, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
       propertyPath: m_Name
       value: Level 1
@@ -901,7 +881,7 @@ PrefabInstance:
     - target: {fileID: 7889277023233419909, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 879086762}
+      objectReference: {fileID: 811288885}
     - target: {fileID: 7889277023233419911, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 295.1527

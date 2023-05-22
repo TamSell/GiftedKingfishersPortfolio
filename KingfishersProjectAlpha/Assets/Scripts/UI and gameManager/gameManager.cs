@@ -99,7 +99,7 @@ public class gameManager : MonoBehaviour
             else
             {
                 unpause();
-                LevelMusic.enabled = true;
+                
             }
         }
         //if (Input.GetButtonDown("Inventory") && (activeMenu == null || activeMenu == Inventory))
