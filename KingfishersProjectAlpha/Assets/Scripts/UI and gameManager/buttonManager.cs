@@ -18,6 +18,7 @@ public class buttonManager : MonoBehaviour
 
     public void resume()
     {
+        gameManager.Instance.LevelMusic.enabled = true;
         gameManager.Instance.unpause();
         gameManager.Instance.inMenu = !gameManager.Instance.inMenu;
     }
@@ -45,6 +46,7 @@ public class buttonManager : MonoBehaviour
     public void MainMenuPress()
     {
         SceneManager.LoadScene(0);
+        Cursor.visible = true;
     }
     public void Respawnplayer()
     {
