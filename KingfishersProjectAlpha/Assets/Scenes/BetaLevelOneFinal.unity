@@ -251,7 +251,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &337043940
+--- !u!1 &648716003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2487786839523721777, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
+  m_PrefabInstance: {fileID: 938288379}
+  m_PrefabAsset: {fileID: 0}
+--- !u!84 &879086762
 RenderTexture:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,11 +293,6 @@ RenderTexture:
   m_Dimension: 2
   m_VolumeDepth: 1
   m_ShadowSamplingMode: 2
---- !u!1 &648716003 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2487786839523721777, guid: 7f0b63e2d4f639840af14db9d46bc1cc, type: 3}
-  m_PrefabInstance: {fileID: 938288379}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &938288379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -786,6 +786,26 @@ PrefabInstance:
       propertyPath: trackedObject
       value: 
       objectReference: {fileID: 1789251268}
+    - target: {fileID: 5234444120796414040, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234444120796414040, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234444121016201222, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234444121199614084, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6552393
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234444121199614084, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.8346
+      objectReference: {fileID: 0}
     - target: {fileID: 5844062279262127546, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
       propertyPath: m_Name
       value: Level 1
@@ -881,7 +901,7 @@ PrefabInstance:
     - target: {fileID: 7889277023233419909, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 337043940}
+      objectReference: {fileID: 879086762}
     - target: {fileID: 7889277023233419911, guid: efe89d2265a985c41a87a969c539cca6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 295.1527
