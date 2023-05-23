@@ -19,7 +19,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] private float sensitivity;
     [SerializeField] private float jumpForce;
     [SerializeField] public GameObject gotHitOverlay;
-
+    
 
     [Header("---Stats---")]
     [SerializeField] public float HP;
@@ -38,6 +38,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] public float energyFallOff;
     [SerializeField] int jumpMax;
     [SerializeField] int jumptimes;
+
+
+    [SerializeField] float mouseSens;
 
     [Header("-----Runing stats-----")]
     [SerializeField] public float RunFov;
@@ -178,7 +181,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         
         PlayerMovementInput = Input.GetAxis("Horizontal") * PlayerBody.transform.right + PlayerBody.transform.forward * Input.GetAxis("Vertical");
-        PlayerMouse = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        PlayerMouse = new Vector2(Input.GetAxis("Mouse X")*mouseSens, Input.GetAxis("Mouse Y")*mouseSens);
         Momentum.SetUp();
         currFov = UnityEngine.Camera.main.fieldOfView;
         SpeedCamera();

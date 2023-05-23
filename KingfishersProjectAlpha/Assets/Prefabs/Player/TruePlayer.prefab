@@ -4965,8 +4965,8 @@ MonoBehaviour:
   DashFov: 75
   DashSpeed: 200
   Dashtime: 0.25
-  dashUp: 1.5
-  DashCD: 1
+  dashUp: 0.25
+  DashCD: 5
   useCamForDash: 1
   DashReady: 0
   isDashing: 0
@@ -5685,19 +5685,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9999677
+      value: 0.99996775
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.000021255848
+      value: 0.00002125585
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.003002285
+      value: -0.0030022853
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.007452623
+      value: 0.0074526235
       objectReference: {fileID: 0}
     - target: {fileID: 4966803534441207742, guid: 1437973d469ed894795cecd46887fd86, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

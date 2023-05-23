@@ -51,6 +51,7 @@ public class buttonManager : MonoBehaviour
     }
     public void Respawnplayer()
     {
+        gameManager.Instance.LevelMusic.enabled = true;
         gameManager.Instance.unpause();
         
         gameManager.Instance.playerController.respawnPlayer();
