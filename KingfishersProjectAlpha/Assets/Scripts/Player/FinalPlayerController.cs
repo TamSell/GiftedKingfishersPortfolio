@@ -4,6 +4,7 @@ using System.Security;
 using Unity.VisualScripting;
 //using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FinalPlayerController : MonoBehaviour, Damage
 {
@@ -40,8 +41,6 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [SerializeField] int jumptimes;
 
 
-    [SerializeField] float mouseSens;
-
     [Header("-----Runing stats-----")]
     [SerializeField] public float RunFov;
     [SerializeField] float FovOrg;
@@ -69,6 +68,10 @@ public class FinalPlayerController : MonoBehaviour, Damage
     [Header("---Gun---")]
     [SerializeField] public GunStats2 currentGun;
     [SerializeField] public GunInven Held;
+
+    [Header("----Sensetivity----")]
+    [SerializeField] float sens;
+    [SerializeField] Slider slide;
 
     [Space]
     PlayerAudio auido;
@@ -104,6 +107,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
 
     private void Start()
     {
+        slide.value = sens;
         playerUpdateUI();
         FovOrg = UnityEngine.Camera.main.fieldOfView;
         DashMaxCD = DashCD;
@@ -121,6 +125,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         if(!isDead)
         {
+            sens = slide.value;
             if (CurrentSpeed > 12.5)
             {
                 runningEffect.SetActive(true);
@@ -181,7 +186,7 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         
         PlayerMovementInput = Input.GetAxis("Horizontal") * PlayerBody.transform.right + PlayerBody.transform.forward * Input.GetAxis("Vertical");
-        PlayerMouse = new Vector2(Input.GetAxis("Mouse X")*mouseSens, Input.GetAxis("Mouse Y")*mouseSens);
+        PlayerMouse = new Vector2(Input.GetAxis("Mouse X")*sens, Input.GetAxis("Mouse Y")*sens);
         Momentum.SetUp();
         currFov = UnityEngine.Camera.main.fieldOfView;
         SpeedCamera();
