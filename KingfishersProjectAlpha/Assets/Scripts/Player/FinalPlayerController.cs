@@ -407,8 +407,9 @@ public class FinalPlayerController : MonoBehaviour, Damage
         playerUpdateUI();
         if (HP <= 0)
         {
-            animator.SetTrigger("Death");
+            animator.SetBool("Death", true);
         }
+        
     }
     void playerUpdateUI()
     {
@@ -478,12 +479,16 @@ public class FinalPlayerController : MonoBehaviour, Damage
     {
         if(!fell)
         {
+            animator.SetBool("Death", false);
             HP = origHP;
             currentEnergy = 0;
+            
         }
         else
         {
+            
             UnityEngine.Camera.main.fieldOfView = Mathf.Lerp(UnityEngine.Camera.main.fieldOfView, FovOrg, Time.deltaTime * 50f);
+            
         }
         playerUpdateUI();
         PlayerBody.isKinematic = true;

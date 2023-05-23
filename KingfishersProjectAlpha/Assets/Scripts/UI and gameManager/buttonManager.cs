@@ -9,12 +9,13 @@ public class buttonManager : MonoBehaviour
 {
     Camara cameraChange;
     int place;
-
+    
     bool isPlayingM;
     bool isPlayingMSFX;
     bool isPlayingMGame;
     bool isPlayingGameSFX;
     public GameObject mainMenuButt, optionsMenuButt, levelSelectButt;
+    Animator animator;
 
     public void resume()
     {
@@ -51,7 +52,9 @@ public class buttonManager : MonoBehaviour
     public void Respawnplayer()
     {
         gameManager.Instance.unpause();
+        
         gameManager.Instance.playerController.respawnPlayer();
+
     }
 
     public void itemClick()
