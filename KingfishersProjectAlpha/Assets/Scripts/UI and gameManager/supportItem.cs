@@ -13,6 +13,7 @@ public class supportItem : MonoBehaviour
     [SerializeField] int DestroyTime;
     GameObject DestroyEffect;
     [SerializeField] MeshRenderer mesh;
+    
 
     [Header("-----Sound Effect-----")]
     [SerializeField] AudioClip SoundEffect;

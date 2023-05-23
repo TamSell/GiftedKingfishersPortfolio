@@ -10,7 +10,7 @@ public class CheckPoints : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {  
-        if (other.CompareTag("Player") && gameManager.Instance.playerSpawnPos.transform.position != transform.position)
+       if (other.CompareTag("Player") && gameManager.Instance.playerSpawnPos.transform.position != transform.position)
         {
             gameManager.Instance.playerSpawnPos.transform.position = transform.position;
             if(triggerEffect)
