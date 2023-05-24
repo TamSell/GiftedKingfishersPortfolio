@@ -13,27 +13,18 @@ public class EnemySwarmer : MonoBehaviour, Damage
     [SerializeField] int healthPoints;
     [SerializeField] float meleeRate;
     [SerializeField] float meleeWindUp;
-    [SerializeField] float meleeSpeed;
-    [SerializeField] float movementSpeed;
     [SerializeField] bool isMeleeing;
+    [SerializeField] int moveRadius;
+    Vector3 lookVector;
+
 
     [Header("--- AI Info ---")]
     [SerializeField] int turnSpeed;
-    [SerializeField] Transform playerFinder;
-    Vector3 dirOfPlayer;
-    Vector3 playerShooter;
-    bool playerInRange;
-    float viewAngle;
-    float distanceToPlayer;
-    float fDistance;
-    float fBaseCheckTime = 0.15f;
-    float fTimePercheck = 0.05f;
-    int iMaxIters = 100;
-    private Tracker objectTracker;
+    [SerializeField] GameObject enemyFace;
+    [SerializeField] float distanceToPlayer;
     float speed;
 
     [Header("--- Components ---")]
-    [SerializeField] GameObject playerDetector;
     [SerializeField] NavMeshAgent navMeshA;
     [SerializeField] Renderer model;
     [SerializeField] GameObject meleeSwipe;
@@ -56,98 +47,69 @@ public class EnemySwarmer : MonoBehaviour, Damage
     void Start()
     {
         meleeSwipe.SetActive(false);
-        navMeshA.stoppingDistance = 4;
-        objectTracker = GetComponent<Tracker>();
         gameManager.Instance.updateGoal(0, 1);
     }
 
 
     void Update()
     {
-        if(navMeshA.isActiveAndEnabled)
-        {
-            FindPlayer();
-            // animatorSwarmer.GetComponent<Animator>().Play("Blend Tree");
-            aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
+            lookVector = gameManager.Instance.playerController.PlayerBody.transform.position - enemyFace.transform.position;
+            distanceToPlayer = Vector3.Distance(enemyFace.transform.position, gameManager.Instance.playerController.PlayerBody.transform.position);
+            ActiveIntelligence();
             speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
             animatorSwarmer.SetFloat("Speed", speed);
-        }
-    
     }
 
-    void FindPlayer()
+    void ActiveIntelligence()
     {
-        dirOfPlayer = (gameManager.Instance.PlayerModel.transform.position /*- playerFinder.position*/);
-        viewAngle = Vector3.Angle(new Vector3(dirOfPlayer.x, 0, dirOfPlayer.z), playerFinder.forward);
-        distanceToPlayer = Vector3.Distance(transform.position, gameManager.Instance.PlayerModel.transform.position);
-        Debug.DrawLine(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
-
-        FollowPlayer();
-        //if (distanceToPlayer > 12)
-        //{
-        //    PredictiveCutOff();
-        //}
-        //if (distanceToPlayer < 10 && distanceToPlayer > 3)
-        if( distanceToPlayer > 3.5)
+        FaceThePlayer();
+        if (distanceToPlayer > moveRadius)
         {
-            //navMeshA.ResetPath();
-            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
+            MoveTowardPlayer();
         }
-        if (distanceToPlayer < 4 && !isMeleeing)
+        if (distanceToPlayer <= moveRadius && !isMeleeing)
         {
             StartCoroutine(melee());
         }
-        if (distanceToPlayer <= 2.5)
+        if (distanceToPlayer < 2)
         {
-            navMeshA.SetDestination(transform.position - transform.forward);
+            GivePlayerSpace();
         }
     }
-
-    void PredictiveCutOff()
+    void MoveTowardPlayer()
     {
-       // navMeshA.ResetPath();
-        int iIterations = 0;
-        float fCheckTime = fBaseCheckTime;
-        Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
+        navMeshA.SetDestination(transform.position + transform.forward);
+    }
 
-        Vector3 ProjectidePosition = transform.position + ((TargetPosition - transform.position).normalized * movementSpeed * fCheckTime);
-        fDistance = (TargetPosition - ProjectidePosition).magnitude;
-
-        while (fDistance > 5f && iIterations < iMaxIters)
-        {
-            iIterations++;
-            fCheckTime += fTimePercheck;
-            TargetPosition = objectTracker.ProjectedPosition(fCheckTime);
-
-            ProjectidePosition = transform.position + ((TargetPosition - transform.position).normalized * movementSpeed * fCheckTime);
-            fDistance = (TargetPosition - ProjectidePosition).magnitude;
-        }
-
-        navMeshA.SetDestination(ProjectidePosition);
+    void GivePlayerSpace()
+    {
+        navMeshA.SetDestination(transform.position - transform.forward);
+    }
+    void FaceThePlayer()
+    {
+        
+        Quaternion rot = Quaternion.LookRotation(lookVector);
+        lookVector = rot.eulerAngles;
+        lookVector.z = 0;
+        lookVector.x = 0;
+        rot.eulerAngles = lookVector;
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, 1);
+        animatorSwarmer.GetComponent<Animator>().Play("Blend Tree");
     }
 
     IEnumerator melee()
     {
         isMeleeing = true;
-        aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
-        // navMeshA.speed = 0;
+        animatorSwarmer.GetComponent<Animator>().StopPlayback();
         yield return new WaitForSeconds(meleeWindUp);
         meleeSwipe.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         animatorSwarmer.GetComponent<Animator>().Play("attack");
         meleeSwipe.SetActive(false);
-        navMeshA.speed = movementSpeed;
         yield return new WaitForSeconds(meleeRate);
-        animatorSwarmer.GetComponent<Animator>().Play("Blend Tree");
+       // animatorSwarmer.GetComponent<Animator>().Play("Blend Tree");
         isMeleeing = false;
     }
-
-    void FollowPlayer()
-    {
-        Quaternion enemyRotation = Quaternion.LookRotation(new Vector3(dirOfPlayer.x, dirOfPlayer.y, dirOfPlayer.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * turnSpeed);
-    }
-
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
@@ -158,12 +120,6 @@ public class EnemySwarmer : MonoBehaviour, Damage
     public void TakeDamage(int amountDamage)
     {
         healthPoints -= amountDamage;
-        //StartCoroutine(hitEffect());
-        //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
-
-        // Destroy(effect, 2);
-        aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
-
 
         if (healthPoints <= 0)
         {
@@ -173,19 +129,12 @@ public class EnemySwarmer : MonoBehaviour, Damage
             }
             StopAllCoroutines();
             gameManager.Instance.updateGoal(20,-1);
-           // animatorSwarmer.GetComponent<Animator>().Play("pounce");
-           // aud.PlayOneShot(audDeath[Random.Range(0, audDeath.Length)], auddeathVol);
             GetComponent<CapsuleCollider>().enabled = false;
             navMeshA.enabled = false;
             Destroy(gameObject);
         }
         else
         {
-            //navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
-            //navMeshA.stoppingDistance = 0;
-           // animatorSwarmer.GetComponent<Animator>().Play("pounce");
-          //  aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
-            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
             StartCoroutine(flashColor());
         }
 
