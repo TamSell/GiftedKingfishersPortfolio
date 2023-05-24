@@ -87,6 +87,11 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameManager.Instance.inMenu || gameManager.Instance.playerController.isDead)
+        {
+            return;
+        }
+
         CurrentEnergy = Energy;
         if(!secondaryGun)
         {
