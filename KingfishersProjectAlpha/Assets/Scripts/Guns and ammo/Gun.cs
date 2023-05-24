@@ -316,6 +316,7 @@ public class Gun : MonoBehaviour
             }
             else if (currentMag == 0 && totalAmmo > 0)
             {
+                gameManager.Instance.ReloadBar.value = 0;
                 reaload = true;
                 RealoadingLogic();
                 gameManager.Instance.playerController.reloadTimer = 0.0f;

@@ -48,6 +48,8 @@ public class buttonManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale= 1.0f;
     }
     public void Respawnplayer()
     {
