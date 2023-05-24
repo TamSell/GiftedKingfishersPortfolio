@@ -12,6 +12,7 @@ public class gameManager : MonoBehaviour
     [Header("------ Player ------")]
     public GameObject PlayerModel;
     public FinalPlayerController playerController;
+    public ScenePortalCode portalCode;
     public Rigidbody rb;
     public GameObject playerSpawnPos;
     [SerializeField] public List<GunStats2> gunAspects;
@@ -62,6 +63,7 @@ public class gameManager : MonoBehaviour
     {
         Instance = this;
         PlayerModel = GameObject.FindGameObjectWithTag("Player");
+
         playerController = PlayerModel.GetComponent<FinalPlayerController>();
         playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
         timeScaleO = Time.timeScale;
@@ -161,12 +163,15 @@ public class gameManager : MonoBehaviour
         enemyCount.text = playerScore.ToString("F0");
         enemiesEnded.text = enemyTotal.ToString("F0");
         finalScoreWin.text = playerScore.ToString("F0");
-        if (enemyRemaining <= 0)
-        {
-            setMenu(WinMenu);
-            enemyCount.enabled = false;
-            enemyCountTitle.enabled = false;
-        }
+      
+            if (playerScore >= portalCode.scoreNecessary)
+            {
+                setMenu(WinMenu);
+                enemyCount.enabled = false;
+                enemyCountTitle.enabled = false;
+            }
+        
+       
     }
 
     public void death()

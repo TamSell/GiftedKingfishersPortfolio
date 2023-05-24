@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ScenePortalCode : MonoBehaviour
 {
-    [SerializeField] int scoreNecessary;
+    [SerializeField] public int scoreNecessary;
     [SerializeField] int ScoreCurrent;
     [SerializeField] int levelSelect;
     void Start()
