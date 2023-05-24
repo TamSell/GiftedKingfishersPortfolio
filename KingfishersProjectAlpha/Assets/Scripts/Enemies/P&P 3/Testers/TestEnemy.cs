@@ -13,19 +13,16 @@ public class TestEnemy : MonoBehaviour, Damage
     [SerializeField] int moveRadius;
     [SerializeField] bool isShooting = false;
     [SerializeField] bool isShimmy = false;
-    Vector3 PlayerVel;
     Vector3 lookVector;
 
     [Header("--- Bodies ---")]
     [SerializeField] GameObject enemyFace;
-    [SerializeField] GameObject playerForAI;
 
     [Header("--- AI ---")]
     [SerializeField] Vector3 playerDirection;
     [SerializeField] float turnSpeed;
     [SerializeField] float distanceToPlayer;
     [SerializeField] NavMeshAgent enemyNavMesh;
-    Rigidbody playerBody;
 
     [Header("--- Components ---")]
     [SerializeField] GameObject enemyBullet;
@@ -33,12 +30,11 @@ public class TestEnemy : MonoBehaviour, Damage
 
     void Start()
     {
-        playerBody = playerForAI.GetComponent<Rigidbody>();
     }
     void Update()
     {
         lookVector = gameManager.Instance.playerController.PlayerBody.transform.position - enemyFace.transform.position;
-        distanceToPlayer = Vector3.Distance(enemyFace.transform.position, playerForAI.GetComponent<Rigidbody>().position);
+        distanceToPlayer = Vector3.Distance(enemyFace.transform.position, gameManager.Instance.playerController.PlayerBody.transform.position);
         //Debug.DrawRay(enemyFace.transform.position, lookVector);
         ActiveIntelligence();
     }

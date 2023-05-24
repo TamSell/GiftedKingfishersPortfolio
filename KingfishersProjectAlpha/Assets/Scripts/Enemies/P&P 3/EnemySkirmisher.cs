@@ -15,32 +15,18 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     [Header("--- Stats ---")]
     [SerializeField] int healthPoints;
     [SerializeField] float fireRate;
-    [SerializeField] float fireSpeed;
     [SerializeField] bool isShooting;
-    [SerializeField] float movementSpeed;
+    [SerializeField] int moveRadius = 20;
+    Vector3 lookVector;
 
 
     [Header("--- AI Info ---")]
     [SerializeField] int turnSpeed;
-    [SerializeField] Transform playerFinder;
-    [SerializeField] float fTimeTilTarget = 1.2f;
-    Vector3 dirOfPlayer;
-    Vector3 playerShooter;
-    bool playerInRange;
-    bool isShimmy;
-    float viewAngle;
+    [SerializeField] GameObject playerFinder;
     float distanceToPlayer;
-    float fDistance;
-    float fBaseCheckTime = 0.15f;
-    float fTimePercheck = 0.05f;
-    float[] shimmyNums = {7, 5 , 9 };
-    float timePassed;
-    int iMaxIters = 100;
-    private Tracker objectTracker;
     float speed;
 
     [Header("--- Components ---")]
-    [SerializeField] GameObject playerDetector;
     [SerializeField] GameObject bullet;
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent navMeshA;
@@ -59,58 +45,43 @@ public class EnemySkirmisher : MonoBehaviour, Damage
 
     [Header("--- Effects ---")]
     [SerializeField] GameObject effect;
-    // Start is called before the first frame update
     void Start()
     {
-        navMeshA.stoppingDistance = 10;
-        objectTracker = GetComponent<Tracker>();
         gameManager.Instance.updateGoal(0, 1);
     }
-
-    // Update is called once per frame
     void Update()
     {
-        FindPlayer();
+        lookVector = gameManager.Instance.playerController.PlayerBody.transform.position - playerFinder.transform.position;
+        distanceToPlayer = Vector3.Distance(playerFinder.transform.position, gameManager.Instance.playerController.PlayerBody.transform.position);
+        ActiveIntelligence();
         speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
         animatorSkirmisher.SetFloat("Speed", speed);
-        aud.PlayOneShot(audAmbience[Random.Range(0, audAmbience.Length)], audAmbienceVol);
     }
 
-    void FindPlayer()
+    void ActiveIntelligence()
     {
-        dirOfPlayer = (gameManager.Instance.PlayerModel.transform.position - playerFinder.position);
-        viewAngle = Vector3.Angle(new Vector3(dirOfPlayer.x, 0, dirOfPlayer.z), playerFinder.forward);
-        distanceToPlayer = Vector3.Distance(transform.position, gameManager.Instance.PlayerModel.transform.position);
-        Debug.DrawLine(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
-
-        FollowPlayer();
-        if (distanceToPlayer > 20)
+        FaceThePlayer();
+        if (distanceToPlayer > moveRadius)
         {
-            navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
+            MoveTowardPlayer();
         }
-        if (10 < distanceToPlayer && distanceToPlayer < 20 && !isShimmy)
+        if (distanceToPlayer <= 20 && !isShooting)
         {
-            StartCoroutine(TangentShimmy());
+            StartCoroutine(ShootPlayer());
         }
-        if(distanceToPlayer < 10)
+        if (distanceToPlayer < 4)
         {
             GivePlayerSpace();
         }
-        //if (distanceToPlayer < 10)
-        //{
-        //    navMeshA.ResetPath();
-        //    navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
-        //}
-        if (distanceToPlayer < 15 && !isShooting)
-        {
-           StartCoroutine(ShootPlayer());
-        }
     }
-
-    void FollowPlayer()
+    void FaceThePlayer()
     {
-        Quaternion enemyRotation = Quaternion.LookRotation(new Vector3(dirOfPlayer.x, dirOfPlayer.y, dirOfPlayer.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, enemyRotation, Time.deltaTime * turnSpeed);
+        Quaternion rot = Quaternion.LookRotation(lookVector);
+        lookVector = rot.eulerAngles;
+        lookVector.z = 0;
+        lookVector.x = 0;
+        rot.eulerAngles = lookVector;
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, 1);
         animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
     }
 
@@ -118,94 +89,21 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     {
         navMeshA.SetDestination(transform.position - transform.forward);
     }
+
+    void MoveTowardPlayer()
+    {
+        navMeshA.SetDestination(transform.position + transform.forward);
+    }
     IEnumerator ShootPlayer()
     {
-        int iIterations = 0;
         isShooting = true;
-        float fCheckTime = fBaseCheckTime;
-        yield return new WaitForSeconds(fireRate);
         animatorSkirmisher.GetComponent<Animator>().Play("demo_combat_shoot");
-        BaseProjectile freshBullet = GameObject.Instantiate(bullet, playerFinder.transform.position, transform.rotation).GetComponent<BaseProjectile>();
-        Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
-
-        aud.PlayOneShot(audAttack[Random.Range(0, audAttack.Length)], audAttackVol);
-        Vector3 ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
-        fDistance = (TargetPosition - ProjectilePosition).magnitude;
-
-        while (fDistance > 3.5f && iIterations < iMaxIters)
-        {
-            iIterations++;
-            fCheckTime += fTimePercheck;
-            TargetPosition = objectTracker.ProjectedPosition(fCheckTime);
-
-            ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
-            fDistance = (TargetPosition - ProjectilePosition).magnitude;
-        }
-
-        Vector3 v3Velocity = TargetPosition - playerFinder.transform.position;
-        freshBullet.Shoot(v3Velocity.normalized, fireSpeed);
-        animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
+        Instantiate(bullet, playerFinder.transform.position, playerFinder.transform.rotation);
+        yield return new WaitForSeconds(fireRate);
         isShooting = false;
 
-    }
-
-    IEnumerator TangentShimmy()
-    {
-        isShimmy = true;
-        animatorSkirmisher.GetComponent<Animator>().Play("Blend Tree");
-        navMeshA.speed = 30;
-        int flipper = Random.Range(0, 2);
-        navMeshA.stoppingDistance = 0;
-        float shimVec = shimmyNums[Random.Range(0, shimmyNums.Length)];
-
-        Vector3 randomPos = Random.insideUnitSphere * shimVec;
-        randomPos += transform.position;
-
-        NavMeshHit pos;
-        NavMesh.SamplePosition(randomPos, out pos, shimVec, 1);
-
-        navMeshA.SetDestination(pos.position);
-        //if (flipper == 1)
-        //{
-        //    navMeshA.SetDestination(transform.position - transform.right);
-        //}
-        //if (flipper == 0)
-        //{
-        //    navMeshA.SetDestination(transform.position + transform.right);
-        //}
-
-        //Debug.Log("IT WORKE+S");
-        yield return new WaitForSeconds(4);
-        navMeshA.speed = movementSpeed;
-        isShimmy = false;
-
-        //yield return new WaitForSeconds(roamPauseTime);
-        //destinationChosen = false;
 
     }
-    void PredictiveCutOff()
-    {
-        // navMeshA.ResetPath();
-        int iIterations = 0;
-        float fCheckTime = fBaseCheckTime;
-        Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
-
-        Vector3 ProjectidePosition = transform.position + ((TargetPosition - transform.position).normalized * movementSpeed * fCheckTime);
-        fDistance = (TargetPosition - ProjectidePosition).magnitude;
-
-        while (fDistance > 5f && iIterations < iMaxIters)
-        {
-            iIterations++;
-            fCheckTime += fTimePercheck;
-            TargetPosition = objectTracker.ProjectedPosition(fCheckTime);
-
-            ProjectidePosition = transform.position + ((TargetPosition - transform.position).normalized * movementSpeed * fCheckTime);
-            fDistance = (TargetPosition - ProjectidePosition).magnitude;
-        }
-
-        navMeshA.SetDestination(ProjectidePosition);
-    }
-
     IEnumerator flashColor()
     {
         model.material.color = Color.red;
@@ -216,11 +114,6 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     public void TakeDamage(int amountDamage)
     {
         healthPoints -= amountDamage;
-        //StartCoroutine(hitEffect());
-        //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
-
-        // Destroy(effect, 2);
-        aud.PlayOneShot(audHit[Random.Range(0, audHit.Length)], audhitVol);
 
         if (healthPoints <= 0)
         {
@@ -234,8 +127,6 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         }
         else
         {
-            //navMeshA.SetDestination(gameManager.Instance.PlayerModel.transform.position);
-            //navMeshA.stoppingDistance = 0;
             StartCoroutine(flashColor());
         }
         void ItemDrop()
