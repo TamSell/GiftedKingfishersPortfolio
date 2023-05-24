@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestAimer : MonoBehaviour
 {
-    private float bulletSpeed = 20;
+    private float bulletSpeed = 100;
     private Vector3 PlayerVel;
     private Vector3 lookVector;
     Rigidbody playerBody;
