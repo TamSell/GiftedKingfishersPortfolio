@@ -101,8 +101,6 @@ public class EnemySkirmisher : MonoBehaviour, Damage
         Instantiate(bullet, playerFinder.transform.position, playerFinder.transform.rotation);
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
-
-
     }
     IEnumerator flashColor()
     {

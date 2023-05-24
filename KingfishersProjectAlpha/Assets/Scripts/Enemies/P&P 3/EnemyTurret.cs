@@ -13,31 +13,19 @@ public class EnemyTurret : MonoBehaviour, Damage
     [Header("--- Stats ---")]
     [SerializeField] int healthPoints;
     [SerializeField] float fireRate;
-    [SerializeField] float fireSpeed;
     [SerializeField] bool isShooting;
 
 
     [Header("--- AI Info ---")]
     [SerializeField] int turnSpeed;
-    [SerializeField] Transform playerFinder;
-    [SerializeField] float fTimeTilTarget = 1.2f;
+    [SerializeField] GameObject playerFinder;
     Vector3 dirOfPlayer;
-    Vector3 playerShooter;
     bool playerInRange;
-    float viewAngle;
-    float distanceToPlayer;
-    float fDistance;
-    float fBaseCheckTime = 0.15f;
-    float fTimePercheck = 0.05f;
-    int iMaxIters = 100;
-    private Tracker objectTracker;
 
     [Header("--- Components ---")]
-    [SerializeField] GameObject playerDetector;
     [SerializeField] GameObject bullet;
     [SerializeField] Renderer model;
     [SerializeField] AudioSource aud;
-    [SerializeField] Animator animatorTurret;
 
 
     [Header("--- Audio ---")]
@@ -56,7 +44,6 @@ public class EnemyTurret : MonoBehaviour, Damage
     // Start is called before the first frame update
     void Start()
     {
-        objectTracker = GetComponent<Tracker>();
         gameManager.Instance.updateGoal(0, 1);
     }
 
@@ -88,10 +75,8 @@ public class EnemyTurret : MonoBehaviour, Damage
     }
     void FindPlayer()
     {
-        dirOfPlayer = (gameManager.Instance.PlayerModel.transform.position - playerFinder.position);
-        viewAngle = Vector3.Angle(new Vector3(dirOfPlayer.x, 0, dirOfPlayer.z), playerFinder.forward);
-        distanceToPlayer = Vector3.Distance(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
-        Debug.DrawLine(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
+        dirOfPlayer = (gameManager.Instance.PlayerModel.transform.position - playerFinder.transform.position);
+       // Debug.DrawLine(playerFinder.position, gameManager.Instance.PlayerModel.transform.position);
 
         FollowPlayer();
         if (!isShooting)
@@ -102,30 +87,10 @@ public class EnemyTurret : MonoBehaviour, Damage
 
     IEnumerator ShootPlayer()
     {
-        int iIterations = 0;
         isShooting = true;
-        float fCheckTime = fBaseCheckTime;
+        Instantiate(bullet, playerFinder.transform.position, playerFinder.transform.rotation);
         yield return new WaitForSeconds(fireRate);
-        BaseProjectile freshBullet = GameObject.Instantiate(bullet, playerFinder.transform.position, transform.rotation).GetComponent<BaseProjectile>();
-        Vector3 TargetPosition = objectTracker.ProjectedPosition(fBaseCheckTime);
-
-        Vector3 ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
-        fDistance = (TargetPosition - ProjectilePosition).magnitude;
-
-        while (fDistance > 3.5f && iIterations < iMaxIters)
-        {
-            iIterations++;
-            fCheckTime += fTimePercheck;
-            TargetPosition = objectTracker.ProjectedPosition(fCheckTime);
-
-            ProjectilePosition = playerFinder.position + ((TargetPosition - playerFinder.position).normalized * fireSpeed * fCheckTime);
-            fDistance = (TargetPosition - ProjectilePosition).magnitude;
-        }
-
-        Vector3 v3Velocity = TargetPosition - playerFinder.transform.position;
-        freshBullet.Shoot(v3Velocity.normalized, fireSpeed);
         isShooting = false;
-
     }
     void FollowPlayer()
     {
@@ -143,12 +108,6 @@ public class EnemyTurret : MonoBehaviour, Damage
     public void TakeDamage(int amountDamage)
     {
         healthPoints -= amountDamage;
-        //StartCoroutine(hitEffect());
-        //effect = Instantiate(TriggerEffect, transform.position + new Vector3(0, 1.25f, 0), TriggerEffect.transform.rotation);
-
-        // Destroy(effect, 2);
-
-
         if (healthPoints <= 0)
         {
 
