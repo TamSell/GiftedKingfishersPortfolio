@@ -52,14 +52,14 @@ public class Gun : MonoBehaviour
     
 
     [Header("----Audio Clip----")]
-    [SerializeField] public AudioClip GunShot;
+    [SerializeField] public AudioClip[] GunShot;
     [SerializeField] public float gunShotVol;
 
 
     public bool isShooting;
     public int currentMag;
     public BulletSpeed bulletVals;
-    [SerializeField] public GameObject bullet;
+    [SerializeField] public GameObject[] bullet;
     [SerializeField] public Transform Barrel;
     public bool Sniper;
     GameObject DestroyEffect;
@@ -197,7 +197,7 @@ public class Gun : MonoBehaviour
             isShooting = true;
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
-            aud.PlayOneShot(GunShot, gunShotVol);
+            aud.PlayOneShot(GunShot[0], gunShotVol);
             StartCoroutine(ShootingAnim(2, ShootRate));
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f)), out hit, RayGunDist))
@@ -234,7 +234,7 @@ public class Gun : MonoBehaviour
             isShooting = true;
             CountOfBullets(-1);
             gameManager.Instance.loadText(totalAmmo, currentMag);
-            aud.PlayOneShot(GunShot, gunShotVol);
+            aud.PlayOneShot(GunShot[0], gunShotVol);
             StartCoroutine(ShootingAnim(1, ShootRate));
             for (int i = 0; i < bulletPerShot; i++)
             {
@@ -273,9 +273,29 @@ public class Gun : MonoBehaviour
         if (secondaryGun == true)
         {
             isShooting = true;
-            aud.PlayOneShot(GunShot, gunShotVol);
+           
             StartCoroutine(ShootingAnim(3, ShootRate));
-            Instantiate(bullet, Barrel.position, cam.rotation);
+            if(gameManager.Instance.playerController.currentEnergy>75)
+            {
+                aud.PlayOneShot(GunShot[1], gunShotVol);
+                Instantiate(bullet[3], Barrel.position, cam.rotation);
+            }
+            else if (gameManager.Instance.playerController.currentEnergy > 50)
+            {
+                aud.PlayOneShot(GunShot[0], gunShotVol);
+                Instantiate(bullet[2], Barrel.position, cam.rotation);
+            }
+            else if (gameManager.Instance.playerController.currentEnergy > 25)
+            {
+                aud.PlayOneShot(GunShot[0], gunShotVol);
+                Instantiate(bullet[1], Barrel.position, cam.rotation);
+            }
+            else
+            {
+                aud.PlayOneShot(GunShot[0], gunShotVol);
+                Instantiate(bullet[0], Barrel.position, cam.rotation);
+            }
+
             yield return new WaitForSeconds(ShootRate);
             isShooting = false;
             CountOfBullets(-5);
