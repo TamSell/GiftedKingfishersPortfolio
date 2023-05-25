@@ -78,11 +78,11 @@ public class BulletSpeed : MonoBehaviour
 
     int DamageDependingOnEnergy()
     {
-        if (Energy >= 75)
+        if (Energy >= 100)
         {
             return HighDamage * baseDamage;
         }
-        else if (Energy >= 50)
+        else if (Energy >= 75)
         {
             return MediumDamage * baseDamage;
         }
