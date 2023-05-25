@@ -238,6 +238,7 @@ public class gameManager : MonoBehaviour
         magDivReserve.enabled = false;
         mag.enabled = false;
         reserve.enabled = false;
+        ReloadBar.gameObject.SetActive(false);
     }
 
     public void turnOnUI()
@@ -251,6 +252,7 @@ public class gameManager : MonoBehaviour
         magDivReserve.enabled = true;
         mag.enabled = true;
         reserve.enabled = true;
+        ReloadBar.gameObject.SetActive(true);
     }
 
     IEnumerator Wait(float numSec)
