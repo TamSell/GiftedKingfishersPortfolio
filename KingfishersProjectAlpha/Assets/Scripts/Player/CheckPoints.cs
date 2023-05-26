@@ -12,7 +12,7 @@ public class CheckPoints : MonoBehaviour
     {  
        if (other.CompareTag("Player") && gameManager.Instance.playerSpawnPos.transform.position != transform.position)
         {
-            gameManager.Instance.playerSpawnPos.transform.position = transform.position;
+            gameManager.Instance.playerSpawnPos.transform.position = transform.position + new Vector3(0,0,-1);
             if(triggerEffect)
             {
                 StartCoroutine(fashColor());
