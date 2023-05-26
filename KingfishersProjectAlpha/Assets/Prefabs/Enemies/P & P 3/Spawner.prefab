@@ -91,11 +91,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0b824c597c29142b5bde6efe35bb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: []
+  prefab:
+  - {fileID: 6006226660740745967, guid: 2b6bb2a05827d764b8f435da63e5cde1, type: 3}
+  - {fileID: 8370042811704611617, guid: 84f66fa85da7c4b42ae803c4a6047cdc, type: 3}
   spawnRate: 1
-  spawnPos: []
-  prefabMaxNum: 10
-  spawnList: []
+  spawnPos:
+  - {fileID: 2007558776729975255}
+  prefabMaxNum: 4
+  spawnList:
+  - {fileID: 8370042811704611617, guid: 84f66fa85da7c4b42ae803c4a6047cdc, type: 3}
+  - {fileID: 6006226660740745967, guid: 2b6bb2a05827d764b8f435da63e5cde1, type: 3}
 --- !u!135 &2007558777102520878
 SphereCollider:
   m_ObjectHideFlags: 0

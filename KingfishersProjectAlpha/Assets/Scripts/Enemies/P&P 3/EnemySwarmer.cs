@@ -53,11 +53,14 @@ public class EnemySwarmer : MonoBehaviour, Damage
 
     void Update()
     {
+        if(!gameManager.Instance.inMenu)
+        {
             lookVector = gameManager.Instance.playerController.PlayerBody.transform.position - enemyFace.transform.position;
             distanceToPlayer = Vector3.Distance(enemyFace.transform.position, gameManager.Instance.playerController.PlayerBody.transform.position);
             ActiveIntelligence();
             speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
             animatorSwarmer.SetFloat("Speed", speed);
+        }
     }
 
     void ActiveIntelligence()
@@ -99,6 +102,7 @@ public class EnemySwarmer : MonoBehaviour, Damage
 
     IEnumerator melee()
     {
+        Debug.Log("Melee");
         isMeleeing = true;
         animatorSwarmer.GetComponent<Animator>().StopPlayback();
         yield return new WaitForSeconds(meleeWindUp);

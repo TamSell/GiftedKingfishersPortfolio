@@ -1,31 +1,57 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ScenePortalCode : MonoBehaviour
 {
+    [SerializeField] private GameObject BaseTeleporter;
+    [SerializeField] private GameObject StartEffects;
+    [SerializeField] private float timeBeforeLoad = 4f;
     [SerializeField] public int scoreNecessary;
     [SerializeField] int ScoreCurrent;
     [SerializeField] int levelSelect;
-    void Start()
+
+    private float timeElapsed;
+    private bool hasEntered;
+    private CapsuleCollider Enter;
+
+    private void Start()
     {
-        gameObject.GetComponent<MeshRenderer>().enabled = false;
-        gameObject.GetComponent<BoxCollider>().enabled = false;
+        Enter = GetComponent<CapsuleCollider>();
+        Enter.enabled = false;
     }
+
     void Update()
     {
         ScoreCurrent = gameManager.Instance.playerScore;
         if(gameManager.Instance.playerScore >= scoreNecessary)
         {
-            gameObject.GetComponent<MeshRenderer>().enabled = true;
-            gameObject.GetComponent<BoxCollider>().enabled = true;
-            Debug.Log("Please");
+            BaseTeleporter.SetActive(true);
+            Enter.enabled = true;
+            if (hasEntered && timeElapsed > timeBeforeLoad)
+            {
+                LoadScene();
+            }
+            else if(hasEntered)
+            {
+                timeElapsed += Time.deltaTime;
+            }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(levelSelect > -1)
+        if(other.CompareTag("Player"))
+        {
+            hasEntered = true;
+            StartEffects.SetActive(true);
+        }
+    }
+
+    private void LoadScene()
+    {
+        if (levelSelect > -1)
         {
             SceneManager.LoadScene(levelSelect);
         }

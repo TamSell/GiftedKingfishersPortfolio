@@ -51,11 +51,14 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     }
     void Update()
     {
-        lookVector = gameManager.Instance.playerController.PlayerBody.transform.position - playerFinder.transform.position;
-        distanceToPlayer = Vector3.Distance(playerFinder.transform.position, gameManager.Instance.playerController.PlayerBody.transform.position);
-        ActiveIntelligence();
-        speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
-        animatorSkirmisher.SetFloat("Speed", speed);
+        if (!gameManager.Instance.inMenu)
+        {
+            lookVector = gameManager.Instance.playerController.PlayerBody.transform.position - playerFinder.transform.position;
+            distanceToPlayer = Vector3.Distance(playerFinder.transform.position, gameManager.Instance.playerController.PlayerBody.transform.position);
+            ActiveIntelligence();
+            speed = Mathf.Lerp(speed, navMeshA.velocity.normalized.magnitude, Time.deltaTime * 3);
+            animatorSkirmisher.SetFloat("Speed", speed);
+        }
     }
 
     void ActiveIntelligence()
@@ -96,6 +99,7 @@ public class EnemySkirmisher : MonoBehaviour, Damage
     }
     IEnumerator ShootPlayer()
     {
+        Debug.Log("Shoot");
         isShooting = true;
         animatorSkirmisher.GetComponent<Animator>().Play("demo_combat_shoot");
         Instantiate(bullet, playerFinder.transform.position, playerFinder.transform.rotation);
