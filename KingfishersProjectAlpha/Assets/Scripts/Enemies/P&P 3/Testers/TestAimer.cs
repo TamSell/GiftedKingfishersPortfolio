@@ -31,7 +31,7 @@ public class TestAimer : MonoBehaviour
 
     protected Vector3 PredictedPosition()
     {
-        PlayerVel = playerBody.velocity;
+        PlayerVel = gameManager.Instance.playerController.PlayerBody.velocity;
 
         float a = Vector3.Dot(PlayerVel, PlayerVel) - (bulletSpeed * bulletSpeed);
         float b = 2.0f * Vector3.Dot(PlayerVel, lookVector);

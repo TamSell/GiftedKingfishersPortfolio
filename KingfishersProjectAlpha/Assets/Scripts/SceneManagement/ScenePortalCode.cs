@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class ScenePortalCode : MonoBehaviour
 {
-    [SerializeField] private GameObject BaseTeleporter;
-    [SerializeField] private GameObject StartEffects;
+    [SerializeField] private GameObject BaseTeleporter = null;
+    [SerializeField] private GameObject StartEffects = null;
     [SerializeField] private float timeBeforeLoad = 4f;
     [SerializeField] public int scoreNecessary;
     [SerializeField] int ScoreCurrent;
@@ -15,11 +15,11 @@ public class ScenePortalCode : MonoBehaviour
 
     private float timeElapsed;
     private bool hasEntered;
-    private CapsuleCollider Enter;
+    private Collider Enter;
 
     private void Start()
     {
-        Enter = GetComponent<CapsuleCollider>();
+        Enter = GetComponent<Collider>();
         Enter.enabled = false;
     }
 
@@ -28,7 +28,8 @@ public class ScenePortalCode : MonoBehaviour
         ScoreCurrent = gameManager.Instance.playerScore;
         if(gameManager.Instance.playerScore >= scoreNecessary)
         {
-            BaseTeleporter.SetActive(true);
+            if(BaseTeleporter)
+                BaseTeleporter.SetActive(true);
             Enter.enabled = true;
             if (hasEntered && timeElapsed > timeBeforeLoad)
             {
@@ -45,7 +46,8 @@ public class ScenePortalCode : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             hasEntered = true;
-            StartEffects.SetActive(true);
+            if(StartEffects)
+                StartEffects.SetActive(true);
         }
     }
 

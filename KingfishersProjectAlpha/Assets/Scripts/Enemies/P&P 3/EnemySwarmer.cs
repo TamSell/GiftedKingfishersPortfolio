@@ -102,7 +102,6 @@ public class EnemySwarmer : MonoBehaviour, Damage
 
     IEnumerator melee()
     {
-        Debug.Log("Melee");
         isMeleeing = true;
         animatorSwarmer.GetComponent<Animator>().StopPlayback();
         yield return new WaitForSeconds(meleeWindUp);
